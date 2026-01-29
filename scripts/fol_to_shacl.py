@@ -22,8 +22,7 @@ PREFIXES = """@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 SEVERITY = {"obligation": "sh:Violation", "prohibition": "sh:Violation", "permission": "sh:Info"}
 
 def clean(text):
-    if not text:
-        return ""
+    if not text: return ""
     text = str(text).replace('\n', ' ').replace('\r', ' ').replace('"', "'").replace('\\', '')
     return re.sub(r'\s+', ' ', text).strip()[:100]
 
@@ -38,8 +37,7 @@ def extract_preds(formula):
 
 def make_shape(rule, idx):
     fol = rule.get('fol_formalization', {})
-    if not fol or 'error' in fol:
-        return ""
+    if not fol or 'error' in fol: return ""
     rule_id = rule.get('id', f'R{idx}')
     dtype = fol.get('deontic_type', 'obligation')
     formula = fol.get('deontic_formula', '') + ' ' + fol.get('fol_expansion', '')
@@ -62,29 +60,22 @@ def main():
     print("FOL TO SHACL v2")
     SHACL_DIR.mkdir(exist_ok=True)
     rf = RESEARCH_DIR / "fol_formalization_v2_results.json"
-    if not rf.exists():
-        rf = RESEARCH_DIR / "fol_formalization_results.json"
-    with open(rf, 'r', encoding='utf-8') as f:
-        data = json.load(f)
+    if not rf.exists(): rf = RESEARCH_DIR / "fol_formalization_results.json"
+    with open(rf, 'r', encoding='utf-8') as f: data = json.load(f)
     rules = data['formalized_rules']
     out = PREFIXES + "\n"
     out += "ait:PolicyOntology a owl:Ontology .\n"
-    out += "deontic:obligation a rdfs:Class .\n"
-    out += "deontic:permission a rdfs:Class .\n"
-    out += "deontic:prohibition a rdfs:Class .\n"
+    out += "deontic:obligation a rdfs:Class .\ndeontic:permission a rdfs:Class .\ndeontic:prohibition a rdfs:Class .\n"
     stats = {"obligation": 0, "permission": 0, "prohibition": 0}
     for i, r in enumerate(rules, 1):
         fol = r.get('fol_formalization', {})
         if 'error' not in fol:
             dtype = fol.get('deontic_type', 'obligation')
-            if dtype in stats:
-                stats[dtype] += 1
+            if dtype in stats: stats[dtype] += 1
             out += make_shape(r, i)
     outf = SHACL_DIR / "ait_policy_shapes.ttl"
-    with open(outf, 'w', encoding='utf-8') as f:
-        f.write(out)
+    with open(outf, 'w', encoding='utf-8') as f: f.write(out)
     print(f"Saved: {outf}")
     print(f"O:{stats['obligation']} P:{stats['permission']} F:{stats['prohibition']}")
 
-if __name__ == "__main__":
-    main()
+if __name__ == "__main__": main()
