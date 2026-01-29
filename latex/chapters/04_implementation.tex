@@ -1,206 +1,178 @@
 \chapter{Implementation}
+\label{ch:implementation}
+
+This chapter describes the technical implementation of the policy formalization pipeline.
 
 \section{System Architecture}
 
-The AIT Policy Validation System follows a three-layer architecture:
+The system consists of four main components:
 
-\begin{figure}[h]
-\centering
-\begin{tikzpicture}[
-    node distance=1cm,
-    layer/.style={rectangle, draw, minimum width=10cm, minimum height=1.2cm, fill=#1},
-    component/.style={rectangle, draw, minimum width=2.8cm, minimum height=0.8cm, fill=white}
-]
-    % Layers
-    \node[layer=blue!20] (data) at (0,0) {Data Layer};
-    \node[layer=green!20] (logic) at (0,1.8) {Logic Layer};
-    \node[layer=orange!20] (app) at (0,3.6) {Application Layer};
-    
-    % Components - simplified representation
-\end{tikzpicture}
-\caption{System Architecture}
-\end{figure}
+\begin{enumerate}
+    \item \textbf{Document Processor}: PDF extraction and preprocessing
+    \item \textbf{LLM Classifier}: Rule identification using Ollama
+    \item \textbf{FOL Formalizer}: Logic representation generation
+    \item \textbf{SHACL Translator}: Validation constraint generation
+\end{enumerate}
 
-\subsection{Components}
-
-\begin{description}
-    \item[PostgreSQL Database] Stores student and financial data
-    \item[Ontop Virtual Knowledge Graph] Maps relational data to RDF via OBDA
-    \item[GraphDB] RDF triple store and SPARQL endpoint
-    \item[SHACL Validator] Executes validation rules (PySHACL)
-    \item[Explanation Generator] (Future) LLM-based explanation of violations
-\end{description}
-
-\section{Complete Worked Example}
-
-This section demonstrates the complete transformation pipeline from a real AIT policy to a validated SHACL shape.
-
-\subsection{Step 1: Original Policy Statement}
-
-\begin{quote}
-\textit{``For self-support students and holders of externally-managed scholarships: first semester/term fees must be paid in advance and/or fully paid upon enrolment, otherwise they will not be allowed to register.''}
-
-\hfill -- AIT Credit Policy FB-6-1-1, Section II.1(1)
-\end{quote}
-
-\subsection{Step 2: Policy Analysis}
+\section{Technology Stack}
 
 \begin{table}[h]
 \centering
-\caption{Annotation of Example Policy}
-\begin{tabular}{ll}
-\toprule
-Dimension & Value \\
-\midrule
-Syntactic Structure & Complex (condition + consequence) \\
-Deontic Type & Obligation (must) \\
-Quantification & Universal (all self-support students) \\
-Conditional Structure & Single condition \\
-Temporal Elements & Deadline (upon enrolment) \\
-Entities & Student, Fee, Registration \\
-Ambiguity & ``in advance'' is vague \\
-\bottomrule
+\caption{Implementation Technologies}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Component} & \textbf{Technology} & \textbf{Purpose} \\
+\hline
+Language & Python 3.12 & Core implementation \\
+LLM Framework & Ollama & Local model hosting \\
+PDF Processing & PyMuPDF & Text extraction \\
+RDF/SHACL & rdflib, pyshacl & Semantic web \\
+Thesis & LaTeX & Documentation \\
+\hline
 \end{tabular}
 \end{table}
 
-\subsection{Step 3: Disambiguation}
+\section{Document Processing}
 
-\textbf{Original Ambiguity}: ``paid in advance and/or fully paid upon enrolment''
+\subsection{PDF Extraction}
 
-\textbf{Interpretation}: The fee must be fully paid by the time of registration. ``In advance'' and ``upon enrolment'' are treated as equivalent for this rule.
+\begin{lstlisting}[language=Python]
+import fitz  # PyMuPDF
 
-\textbf{Simplified Statement}: Self-support students must have paid their first semester tuition fees to be eligible for registration.
-
-\subsection{Step 4: First-Order Logic Representation}
-
-\begin{equation}
-\forall x, o \left[
-\begin{array}{l}
-\text{Student}(x) \land \text{Type}(x, \text{``Self-Support''}) \land \\
-\text{Status}(x, \text{``Enrolled''}) \land \text{Obligation}(o) \land \\
-\text{hasObligation}(x, o) \land \text{Type}(o, \text{``TuitionFee''}) \land \\
-\neg\text{Paid}(o)
-\end{array}
-\rightarrow \text{Violation}(x) \right]
-\end{equation}
-
-\textbf{Reading}: For any student $x$ with obligation $o$, if $x$ is a self-support student who is enrolled, and $o$ is an unpaid tuition fee obligation of $x$, then $x$ is in violation.
-
-\subsection{Step 5: Ontology Terms}
-
-\begin{table}[h]
-\centering
-\caption{Ontology Mapping}
-\begin{tabular}{lll}
-\toprule
-FOL Term & Ontology URI & Type \\
-\midrule
-Student(x) & ait:Student & Class \\
-Type(x, ``Self-Support'') & ait:hasStudentType & DataProperty \\
-Status(x, ``Enrolled'') & ait:hasEnrollmentStatus & DataProperty \\
-Obligation(o) & ait:Obligation & Class \\
-hasObligation(x, o) & ait:hasFinancialObligation & ObjectProperty \\
-Type(o, ``TuitionFee'') & ait:hasObligationType & DataProperty \\
-Paid(o) & ait:isPaid & DataProperty \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\subsection{Step 6: SHACL Shape}
-
-\begin{lstlisting}[style=turtle, caption={Tuition Compliance SHACL Shape}]
-@prefix ait: <http://ait.ac.th/ontology#> .
-@prefix sh:  <http://www.w3.org/ns/shacl#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-
-ait:TuitionComplianceShape
-  a sh:NodeShape ;
-  sh:targetClass ait:Student ;
-  sh:sparql [
-    a sh:SPARQLConstraint ;
-    sh:message "Self-Support students must pay 
-                tuition fees to be enrolled." ;
-    sh:select """
-      PREFIX ait: <http://ait.ac.th/ontology#>
-      PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-      
-      SELECT $this
-      WHERE {
-        $this a ait:Student .
-        $this ait:hasStudentType "Self-Support" .
-        $this ait:hasEnrollmentStatus "Enrolled" .
-        $this ait:hasFinancialObligation ?obl .
-        ?obl ait:hasObligationType "TuitionFee" .
-        ?obl ait:isPaid "false"^^xsd:boolean .
-      }
-    """ ;
-  ] .
+def extract_text(pdf_path):
+    doc = fitz.open(pdf_path)
+    text = ""
+    for page in doc:
+        text += page.get_text()
+    return text
 \end{lstlisting}
 
-\subsection{Step 7: Test Data}
+\subsection{Sentence Segmentation}
 
-\textbf{Compliant Case (Should Pass)}:
-\begin{lstlisting}[style=turtle]
-ait:student_001 a ait:Student ;
-    ait:hasStudentType "Self-Support" ;
-    ait:hasEnrollmentStatus "Enrolled" ;
-    ait:hasFinancialObligation ait:obl_001 .
+Text is segmented into candidate sentences for rule identification.
 
-ait:obl_001 a ait:Obligation ;
-    ait:hasObligationType "TuitionFee" ;
-    ait:isPaid true .
+\section{LLM Integration}
+
+\subsection{Ollama API}
+
+\begin{lstlisting}[language=Python]
+import requests
+
+def query_ollama(prompt, model="mistral"):
+    response = requests.post(
+        "http://localhost:11434/api/generate",
+        json={
+            "model": model,
+            "prompt": prompt,
+            "stream": False,
+            "options": {"num_predict": 1024}
+        }
+    )
+    return response.json()["response"]
 \end{lstlisting}
 
-\textbf{Violation Case (Should Fail)}:
-\begin{lstlisting}[style=turtle]
-ait:student_002 a ait:Student ;
-    ait:hasStudentType "Self-Support" ;
-    ait:hasEnrollmentStatus "Enrolled" ;
-    ait:hasFinancialObligation ait:obl_002 .
+\subsection{JSON Response Parsing}
 
-ait:obl_002 a ait:Obligation ;
-    ait:hasObligationType "TuitionFee" ;
-    ait:isPaid false .
-\end{lstlisting}
+Robust parsing with multiple fallback strategies handles malformed LLM output.
 
-\subsection{Step 8: Validation Result}
+\section{FOL Formalization}
 
-When running SHACL validation:
+\subsection{Prompt Engineering}
 
+The formalization prompt includes:
 \begin{itemize}
-    \item \textbf{student\_001}: Conforms (no violations)
-    \item \textbf{student\_002}: Violation detected
-    \begin{itemize}
-        \item Focus Node: ait:student\_002
-        \item Message: ``Self-Support students must pay tuition fees to be enrolled.''
-    \end{itemize}
+    \item Deontic operator definitions (O, P, F)
+    \item Expected JSON output format
+    \item Temporal predicate suggestions
+    \item Example formalizations
 \end{itemize}
 
-\section{Tool Chain}
+\subsection{Output Structure}
 
-\begin{table}[h]
-\centering
-\caption{Tools Used in Implementation}
-\begin{tabular}{lll}
-\toprule
-Tool & Purpose & Version \\
-\midrule
-Prot\'eg\'e & Ontology editing & 5.5+ \\
-GraphDB & RDF triple store & 11.1.1 \\
-Ontop & Virtual Knowledge Graph & 5.1+ \\
-PySHACL & SHACL validation (Python) & 0.25+ \\
-PostgreSQL & Relational database & 15+ \\
-SHACL2FOL & FOL verification & Latest \\
-\bottomrule
-\end{tabular}
-\end{table}
+\begin{lstlisting}[language=Python]
+{
+    "deontic_type": "obligation",
+    "deontic_formula": "O(pay(student, fees))",
+    "fol_expansion": "forall s. Student(s) -> pay(s, fees)",
+    "shacl_hint": "sh:minCount 1",
+    "explanation": "Students are obligated to pay"
+}
+\end{lstlisting}
 
-\section{Additional Implemented Rules}
+\section{SHACL Translation}
 
-\subsection{Accommodation Overdue Rule}
+\subsection{Translation Algorithm}
 
-\textbf{Policy}: ``If accommodation and other fees remain unpaid beyond two months, a student's status shall be `suspended/dismissed due to financial inability'.''
+\begin{lstlisting}[language=Python]
+def make_shape(rule):
+    fol = rule["fol_formalization"]
+    predicates = extract_predicates(fol["deontic_formula"])
+    
+    shape = f"""
+    ait:{rule_id}Shape a sh:NodeShape ;
+        sh:targetClass ait:{main_class} ;
+        sh:severity {severity} ;
+    """
+    
+    for pred in predicates:
+        shape += f"""
+        sh:property [
+            sh:path ait:{pred} ;
+            sh:minCount 1 ;
+        ] ;
+        """
+    
+    return shape
+\end{lstlisting}
 
-\textbf{SHACL Implementation}: See Appendix C for full shape definition.
+\subsection{Validation}
 
-\textbf{Test Cases}: Three test cases created (compliant, 30-day overdue, 90-day overdue).
+\begin{lstlisting}[language=Python]
+from pyshacl import validate
+
+conforms, results, text = validate(
+    data_graph="test_data.ttl",
+    shacl_graph="policy_shapes.ttl"
+)
+\end{lstlisting}
+
+\section{Deployment}
+
+\subsection{Local Development}
+
+\begin{itemize}
+    \item Windows 11 with Python 3.12
+    \item Ollama running locally
+    \item Git for version control
+\end{itemize}
+
+\subsection{HPC Environment}
+
+\begin{itemize}
+    \item Ubuntu Linux server
+    \item NVIDIA GPU for acceleration
+    \item SLURM job scheduler
+\end{itemize}
+
+\section{Code Repository}
+
+All source code is organized as:
+
+\begin{verbatim}
+RuleChecker_PoCv1/
+├── scripts/
+│   ├── compare_models.py
+│   ├── generate_fol_v2.py
+│   ├── fol_to_shacl.py
+│   └── calculate_kappa.py
+├── research/
+│   ├── gold_standard_template.json
+│   ├── fol_formalization_v2_results.json
+│   └── model_comparison_results.json
+├── shacl/
+│   ├── ait_policy_shapes.ttl
+│   └── test_data.ttl
+└── latex/
+    ├── main.tex
+    └── chapters/
+\end{verbatim}

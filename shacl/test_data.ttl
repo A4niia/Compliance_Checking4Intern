@@ -1,0 +1,66 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ait: <http://example.org/ait-policy#> .
+@prefix deontic: <http://example.org/deontic#> .
+
+# ===========================================
+# Sample Student Data for SHACL Validation
+# ===========================================
+
+# Student 1: Compliant - paid fees, enrolled
+ait:Student001 a ait:Student ;
+    rdfs:label "John Doe" ;
+    ait:studentId "ST2024001" ;
+    ait:paid true ;
+    ait:enrolled true ;
+    ait:residesoncampus true ;
+    ait:registeredFor ait:Course101 .
+
+# Student 2: Non-compliant - not paid
+ait:Student002 a ait:Student ;
+    rdfs:label "Jane Smith" ;
+    ait:studentId "ST2024002" ;
+    ait:paid false ;
+    ait:enrolled true ;
+    ait:residesoncampus true .
+
+# Student 3: Compliant sponsor
+ait:Sponsor001 a ait:Sponsor ;
+    rdfs:label "ABC Corporation" ;
+    ait:invoice true ;
+    ait:outstandingdues false .
+
+# Student 4: Graduate overstaying (violation)
+ait:Student003 a ait:Graduate ;
+    rdfs:label "Bob Wilson" ;
+    ait:studentId "ST2023099" ;
+    ait:graduation "2024-01-15"^^xsd:date ;
+    ait:livingbeyondfivedays true ;
+    ait:approvalfromofamdirector false .
+
+# Employee gift reporting
+ait:Employee001 a ait:Employee ;
+    rdfs:label "Alice Manager" ;
+    ait:acceptedgift true ;
+    ait:giftvalue 5000 ;
+    ait:reported true .
+
+# Course data
+ait:Course101 a ait:Course ;
+    rdfs:label "CS101 Introduction to Programming" ;
+    ait:credits 3 .
+
+# Accommodation unit
+ait:Unit101 a ait:AccommodationUnit ;
+    rdfs:label "Dorm Building A, Room 101" ;
+    ait:available true .
+
+# ===========================================
+# Expected Validation Results:
+# - Student001: PASS (all obligations met)
+# - Student002: FAIL (payment obligation)
+# - Student003: FAIL (overstay prohibition)
+# - Sponsor001: PASS (invoiced)
+# - Employee001: PASS (gift reported)
+# ===========================================

@@ -1,98 +1,79 @@
 \chapter{Introduction}
+\label{ch:introduction}
 
 \section{Background and Motivation}
 
-Organizations worldwide rely on natural language policies to govern operations, ensure compliance, and maintain standards. Academic institutions such as the Asian Institute of Technology (AIT) maintain extensive policy documents covering student conduct, financial obligations, academic integrity, and administrative procedures. However, a significant gap exists between these human-readable policies and automated systems that could enforce or monitor compliance.
+Institutional policies govern the behavior of organizations and their members. Universities, corporations, and government agencies maintain extensive policy documents that specify obligations, permissions, and prohibitions for various stakeholders. However, these policies are typically written in natural language, making automated compliance verification challenging.
 
-The challenge of policy compliance is multifaceted:
-\begin{itemize}
-    \item Policy documents are written in natural language with inherent ambiguity
-    \item Manual compliance checking is time-consuming and error-prone
-    \item Policy violations may go undetected until significant consequences arise
-    \item Updates to policies require manual propagation to all enforcement systems
-\end{itemize}
+The Asian Institute of Technology (AIT) maintains numerous Policies and Procedures (P\&P) documents covering student conduct, financial obligations, accommodation rules, and grievance procedures. Manually interpreting and enforcing these policies is time-consuming and error-prone.
 
-Semantic Web technologies, particularly the Shapes Constraint Language (SHACL), provide a promising approach to bridge this gap. SHACL enables the formal specification of constraints on RDF data, allowing automated validation against defined rules. However, transforming natural language policies into SHACL shapes requires a systematic methodology that preserves the semantic intent of the original policy.
+Recent advances in Large Language Models (LLMs) offer promising approaches for natural language understanding tasks, including text classification and information extraction. Meanwhile, formal logic provides a rigorous foundation for representing and reasoning about normative statements.
 
 \section{Problem Statement}
 
-The primary challenge addressed by this research is the lack of a rigorous, validated methodology for transforming natural language academic policies into machine-executable formal knowledge. Existing approaches suffer from:
+The key challenges addressed in this thesis are:
 
 \begin{enumerate}
-    \item \textbf{Selection Bias}: Researchers often choose policies that are easy to formalize, without systematic analysis of what determines formalizability
-    \item \textbf{Missing Validation}: The correctness of transformations is rarely formally verified
-    \item \textbf{Limited Expressiveness Analysis}: No clear framework exists for determining which policies can be represented in standard formalisms
-    \item \textbf{Incomplete Documentation}: The translation process from policy to formal representation lacks reproducibility
+    \item How can policy rules be automatically identified and extracted from natural language documents?
+    \item What formal representation is appropriate for capturing the semantics of policy rules?
+    \item How can formalized policies be translated into executable validation constraints?
 \end{enumerate}
 
 \section{Research Questions}
 
-This thesis addresses the following research questions:
+\begin{itemize}
+    \item \textbf{RQ1}: Can Large Language Models effectively identify and classify policy rules in academic documents?
+    \item \textbf{RQ2}: Is First-Order Logic with deontic extensions sufficient for formalizing institutional policies, or are higher-order logics required?
+    \item \textbf{RQ3}: Can formalized policy rules be systematically translated to SHACL shapes for RDF-based validation?
+\end{itemize}
+
+\section{Objectives}
+
+The objectives of this research are:
 
 \begin{enumerate}
-    \item \textbf{RQ1: Pattern Discovery}
-    
-    What linguistic and structural patterns in AIT academic policies can be formally represented in First-Order Logic and SHACL, and what patterns exceed the expressiveness of these formalisms?
-    
-    \item \textbf{RQ2: Formal Verification}
-    
-    How can we systematically verify that SHACL shapes correctly implement the intended policy semantics using automated equivalence checking?
-    
-    \item \textbf{RQ3: Evaluation}
-    
-    What is the overall formalization coverage, validation accuracy, and detection precision of the proposed methodology when applied to AIT policies?
-\end{enumerate}
-
-\section{Research Objectives}
-
-The specific objectives of this research are:
-
-\begin{enumerate}
-    \item To construct a corpus of policy rules from AIT official documents (target: 80-100 rules)
-    \item To develop an annotation scheme for classifying policy rules by linguistic complexity and formalizability
-    \item To identify patterns that determine successful FOL/SHACL formalization
-    \item To implement a multi-stage validation framework for policy translation
-    \item To evaluate the methodology using real policy data with quantitative metrics
+    \item Evaluate multiple LLM models for policy rule identification
+    \item Develop a formalization approach using First-Order Logic with deontic operators
+    \item Create a translation mechanism from FOL to SHACL shapes
+    \item Validate the approach using AIT policy documents as a case study
 \end{enumerate}
 
 \section{Scope and Limitations}
 
-\subsection{In Scope}
+This research focuses on:
 \begin{itemize}
-    \item AIT Policies and Procedures documents (5 documents)
-    \item Student-related policies (financial, academic, accommodation)
-    \item First-Order Logic as the intermediate formal representation
-    \item SHACL Core Constraint Language components
-    \item Single-language policies (English)
+    \item English-language policy documents from AIT
+    \item Declarative policy rules (obligations, permissions, prohibitions)
+    \item Static analysis without runtime enforcement
 \end{itemize}
 
-\subsection{Out of Scope}
+Excluded from scope:
 \begin{itemize}
-    \item Natural Language Processing automation (manual translation focus)
-    \item Multi-institutional policy analysis
-    \item Real-time policy change management
-    \item Temporal logic extensions beyond simple deadlines
+    \item Multilingual policy documents
+    \item Procedural or workflow policies
+    \item Real-time compliance monitoring
 \end{itemize}
 
-\subsection{Known Limitations}
+\section{Contributions}
+
+The main contributions of this thesis are:
+
+\begin{enumerate}
+    \item A systematic evaluation of five LLM models for policy rule classification
+    \item Evidence that FOL with deontic operators is sufficient for institutional policy formalization
+    \item An automated pipeline from natural language policies to SHACL validation constraints
+    \item A gold standard dataset of 97 annotated policy rules
+\end{enumerate}
+
+\section{Thesis Structure}
+
+This thesis is organized as follows:
+
 \begin{itemize}
-    \item Single annotator validation (with advisor sampling)
-    \item SHACL2FOL tool may not support sh:sparql constraints
-    \item Limited to policies expressible in FOL fragment
+    \item \textbf{Chapter 2}: Literature Review --- Background on formal logic, LLMs, and SHACL
+    \item \textbf{Chapter 3}: Methodology --- Research design and evaluation approach
+    \item \textbf{Chapter 4}: Implementation --- System architecture and components
+    \item \textbf{Chapter 5}: Results --- Experimental findings and analysis
+    \item \textbf{Chapter 6}: Discussion --- Implications and limitations
+    \item \textbf{Chapter 7}: Conclusion --- Summary and future work
 \end{itemize}
-
-\section{Thesis Organization}
-
-The remainder of this thesis is organized as follows:
-
-\begin{description}
-    \item[Chapter 2: Literature Review] Reviews existing work on policy formalization, Semantic Web technologies, and formal verification approaches.
-    
-    \item[Chapter 3: Methodology] Presents the research design, including corpus construction, annotation scheme, translation pipeline, and evaluation framework.
-    
-    \item[Chapter 4: Implementation] Describes the system architecture, complete worked examples, and tool chain used.
-    
-    \item[Chapter 5: Evaluation] Reports experimental results, pattern analysis findings, and validation outcomes.
-    
-    \item[Chapter 6: Conclusion] Summarizes contributions, discusses limitations, and proposes future work.
-\end{description}
