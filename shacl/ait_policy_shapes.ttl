@@ -3,10 +3,11 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix ait: <http://example.org/ait-policy#> .
 @prefix deontic: <http://example.org/deontic#> .
 
-# Generated: 2026-01-29T19:08:12.769663
+# Generated: 2026-01-29T19:17:42.907646
 # Source: fol_formalization_v2_results.json
 # Total Rules: 96
 
@@ -43,13 +44,13 @@ entail confidentiality and restriction on publication." ;
         sh:minCount 1 ;
     ] ;
     sh:property [
-        sh:path ait:publication ;
-        sh:name "Publication" ;
+        sh:path ait:confidentiality ;
+        sh:name "Confidentiality" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
-        sh:path ait:confidentiality ;
-        sh:name "Confidentiality" ;
+        sh:path ait:r ;
+        sh:name "R" ;
         sh:minCount 1 ;
     ] .
 
@@ -60,15 +61,15 @@ cancelled...."
 # FOL: F(cancelled(educational_visa))...
 # ===========================================
 ait:Gs002Shape a sh:NodeShape ;
-    sh:targetClass ait:Allowed ;
+    sh:targetClass ait:Cancelled ;
     rdfs:label "GS-002" ;
     rdfs:comment "Their educational visas may also be
 cancelled." ;
     deontic:type deontic:prohibition ;
     sh:severity sh:Violation ;
     sh:property [
-        sh:path ait:cancelled ;
-        sh:name "cancelled" ;
+        sh:path ait:allowed ;
+        sh:name "allowed" ;
         sh:minCount 1 ;
     ] .
 
@@ -79,7 +80,7 @@ Diploma), i.e., those who co..."
 # FOL: O(Continuing_PG_student(x) implies Within(semester2, semester, Invoice(x)))...
 # ===========================================
 ait:Gs003Shape a sh:NodeShape ;
-    sh:targetClass ait:Y ;
+    sh:targetClass ait:ContinuingPgStudent ;
     rdfs:label "GS-003" ;
     rdfs:comment "(2) Continuing full-time postgraduate (PG) students (Master, Doctor and
 Diploma), i.e., those who co" ;
@@ -91,13 +92,13 @@ Diploma), i.e., those who co" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
-        sh:path ait:continuingpgstudent ;
-        sh:name "Continuing_PG_student" ;
+        sh:path ait:y ;
+        sh:name "y" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
-        sh:path ait:invoice ;
-        sh:name "Invoice" ;
+        sh:path ait:x ;
+        sh:name "x" ;
         sh:minCount 1 ;
     ] .
 
@@ -108,25 +109,25 @@ approved by the President,..."
 # FOL: O(request_writing_off_doubtful_accounts(OFIN) implies approved_by_president_or_v...
 # ===========================================
 ait:Gs004Shape a sh:NodeShape ;
-    sh:targetClass ait:ApprovedByPresidentOrVpDesignate ;
+    sh:targetClass ait:Requestwritingoffdoubtfulaccounts ;
     rdfs:label "GS-004" ;
     rdfs:comment "Writing-off of doubtful accounts will be requested by OFIN and have to be
 approved by the President," ;
     deontic:type deontic:obligation ;
     sh:severity sh:Violation ;
     sh:property [
-        sh:path ait:requestwritingoffdoubtfulaccounts ;
-        sh:name "request_writing_off_doubtful_accounts" ;
-        sh:minCount 1 ;
-    ] ;
-    sh:property [
-        sh:path ait:vpdesignate ;
-        sh:name "VPDesignate" ;
-        sh:minCount 1 ;
-    ] ;
-    sh:property [
         sh:path ait:president ;
         sh:name "President" ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path ait:x ;
+        sh:name "x" ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path ait:approvedbypresidentorvpdesignate ;
+        sh:name "ApprovedByPresidentOrVPDesignate" ;
         sh:minCount 1 ;
     ] .
 
@@ -137,25 +138,25 @@ dues and requested to send AIT a promissory note detailing..."
 # FOL: O(Sponsors \* invoice(dues) \* send_promissory_note(AIT, payment_details))...
 # ===========================================
 ait:Gs005Shape a sh:NodeShape ;
-    sh:targetClass ait:OutstandingDues ;
+    sh:targetClass ait:SendPromissoryNote ;
     rdfs:label "GS-005" ;
     rdfs:comment "Sponsors must be invoiced for outstanding
 dues and requested to send AIT a promissory note detailing" ;
     deontic:type deontic:obligation ;
     sh:severity sh:Violation ;
     sh:property [
-        sh:path ait:invoice ;
-        sh:name "invoice" ;
-        sh:minCount 1 ;
-    ] ;
-    sh:property [
         sh:path ait:sponsor ;
         sh:name "Sponsor" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
-        sh:path ait:s ;
-        sh:name "s" ;
+        sh:path ait:invoice ;
+        sh:name "invoice" ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path ait:outstandingdues ;
+        sh:name "outstanding_dues" ;
         sh:minCount 1 ;
     ] .
 
@@ -166,25 +167,25 @@ collections shall be initiated...."
 # FOL: O(review_overdue_accounts \u0303 within(period, day, review_overdue_accounts) &&...
 # ===========================================
 ait:Gs006Shape a sh:NodeShape ;
-    sh:targetClass ait:Y ;
+    sh:targetClass ait:InitiateFollowUpCollections ;
     rdfs:label "GS-006" ;
     rdfs:comment "(20) Overdue accounts shall be reviewed periodically, and follow-up
 collections shall be initiated." ;
     deontic:type deontic:obligation ;
     sh:severity sh:Violation ;
     sh:property [
-        sh:path ait:initiatefollowupcollections ;
-        sh:name "initiate_follow_up_collections" ;
+        sh:path ait:reviewoverdueaccounts ;
+        sh:name "review_overdue_accounts" ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path ait:y ;
+        sh:name "y" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
         sh:path ait:within ;
         sh:name "within" ;
-        sh:minCount 1 ;
-    ] ;
-    sh:property [
-        sh:path ait:day ;
-        sh:name "Day" ;
         sh:minCount 1 ;
     ] .
 
@@ -202,8 +203,8 @@ the minimum 3 credits f" ;
     deontic:type deontic:obligation ;
     sh:severity sh:Violation ;
     sh:property [
-        sh:path ait:and ;
-        sh:name "And" ;
+        sh:path ait:parttimestudent ;
+        sh:name "PartTimeStudent" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
@@ -212,8 +213,8 @@ the minimum 3 credits f" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
-        sh:path ait:audited ;
-        sh:name "Audited" ;
+        sh:path ait:registeredfor ;
+        sh:name "RegisteredFor" ;
         sh:minCount 1 ;
     ] .
 
@@ -257,15 +258,15 @@ given to those whose exchange program is less than two months...."
 # FOL: O(ExchangeProgramLength(x) > 2) => F(GiveException(x))...
 # ===========================================
 ait:Gs010Shape a sh:NodeShape ;
-    sh:targetClass ait:Giveexception ;
+    sh:targetClass ait:Exchangeprogramlength ;
     rdfs:label "GS-010" ;
     rdfs:comment "Exceptions to this may only be
 given to those whose exchange program is less than two months." ;
     deontic:type deontic:obligation ;
     sh:severity sh:Violation ;
     sh:property [
-        sh:path ait:exchangeprogramlength ;
-        sh:name "ExchangeProgramLength" ;
+        sh:path ait:giveexception ;
+        sh:name "GiveException" ;
         sh:minCount 1 ;
     ] .
 
@@ -305,25 +306,25 @@ after graduation, withou..."
 # FOL: F(sealed_unit(x) \&\& living_beyond_five_days(x) \&\& !approval_from_OFAM_Direct...
 # ===========================================
 ait:Gs012Shape a sh:NodeShape ;
-    sh:targetClass ait:Accommodationunitassigned ;
+    sh:targetClass ait:LivingBeyondFiveDays ;
     rdfs:label "GS-012" ;
     rdfs:comment "Graduating students residing beyond the five day limit (including weekends)
 after graduation, withou" ;
     deontic:type deontic:prohibition ;
     sh:severity sh:Violation ;
     sh:property [
-        sh:path ait:graduate ;
-        sh:name "Graduate" ;
+        sh:path ait:approvalfromofamdirector ;
+        sh:name "approval_from_OFAM_Director" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
-        sh:path ait:livingbeyondfivedays ;
-        sh:name "living_beyond_five_days" ;
+        sh:path ait:sealedunit ;
+        sh:name "sealed_unit" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
-        sh:path ait:graduation ;
-        sh:name "graduation" ;
+        sh:path ait:accommodationunitassigned ;
+        sh:name "AccommodationUnitAssigned" ;
         sh:minCount 1 ;
     ] .
 
@@ -334,7 +335,7 @@ number is called...."
 # FOL: P(choose_unit(s, student))...
 # ===========================================
 ait:Gs013Shape a sh:NodeShape ;
-    sh:targetClass ait:Unit ;
+    sh:targetClass ait:ChooseUnit ;
     rdfs:label "GS-013" ;
     rdfs:comment "● New students may choose from all the available units when their queuing
 number is called." ;
@@ -346,8 +347,8 @@ number is called." ;
         sh:minCount 1 ;
     ] ;
     sh:property [
-        sh:path ait:chooseunit ;
-        sh:name "choose_unit" ;
+        sh:path ait:unit ;
+        sh:name "unit" ;
         sh:minCount 1 ;
     ] .
 
@@ -358,7 +359,7 @@ on the waiting list and live in employee accommodation subject to avail..."
 # FOL: P(putNameOnWaitingList) ∧ P(liveInEmployeeAccommodation)...
 # ===========================================
 ait:Gs014Shape a sh:NodeShape ;
-    sh:targetClass ait:Liveinemployeeaccommodation ;
+    sh:targetClass ait:Student ;
     rdfs:label "GS-014" ;
     rdfs:comment "Students may put their names
 on the waiting list and live in employee accommodation subject to avail" ;
@@ -370,8 +371,8 @@ on the waiting list and live in employee accommodation subject to avail" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
-        sh:path ait:student ;
-        sh:name "Student" ;
+        sh:path ait:liveinemployeeaccommodation ;
+        sh:name "LiveInEmployeeAccommodation" ;
         sh:minCount 1 ;
     ] .
 
@@ -397,7 +398,7 @@ maximum period of one month, in case of availability to:
 # FOL: P(allocateDormitory(s, m))...
 # ===========================================
 ait:Gs016Shape a sh:NodeShape ;
-    sh:targetClass ait:M ;
+    sh:targetClass ait:Allocatedormitory ;
     rdfs:label "GS-016" ;
     rdfs:comment "A student dormitory may be allocated for a
 maximum period of one month, in case of availability to:
@@ -405,18 +406,18 @@ maximum period of one month, in case of availability to:
     deontic:type deontic:permission ;
     sh:severity sh:Info ;
     sh:property [
-        sh:path ait:allocatedormitory ;
-        sh:name "allocateDormitory" ;
-        sh:minCount 1 ;
-    ] ;
-    sh:property [
-        sh:path ait:available ;
-        sh:name "Available" ;
+        sh:path ait:m ;
+        sh:name "m" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
         sh:path ait:duration ;
         sh:name "Duration" ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path ait:allocatedormitory ;
+        sh:name "allocateDormitory" ;
         sh:minCount 1 ;
     ] .
 
@@ -446,15 +447,15 @@ another country as part of the Exchange/Dual Degree program, are require..."
 # FOL: O(vacateRoom(s, abroad))...
 # ===========================================
 ait:Gs018Shape a sh:NodeShape ;
-    sh:targetClass ait:Vacateroom ;
+    sh:targetClass ait:Studyabroad ;
     rdfs:label "GS-018" ;
     rdfs:comment "Students, who will study in
 another country as part of the Exchange/Dual Degree program, are require" ;
     deontic:type deontic:obligation ;
     sh:severity sh:Violation ;
     sh:property [
-        sh:path ait:studyabroad ;
-        sh:name "StudyAbroad" ;
+        sh:path ait:vacateroom ;
+        sh:name "vacateRoom" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
@@ -474,19 +475,19 @@ another country as part of the Exchange/Dual Degree program, are require" ;
 # FOL: O(inRoom(x, alternative))...
 # ===========================================
 ait:Gs019Shape a sh:NodeShape ;
-    sh:targetClass ait:Haspurpose ;
+    sh:targetClass ait:Inroom ;
     rdfs:label "GS-019" ;
     rdfs:comment "Alternative rooms designated for such purpose must be used." ;
     deontic:type deontic:obligation ;
     sh:severity sh:Violation ;
     sh:property [
-        sh:path ait:inroom ;
-        sh:name "inRoom" ;
+        sh:path ait:x ;
+        sh:name "x" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
-        sh:path ait:x ;
-        sh:name "x" ;
+        sh:path ait:haspurpose ;
+        sh:name "hasPurpose" ;
         sh:minCount 1 ;
     ] .
 
@@ -533,6 +534,11 @@ ability, the facts of the case." ;
     deontic:type deontic:obligation ;
     sh:severity sh:Violation ;
     sh:property [
+        sh:path ait:factascertainment ;
+        sh:name "factAscertainment" ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
         sh:path ait:within ;
         sh:name "within" ;
         sh:minCount 1 ;
@@ -540,11 +546,6 @@ ability, the facts of the case." ;
     sh:property [
         sh:path ait:grievancetribunal ;
         sh:name "grievanceTribunal" ;
-        sh:minCount 1 ;
-    ] ;
-    sh:property [
-        sh:path ait:factascertainment ;
-        sh:name "factAscertainment" ;
         sh:minCount 1 ;
     ] .
 
@@ -555,12 +556,17 @@ be reported by the employee to ..."
 # FOL: O(acceptedGiftReporting(employee, gift, unitHead))...
 # ===========================================
 ait:Gs022Shape a sh:NodeShape ;
-    sh:targetClass ait:Reported ;
+    sh:targetClass ait:Acceptedgift ;
     rdfs:label "GS-022" ;
     rdfs:comment "Acceptance by an employee of a gift valued at THB 3,000 or more must
 be reported by the employee to " ;
     deontic:type deontic:obligation ;
     sh:severity sh:Violation ;
+    sh:property [
+        sh:path ait:reported ;
+        sh:name "reported" ;
+        sh:minCount 1 ;
+    ] ;
     sh:property [
         sh:path ait:detailedreport ;
         sh:name "detailedReport" ;
@@ -569,11 +575,6 @@ be reported by the employee to " ;
     sh:property [
         sh:path ait:acceptedgiftreporting ;
         sh:name "acceptedGiftReporting" ;
-        sh:minCount 1 ;
-    ] ;
-    sh:property [
-        sh:path ait:acceptedgift ;
-        sh:name "acceptedGift" ;
         sh:minCount 1 ;
     ] .
 
@@ -584,7 +585,7 @@ people must be respected...."
 # FOL: O(respect(otherPerson))...
 # ===========================================
 ait:Gs023Shape a sh:NodeShape ;
-    sh:targetClass ait:Otherperson ;
+    sh:targetClass ait:Person ;
     rdfs:label "GS-023" ;
     rdfs:comment "The accomplishments, activities and individual differences of other
 people must be respected." ;
@@ -596,8 +597,8 @@ people must be respected." ;
         sh:minCount 1 ;
     ] ;
     sh:property [
-        sh:path ait:person ;
-        sh:name "Person" ;
+        sh:path ait:otherperson ;
+        sh:name "otherPerson" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
@@ -629,7 +630,7 @@ must protect the interests of all members of the AIT community...."
 # FOL: O(protectInterests(x))...
 # ===========================================
 ait:Gs025Shape a sh:NodeShape ;
-    sh:targetClass ait:Dutyperformer ;
+    sh:targetClass ait:Protectinterests ;
     rdfs:label "GS-025" ;
     rdfs:comment "In performing their duties, they
 must protect the interests of all members of the AIT community." ;
@@ -641,8 +642,8 @@ must protect the interests of all members of the AIT community." ;
         sh:minCount 1 ;
     ] ;
     sh:property [
-        sh:path ait:protectinterests ;
-        sh:name "protectInterests" ;
+        sh:path ait:dutyperformer ;
+        sh:name "dutyPerformer" ;
         sh:minCount 1 ;
     ] .
 
@@ -653,25 +654,25 @@ breaches of the Institute P&Ps, etc...."
 # FOL: O(prepared(GrievanceCommittee, identifyBreaches))...
 # ===========================================
 ait:Gs026Shape a sh:NodeShape ;
-    sh:targetClass ait:G ;
+    sh:targetClass ait:Prepared ;
     rdfs:label "GS-026" ;
     rdfs:comment "The Grievance Committee must be prepared to identify
 breaches of the Institute P&Ps, etc." ;
     deontic:type deontic:obligation ;
     sh:severity sh:Violation ;
     sh:property [
-        sh:path ait:memberof ;
-        sh:name "MemberOf" ;
-        sh:minCount 1 ;
-    ] ;
-    sh:property [
-        sh:path ait:prepared ;
-        sh:name "Prepared" ;
+        sh:path ait:g ;
+        sh:name "g" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
         sh:path ait:prepared ;
         sh:name "prepared" ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path ait:memberof ;
+        sh:name "MemberOf" ;
         sh:minCount 1 ;
     ] .
 
@@ -687,8 +688,8 @@ ait:Gs027Shape a sh:NodeShape ;
     deontic:type deontic:permission ;
     sh:severity sh:Info ;
     sh:property [
-        sh:path ait:acceptitem ;
-        sh:name "accept_item" ;
+        sh:path ait:value ;
+        sh:name "value" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
@@ -697,8 +698,8 @@ ait:Gs027Shape a sh:NodeShape ;
         sh:minCount 1 ;
     ] ;
     sh:property [
-        sh:path ait:value ;
-        sh:name "value" ;
+        sh:path ait:acceptitem ;
+        sh:name "accept_item" ;
         sh:minCount 1 ;
     ] .
 
@@ -709,15 +710,15 @@ and students are required to ..."
 # FOL: O(expressesOpinionOutsideInstitute) ∧ O(notesExplicitlyPersonal) ∧ O(!represents...
 # ===========================================
 ait:Gs028Shape a sh:NodeShape ;
-    sh:targetClass ait:Student ;
+    sh:targetClass ait:E ;
     rdfs:label "GS-028" ;
     rdfs:comment "When expressing personal opinions outside the Institute, AIT employees
 and students are required to " ;
     deontic:type deontic:obligation ;
     sh:severity sh:Violation ;
     sh:property [
-        sh:path ait:e ;
-        sh:name "e" ;
+        sh:path ait:employee ;
+        sh:name "Employee" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
@@ -726,8 +727,8 @@ and students are required to " ;
         sh:minCount 1 ;
     ] ;
     sh:property [
-        sh:path ait:expressesopinionoutsideinstitute ;
-        sh:name "expressesOpinionOutsideInstitute" ;
+        sh:path ait:student ;
+        sh:name "Student" ;
         sh:minCount 1 ;
     ] .
 
@@ -739,7 +740,7 @@ the grievance...."
 # FOL: O(GatheredFacts -> AnalyzeGrievance)...
 # ===========================================
 ait:Gs029Shape a sh:NodeShape ;
-    sh:targetClass ait:G ;
+    sh:targetClass ait:Gatheredfacts ;
     rdfs:label "GS-029" ;
     rdfs:comment "Having gathered the relevant
 facts, the Grievance Committee should proceed to analyze
@@ -747,13 +748,13 @@ the grievance." ;
     deontic:type deontic:obligation ;
     sh:severity sh:Violation ;
     sh:property [
-        sh:path ait:analyzegrievance ;
-        sh:name "AnalyzeGrievance" ;
+        sh:path ait:g ;
+        sh:name "g" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
-        sh:path ait:gatheredfacts ;
-        sh:name "GatheredFacts" ;
+        sh:path ait:analyzegrievance ;
+        sh:name "AnalyzeGrievance" ;
         sh:minCount 1 ;
     ] .
 
@@ -771,6 +772,11 @@ may ride a pick-up, popularly known as 'Luth'." ;
     deontic:type deontic:permission ;
     sh:severity sh:Info ;
     sh:property [
+        sh:path ait:x ;
+        sh:name "x" ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
         sh:path ait:rideluth ;
         sh:name "ride_luth" ;
         sh:minCount 1 ;
@@ -778,11 +784,6 @@ may ride a pick-up, popularly known as 'Luth'." ;
     sh:property [
         sh:path ait:person ;
         sh:name "person" ;
-        sh:minCount 1 ;
-    ] ;
-    sh:property [
-        sh:path ait:x ;
-        sh:name "x" ;
         sh:minCount 1 ;
     ] .
 
@@ -800,18 +801,18 @@ can they avail of student privileges and benefits during " ;
     deontic:type deontic:prohibition ;
     sh:severity sh:Violation ;
     sh:property [
+        sh:path ait:suspendedperiod ;
+        sh:name "suspended_period" ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
         sh:path ait:enrollscourse ;
         sh:name "enrolls_course" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
-        sh:path ait:hasaitidcard ;
-        sh:name "has_AIT_ID_card" ;
-        sh:minCount 1 ;
-    ] ;
-    sh:property [
-        sh:path ait:suspendedperiod ;
-        sh:name "suspended_period" ;
+        sh:path ait:staysinaccommodation ;
+        sh:name "stays_in_accommodation" ;
         sh:minCount 1 ;
     ] .
 
@@ -822,25 +823,25 @@ the student at the end of the examination..."
 # FOL: O(instructor seeks explanation from student & incidentReport is submitted)...
 # ===========================================
 ait:Gs032Shape a sh:NodeShape ;
-    sh:targetClass ait:Instructor ;
+    sh:targetClass ait:Assignment ;
     rdfs:label "GS-032" ;
     rdfs:comment "The instructor/invigilator should seek an explanation from
 the student at the end of the examination" ;
     deontic:type deontic:obligation ;
     sh:severity sh:Violation ;
     sh:property [
-        sh:path ait:submitted ;
-        sh:name "Submitted" ;
+        sh:path ait:project ;
+        sh:name "Project" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
-        sh:path ait:examination ;
-        sh:name "Examination" ;
+        sh:path ait:instructor ;
+        sh:name "Instructor" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
-        sh:path ait:explains ;
-        sh:name "Explains" ;
+        sh:path ait:incidentreport ;
+        sh:name "IncidentReport" ;
         sh:minCount 1 ;
     ] .
 
@@ -851,25 +852,25 @@ seeking the advice of on..."
 # FOL: P(complainantCommunicatesDirectly)...
 # ===========================================
 ait:Gs033Shape a sh:NodeShape ;
-    sh:targetClass ait:Consultedadvisor ;
+    sh:targetClass ait:Advisorlistmember ;
     rdfs:label "GS-033" ;
     rdfs:comment "2.5 Direct communication may sometimes follow consultation, the complainant
 seeking the advice of on" ;
     deontic:type deontic:permission ;
     sh:severity sh:Info ;
     sh:property [
-        sh:path ait:advisorlistmember ;
-        sh:name "advisorListMember" ;
-        sh:minCount 1 ;
-    ] ;
-    sh:property [
-        sh:path ait:c23advisor ;
-        sh:name "C23Advisor" ;
+        sh:path ait:consultedadvisor ;
+        sh:name "consultedAdvisor" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
         sh:path ait:can ;
         sh:name "can" ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path ait:c23advisor ;
+        sh:name "C23Advisor" ;
         sh:minCount 1 ;
     ] .
 
@@ -894,25 +895,25 @@ the work,..."
 # FOL: O(If (Compete(s1, s2) AND EquallyQualified(s1, s2)) Then (SelfPayingOrPartiallyF...
 # ===========================================
 ait:Gs035Shape a sh:NodeShape ;
-    sh:targetClass ait:Preference ;
+    sh:targetClass ait:Compete ;
     rdfs:label "GS-035" ;
     rdfs:comment "If two or more students compete for a position and they are equally qualified to undertake
 the work," ;
     deontic:type deontic:obligation ;
     sh:severity sh:Violation ;
     sh:property [
-        sh:path ait:fullscholarship ;
-        sh:name "FullScholarship" ;
+        sh:path ait:selfpayingorpartiallyfunded ;
+        sh:name "SelfPayingOrPartiallyFunded" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
-        sh:path ait:c2 ;
-        sh:name "c2" ;
+        sh:path ait:then ;
+        sh:name "Then" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
-        sh:path ait:compete ;
-        sh:name "Compete" ;
+        sh:path ait:c1 ;
+        sh:name "c1" ;
         sh:minCount 1 ;
     ] .
 
@@ -923,17 +924,12 @@ OFAM and have to ..."
 # FOL: O(HOAM_requests_writeoff & AITM_approves & forwards_to_Finance)...
 # ===========================================
 ait:Gs036Shape a sh:NodeShape ;
-    sh:targetClass ait:Aitmanager ;
+    sh:targetClass ait:Forwardstofinance ;
     rdfs:label "GS-036" ;
     rdfs:comment "Writing-off of outstanding bills including interest due will be requested by Head-
 OFAM and have to " ;
     deontic:type deontic:obligation ;
     sh:severity sh:Violation ;
-    sh:property [
-        sh:path ait:headofam ;
-        sh:name "HeadOfAM" ;
-        sh:minCount 1 ;
-    ] ;
     sh:property [
         sh:path ait:approves ;
         sh:name "approves" ;
@@ -942,6 +938,11 @@ OFAM and have to " ;
     sh:property [
         sh:path ait:writesoff ;
         sh:name "writesoff" ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path ait:headofam ;
+        sh:name "HeadOfAM" ;
         sh:minCount 1 ;
     ] .
 
@@ -959,8 +960,8 @@ of sponsorship must be submitted." ;
     deontic:type deontic:obligation ;
     sh:severity sh:Violation ;
     sh:property [
-        sh:path ait:external ;
-        sh:name "external" ;
+        sh:path ait:submitted ;
+        sh:name "submitted" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
@@ -969,8 +970,8 @@ of sponsorship must be submitted." ;
         sh:minCount 1 ;
     ] ;
     sh:property [
-        sh:path ait:submitted ;
-        sh:name "submitted" ;
+        sh:path ait:external ;
+        sh:name "external" ;
         sh:minCount 1 ;
     ] .
 
@@ -1031,11 +1032,6 @@ page signed by their advisor and by LC to the AIT Registry." ;
     deontic:type deontic:obligation ;
     sh:severity sh:Violation ;
     sh:property [
-        sh:path ait:submittitlepage ;
-        sh:name "submitTitlePage" ;
-        sh:minCount 1 ;
-    ] ;
-    sh:property [
         sh:path ait:advisor ;
         sh:name "Advisor" ;
         sh:minCount 1 ;
@@ -1043,6 +1039,11 @@ page signed by their advisor and by LC to the AIT Registry." ;
     sh:property [
         sh:path ait:lc ;
         sh:name "LC" ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path ait:submittitlepage ;
+        sh:name "submitTitlePage" ;
         sh:minCount 1 ;
     ] .
 
@@ -1052,19 +1053,19 @@ page signed by their advisor and by LC to the AIT Registry." ;
 # FOL: P(keep(linen_set))...
 # ===========================================
 ait:Gs041Shape a sh:NodeShape ;
-    sh:targetClass ait:LinenSet ;
+    sh:targetClass ait:X ;
     rdfs:label "GS-041" ;
     rdfs:comment "This linen set and pillow may be kept when leaving AIT." ;
     deontic:type deontic:permission ;
     sh:severity sh:Info ;
     sh:property [
-        sh:path ait:keep ;
-        sh:name "keep" ;
+        sh:path ait:linenset ;
+        sh:name "linen_set" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
-        sh:path ait:x ;
-        sh:name "x" ;
+        sh:path ait:keep ;
+        sh:name "keep" ;
         sh:minCount 1 ;
     ] .
 
@@ -1076,7 +1077,7 @@ to:
 # FOL: O(Dean(d) ∧ Receipt(d, retake) → (Downgrade(d, student, grade) v GiveZero(d, stu...
 # ===========================================
 ait:Gs042Shape a sh:NodeShape ;
-    sh:targetClass ait:Receipt ;
+    sh:targetClass ait:Downgrade ;
     rdfs:label "GS-042" ;
     rdfs:comment "Upon receipt of the retake, the School Dean may decide
 to:
@@ -1089,13 +1090,13 @@ to:
         sh:minCount 1 ;
     ] ;
     sh:property [
-        sh:path ait:downgrade ;
-        sh:name "Downgrade" ;
+        sh:path ait:dean ;
+        sh:name "Dean" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
-        sh:path ait:givef ;
-        sh:name "GiveF" ;
+        sh:path ait:receipt ;
+        sh:name "Receipt" ;
         sh:minCount 1 ;
     ] .
 
@@ -1106,25 +1107,25 @@ Department Head and the instructor/invigilator may recommend to..."
 # FOL: O(DH(recommend(Dean, disregard(score))) ∧ I(recommend(instructor/invigilator, DH...
 # ===========================================
 ait:Gs043Shape a sh:NodeShape ;
-    sh:targetClass ait:Obligation ;
+    sh:targetClass ait:Recommend ;
     rdfs:label "GS-043" ;
     rdfs:comment "However, if cheating was proven, the
 Department Head and the instructor/invigilator may recommend to" ;
     deontic:type deontic:obligation ;
     sh:severity sh:Violation ;
     sh:property [
+        sh:path ait:obligation ;
+        sh:name "obligation" ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
         sh:path ait:i ;
         sh:name "I" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
-        sh:path ait:permission ;
-        sh:name "permission" ;
-        sh:minCount 1 ;
-    ] ;
-    sh:property [
-        sh:path ait:recommend ;
-        sh:name "recommend" ;
+        sh:path ait:disregard ;
+        sh:name "disregard" ;
         sh:minCount 1 ;
     ] .
 
@@ -1142,13 +1143,13 @@ must be approved by the School and " ;
     deontic:type deontic:obligation ;
     sh:severity sh:Violation ;
     sh:property [
-        sh:path ait:student ;
-        sh:name "Student" ;
+        sh:path ait:sracompleted ;
+        sh:name "SRA_completed" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
-        sh:path ait:sracompleted ;
-        sh:name "SRA_completed" ;
+        sh:path ait:student ;
+        sh:name "Student" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
@@ -1164,25 +1165,25 @@ appointment, they are (a) not a..."
 # FOL: O(not (goodAcademicStanding(A) λ semester & & onProbationaryStatus(A)))...
 # ===========================================
 ait:Gs045Shape a sh:NodeShape ;
-    sh:targetClass ait:Assistant ;
+    sh:targetClass ait:Terminatedcontract ;
     rdfs:label "GS-045" ;
     rdfs:comment "An Assistant’s contract shall be terminated if, during the period of
 appointment, they are (a) not a" ;
     deontic:type deontic:obligation ;
     sh:severity sh:Violation ;
     sh:property [
+        sh:path ait:assistant ;
+        sh:name "Assistant" ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path ait:goodacademicstanding ;
+        sh:name "GoodAcademicStanding" ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
         sh:path ait:goodacademicstanding ;
         sh:name "goodAcademicStanding" ;
-        sh:minCount 1 ;
-    ] ;
-    sh:property [
-        sh:path ait:terminatedcontract ;
-        sh:name "TerminatedContract" ;
-        sh:minCount 1 ;
-    ] ;
-    sh:property [
-        sh:path ait:onprobationarystatus ;
-        sh:name "onProbationaryStatus" ;
         sh:minCount 1 ;
     ] .
 
@@ -1207,7 +1208,7 @@ All Non-Thai students are required to pay Baht 1,900 fee for a VISA extensi..."
 # FOL: O(PaysBaht1900_VISAExtensionFee(x))...
 # ===========================================
 ait:Gs047Shape a sh:NodeShape ;
-    sh:targetClass ait:Paysbaht1900Visaextensionfee ;
+    sh:targetClass ait:X ;
     rdfs:label "GS-047" ;
     rdfs:comment "Thai VISA Extension Fees
 All Non-Thai students are required to pay Baht 1,900 fee for a VISA extensi" ;
@@ -1219,13 +1220,13 @@ All Non-Thai students are required to pay Baht 1,900 fee for a VISA extensi" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
-        sh:path ait:nonthai ;
-        sh:name "NonThai" ;
+        sh:path ait:paysbaht1900visaextensionfee ;
+        sh:name "PaysBaht1900_VISAExtensionFee" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
-        sh:path ait:x ;
-        sh:name "x" ;
+        sh:path ait:nonthai ;
+        sh:name "NonThai" ;
         sh:minCount 1 ;
     ] .
 
@@ -1236,20 +1237,20 @@ assistance is required, the nurse on duty can be cont..."
 # FOL: P(nurse_on_duty_contact(emergency, 02-524-5555))...
 # ===========================================
 ait:Gs048Shape a sh:NodeShape ;
-    sh:targetClass ait:NurseOnDuty ;
+    sh:targetClass ait:Emergency ;
     rdfs:label "GS-048" ;
     rdfs:comment "In emergency cases or if any medical emergency
 assistance is required, the nurse on duty can be cont" ;
     deontic:type deontic:permission ;
     sh:severity sh:Info ;
     sh:property [
-        sh:path ait:e ;
-        sh:name "e" ;
+        sh:path ait:call ;
+        sh:name "call" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
-        sh:path ait:call ;
-        sh:name "call" ;
+        sh:path ait:nurseonduty ;
+        sh:name "nurse_on_duty" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
@@ -1265,15 +1266,15 @@ should be agreed upon by all parties...."
 # FOL: O(recordNotes & agreeAll)...
 # ===========================================
 ait:Gs049Shape a sh:NodeShape ;
-    sh:targetClass ait:Interviewedby ;
+    sh:targetClass ait:Recordnotes ;
     rdfs:label "GS-049" ;
     rdfs:comment "Notes of the interview will be recorded and
 should be agreed upon by all parties." ;
     deontic:type deontic:obligation ;
     sh:severity sh:Violation ;
     sh:property [
-        sh:path ait:recordnotes ;
-        sh:name "RecordNotes" ;
+        sh:path ait:person ;
+        sh:name "Person" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
@@ -1282,8 +1283,8 @@ should be agreed upon by all parties." ;
         sh:minCount 1 ;
     ] ;
     sh:property [
-        sh:path ait:person ;
-        sh:name "Person" ;
+        sh:path ait:interviewedby ;
+        sh:name "InterviewedBy" ;
         sh:minCount 1 ;
     ] .
 
@@ -1293,14 +1294,14 @@ should be agreed upon by all parties." ;
 # FOL: F(swim_wear)...
 # ===========================================
 ait:Gs050Shape a sh:NodeShape ;
-    sh:targetClass ait:Swims ;
+    sh:targetClass ait:ProperSwimWear ;
     rdfs:label "GS-050" ;
     rdfs:comment "Proper swim wear is required." ;
     deontic:type deontic:prohibition ;
     sh:severity sh:Violation ;
     sh:property [
-        sh:path ait:properswimwear ;
-        sh:name "Proper_Swim_Wear" ;
+        sh:path ait:swims ;
+        sh:name "Swims" ;
         sh:minCount 1 ;
     ] .
 
@@ -1311,7 +1312,7 @@ from Generali before th..."
 # FOL: O(Dependent(x) implies Within(1, day, CompleteHealthDeclarationForm(x)) && Appro...
 # ===========================================
 ait:Gs051Shape a sh:NodeShape ;
-    sh:targetClass ait:Completehealthdeclarationform ;
+    sh:targetClass ait:Approvalbygenerali ;
     rdfs:label "GS-051" ;
     rdfs:comment "All dependents have to complete the health declaration form and get approval
 from Generali before th" ;
@@ -1323,13 +1324,13 @@ from Generali before th" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
-        sh:path ait:approvalbygenerali ;
-        sh:name "ApprovalByGenerali" ;
+        sh:path ait:x ;
+        sh:name "x" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
-        sh:path ait:x ;
-        sh:name "x" ;
+        sh:path ait:completehealthdeclarationform ;
+        sh:name "CompleteHealthDeclarationForm" ;
         sh:minCount 1 ;
     ] .
 
@@ -1359,7 +1360,7 @@ sanctions if the unit is found to be ..."
 # FOL: P(OAM_inspects(OFAM, unit))...
 # ===========================================
 ait:Gs053Shape a sh:NodeShape ;
-    sh:targetClass ait:Unit ;
+    sh:targetClass ait:T ;
     rdfs:label "GS-053" ;
     rdfs:comment "OFAM is authorized to undertake random inspections and may lay
 sanctions if the unit is found to be " ;
@@ -1371,8 +1372,8 @@ sanctions if the unit is found to be " ;
         sh:minCount 1 ;
     ] ;
     sh:property [
-        sh:path ait:t ;
-        sh:name "t" ;
+        sh:path ait:unit ;
+        sh:name "Unit" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
@@ -1395,18 +1396,18 @@ enrolled a" ;
     deontic:type deontic:permission ;
     sh:severity sh:Info ;
     sh:property [
-        sh:path ait:specialstudent ;
-        sh:name "special_student" ;
-        sh:minCount 1 ;
-    ] ;
-    sh:property [
-        sh:path ait:studyingatotherinstitution ;
-        sh:name "studying_at_other_institution" ;
+        sh:path ait:masterordoctoralstudent ;
+        sh:name "master_or_doctoral_student" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
         sh:path ait:maybeappointedasassistant ;
         sh:name "may_be_appointed_as_assistant" ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path ait:studyingatotherinstitution ;
+        sh:name "studying_at_other_institution" ;
         sh:minCount 1 ;
     ] .
 
@@ -1434,8 +1435,8 @@ unit." ;
         sh:minCount 1 ;
     ] ;
     sh:property [
-        sh:path ait:in ;
-        sh:name "in" ;
+        sh:path ait:appliances ;
+        sh:name "appliances" ;
         sh:minCount 1 ;
     ] .
 
@@ -1446,20 +1447,20 @@ title page of their res..."
 # FOL: O(student(x) -> Before(Graduation, submit(x)) -> exists y (advisor(y) and studen...
 # ===========================================
 ait:Gs056Shape a sh:NodeShape ;
-    sh:targetClass ait:Approveandsign ;
+    sh:targetClass ait:Submit ;
     rdfs:label "GS-056" ;
     rdfs:comment "Before Graduation: All students must have their advisor approve and sign the
 title page of their res" ;
     deontic:type deontic:obligation ;
     sh:severity sh:Violation ;
     sh:property [
-        sh:path ait:y ;
-        sh:name "y" ;
+        sh:path ait:titlepage ;
+        sh:name "titlePage" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
-        sh:path ait:student ;
-        sh:name "student" ;
+        sh:path ait:y ;
+        sh:name "y" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
@@ -1506,15 +1507,15 @@ the criteria that will be considere..."
 # FOL: O(instructor_makes_known(criteria))...
 # ===========================================
 ait:Gs058Shape a sh:NodeShape ;
-    sh:targetClass ait:BeginningOfCourse ;
+    sh:targetClass ait:Instructor ;
     rdfs:label "GS-058" ;
     rdfs:comment "At the beginning of the course, the instructor should make known
 the criteria that will be considere" ;
     deontic:type deontic:obligation ;
     sh:severity sh:Violation ;
     sh:property [
-        sh:path ait:instructor ;
-        sh:name "Instructor" ;
+        sh:path ait:beginningofcourse ;
+        sh:name "Beginning_of_course" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
@@ -1561,20 +1562,20 @@ lease of premises...."
 # FOL: O(payAdvanceDeposit(lessee))...
 # ===========================================
 ait:Gs061Shape a sh:NodeShape ;
-    sh:targetClass ait:L ;
+    sh:targetClass ait:Payadvancedeposit ;
     rdfs:label "GS-061" ;
     rdfs:comment "Lessees are required to pay three-month advance deposit to take on the
 lease of premises." ;
     deontic:type deontic:obligation ;
     sh:severity sh:Violation ;
     sh:property [
-        sh:path ait:lessee ;
-        sh:name "Lessee" ;
+        sh:path ait:l ;
+        sh:name "l" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
-        sh:path ait:payadvancedeposit ;
-        sh:name "payAdvanceDeposit" ;
+        sh:path ait:lessee ;
+        sh:name "Lessee" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
@@ -1603,12 +1604,12 @@ appointment." ;
     ] ;
     sh:property [
         sh:path ait:appointmentdate ;
-        sh:name "AppointmentDate" ;
+        sh:name "appointmentDate" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
-        sh:path ait:x ;
-        sh:name "x" ;
+        sh:path ait:appointmentdate ;
+        sh:name "AppointmentDate" ;
         sh:minCount 1 ;
     ] .
 
@@ -1636,15 +1637,15 @@ five days (including weekends) after their gradua..."
 # FOL: O(vacateRoom(s, graduationDay + 5))...
 # ===========================================
 ait:Gs064Shape a sh:NodeShape ;
-    sh:targetClass ait:Vacateroom ;
+    sh:targetClass ait:Graduated ;
     rdfs:label "GS-064" ;
     rdfs:comment "Students are required to vacate their rooms within
 five days (including weekends) after their gradua" ;
     deontic:type deontic:obligation ;
     sh:severity sh:Violation ;
     sh:property [
-        sh:path ait:graduated ;
-        sh:name "Graduated" ;
+        sh:path ait:vacateroom ;
+        sh:name "vacateRoom" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
@@ -1660,15 +1661,15 @@ the name of Asian Institute of ..."
 # FOL: O(supports(agent, settlement)) implies O(and(issuedUnder(receipts, Asian Institu...
 # ===========================================
 ait:Gs065Shape a sh:NodeShape ;
-    sh:targetClass ait:Collated ;
+    sh:targetClass ait:Issuedunder ;
     rdfs:label "GS-065" ;
     rdfs:comment "The settlement should be supported by collated receipts issued under
 the name of Asian Institute of " ;
     deontic:type deontic:obligation ;
     sh:severity sh:Violation ;
     sh:property [
-        sh:path ait:issuedunder ;
-        sh:name "issuedUnder" ;
+        sh:path ait:collated ;
+        sh:name "collated" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
@@ -1691,13 +1692,13 @@ available." ;
     deontic:type deontic:obligation ;
     sh:severity sh:Violation ;
     sh:property [
-        sh:path ait:student ;
-        sh:name "Student" ;
+        sh:path ait:x ;
+        sh:name "x" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
-        sh:path ait:x ;
-        sh:name "x" ;
+        sh:path ait:student ;
+        sh:name "Student" ;
         sh:minCount 1 ;
     ] .
 
@@ -1708,15 +1709,15 @@ be assisted by the..."
 # FOL: P(PresidentAssistedByCEDC)...
 # ===========================================
 ait:Gs067Shape a sh:NodeShape ;
-    sh:targetClass ait:C ;
+    sh:targetClass ait:President ;
     rdfs:label "GS-067" ;
     rdfs:comment "In discharging his/her responsibility to implement this Policy, the President may
 be assisted by the" ;
     deontic:type deontic:permission ;
     sh:severity sh:Info ;
     sh:property [
-        sh:path ait:president ;
-        sh:name "President" ;
+        sh:path ait:c ;
+        sh:name "c" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
@@ -1737,25 +1738,25 @@ problems before rec..."
 # FOL: O(consult_problem)...
 # ===========================================
 ait:Gs069Shape a sh:NodeShape ;
-    sh:targetClass ait:LineManager ;
+    sh:targetClass ait:Friend ;
     rdfs:label "GS-069" ;
     rdfs:comment "2.2 Consultation refers, in this context, to discussion of problems or potential
 problems before rec" ;
     deontic:type deontic:obligation ;
     sh:severity sh:Violation ;
     sh:property [
-        sh:path ait:senior ;
-        sh:name "senior" ;
-        sh:minCount 1 ;
-    ] ;
-    sh:property [
-        sh:path ait:employee ;
-        sh:name "employee" ;
+        sh:path ait:partner ;
+        sh:name "partner" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
         sh:path ait:problem ;
         sh:name "problem" ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path ait:relative ;
+        sh:name "relative" ;
         sh:minCount 1 ;
     ] .
 
@@ -1766,15 +1767,15 @@ addressed to the Vice President for Academic Affairs...."
 # FOL: O(address_appeal_to_VicePresident)...
 # ===========================================
 ait:Gs070Shape a sh:NodeShape ;
-    sh:targetClass ait:Address ;
+    sh:targetClass ait:A ;
     rdfs:label "GS-070" ;
     rdfs:comment "The appeal should be
 addressed to the Vice President for Academic Affairs." ;
     deontic:type deontic:obligation ;
     sh:severity sh:Violation ;
     sh:property [
-        sh:path ait:a ;
-        sh:name "a" ;
+        sh:path ait:address ;
+        sh:name "Address" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
@@ -1790,17 +1791,12 @@ reprimand as a first warn..."
 # FOL: O(reprimandStudent)...
 # ===========================================
 ait:Gs071Shape a sh:NodeShape ;
-    sh:targetClass ait:Student ;
+    sh:targetClass ait:Disturbingpeace ;
     rdfs:label "GS-071" ;
     rdfs:comment "Students disturbing the peace of their surroundings shall receive a formal
 reprimand as a first warn" ;
     deontic:type deontic:obligation ;
     sh:severity sh:Violation ;
-    sh:property [
-        sh:path ait:disturbingpeace ;
-        sh:name "disturbingPeace" ;
-        sh:minCount 1 ;
-    ] ;
     sh:property [
         sh:path ait:s ;
         sh:name "s" ;
@@ -1810,6 +1806,11 @@ reprimand as a first warn" ;
         sh:path ait:reprimandstudent ;
         sh:name "reprimandStudent" ;
         sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path ait:student ;
+        sh:name "student" ;
+        sh:minCount 1 ;
     ] .
 
 # ===========================================
@@ -1818,14 +1819,14 @@ reprimand as a first warn" ;
 # FOL: F(wears_improper_sports_attire)...
 # ===========================================
 ait:Gs072Shape a sh:NodeShape ;
-    sh:targetClass ait:WearsProperSportsAttire ;
+    sh:targetClass ait:LocatedatSportsfacility ;
     rdfs:label "GS-072" ;
     rdfs:comment "Proper sports attire is required for each sports facility." ;
     deontic:type deontic:prohibition ;
     sh:severity sh:Violation ;
     sh:property [
-        sh:path ait:locatedatsportsfacility ;
-        sh:name "locatedAt_sportsFacility" ;
+        sh:path ait:wearspropersportsattire ;
+        sh:name "wears_proper_sports_attire" ;
         sh:minCount 1 ;
     ] .
 
@@ -1836,7 +1837,7 @@ on collections shall be initiate..."
 # FOL: O(review_overdue_accounts λ periodically && O(initiate_collections_followup))...
 # ===========================================
 ait:Gs073Shape a sh:NodeShape ;
-    sh:targetClass ait:Review ;
+    sh:targetClass ait:Overdueaccount ;
     rdfs:label "GS-073" ;
     rdfs:comment "(vii) Overdue accounts shall be reviewed periodically and follow-up
 on collections shall be initiate" ;
@@ -1848,8 +1849,8 @@ on collections shall be initiate" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
-        sh:path ait:overdueaccount ;
-        sh:name "OverdueAccount" ;
+        sh:path ait:review ;
+        sh:name "Review" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
@@ -1865,20 +1866,20 @@ in the waiting list and live in staff housing depending on availability..."
 # FOL: P(putNameInWaitingList) ∧ P(liveInStaffHousing)...
 # ===========================================
 ait:Gs074Shape a sh:NodeShape ;
-    sh:targetClass ait:Liveinstaffhousing ;
+    sh:targetClass ait:Student ;
     rdfs:label "GS-074" ;
     rdfs:comment "Students may put their names
 in the waiting list and live in staff housing depending on availability" ;
     deontic:type deontic:permission ;
     sh:severity sh:Info ;
     sh:property [
-        sh:path ait:student ;
-        sh:name "Student" ;
+        sh:path ait:s ;
+        sh:name "s" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
-        sh:path ait:s ;
-        sh:name "s" ;
+        sh:path ait:liveinstaffhousing ;
+        sh:name "LiveInStaffHousing" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
@@ -1894,7 +1895,7 @@ for 12 credits Tui..."
 # FOL: O(Student(x) Within(study_period, yr, x) Implies PayFee(x, Baht 188000, 12, 'Tui...
 # ===========================================
 ait:Gs075Shape a sh:NodeShape ;
-    sh:targetClass ait:Student ;
+    sh:targetClass ait:Adddropcoursesdeadline ;
     rdfs:label "GS-075" ;
     rdfs:comment "Students within the normal study period must pay the semester fee of Baht 188,000
 for 12 credits Tui" ;
@@ -1906,8 +1907,8 @@ for 12 credits Tui" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
-        sh:path ait:adddropcoursesdeadline ;
-        sh:name "AddDropCoursesDeadline" ;
+        sh:path ait:student ;
+        sh:name "Student" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
@@ -1923,17 +1924,12 @@ equipment of the court...."
 # FOL: O(turnOffLightsAndEquipment)...
 # ===========================================
 ait:Gs076Shape a sh:NodeShape ;
-    sh:targetClass ait:Hasleftcourt ;
+    sh:targetClass ait:Turnsofflightsandequipment ;
     rdfs:label "GS-076" ;
     rdfs:comment "Last players of the evening must turn off the lights and other electrical
 equipment of the court." ;
     deontic:type deontic:obligation ;
     sh:severity sh:Violation ;
-    sh:property [
-        sh:path ait:turnsofflightsandequipment ;
-        sh:name "TurnsOffLightsAndEquipment" ;
-        sh:minCount 1 ;
-    ] ;
     sh:property [
         sh:path ait:p ;
         sh:name "p" ;
@@ -1942,6 +1938,11 @@ equipment of the court." ;
     sh:property [
         sh:path ait:lastplayer ;
         sh:name "LastPlayer" ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path ait:hasleftcourt ;
+        sh:name "HasLeftCourt" ;
         sh:minCount 1 ;
     ] .
 
@@ -1952,7 +1953,7 @@ within ten working days of the notice...."
 # FOL: O(Hearing \ within(10, 'working days', notice))...
 # ===========================================
 ait:Gs077Shape a sh:NodeShape ;
-    sh:targetClass ait:Within ;
+    sh:targetClass ait:Duration ;
     rdfs:label "GS-077" ;
     rdfs:comment "Hearings should normally be held
 within ten working days of the notice." ;
@@ -1964,8 +1965,8 @@ within ten working days of the notice." ;
         sh:minCount 1 ;
     ] ;
     sh:property [
-        sh:path ait:duration ;
-        sh:name "Duration" ;
+        sh:path ait:within ;
+        sh:name "within" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
@@ -2007,20 +2008,20 @@ to those whose exchange program is less than two months...."
 # FOL: O(ExchangeProgramLength(x) < 2 => P(GiveException(x)))...
 # ===========================================
 ait:Gs080Shape a sh:NodeShape ;
-    sh:targetClass ait:Permission ;
+    sh:targetClass ait:Exchangeprogramlength ;
     rdfs:label "GS-080" ;
     rdfs:comment "Exceptions may only be given
 to those whose exchange program is less than two months." ;
     deontic:type deontic:obligation ;
     sh:severity sh:Violation ;
     sh:property [
-        sh:path ait:giveexception ;
-        sh:name "GiveException" ;
+        sh:path ait:permission ;
+        sh:name "Permission" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
-        sh:path ait:exchangeprogramlength ;
-        sh:name "ExchangeProgramLength" ;
+        sh:path ait:giveexception ;
+        sh:name "GiveException" ;
         sh:minCount 1 ;
     ] .
 
@@ -2038,18 +2039,18 @@ trainer might need to pay for " ;
     deontic:type deontic:obligation ;
     sh:severity sh:Violation ;
     sh:property [
-        sh:path ait:trainingsession ;
-        sh:name "TrainingSession" ;
-        sh:minCount 1 ;
-    ] ;
-    sh:property [
-        sh:path ait:trainerpaysforfacilities ;
-        sh:name "TrainerPaysForFacilities" ;
-        sh:minCount 1 ;
-    ] ;
-    sh:property [
         sh:path ait:permissionsfromofam ;
         sh:name "permissions_from_OFAM" ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path ait:permissionfromofam ;
+        sh:name "PermissionFromOFAM" ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path ait:trainingsession ;
+        sh:name "TrainingSession" ;
         sh:minCount 1 ;
     ] .
 
@@ -2060,15 +2061,15 @@ Generali Life Assurance (Thailand)..."
 # FOL: O(direct_question -> about(plan) v about(enrollment) v about(claim) -> to(Genera...
 # ===========================================
 ait:Gs082Shape a sh:NodeShape ;
-    sh:targetClass ait:Asks ;
+    sh:targetClass ait:To ;
     rdfs:label "GS-082" ;
     rdfs:comment "Questions about the plan, enrollment, claim should be directed to
 Generali Life Assurance (Thailand)" ;
     deontic:type deontic:obligation ;
     sh:severity sh:Violation ;
     sh:property [
-        sh:path ait:to ;
-        sh:name "to" ;
+        sh:path ait:asks ;
+        sh:name "asks" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
@@ -2103,15 +2104,15 @@ Dean, the Vice President for Academic Affairs..."
 # FOL: O(Dismiss(s) if GraveCheat(s) && DecideGuilty(SD, VPAA, AS))...
 # ===========================================
 ait:Gs084Shape a sh:NodeShape ;
-    sh:targetClass ait:Dismiss ;
+    sh:targetClass ait:Gravecheat ;
     rdfs:label "GS-084" ;
     rdfs:comment "A student found guilty of grave cheating by the School
 Dean, the Vice President for Academic Affairs" ;
     deontic:type deontic:obligation ;
     sh:severity sh:Violation ;
     sh:property [
-        sh:path ait:gravecheat ;
-        sh:name "GraveCheat" ;
+        sh:path ait:dismiss ;
+        sh:name "Dismiss" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
@@ -2134,6 +2135,11 @@ of each month." ;
     deontic:type deontic:obligation ;
     sh:severity sh:Violation ;
     sh:property [
+        sh:path ait:studentemployee ;
+        sh:name "StudentEmployee" ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
         sh:path ait:month ;
         sh:name "Month" ;
         sh:minCount 1 ;
@@ -2141,11 +2147,6 @@ of each month." ;
     sh:property [
         sh:path ait:completeworktimereport ;
         sh:name "CompleteWorkTimeReport" ;
-        sh:minCount 1 ;
-    ] ;
-    sh:property [
-        sh:path ait:studentemployee ;
-        sh:name "StudentEmployee" ;
         sh:minCount 1 ;
     ] .
 
@@ -2157,7 +2158,7 @@ complainee, who should ..."
 # FOL: O(reportEvidence(x, y)) && O(giveOpportunityToChallenge(x, z)) && O(presentDefen...
 # ===========================================
 ait:Gs086Shape a sh:NodeShape ;
-    sh:targetClass ait:Giveopportunitytochallenge ;
+    sh:targetClass ait:Presentdefenseevidence ;
     rdfs:label "GS-086" ;
     rdfs:comment "Any
 evidence to be considered in the investigation should be reported to the
@@ -2165,18 +2166,18 @@ complainee, who should " ;
     deontic:type deontic:obligation ;
     sh:severity sh:Violation ;
     sh:property [
-        sh:path ait:opportunitytochallenge ;
-        sh:name "OpportunityToChallenge" ;
-        sh:minCount 1 ;
-    ] ;
-    sh:property [
         sh:path ait:presentdefenseevidence ;
         sh:name "presentDefenseEvidence" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
-        sh:path ait:presentdefenseevidence ;
-        sh:name "PresentDefenseEvidence" ;
+        sh:path ait:opportunitytochallenge ;
+        sh:name "OpportunityToChallenge" ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path ait:giveopportunitytochallenge ;
+        sh:name "giveOpportunityToChallenge" ;
         sh:minCount 1 ;
     ] .
 
@@ -2187,25 +2188,25 @@ Scholarships Unit (ASU) is required t..."
 # FOL: O(ASU_ensures_financial_support)...
 # ===========================================
 ait:Gs087Shape a sh:NodeShape ;
-    sh:targetClass ait:Student ;
+    sh:targetClass ait:HasProofOfFinancialSupport ;
     rdfs:label "GS-087" ;
     rdfs:comment "Before a student is accepted for enrolment, the Admissions and
 Scholarships Unit (ASU) is required t" ;
     deontic:type deontic:obligation ;
     sh:severity sh:Violation ;
     sh:property [
-        sh:path ait:hasproofoffinancialsupport ;
-        sh:name "Has_proof_of_financial_support" ;
-        sh:minCount 1 ;
-    ] ;
-    sh:property [
-        sh:path ait:asu ;
-        sh:name "ASU" ;
-        sh:minCount 1 ;
-    ] ;
-    sh:property [
         sh:path ait:coversfullstudyprogram ;
         sh:name "Covers_full_study_program" ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path ait:student ;
+        sh:name "Student" ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path ait:enrolment ;
+        sh:name "Enrolment" ;
         sh:minCount 1 ;
     ] .
 
@@ -2216,17 +2217,12 @@ Baht 2,000 and charg..."
 # FOL: F(hasUnitType(dormitory) implies F(hasAppliances) && O(payFine(2000)) && O(charg...
 # ===========================================
 ait:Gs088Shape a sh:NodeShape ;
-    sh:targetClass ait:Hasappliances ;
+    sh:targetClass ait:Payfine ;
     rdfs:label "GS-088" ;
     rdfs:comment "accommodation units dormitories not designed for such facilities, will be fined
 Baht 2,000 and charg" ;
     deontic:type deontic:prohibition ;
     sh:severity sh:Violation ;
-    sh:property [
-        sh:path ait:payfine ;
-        sh:name "payFine" ;
-        sh:minCount 1 ;
-    ] ;
     sh:property [
         sh:path ait:chargeforremovalservices ;
         sh:name "chargeForRemovalServices" ;
@@ -2235,6 +2231,11 @@ Baht 2,000 and charg" ;
     sh:property [
         sh:path ait:hasunittype ;
         sh:name "hasUnitType" ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path ait:hasappliances ;
+        sh:name "hasAppliances" ;
         sh:minCount 1 ;
     ] .
 
@@ -2254,13 +2255,13 @@ or a senio" ;
     deontic:type deontic:obligation ;
     sh:severity sh:Violation ;
     sh:property [
-        sh:path ait:studentunionpresident ;
-        sh:name "student_union_president" ;
+        sh:path ait:reserve ;
+        sh:name "reserve" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
-        sh:path ait:reserve ;
-        sh:name "reserve" ;
+        sh:path ait:studentunionpresident ;
+        sh:name "student_union_president" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
@@ -2277,7 +2278,7 @@ a..."
 # FOL: P(provideStudentDormitory(n))...
 # ===========================================
 ait:Gs090Shape a sh:NodeShape ;
-    sh:targetClass ait:Available ;
+    sh:targetClass ait:Provided ;
     rdfs:label "GS-090" ;
     rdfs:comment "Student dormitories may be provided for a
 maximum period of one month, in case of availability to:
@@ -2295,8 +2296,8 @@ a" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
-        sh:path ait:provided ;
-        sh:name "Provided" ;
+        sh:path ait:studentdormitory ;
+        sh:name "StudentDormitory" ;
         sh:minCount 1 ;
     ] .
 
@@ -2306,7 +2307,7 @@ a" ;
 # FOL: O(settled(invoice, due_date))...
 # ===========================================
 ait:Gs091Shape a sh:NodeShape ;
-    sh:targetClass ait:Invoice ;
+    sh:targetClass ait:Settled ;
     rdfs:label "GS-091" ;
     rdfs:comment "Invoices are required to be settled by the indicated due date." ;
     deontic:type deontic:obligation ;
@@ -2317,13 +2318,13 @@ ait:Gs091Shape a sh:NodeShape ;
         sh:minCount 1 ;
     ] ;
     sh:property [
-        sh:path ait:settled ;
-        sh:name "Settled" ;
+        sh:path ait:x ;
+        sh:name "x" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
-        sh:path ait:x ;
-        sh:name "x" ;
+        sh:path ait:invoice ;
+        sh:name "Invoice" ;
         sh:minCount 1 ;
     ] .
 
@@ -2348,25 +2349,25 @@ off-campus..."
 # FOL: F(livesOnCampus(s, f))...
 # ===========================================
 ait:Gs093Shape a sh:NodeShape ;
-    sh:targetClass ait:Nonresidentstudent ;
+    sh:targetClass ait:Livesoncampus ;
     rdfs:label "GS-093" ;
     rdfs:comment "Families of non-resident students may not reside on campus if the non-resident student is
 off-campus" ;
     deontic:type deontic:prohibition ;
     sh:severity sh:Violation ;
     sh:property [
-        sh:path ait:offcampus ;
-        sh:name "OffCampus" ;
+        sh:path ait:f ;
+        sh:name "f" ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path ait:nonresidentstudent ;
+        sh:name "NonResidentStudent" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
         sh:path ait:livesoncampus ;
         sh:name "LivesOnCampus" ;
-        sh:minCount 1 ;
-    ] ;
-    sh:property [
-        sh:path ait:f ;
-        sh:name "f" ;
         sh:minCount 1 ;
     ] .
 
@@ -2377,25 +2378,25 @@ instructional teaching assistants may include assisting faculty in preparing mat
 # FOL: O(assists_faculty)...
 # ===========================================
 ait:Gs094Shape a sh:NodeShape ;
-    sh:targetClass ait:PreparingMaterialsForLectures ;
+    sh:targetClass ait:AssistsFaculty ;
     rdfs:label "GS-094" ;
     rdfs:comment "The duties of non-
 instructional teaching assistants may include assisting faculty in preparing mate" ;
     deontic:type deontic:obligation ;
     sh:severity sh:Violation ;
     sh:property [
+        sh:path ait:postingwebbasedmaterials ;
+        sh:name "posting_web_based_materials" ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path ait:projects ;
+        sh:name "projects" ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
         sh:path ait:action ;
         sh:name "action" ;
-        sh:minCount 1 ;
-    ] ;
-    sh:property [
-        sh:path ait:gradingassignmentsandquizzes ;
-        sh:name "grading_assignments_and_quizzes" ;
-        sh:minCount 1 ;
-    ] ;
-    sh:property [
-        sh:path ait:assistsfaculty ;
-        sh:name "assists_faculty" ;
         sh:minCount 1 ;
     ] .
 
@@ -2413,13 +2414,13 @@ community who wishes" ;
     deontic:type deontic:obligation ;
     sh:severity sh:Violation ;
     sh:property [
-        sh:path ait:preliminaryconsultationavailable ;
-        sh:name "PreliminaryConsultationAvailable" ;
+        sh:path ait:x ;
+        sh:name "x" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
-        sh:path ait:x ;
-        sh:name "x" ;
+        sh:path ait:preliminaryconsultationavailable ;
+        sh:name "PreliminaryConsultationAvailable" ;
         sh:minCount 1 ;
     ] .
 
@@ -2429,24 +2430,24 @@ community who wishes" ;
 # FOL: P(waits_at_Thammasat)...
 # ===========================================
 ait:Gs096Shape a sh:NodeShape ;
-    sh:targetClass ait:Student ;
+    sh:targetClass ait:A ;
     rdfs:label "GS-096" ;
     rdfs:comment "Students may wait for the vans at the Thammasat Road near AIT Gate No." ;
     deontic:type deontic:permission ;
     sh:severity sh:Info ;
     sh:property [
-        sh:path ait:may ;
-        sh:name "May" ;
-        sh:minCount 1 ;
-    ] ;
-    sh:property [
-        sh:path ait:location ;
-        sh:name "Location" ;
+        sh:path ait:aitgate ;
+        sh:name "AIT_Gate" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
         sh:path ait:near ;
         sh:name "Near" ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path ait:student ;
+        sh:name "Student" ;
         sh:minCount 1 ;
     ] .
 
@@ -2457,7 +2458,7 @@ All degree program students (including CAS and Cer..."
 # FOL: O(student(x) implies takes(x, AIT-WT))...
 # ===========================================
 ait:Gs097Shape a sh:NodeShape ;
-    sh:targetClass ait:Student ;
+    sh:targetClass ait:X ;
     rdfs:label "GS-097" ;
     rdfs:comment "Writing Placement Test for Registration/Enrolment
 All degree program students (including CAS and Cer" ;
@@ -2465,17 +2466,17 @@ All degree program students (including CAS and Cer" ;
     sh:severity sh:Violation ;
     sh:property [
         sh:path ait:student ;
-        sh:name "student" ;
+        sh:name "Student" ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path ait:takes ;
+        sh:name "takes" ;
         sh:minCount 1 ;
     ] ;
     sh:property [
         sh:path ait:takes ;
         sh:name "Takes" ;
-        sh:minCount 1 ;
-    ] ;
-    sh:property [
-        sh:path ait:x ;
-        sh:name "x" ;
         sh:minCount 1 ;
     ] .
 
