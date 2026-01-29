@@ -70,8 +70,7 @@ services:
     container_name: my-postgres
     env_file:
       - ./.env
-    ports:
-      - "5433:5432"  # Changed external port to avoid conflict
+    # No external port - accessed via internal Docker network (postgres:5432)
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
