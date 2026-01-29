@@ -7,10 +7,18 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 from pathlib import Path
 import json
+import sys
 from datetime import datetime
 
 app = Flask(__name__)
 CORS(app)
+
+# Add agent to path
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
+# Register agent blueprint
+from agent.routes import agent_bp
+app.register_blueprint(agent_bp)
 
 # Paths
 PROJECT_ROOT = Path(__file__).parent.parent.parent
