@@ -1,6 +1,6 @@
 # SHACL Translation Report
 
-**Generated:** 2026-01-29T19:17:42.911905
+**Generated:** 2026-01-29T19:36:39.802512
 **Output:** ait_policy_shapes.ttl
 
 ## Statistics
