@@ -1,0 +1,589 @@
+{
+  "metadata": {
+    "timestamp": "2026-01-29T16:50:21.660613",
+    "ollama_url": "http://10.99.200.2:11434",
+    "models": [
+      "llama3.2",
+      "phi3",
+      "mistral",
+      "mixtral",
+      "llama3.1:70b"
+    ],
+    "total_rules": 5
+  },
+  "model_results": {
+    "llama3.2": [
+      {
+        "id": "GS-001",
+        "result": {
+          "is_rule": true,
+          "confidence": 0.8,
+          "rule_type": "permission",
+          "subject": "contracted research",
+          "condition": "none specified",
+          "action": "may entail",
+          "deontic_marker": "may",
+          "reasoning": "to restrict publication"
+        }
+      },
+      {
+        "id": "GS-002",
+        "result": {
+          "is_rule": null,
+          "error": "Failed to parse response"
+        }
+      },
+      {
+        "id": "GS-003",
+        "result": {
+          "is_rule": true,
+          "confidence": 1.0,
+          "rule_type": "obligation",
+          "subject": "Continuing full-time postgraduate (PG) students",
+          "condition": "from the second semester/term onwards",
+          "action": "be invoiced for applicable registration, tuition, and other fees each semester/term",
+          "deontic_marker": "must",
+          "reasoning": "Prescribes action of being invoiced for fees"
+        }
+      },
+      {
+        "id": "GS-004",
+        "result": {
+          "is_rule": true,
+          "confidence": 1.0,
+          "rule_type": "permission",
+          "subject": "OFIN",
+          "condition": "none specified",
+          "action": "may happen",
+          "deontic_marker": "may",
+          "reasoning": "Writing-off of doubtful accounts is permitted to be requested by OFIN and approved by the President, or their VP designate."
+        }
+      },
+      {
+        "id": "GS-005",
+        "result": {
+          "is_rule": true,
+          "confidence": 0.9,
+          "rule_type": "obligation",
+          "subject": "Sponsors",
+          "condition": "none specified",
+          "action": "be invoiced for outstanding dues and send a promissory note detailing when and how payment will be made",
+          "deontic_marker": "must",
+          "reasoning": "This rule prescribes an action that Sponsors must take"
+        }
+      }
+    ],
+    "phi3": [
+      {
+        "id": "GS-001",
+        "result": {
+          "is_rule": true,
+          "confidence": 0.95,
+          "rule_type": "obligation",
+          "subject": "Contracted researchers",
+          "condition": null,
+          "action": "Maintain confidentiality and restrict publication.",
+          "deontic_marker": "must",
+          "reasoning": "The text prescribes a duty for contracted researchers to keep information private."
+        }
+      },
+      {
+        "id": "GS-002",
+        "result": {
+          "is_rule": null,
+          "error": "Failed to parse response"
+        }
+      },
+      {
+        "id": "GS-003",
+        "result": {
+          "is_rule": true,
+          "confidence": 0.95,
+          "rule_type": "obligation",
+          "subject": "Continuing full-time postgraduate (PG) students (Master, Doctor and Diploma)",
+          "condition": "who completed at least one semester/term",
+          "action": "be invoiced for the applicable registration, tuition, and other fees each semester/term from the second onwards; must be paid in advance or fully before each term starts.",
+          "deontic_marker": "must",
+          "reasoning": "The text prescribes a mandatory action (invoicing of fees) with an obligation to pay them, and prohibits registration without payment."
+        }
+      },
+      {
+        "id": "GS-004",
+        "result": {
+          "is_rule": true,
+          "confidence": 0.95,
+          "rule_type": "obligation",
+          "subject": "Writing-off of doubtful accounts by OFIN and the President or their VP designate.",
+          "condition": null,
+          "action": "Request for writing off must be made to OFIN; approval required from the President or Vice President Designate (VP).",
+          "deontic_marker": "must/shall",
+          "reasoning": "The text prescribes a specific action that needs authorization, indicating an obligation."
+        }
+      },
+      {
+        "id": "GS-005",
+        "result": {
+          "is_rule": true,
+          "confidence": 0.95,
+          "rule_type": "obligation",
+          "subject": "sponsors of the academic document in question",
+          "condition": null,
+          "action": "invoice for outstanding dues and send a promissory note detailing payment plan.",
+          "deontic_marker": "must/shall",
+          "reasoning": "This rule is an obligation as it prescribes specific actions that sponsors are required to take regarding the invoicing of dues."
+        }
+      }
+    ],
+    "mistral": [
+      {
+        "id": "GS-001",
+        "result": {
+          "is_rule": true,
+          "confidence": 1.0,
+          "rule_type": "obligation",
+          "subject": "Contracted research",
+          "condition": null,
+          "action": "entail confidentiality and restriction on publication",
+          "deontic_marker": null,
+          "reasoning": "The text prescribes that contracted research must entail confidentiality and restrictions on publication."
+        }
+      },
+      {
+        "id": "GS-002",
+        "result": {
+          "is_rule": true,
+          "confidence": 0.9,
+          "rule_type": "obligation",
+          "subject": "individuals with educational visas",
+          "condition": null,
+          "action": "cancellation of their educational visas",
+          "deontic_marker": null,
+          "reasoning": "The text implies that there is an obligation or requirement for the cancellation of educational visas under certain circumstances (implied by the context), although no explicit deontic marker is present."
+        }
+      },
+      {
+        "id": "GS-003",
+        "result": {
+          "is_rule": true,
+          "confidence": 1.0,
+          "rule_type": "obligation",
+          "subject": "Continuing full-time postgraduate students",
+          "condition": "who completed at least one semester/term and are in the second semester/term onwards",
+          "action": "will be invoiced for applicable registration, tuition, and other fees each semester/term and must be paid in advance and/or fully paid before each semester/term starts",
+          "deontic_marker": "must",
+          "reasoning": "The text prescribes that certain students (subject) are obligated (action) to pay their fees (condition) under the stated circumstances, or else they will not be allowed to register (reasoning)"
+        }
+      },
+      {
+        "id": "GS-004",
+        "result": {
+          "is_rule": true,
+          "confidence": 1.0,
+          "rule_type": "obligation",
+          "subject": "OFIN (Office of Financial Services)",
+          "condition": null,
+          "action": "request writing-off of doubtful accounts",
+          "deontic_marker": "have to be approved by",
+          "reasoning": "The text prescribes that OFIN must request the writing-off of doubtful accounts and have it approved by either the President or their VP designate."
+        }
+      },
+      {
+        "id": "GS-005",
+        "result": {
+          "is_rule": true,
+          "confidence": 1.0,
+          "rule_type": "obligation",
+          "subject": "Sponsors",
+          "condition": null,
+          "action": "be invoiced for outstanding dues and send a promissory note detailing when and how payment will be made.",
+          "deontic_marker": "must",
+          "reasoning": "This text prescribes an action that sponsors must take regarding outstanding dues."
+        }
+      }
+    ],
+    "mixtral": [
+      {
+        "id": "GS-001",
+        "result": {
+          "is_rule": true,
+          "confidence": 0.9,
+          "rule_type": "prohibition",
+          "subject": null,
+          "condition": "when engaging in contracted research",
+          "action": "restriction on publication",
+          "deontic_marker": null,
+          "reasoning": "The text implies that there are possible restrictions on publishing results from contracted research due to confidentiality agreements."
+        }
+      },
+      {
+        "id": "GS-002",
+        "result": {
+          "is_rule": true,
+          "confidence": 0.9,
+          "rule_type": "prohibition",
+          "subject": "the holders of educational visas",
+          "condition": "if their behavior or circumstances warrant it",
+          "action": "cancellation of their visas",
+          "deontic_marker": null,
+          "reasoning": "Implied: The text is part of a discussion about consequences for international students who violate the terms of their visas."
+        }
+      },
+      {
+        "id": "GS-003",
+        "result": {
+          "is_rule": true,
+          "confidence": 0.9,
+          "rule_type": "obligation",
+          "subject": "Continuing full-time postgraduate (PG) students (Master, Doctor and Diploma)",
+          "condition": "who have completed at least one semester/term",
+          "action": "will be invoiced for the applicable registration, tuition, and other fees each semester/term from the second semester/term onwards, which must be paid in advance and/or fully paid before each semester/term starts, otherwise they will not be allowed to register",
+          "deontic_marker": "must/will"
+        }
+      },
+      {
+        "id": "GS-004",
+        "result": {
+          "is_rule": true,
+          "confidence": 1.0,
+          "rule_type": "obligation",
+          "subject": "OFIN and the President or their VP designate",
+          "condition": null,
+          "action": "requesting writing-off of doubtful accounts and approving such requests",
+          "deontic_marker": "have to be approved",
+          "reasoning": "Implicitly stated as a process within the organization"
+        }
+      },
+      {
+        "id": "GS-005",
+        "result": {
+          "is_rule": true,
+          "confidence": 0.95,
+          "rule_type": "obligation",
+          "subject": "Sponsors",
+          "condition": null,
+          "action": "be invoiced for outstanding dues and requested to send AIT a promissory note detailing when and how payment will be made",
+          "deontic_marker": "must",
+          "reasoning": "Implied by the context of managing financial obligations between parties"
+        }
+      }
+    ],
+    "llama3.1:70b": [
+      {
+        "id": "GS-001",
+        "result": {
+          "is_rule": true,
+          "confidence": 0.8,
+          "rule_type": "permission",
+          "subject": "contracted research",
+          "condition": null,
+          "action": "entail confidentiality and restriction on publication",
+          "deontic_marker": "may",
+          "reasoning": "The text implies that contracted research is allowed to have certain restrictions, indicating a permission-type rule."
+        }
+      },
+      {
+        "id": "GS-002",
+        "result": {
+          "is_rule": true,
+          "confidence": 0.9,
+          "rule_type": "prohibition",
+          "subject": "holders of educational visas",
+          "condition": "under certain circumstances (implied, but not specified)",
+          "action": "cancellation of their educational visas",
+          "deontic_marker": "may be cancelled (implies a possibility of prohibition)",
+          "reasoning": "The text implies that there are circumstances under which the visa can be cancelled, indicating a rule that prohibits the continuation of the visa under those conditions."
+        }
+      },
+      {
+        "id": "GS-003",
+        "result": {
+          "is_rule": true,
+          "confidence": 0.9,
+          "rule_type": "obligation",
+          "subject": "Continuing full-time postgraduate (PG) students (Master, Doctor and Diploma)",
+          "condition": "who completed at least one semester/term",
+          "action": "be invoiced for the applicable registration, tuition, and other fees each semester/term from the second semester/term onwards, which must be paid in advance and/or fully paid before each semester/term starts",
+          "deontic_marker": "must",
+          "reasoning": "This text prescribes a specific action (paying fees) that certain students (those who have completed at least one semester) are required to take. The use of 'must' indicates an obligation, and the consequence of not complying is explicitly stated ('otherwise they will not be allowed to register')."
+        }
+      },
+      {
+        "id": "GS-004",
+        "result": {
+          "is_rule": true,
+          "confidence": 0.9,
+          "rule_type": "obligation",
+          "subject": "OFIN and the President (or their VP designate)",
+          "condition": "when writing-off of doubtful accounts is requested by OFIN",
+          "action": "approval by the President, or their VP designate",
+          "deontic_marker": "have to be approved",
+          "reasoning": "The text prescribes a specific action that must occur in response to a particular condition (request from OFIN), indicating an obligation."
+        }
+      },
+      {
+        "id": "GS-005",
+        "result": {
+          "is_rule": true,
+          "confidence": 0.9,
+          "rule_type": "obligation",
+          "subject": "Sponsors",
+          "condition": null,
+          "action": "be invoiced for outstanding dues and send AIT a promissory note detailing when and how payment will be made",
+          "deontic_marker": "must",
+          "reasoning": "The text uses the deontic marker 'must' to indicate a mandatory action, which is a clear indicator of an obligation policy rule."
+        }
+      }
+    ]
+  },
+  "comparison": [
+    {
+      "id": "GS-001",
+      "text": "Contracted research may\nentail confidentiality and restriction on publication.",
+      "models": {
+        "llama3.2": {
+          "is_rule": true,
+          "confidence": 0.8,
+          "rule_type": "permission"
+        },
+        "phi3": {
+          "is_rule": true,
+          "confidence": 0.95,
+          "rule_type": "obligation"
+        },
+        "mistral": {
+          "is_rule": true,
+          "confidence": 1.0,
+          "rule_type": "obligation"
+        },
+        "mixtral": {
+          "is_rule": true,
+          "confidence": 0.9,
+          "rule_type": "prohibition"
+        },
+        "llama3.1:70b": {
+          "is_rule": true,
+          "confidence": 0.8,
+          "rule_type": "permission"
+        }
+      }
+    },
+    {
+      "id": "GS-002",
+      "text": "Their educational visas may also be\ncancelled.",
+      "models": {
+        "llama3.2": {
+          "is_rule": null,
+          "confidence": 0,
+          "rule_type": null
+        },
+        "phi3": {
+          "is_rule": null,
+          "confidence": 0,
+          "rule_type": null
+        },
+        "mistral": {
+          "is_rule": true,
+          "confidence": 0.9,
+          "rule_type": "obligation"
+        },
+        "mixtral": {
+          "is_rule": true,
+          "confidence": 0.9,
+          "rule_type": "prohibition"
+        },
+        "llama3.1:70b": {
+          "is_rule": true,
+          "confidence": 0.9,
+          "rule_type": "prohibition"
+        }
+      }
+    },
+    {
+      "id": "GS-003",
+      "text": "(2) Continuing full-time postgraduate (PG) students (Master, Doctor and\nDiploma)...",
+      "models": {
+        "llama3.2": {
+          "is_rule": true,
+          "confidence": 1.0,
+          "rule_type": "obligation"
+        },
+        "phi3": {
+          "is_rule": true,
+          "confidence": 0.95,
+          "rule_type": "obligation"
+        },
+        "mistral": {
+          "is_rule": true,
+          "confidence": 1.0,
+          "rule_type": "obligation"
+        },
+        "mixtral": {
+          "is_rule": true,
+          "confidence": 0.9,
+          "rule_type": "obligation"
+        },
+        "llama3.1:70b": {
+          "is_rule": true,
+          "confidence": 0.9,
+          "rule_type": "obligation"
+        }
+      }
+    },
+    {
+      "id": "GS-004",
+      "text": "Writing-off of doubtful accounts will be requested by OFIN and have to be\napprov...",
+      "models": {
+        "llama3.2": {
+          "is_rule": true,
+          "confidence": 1.0,
+          "rule_type": "permission"
+        },
+        "phi3": {
+          "is_rule": true,
+          "confidence": 0.95,
+          "rule_type": "obligation"
+        },
+        "mistral": {
+          "is_rule": true,
+          "confidence": 1.0,
+          "rule_type": "obligation"
+        },
+        "mixtral": {
+          "is_rule": true,
+          "confidence": 1.0,
+          "rule_type": "obligation"
+        },
+        "llama3.1:70b": {
+          "is_rule": true,
+          "confidence": 0.9,
+          "rule_type": "obligation"
+        }
+      }
+    },
+    {
+      "id": "GS-005",
+      "text": "Sponsors must be invoiced for outstanding\ndues and requested to send AIT a promi...",
+      "models": {
+        "llama3.2": {
+          "is_rule": true,
+          "confidence": 0.9,
+          "rule_type": "obligation"
+        },
+        "phi3": {
+          "is_rule": true,
+          "confidence": 0.95,
+          "rule_type": "obligation"
+        },
+        "mistral": {
+          "is_rule": true,
+          "confidence": 1.0,
+          "rule_type": "obligation"
+        },
+        "mixtral": {
+          "is_rule": true,
+          "confidence": 0.95,
+          "rule_type": "obligation"
+        },
+        "llama3.1:70b": {
+          "is_rule": true,
+          "confidence": 0.9,
+          "rule_type": "obligation"
+        }
+      }
+    }
+  ],
+  "metrics": {
+    "llama3.2": {
+      "total": 5,
+      "classified_as_rule": 4,
+      "classified_as_not_rule": 0,
+      "errors": 1,
+      "rule_rate": 0.8,
+      "avg_confidence": 0.74
+    },
+    "phi3": {
+      "total": 5,
+      "classified_as_rule": 4,
+      "classified_as_not_rule": 0,
+      "errors": 1,
+      "rule_rate": 0.8,
+      "avg_confidence": 0.76
+    },
+    "mistral": {
+      "total": 5,
+      "classified_as_rule": 5,
+      "classified_as_not_rule": 0,
+      "errors": 0,
+      "rule_rate": 1.0,
+      "avg_confidence": 0.9800000000000001
+    },
+    "mixtral": {
+      "total": 5,
+      "classified_as_rule": 5,
+      "classified_as_not_rule": 0,
+      "errors": 0,
+      "rule_rate": 1.0,
+      "avg_confidence": 0.93
+    },
+    "llama3.1:70b": {
+      "total": 5,
+      "classified_as_rule": 5,
+      "classified_as_not_rule": 0,
+      "errors": 0,
+      "rule_rate": 1.0,
+      "avg_confidence": 0.8800000000000001
+    },
+    "pairwise_agreement": {
+      "llama3.2_vs_phi3": {
+        "agreements": 4,
+        "total": 5,
+        "rate": 0.8
+      },
+      "llama3.2_vs_mistral": {
+        "agreements": 4,
+        "total": 5,
+        "rate": 0.8
+      },
+      "llama3.2_vs_mixtral": {
+        "agreements": 4,
+        "total": 5,
+        "rate": 0.8
+      },
+      "llama3.2_vs_llama3.1:70b": {
+        "agreements": 4,
+        "total": 5,
+        "rate": 0.8
+      },
+      "phi3_vs_mistral": {
+        "agreements": 4,
+        "total": 5,
+        "rate": 0.8
+      },
+      "phi3_vs_mixtral": {
+        "agreements": 4,
+        "total": 5,
+        "rate": 0.8
+      },
+      "phi3_vs_llama3.1:70b": {
+        "agreements": 4,
+        "total": 5,
+        "rate": 0.8
+      },
+      "mistral_vs_mixtral": {
+        "agreements": 5,
+        "total": 5,
+        "rate": 1.0
+      },
+      "mistral_vs_llama3.1:70b": {
+        "agreements": 5,
+        "total": 5,
+        "rate": 1.0
+      },
+      "mixtral_vs_llama3.1:70b": {
+        "agreements": 5,
+        "total": 5,
+        "rate": 1.0
+      }
+    }
+  }
+}
