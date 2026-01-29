@@ -1,0 +1,16 @@
+[PrefixDeclaration]
+ait:   http://ait.ac.th/ontology#
+rdf:   http://www.w3.org/1999/02/22-rdf-syntax-ns#
+rdfs:  http://www.w3.org/2000/01/rdf-schema#
+xsd:   http://www.w3.org/2001/XMLSchema#
+
+[MappingDeclaration] @collection [[
+mappingId	StudentMapping
+target		ait:student/{student_id} a ait:Student ; ait:hasId "{student_id}" ; ait:hasName "{full_name}" ; ait:hasStudentType "{student_type}" ; ait:hasEnrollmentStatus "{enrollment_status}" .
+source		select * from students
+
+mappingId	InvoiceMapping
+target		ait:student/{student_id} ait:hasFinancialObligation [ a ait:Obligation ; ait:hasObligationType "{obligation_type}" ; ait:isPaid "{is_paid}"^^xsd:boolean ; ait:outstandingDurationDays "{outstanding_days}"^^xsd:integer ] .
+source		select * from invoices
+
+]]

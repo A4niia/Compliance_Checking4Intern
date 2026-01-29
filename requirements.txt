@@ -1,0 +1,4 @@
+"fastapi[all]"
+rdflib
+pyshacl
+psycopg2-binary

@@ -1,0 +1,61 @@
+@prefix sh:    <http://www.w3.org/ns/shacl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix ait:   <http://ait.ac.th/ontology#> .
+
+# ================================================================
+# Rule 1: Tuition Fee Compliance for Self-Support Students
+# Description: Checks if any 'Enrolled' student of type 'Self-Support' has an unpaid tuition fee.
+# This rule enforces FB-6-1-1, section III.1.(2).
+# ================================================================
+
+ait:TuitionComplianceShape
+  a sh:NodeShape ;
+  sh:targetClass ait:Student ;
+  sh:sparql [
+    a sh:SPARQLConstraint ;
+    sh:message "Self-Support students must pay tuition fees to be enrolled." ;
+    sh:select """
+      PREFIX ait: <http://ait.ac.th/ontology#>
+      PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+      SELECT $this
+      WHERE {
+        $this a ait:Student .
+        $this ait:hasStudentType "Self-Support" .
+        $this ait:hasEnrollmentStatus "Enrolled" .
+        $this ait:hasFinancialObligation ?obligation .
+        
+        ?obligation ait:hasObligationType "TuitionFee" .
+        ?obligation ait:isPaid "false"^^xsd:boolean .
+      }
+      """ ;
+  ] .
+
+# ================================================================
+# Rule 2: Accommodation Fee Overdue Compliance
+# Description: Checks if any student has an outstanding accommodation fee for more than 60 days.
+# This rule enforces FB-6-1-1, IV.A.(6) and related handbook policies.
+# ================================================================
+
+ait:AccommodationComplianceShape
+  a sh:NodeShape ;
+  sh:targetClass ait:Student ;
+  sh:sparql [
+    a sh:SPARQLConstraint ;
+    sh:message "Student has accommodation fees overdue for more than 2 months (60 days)." ;
+    sh:select """
+      PREFIX ait: <http://ait.ac.th/ontology#>
+      PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+      SELECT $this
+      WHERE {
+        $this a ait:Student .
+        $this ait:hasFinancialObligation ?obligation .
+
+        ?obligation ait:hasObligationType "AccommodationFee" .
+        ?obligation ait:outstandingDurationDays ?days .
+
+        FILTER(?days > 60)
+      }
+      """ ;
+  ] .

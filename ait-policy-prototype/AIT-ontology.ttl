@@ -1,0 +1,87 @@
+# ================================================================
+# AIT Student Policy Ontology (Prototype V1.0)
+# Defines the core classes and properties for the student policy domain.
+# ================================================================
+
+# == 1. Prefixes ==
+@prefix ait:   <http://ait.ac.th/ontology#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+
+# == 2. Class Definitions ==
+# Defines the main concepts (the "nouns") in our domain.
+
+ait:Student
+  a rdfs:Class ;
+  rdfs:label "AIT Student"@en ;
+  rdfs:comment "Represents a student enrolled at the Asian Institute of Technology."@en .
+
+ait:Obligation
+  a rdfs:Class ;
+  rdfs:label "Financial Obligation"@en ;
+  rdfs:comment "Represents a financial obligation or invoice that a student has."@en .
+
+# == 3. Property Definitions ==
+# Defines the relationships and attributes (the "verbs") for our classes.
+
+# -- 3.1 Properties for Student Class --
+
+ait:hasId
+  a rdf:Property ;
+  rdfs:domain ait:Student ;
+  rdfs:range xsd:string ;
+  rdfs:label "has ID"@en ;
+  rdfs:comment "The unique identifier for a student."@en .
+
+ait:hasName
+  a rdf:Property ;
+  rdfs:domain ait:Student ;
+  rdfs:range xsd:string ;
+  rdfs:label "has name"@en ;
+  rdfs:comment "The full name of the student."@en .
+
+ait:hasStudentType
+  a rdf:Property ;
+  rdfs:domain ait:Student ;
+  rdfs:range xsd:string ;
+  rdfs:label "has student type"@en ;
+  rdfs:comment "The type of the student, e.g., Self-Support, Scholarship."@en .
+
+ait:hasEnrollmentStatus
+  a rdf:Property ;
+  rdfs:domain ait:Student ;
+  rdfs:range xsd:string ;
+  rdfs:label "has enrollment status"@en ;
+  rdfs:comment "The current enrollment status of the student, e.g., Enrolled, Suspended."@en .
+
+ait:hasFinancialObligation
+  a rdf:Property ;
+  rdfs:domain ait:Student ;
+  rdfs:range ait:Obligation ;
+  rdfs:label "has financial obligation"@en ;
+  rdfs:comment "Links a student to a specific financial obligation."@en .
+
+# -- 3.2 Properties for Obligation Class --
+
+ait:hasObligationType
+  a rdf:Property ;
+  rdfs:domain ait:Obligation ;
+  rdfs:range xsd:string ;
+  rdfs:label "has obligation type"@en ;
+  rdfs:comment "The type of the obligation, e.g., TuitionFee, AccommodationFee."@en .
+
+ait:isPaid
+  a rdf:Property ;
+  rdfs:domain ait:Obligation ;
+  rdfs:range xsd:boolean ;
+  rdfs:label "is paid"@en ;
+  rdfs:comment "Indicates whether the obligation has been paid (true/false)."@en .
+
+ait:outstandingDurationDays
+  a rdf:Property ;
+  rdfs:domain ait:Obligation ;
+  rdfs:range xsd:integer ;
+  rdfs:label "outstanding duration in days"@en ;
+  rdfs:comment "The number of days an obligation has been outstanding."@en .

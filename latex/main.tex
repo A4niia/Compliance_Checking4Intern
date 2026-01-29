@@ -1,0 +1,70 @@
+\documentclass[12pt,a4paper]{report}
+
+% Packages
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows,positioning}
+
+% Code listing style
+\lstdefinestyle{turtle}{
+  basicstyle=\small\ttfamily,
+  breaklines=true,
+  frame=single,
+  numbers=left,
+  numberstyle=\tiny,
+  keywordstyle=\color{blue},
+  commentstyle=\color{gray},
+}
+
+\lstdefinestyle{fol}{
+  basicstyle=\small\ttfamily,
+  breaklines=true,
+  frame=single,
+  mathescape=true,
+}
+
+% Title info
+\title{A Methodology for Transforming Natural Language Academic Policies into Formal Knowledge for Automated Reasoning}
+\author{Ponkrit Kaewsawee (ST124960)}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+This thesis presents a systematic methodology for transforming natural language academic policies into machine-executable formal knowledge using First-Order Logic (FOL) and SHACL (Shapes Constraint Language). The research addresses the challenge of automated policy compliance checking by: (1) discovering linguistic patterns that determine the formalizability of policy rules, (2) developing a verified transformation pipeline from natural language to SHACL constraints, and (3) evaluating the accuracy and coverage of the proposed approach using real policies from the Asian Institute of Technology.
+
+\textbf{Keywords:} Policy Formalization, SHACL, First-Order Logic, Semantic Web, Compliance Checking
+\end{abstract}
+
+\tableofcontents
+
+% Include chapters
+\include{chapters/01_introduction}
+\include{chapters/02_literature_review}
+\include{chapters/03_methodology}
+\include{chapters/04_implementation}
+\include{chapters/05_evaluation}
+\include{chapters/06_conclusion}
+
+% Appendices
+\appendix
+\include{appendices/A_corpus}
+\include{appendices/B_fol_statements}
+\include{appendices/C_shacl_shapes}
+
+\bibliographystyle{plain}
+\bibliography{references}
+
+\end{document}

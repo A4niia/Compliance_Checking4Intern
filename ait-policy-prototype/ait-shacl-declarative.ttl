@@ -1,0 +1,32 @@
+# Declarative SHACL Version (for SHACL2FOL compatibility)
+# This is an ALTERNATIVE representation of your rules
+# NOTE: Less expressive than sh:sparql but formally verifiable
+
+@prefix sh:    <http://www.w3.org/ns/shacl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix ait:   <http://ait.ac.th/ontology#> .
+
+# Rule 1: Tuition Compliance (Declarative Version)
+# This checks individual properties but CANNOT check the combination
+# as cleanly as the SPARQL version
+
+ait:SelfSupportStudentShape
+  a sh:NodeShape ;
+  sh:targetClass ait:Student ;
+  
+  # Check: If student is Self-Support...
+  sh:property [
+    sh:path ait:hasStudentType ;
+    sh:hasValue "Self-Support" ;
+    sh:minCount 0 ;  # Not required - this is a conditional
+  ] .
+
+# The PROBLEM with declarative SHACL:
+# We cannot express: "IF self-support AND enrolled AND has tuition obligation
+#                     THEN that obligation must be paid"
+# This requires SPARQL or very complex nested shapes.
+
+# For SHACL2FOL, we may need to:
+# 1. Simplify rules to what can be expressed declaratively
+# 2. Accept that some rules require SPARQL (won't be formally verified)
+# 3. Use hybrid approach (formal for simple, empirical for complex)

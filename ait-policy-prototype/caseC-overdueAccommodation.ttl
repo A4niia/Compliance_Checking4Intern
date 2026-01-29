@@ -1,0 +1,14 @@
+#Case C: Violating Student - Overdue Accommodation
+
+PREFIX ait: <http://ait.ac.th/ontology#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+ait:student_653333 a ait:Student ;
+  ait:hasStudentType "AIT-Administered Scholarship" ;
+  ait:hasEnrollmentStatus "Enrolled" ;
+  ait:hasFinancialObligation [
+	  a ait:Obligation ;
+	  ait:hasObligationType "AccommodationFee" ;
+	  ait:outstandingDurationDays "90"^^xsd:integer
+  ] .
