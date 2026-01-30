@@ -126,10 +126,10 @@ AVAILABLE_MODELS = {
 
 # Default models for each task
 DEFAULT_MODELS = {
-    "classification": "glm-4.7-flash",  # Best for RQ1
-    "simplification": "glm-4.7-flash",
-    "formalization": "glm-4.7-flash",   # Best for RQ2
-    "translation": "mistral",            # Simpler task
+    "classification": "mistral",     # Available locally
+    "simplification": "mistral",
+    "formalization": "mistral",      # Available locally
+    "translation": "mistral",        # Available locally
 }
 
 
@@ -137,7 +137,7 @@ class LLMService:
     """Service for interacting with Ollama LLMs"""
     
     def __init__(self, base_url: str = None):
-        self.base_url = base_url or os.getenv("OLLAMA_HOST", "http://compute02:11434")
+        self.base_url = base_url or os.getenv("OLLAMA_HOST", "http://localhost:11434")
         self.available_models = AVAILABLE_MODELS
         self.default_models = DEFAULT_MODELS
     
