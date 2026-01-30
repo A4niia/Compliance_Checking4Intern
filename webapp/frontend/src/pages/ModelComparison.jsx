@@ -14,6 +14,11 @@ const AVAILABLE_MODELS = [
     { id: 'llama3.1:70b', name: 'Llama 3.1 70B', size: '42 GB', context: '128k', recommended: false },
     { id: 'llama3.2', name: 'Llama 3.2', size: '2 GB', context: '8k', recommended: false },
     { id: 'phi3', name: 'Phi3', size: '2.2 GB', context: '4k', recommended: false },
+    // NEW MODELS
+    { id: 'deepseek-r1:70b', name: 'DeepSeek-R1 70B', size: '42 GB', context: '64k', recommended: true },
+    { id: 'gemma2:27b', name: 'Gemma 2 27B', size: '16 GB', context: '8k', recommended: false },
+    { id: 'codestral', name: 'Codestral', size: '12 GB', context: '32k', recommended: false },
+    { id: 'granite3.2:8b', name: 'Granite 3.2 8B', size: '5 GB', context: '128k', recommended: false },
 ]
 
 const SAMPLE_RULES = [
@@ -90,8 +95,8 @@ export default function ModelComparison() {
                             key={model.id}
                             onClick={() => toggleModel(model.id)}
                             className={`p-3 rounded-xl border-2 cursor-pointer transition-all ${selectedModels.includes(model.id)
-                                    ? 'border-blue-500 bg-blue-50'
-                                    : 'border-slate-200 hover:border-slate-300'
+                                ? 'border-blue-500 bg-blue-50'
+                                : 'border-slate-200 hover:border-slate-300'
                                 }`}
                         >
                             <div className="flex items-center gap-2">

@@ -93,6 +93,35 @@ AVAILABLE_MODELS = {
         best_for=["fast_classification", "testing"],
         category=ModelSize.SMALL
     ),
+    # NEW MODELS ADDED
+    "deepseek-r1:70b": ModelConfig(
+        name="deepseek-r1:70b",
+        size_gb=42,
+        context_length=64000,
+        best_for=["reasoning", "code", "math", "formalization"],
+        category=ModelSize.LARGE
+    ),
+    "gemma2:27b": ModelConfig(
+        name="gemma2:27b",
+        size_gb=16,
+        context_length=8192,
+        best_for=["classification", "summarization"],
+        category=ModelSize.MEDIUM
+    ),
+    "codestral": ModelConfig(
+        name="codestral",
+        size_gb=12,
+        context_length=32000,
+        best_for=["code_generation", "logic_formalization"],
+        category=ModelSize.MEDIUM
+    ),
+    "granite3.2:8b": ModelConfig(
+        name="granite3.2:8b",
+        size_gb=5,
+        context_length=128000,
+        best_for=["document_processing", "extraction"],
+        category=ModelSize.SMALL
+    ),
 }
 
 # Default models for each task
