@@ -130,21 +130,26 @@ Respond in JSON format only:
 """
 
 
-def query_ollama(prompt: str, model: str, ollama_url: str, timeout: int = 120) -> Optional[str]:
-    """Query Ollama API."""
+def query_ollama(prompt: str, model: str, ollama_url: str, timeout: int = 300) -> Optional[str]:
+    """Query Ollama API with proper streaming handling for slow HPC environments."""
     try:
         response = requests.post(
             f"{ollama_url}/api/generate",
             json={
                 "model": model,
                 "prompt": prompt,
-                "stream": True,
-                "options": {"temperature": 0.1}
+                "stream": False,
+                "options": {
+                    "temperature": 0.1,
+                    "num_predict": 1024,
+                }
             },
             timeout=timeout
         )
         if response.status_code == 200:
             return response.json().get("response", "")
+    except requests.exceptions.Timeout:
+        print(f"Timeout after {timeout}s - model may need preloading")
     except Exception as e:
         print(f"Error: {e}")
     return None
