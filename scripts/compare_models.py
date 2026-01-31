@@ -138,7 +138,7 @@ def query_ollama(prompt: str, model: str, ollama_url: str, timeout: int = 120) -
             json={
                 "model": model,
                 "prompt": prompt,
-                "stream": False,
+                "stream": True,
                 "options": {"temperature": 0.1}
             },
             timeout=timeout
