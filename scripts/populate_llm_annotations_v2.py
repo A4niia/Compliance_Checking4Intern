@@ -66,13 +66,30 @@ def test_ollama_connection(host: str = OLLAMA_HOST) -> bool:
                 "model": MODEL,
                 "prompt": "Reply with only the word: OK",
                 "temperature": 0.0,
-                "options": {"num_predict": 10}
+                "stream": False
             },
             timeout=60
         )
         
         if test_response.status_code == 200:
-            result = test_response.json().get("response", "")
+            # Ollama may return NDJSON (newline-delimited JSON)
+            response_text = test_response.text.strip()
+            
+            # Try to parse as single JSON first
+            try:
+                result_json = json.loads(response_text)
+                result = result_json.get("response", "")
+            except json.JSONDecodeError:
+                # Parse as NDJSON (multiple JSON objects, one per line)
+                result = ""
+                for line in response_text.split('\n'):
+                    if line.strip():
+                        try:
+                            line_json = json.loads(line)
+                            result += line_json.get("response", "")
+                        except json.JSONDecodeError:
+                            pass
+            
             print(f"   ✅ Model responded: {result[:50]}")
             return True
         else:
