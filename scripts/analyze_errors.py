@@ -241,7 +241,23 @@ def main():
     pred_data = load_model_predictions(args.predictions)
     
     # Extract model-specific predictions
-    if 'models' in pred_data:
+    # Structure: {model_results: {model_name: [{id, result}, ...]}}
+    if 'model_results' in pred_data:
+        model_results = pred_data['model_results'].get(args.model, [])
+        # Convert to standard format
+        predictions = []
+        for item in model_results:
+            result = item.get('result', {})
+            # Skip parsing errors
+            if result.get('is_rule') is None:
+                continue
+            
+            predictions.append({
+                'id': item.get('id'),
+                'rule_type': result.get('rule_type'),
+                'confidence': result.get('confidence', 0.0)
+            })
+    elif 'models' in pred_data:
         # Structure: {models: {model_name: {predictions: [...]}}}
         model_data = pred_data['models'].get(args.model, {})
         predictions = model_data.get('predictions', [])
