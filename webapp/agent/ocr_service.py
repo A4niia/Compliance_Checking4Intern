@@ -1,12 +1,11 @@
 """
 OCR Service for Document Processing
-Supports DeepSeek-OCR 2 and PyMuPDF fallback
+PyMuPDF-based text extraction for reproducibility
 """
 
 import os
 import fitz  # PyMuPDF
-import requests
-from typing import Dict, List, Optional
+from typing import List
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -18,7 +17,7 @@ class OCRResult:
     text: str
     pages: int
     words: int
-    method: str  # "deepseek-ocr2" or "pymupdf"
+    method: str  # Always "pymupdf"
     confidence: float
     tables: List[dict] = None
     error: str = None
@@ -38,72 +37,33 @@ class OCRResult:
 
 class OCRService:
     """
-    OCR Service with DeepSeek-OCR 2 support
+    OCR Service using PyMuPDF for reproducible text extraction
     
-    DeepSeek-OCR 2 Features:
-    - 91.09% accuracy on OmniDocBench v1.5
-    - Visual Causal Flow architecture
-    - Better table and formula extraction
-    - Reduced R-order Edit Distance (0.057)
+    Rationale for PyMuPDF-only approach:
+    - Reproducibility: Deterministic output, no API dependencies
+    - Sufficiency: ~85% accuracy adequate for manually-verified gold standard
+    - Simplicity: Single extraction method, easier maintenance
+    - Research focus: LLM classification, not OCR optimization
     """
     
-    def __init__(self, deepseek_api_url: str = None):
-        self.deepseek_api_url = deepseek_api_url or os.getenv("DEEPSEEK_OCR_URL")
-        self.use_deepseek = self.deepseek_api_url is not None
+    def __init__(self):
+        """Initialize OCR service with PyMuPDF"""
+        pass
     
-    def extract_text(self, pdf_path: str, use_deepseek: bool = None) -> OCRResult:
+    def extract_text(self, pdf_path: str) -> OCRResult:
         """
-        Extract text from PDF using best available method
+        Extract text from PDF using PyMuPDF
         
-        Priority:
-        1. DeepSeek-OCR 2 (if available and use_deepseek=True)
-        2. PyMuPDF (fallback)
+        Args:
+            pdf_path: Path to PDF file
+        
+        Returns:
+            OCRResult with extracted text and metadata
         """
-        use_deepseek = use_deepseek if use_deepseek is not None else self.use_deepseek
-        
-        if use_deepseek and self.deepseek_api_url:
-            result = self._extract_with_deepseek(pdf_path)
-            if result.success:
-                return result
-            # Fall back to PyMuPDF if DeepSeek fails
-        
         return self._extract_with_pymupdf(pdf_path)
     
-    def _extract_with_deepseek(self, pdf_path: str) -> OCRResult:
-        """Extract text using DeepSeek-OCR 2 API"""
-        try:
-            with open(pdf_path, 'rb') as f:
-                files = {'file': f}
-                response = requests.post(
-                    f"{self.deepseek_api_url}/ocr",
-                    files=files,
-                    timeout=120
-                )
-                response.raise_for_status()
-                data = response.json()
-                
-                return OCRResult(
-                    success=True,
-                    text=data.get("text", ""),
-                    pages=data.get("pages", 0),
-                    words=len(data.get("text", "").split()),
-                    method="deepseek-ocr2",
-                    confidence=data.get("confidence", 0.91),
-                    tables=data.get("tables", [])
-                )
-        except Exception as e:
-            return OCRResult(
-                success=False,
-                text="",
-                pages=0,
-                words=0,
-                method="deepseek-ocr2",
-                confidence=0,
-                error=str(e)
-            )
-    
     def _extract_with_pymupdf(self, pdf_path: str) -> OCRResult:
-        """Extract text using PyMuPDF (fallback)"""
+        """Extract text using PyMuPDF (fitz)"""
         try:
             doc = fitz.open(pdf_path)
             text = ""
@@ -114,7 +74,7 @@ class OCRService:
                 page_text = page.get_text()
                 text += page_text + "\n"
                 
-                # Try to detect tables (simple heuristic)
+                # Detect tables (simple heuristic)
                 blocks = page.get_text("dict")["blocks"]
                 for block in blocks:
                     if block.get("type") == 0:  # Text block
@@ -138,7 +98,7 @@ class OCRService:
                 pages=pages,
                 words=len(text.split()),
                 method="pymupdf",
-                confidence=0.85,  # Lower than DeepSeek
+                confidence=0.85,  # Estimated accuracy
                 tables=tables
             )
         except Exception as e:
@@ -151,19 +111,6 @@ class OCRService:
                 confidence=0,
                 error=str(e)
             )
-    
-    def compare_methods(self, pdf_path: str) -> Dict[str, OCRResult]:
-        """Compare both OCR methods on the same document"""
-        results = {}
-        
-        # PyMuPDF
-        results["pymupdf"] = self._extract_with_pymupdf(pdf_path)
-        
-        # DeepSeek-OCR 2 (if available)
-        if self.use_deepseek:
-            results["deepseek-ocr2"] = self._extract_with_deepseek(pdf_path)
-        
-        return results
 
 
 # Global OCR service instance
