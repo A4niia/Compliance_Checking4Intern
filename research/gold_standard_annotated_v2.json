@@ -1,0 +1,2742 @@
+[
+  {
+    "id": "GS-001",
+    "rule_id": "AA-4-1-1-R002",
+    "source_document": "AA-4-1-1 Academic Integrity in Research and Publication rev18Mar2022.pdf",
+    "page_number": 1,
+    "original_text": "Contracted research may\nentail confidentiality and restriction on publication.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "may",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.310978",
+      "confidence": 5,
+      "notes": "Contains 'may' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.134081"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-002",
+    "rule_id": "FB-6-1-1-R008",
+    "source_document": "FB-6-1-1 Credit Policy AMT8Jun2022.pdf",
+    "page_number": 2,
+    "original_text": "Their educational visas may also be\ncancelled.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "prohibition",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "may",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.310978",
+      "confidence": 5,
+      "notes": "Contains 'may' deontic marker",
+      "reannotation_reason": "consequence_pattern",
+      "original_type": "permission",
+      "reannotation_date": "2026-02-02T23:17:55.680992"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.139210"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-003",
+    "rule_id": "FB-6-1-1-R002",
+    "source_document": "FB-6-1-1 Credit Policy AMT8Jun2022.pdf",
+    "page_number": 1,
+    "original_text": "(2) Continuing full-time postgraduate (PG) students (Master, Doctor and\nDiploma), i.e., those who completed at least one semester/term, will be\ninvoiced for the applicable registration, tuition, and other fees each\nsemester/term from the second semester/term onwards, which must be\npaid in advance and/or fully paid before each semester/term starts,\notherwise they will not be allowed to register.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "must",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.310978",
+      "confidence": 5,
+      "notes": "Contains 'must' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.139210"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-004",
+    "rule_id": "FB-6-1-1-R018",
+    "source_document": "FB-6-1-1 Credit Policy AMT8Jun2022.pdf",
+    "page_number": 5,
+    "original_text": "Writing-off of doubtful accounts will be requested by OFIN and have to be\napproved by the President, or their VP designate.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "have to",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.310978",
+      "confidence": 5,
+      "notes": "Contains 'have to' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.139210"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-005",
+    "rule_id": "FB-6-1-1-R016",
+    "source_document": "FB-6-1-1 Credit Policy AMT8Jun2022.pdf",
+    "page_number": 3,
+    "original_text": "Sponsors must be invoiced for outstanding\ndues and requested to send AIT a promissory note detailing when and\nhow payment will be made.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "must",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.310978",
+      "confidence": 5,
+      "notes": "Contains 'must' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.139210"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-006",
+    "rule_id": "FB-6-1-1-R015",
+    "source_document": "FB-6-1-1 Credit Policy AMT8Jun2022.pdf",
+    "page_number": 3,
+    "original_text": "(20) Overdue accounts shall be reviewed periodically, and follow-up\ncollections shall be initiated.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "shall",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.310978",
+      "confidence": 5,
+      "notes": "Contains 'shall' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.139210"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-007",
+    "rule_id": "FB-6-1-1-R009",
+    "source_document": "FB-6-1-1 Credit Policy AMT8Jun2022.pdf",
+    "page_number": 2,
+    "original_text": "(10) Additional payments for audited and repeated courses, as well as beyond\nthe minimum 3 credits for part-time students, registered for the\nsemester/term must be fully paid one week before the mid-\nsemester/term examination period starts.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "must",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.310978",
+      "confidence": 5,
+      "notes": "Contains 'must' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.139210"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-008",
+    "rule_id": "FB-6-1-1-R024",
+    "source_document": "FB-6-1-1 Credit Policy AMT8Jun2022.pdf",
+    "page_number": 6,
+    "original_text": "FB-6-1-1: CREDIT POLICY\nnotice from the Accommodation Unit, and the tenant is required to\nvacate the housing unit within two weeks.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "required",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.310978",
+      "confidence": 5,
+      "notes": "Contains 'required' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.139210"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-009",
+    "rule_id": "FS-1-1-1-R041",
+    "source_document": "FS-1-1-1 Campus Accommodation for Students AMT8Jun2022.pdf",
+    "page_number": 6,
+    "original_text": "Students shall not disturb fellow students in the residential areas.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "prohibition",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "shall not",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.310978",
+      "confidence": 5,
+      "notes": "Contains 'shall not' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.139210"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-010",
+    "rule_id": "FS-1-1-1-R008",
+    "source_document": "FS-1-1-1 Campus Accommodation for Students AMT8Jun2022.pdf",
+    "page_number": 2,
+    "original_text": "Exceptions to this may only be\ngiven to those whose exchange program is less than two months.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "prohibition",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "may",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.310978",
+      "confidence": 5,
+      "notes": "Contains 'may' deontic marker",
+      "reannotation_reason": "consequence_pattern",
+      "original_type": "permission",
+      "reannotation_date": "2026-02-02T23:17:55.681049"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.139210"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-011",
+    "rule_id": "FS-1-1-1-R002",
+    "source_document": "FS-1-1-1 Campus Accommodation for Students AMT8Jun2022.pdf",
+    "page_number": 2,
+    "original_text": "For subsequent semesters, these\nstudents may opt to reside off-campus.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "may",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.310978",
+      "confidence": 5,
+      "notes": "Contains 'may' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.139210"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-012",
+    "rule_id": "FS-1-1-1-R048",
+    "source_document": "FS-1-1-1 Campus Accommodation for Students AMT8Jun2022.pdf",
+    "page_number": 6,
+    "original_text": "Graduating students residing beyond the five day limit (including weekends)\nafter graduation, without prior approval from the OFAM Director may have\ntheir accommodation unit sealed by the Accommodation Unit.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "may",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.310978",
+      "confidence": 5,
+      "notes": "Contains 'may' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.139210"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-013",
+    "rule_id": "FS-1-1-1-R018",
+    "source_document": "FS-1-1-1 Campus Accommodation for Students AMT8Jun2022.pdf",
+    "page_number": 3,
+    "original_text": "● New students may choose from all the available units when their queuing\nnumber is called.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "may",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.311486",
+      "confidence": 5,
+      "notes": "Contains 'may' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.139210"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-014",
+    "rule_id": "FS-1-1-1-R016",
+    "source_document": "FS-1-1-1 Campus Accommodation for Students AMT8Jun2022.pdf",
+    "page_number": 3,
+    "original_text": "Students may put their names\non the waiting list and live in employee accommodation subject to availability.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "may",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.311486",
+      "confidence": 5,
+      "notes": "Contains 'may' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.139210"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-015",
+    "rule_id": "FS-1-1-1-R015",
+    "source_document": "FS-1-1-1 Campus Accommodation for Students AMT8Jun2022.pdf",
+    "page_number": 2,
+    "original_text": "shall be the responsibility of the\nguests.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "shall",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.311486",
+      "confidence": 5,
+      "notes": "Contains 'shall' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.139210"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-016",
+    "rule_id": "FS-1-1-1-R009",
+    "source_document": "FS-1-1-1 Campus Accommodation for Students AMT8Jun2022.pdf",
+    "page_number": 2,
+    "original_text": "A student dormitory may be allocated for a\nmaximum period of one month, in case of availability to:\na.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "may",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.311486",
+      "confidence": 5,
+      "notes": "Contains 'may' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.140759"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-017",
+    "rule_id": "FS-1-1-1-R059",
+    "source_document": "FS-1-1-1 Campus Accommodation for Students AMT8Jun2022.pdf",
+    "page_number": 7,
+    "original_text": "Sub-letting rooms may result\nin eviction from student accommodation.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "prohibition",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "may",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.311486",
+      "confidence": 5,
+      "notes": "Contains 'may' deontic marker",
+      "reannotation_reason": "consequence_pattern",
+      "original_type": "permission",
+      "reannotation_date": "2026-02-02T23:17:55.681190"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.140759"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-018",
+    "rule_id": "FS-1-1-1-R007",
+    "source_document": "FS-1-1-1 Campus Accommodation for Students AMT8Jun2022.pdf",
+    "page_number": 2,
+    "original_text": "Students, who will study in\nanother country as part of the Exchange/Dual Degree program, are required to\nvacate their rooms while they study abroad.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "required",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.311486",
+      "confidence": 5,
+      "notes": "Contains 'required' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.140759"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-019",
+    "rule_id": "FS-1-1-1-R044",
+    "source_document": "FS-1-1-1 Campus Accommodation for Students AMT8Jun2022.pdf",
+    "page_number": 6,
+    "original_text": "Alternative rooms designated for such purpose must be used.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "must",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.311486",
+      "confidence": 5,
+      "notes": "Contains 'must' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.140759"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-020",
+    "rule_id": "FS-1-1-1-R054",
+    "source_document": "FS-1-1-1 Campus Accommodation for Students AMT8Jun2022.pdf",
+    "page_number": 7,
+    "original_text": "Students found guilty may face a fine of Baht 2,000, or\nthe actual costs of the damage caused by smoking or burning.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "prohibition",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "may",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.311486",
+      "confidence": 5,
+      "notes": "Contains 'may' deontic marker",
+      "reannotation_reason": "consequence_pattern",
+      "original_type": "permission",
+      "reannotation_date": "2026-02-02T23:17:55.681207"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.140759"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-021",
+    "rule_id": "PA-2-1-2-R041",
+    "source_document": "PA-2-1-2 Ethical Behavior and Grievance Process AMT8Dec2021.pdf",
+    "page_number": 9,
+    "original_text": "The Grievance Tribunal must seek to ascertain, to the best of its\nability, the facts of the case.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "must",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.311486",
+      "confidence": 5,
+      "notes": "Contains 'must' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.140759"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-022",
+    "rule_id": "PA-2-1-2-R008",
+    "source_document": "PA-2-1-2 Ethical Behavior and Grievance Process AMT8Dec2021.pdf",
+    "page_number": 3,
+    "original_text": "Acceptance by an employee of a gift valued at THB 3,000 or more must\nbe reported by the employee to their Unit Head within 15 days of\nacceptance, giving details as to the description of the item, sources and\ncircumstance leading to the acceptance.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "must",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.311486",
+      "confidence": 5,
+      "notes": "Contains 'must' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.141801"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-023",
+    "rule_id": "PA-2-1-2-R002",
+    "source_document": "PA-2-1-2 Ethical Behavior and Grievance Process AMT8Dec2021.pdf",
+    "page_number": 1,
+    "original_text": "The accomplishments, activities and individual differences of other\npeople must be respected.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "must",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.311486",
+      "confidence": 5,
+      "notes": "Contains 'must' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.141801"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-024",
+    "rule_id": "PA-2-1-2-R018",
+    "source_document": "PA-2-1-2 Ethical Behavior and Grievance Process AMT8Dec2021.pdf",
+    "page_number": 5,
+    "original_text": "They must\ninform the President of all settlements made during the grievance\nprocess.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "must",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.311486",
+      "confidence": 5,
+      "notes": "Contains 'must' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.141801"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-025",
+    "rule_id": "PA-2-1-2-R016",
+    "source_document": "PA-2-1-2 Ethical Behavior and Grievance Process AMT8Dec2021.pdf",
+    "page_number": 5,
+    "original_text": "In performing their duties, they\nmust protect the interests of all members of the AIT community.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "must",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.311486",
+      "confidence": 5,
+      "notes": "Contains 'must' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.141801"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-026",
+    "rule_id": "PA-2-1-2-R015",
+    "source_document": "PA-2-1-2 Ethical Behavior and Grievance Process AMT8Dec2021.pdf",
+    "page_number": 5,
+    "original_text": "The Grievance Committee must be prepared to identify\nbreaches of the Institute P&Ps, etc.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "must",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.311486",
+      "confidence": 5,
+      "notes": "Contains 'must' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.142324"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-027",
+    "rule_id": "PA-2-1-2-R009",
+    "source_document": "PA-2-1-2 Ethical Behavior and Grievance Process AMT8Dec2021.pdf",
+    "page_number": 3,
+    "original_text": "Items valued at less than THB 3,000 may be accepted without reporting.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "may",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.311486",
+      "confidence": 5,
+      "notes": "Contains 'may' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.142324"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-028",
+    "rule_id": "PA-2-1-2-R007",
+    "source_document": "PA-2-1-2 Ethical Behavior and Grievance Process AMT8Dec2021.pdf",
+    "page_number": 2,
+    "original_text": "When expressing personal opinions outside the Institute, AIT employees\nand students are required to note explicitly that the opinions expressed\nare personal and do not necessarily represent the position of the Institute.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "required",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.311486",
+      "confidence": 5,
+      "notes": "Contains 'required' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.142324"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-029",
+    "rule_id": "PA-2-1-2-R035",
+    "source_document": "PA-2-1-2 Ethical Behavior and Grievance Process AMT8Dec2021.pdf",
+    "page_number": 8,
+    "original_text": "Having gathered the relevant\nfacts, the Grievance Committee should proceed to analyze\nthe grievance.",
+    "human_annotation": {
+      "is_rule": false,
+      "rule_type": null,
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": null,
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.311486",
+      "confidence": 3,
+      "notes": "No clear deontic content"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.142324"
+    },
+    "human_llm_agreement": false
+  },
+  {
+    "id": "GS-030",
+    "rule_id": "DOC-R328",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 87,
+    "original_text": "39 up to Rangsit and from there\nmay ride a pick-up, popularly known as \"Luth\".",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "may",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.311486",
+      "confidence": 5,
+      "notes": "Contains 'may' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.142918"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-031",
+    "rule_id": "DOC-R058",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 18,
+    "original_text": "Thus, they cannot enroll in any course nor\ncan they avail of student privileges and benefits during the\nsuspended period such as use of AIT ID card, access to SIS and\nregistration record, staying in AIT accommodation, use of Library\nand School facilities, discount of children in AITIS, etc.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "prohibition",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "cannot",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.311486",
+      "confidence": 5,
+      "notes": "Contains 'cannot' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.142918"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-032",
+    "rule_id": "DOC-R013",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 9,
+    "original_text": "The instructor/invigilator should seek an explanation from\nthe student at the end of the examination or when the assignment or project\nwas submitted, and submit an incident report to the Department Head, who\nshould then notify the School Dean.",
+    "human_annotation": {
+      "is_rule": false,
+      "rule_type": null,
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": null,
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.311486",
+      "confidence": 3,
+      "notes": "No clear deontic content"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.142918"
+    },
+    "human_llm_agreement": false
+  },
+  {
+    "id": "GS-033",
+    "rule_id": "DOC-R141",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 38,
+    "original_text": "2.5 Direct communication may sometimes follow consultation, the complainant\nseeking the advice of one of the advisors listed in Section C-2.3 above, on what\nto say or write.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "may",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.311486",
+      "confidence": 5,
+      "notes": "Contains 'may' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.142918"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-034",
+    "rule_id": "DOC-R126",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 35,
+    "original_text": "This is an area where our cultural differences can lead to additional\nmisunderstanding; for example, certain conduct and communication may be\nconstrued as sexual harassment by some groups that may not be so construed\nby others.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "may",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.311486",
+      "confidence": 5,
+      "notes": "Contains 'may' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.143501"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-035",
+    "rule_id": "DOC-R115",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 33,
+    "original_text": "If two or more students compete for a position and they are equally qualified to undertake\nthe work, preference should be given to the student who is self paying or partially-funded\nover one who receives a full scholarship.",
+    "human_annotation": {
+      "is_rule": false,
+      "rule_type": null,
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": null,
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.311486",
+      "confidence": 3,
+      "notes": "No clear deontic content"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.143501"
+    },
+    "human_llm_agreement": false
+  },
+  {
+    "id": "GS-036",
+    "rule_id": "DOC-R072",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 22,
+    "original_text": "Writing-off of outstanding bills including interest due will be requested by Head-\nOFAM and have to be approved by the AIT Management and forwarded to\nFinance for action.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "have to",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.311486",
+      "confidence": 5,
+      "notes": "Contains 'have to' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.143501"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-037",
+    "rule_id": "DOC-R053",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 18,
+    "original_text": "and for external/sponsored students, authorized documentary proof\nof sponsorship must be submitted.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "must",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.311486",
+      "confidence": 5,
+      "notes": "Contains 'must' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.143501"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-038",
+    "rule_id": "DOC-R280",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 70,
+    "original_text": "Sports facilities cannot be used for other sporting events aside from the\nintended use of the court/field.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "prohibition",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "cannot",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.311486",
+      "confidence": 5,
+      "notes": "Contains 'cannot' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "prohibition",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.143501"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-039",
+    "rule_id": "DOC-R045",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 16,
+    "original_text": "Baht 1,250 is the initial premium for new students of August\nIntake, to be renewed in January semester of the following\nMedical year; for students studying in January and August semesters,\nInsurance the annual premium is Baht 2,500; for students graduating in\nMay or during the inter-semester, the final premium is Baht\n1,250 for standard insurance plan.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "may",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.311486",
+      "confidence": 5,
+      "notes": "Contains 'may' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.144206"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-040",
+    "rule_id": "DOC-R303",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 76,
+    "original_text": "Finally, they must submit the title\npage signed by their advisor and by LC to the AIT Registry.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "must",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.311486",
+      "confidence": 5,
+      "notes": "Contains 'must' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.144206"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-041",
+    "rule_id": "DOC-R217",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 54,
+    "original_text": "This linen set and pillow may be kept when leaving AIT.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "may",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.311486",
+      "confidence": 5,
+      "notes": "Contains 'may' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.144206"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-042",
+    "rule_id": "DOC-R017",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 9,
+    "original_text": "Upon receipt of the retake, the School Dean may decide\nto:\n● Downgrade by 1 step the grade the student will receive upon repetition\nof the exam or resubmission of the assignment/project;\n● Give a score of ‘zero’ for the specific exam, project or assignment; or\n● Give a failing grade or “F” for the course; or\n● Recommend the student for suspension or dismissal.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "may",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.311486",
+      "confidence": 5,
+      "notes": "Contains 'may' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.144206"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-043",
+    "rule_id": "DOC-R016",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 9,
+    "original_text": "However, if cheating was proven, the\nDepartment Head and the instructor/invigilator may recommend to the\nSchool Dean to disregard the original examination score and require the\nstudent to submit an equivalent piece of work or retake a different version\nof the examination.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "may",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.311486",
+      "confidence": 5,
+      "notes": "Contains 'may' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.144645"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-044",
+    "rule_id": "DOC-R048",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 16,
+    "original_text": "Complete the Student Research Expense - Advance (SRA) form which\nmust be approved by the School and submit to Finance for payment\nto student.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "must",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.311486",
+      "confidence": 5,
+      "notes": "Contains 'must' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.144645"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-045",
+    "rule_id": "DOC-R112",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 32,
+    "original_text": "An Assistant’s contract shall be terminated if, during the period of\nappointment, they are (a) not achieving good academic standing after one semester; or (b)\non probationary status.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "shall",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.311486",
+      "confidence": 5,
+      "notes": "Contains 'shall' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.144645"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-046",
+    "rule_id": "DOC-R120",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 34,
+    "original_text": "No member of the AIT community, trustee, faculty, staff, or student, including\noutreach program participants, should act deliberately or thoughtlessly to interfere\nwith the study, work or home environment of other members of the community.",
+    "human_annotation": {
+      "is_rule": false,
+      "rule_type": null,
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": null,
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.311486",
+      "confidence": 3,
+      "notes": "No clear deontic content"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.144645"
+    },
+    "human_llm_agreement": false
+  },
+  {
+    "id": "GS-047",
+    "rule_id": "DOC-R259",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 64,
+    "original_text": "Thai VISA Extension Fees\nAll Non-Thai students are required to pay Baht 1,900 fee for a VISA extension.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "required",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.311486",
+      "confidence": 5,
+      "notes": "Contains 'required' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.144645"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-048",
+    "rule_id": "DOC-R309",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 82,
+    "original_text": "In emergency cases or if any medical emergency\nassistance is required, the nurse on duty can be contacted at 02-524-5555.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "required",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.311486",
+      "confidence": 5,
+      "notes": "Contains 'required' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.144645"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-049",
+    "rule_id": "DOC-R014",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 9,
+    "original_text": "Notes of the interview will be recorded and\nshould be agreed upon by all parties.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "will be",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.311486",
+      "confidence": 5,
+      "notes": "Contains 'will be' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.145374"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-050",
+    "rule_id": "DOC-R288",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 70,
+    "original_text": "Proper swim wear is required.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "required",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.311486",
+      "confidence": 5,
+      "notes": "Contains 'required' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.145374"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-051",
+    "rule_id": "DOC-R102",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 30,
+    "original_text": "All dependents have to complete the health declaration form and get approval\nfrom Generali before the effective date.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "have to",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.311486",
+      "confidence": 5,
+      "notes": "Contains 'have to' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.145374"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-052",
+    "rule_id": "DOC-R333",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 89,
+    "original_text": "When getting off at the Don Muang (Bangkok International Airport), you may\ntake local buses no.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "may",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.311486",
+      "confidence": 5,
+      "notes": "Contains 'may' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.145374"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-053",
+    "rule_id": "DOC-R215",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 54,
+    "original_text": "OFAM is authorized to undertake random inspections and may lay\nsanctions if the unit is found to be dirty and unhygienic.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "may",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.311486",
+      "confidence": 5,
+      "notes": "Contains 'may' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.145374"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-054",
+    "rule_id": "DOC-R113",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 33,
+    "original_text": "A special student who is a master or doctoral student studying at another institution and\nenrolled at AIT under a Memorandum of Understanding, for a purpose other than obtaining\na regular degree, may be appointed as an assistant subject to the approval of the Dean.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "may",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.311486",
+      "confidence": 5,
+      "notes": "Contains 'may' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.145374"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-055",
+    "rule_id": "DOC-R230",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 55,
+    "original_text": "Furniture and appliances should not be removed from the accommodation\nunit.",
+    "human_annotation": {
+      "is_rule": false,
+      "rule_type": null,
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": null,
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.311486",
+      "confidence": 3,
+      "notes": "No clear deontic content"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.145374"
+    },
+    "human_llm_agreement": false
+  },
+  {
+    "id": "GS-056",
+    "rule_id": "DOC-R302",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 76,
+    "original_text": "Before Graduation: All students must have their advisor approve and sign the\ntitle page of their research report, thesis or dissertation, and then submit the\nsigned title page to the LC for title-checking.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "must",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.311486",
+      "confidence": 5,
+      "notes": "Contains 'must' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.145374"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-057",
+    "rule_id": "DOC-R143",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 39,
+    "original_text": "Formal procedures\n3.1 A complainant may, with or without previous recourse to informal channels,\ndecide to seek redress through formal grievance procedures.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "may",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.311486",
+      "confidence": 5,
+      "notes": "Contains 'may' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.145374"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-058",
+    "rule_id": "DOC-R004",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 5,
+    "original_text": "At the beginning of the course, the instructor should make known\nthe criteria that will be considered in determining the grade such as class\nattendance, class participation, papers, examinations, projects and\npresentations.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "will be",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.311486",
+      "confidence": 5,
+      "notes": "Contains 'will be' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.146388"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-059",
+    "rule_id": "DOC-R082",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 23,
+    "original_text": "No credit shall be granted.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "shall",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.311486",
+      "confidence": 5,
+      "notes": "Contains 'shall' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.146388"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-060",
+    "rule_id": "DOC-R175",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 45,
+    "original_text": "Responsibility centers are required to produce internal systems and\ndocumentation for implementing this policy locally.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "required",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.311486",
+      "confidence": 5,
+      "notes": "Contains 'required' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.146388"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-061",
+    "rule_id": "DOC-R080",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 23,
+    "original_text": "Lessees are required to pay three-month advance deposit to take on the\nlease of premises.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "required",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.311486",
+      "confidence": 5,
+      "notes": "Contains 'required' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.146388"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-062",
+    "rule_id": "DOC-R111",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 32,
+    "original_text": "Student Assistants shall be students in good standing on the effective dates of their\nappointment.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "shall",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.311486",
+      "confidence": 5,
+      "notes": "Contains 'shall' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.146388"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-063",
+    "rule_id": "DOC-R173",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 42,
+    "original_text": "Expulsion shall be imposed for drug abuse.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "shall",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.311486",
+      "confidence": 5,
+      "notes": "Contains 'shall' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.146388"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-064",
+    "rule_id": "DOC-R195",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 50,
+    "original_text": "Students are required to vacate their rooms within\nfive days (including weekends) after their graduation.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "required",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.311486",
+      "confidence": 5,
+      "notes": "Contains 'required' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.146388"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-065",
+    "rule_id": "DOC-R050",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 16,
+    "original_text": "The settlement should be supported by collated receipts issued under\nthe name of Asian Institute of Technology.",
+    "human_annotation": {
+      "is_rule": false,
+      "rule_type": null,
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": null,
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.311486",
+      "confidence": 3,
+      "notes": "No clear deontic content"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.146388"
+    },
+    "human_llm_agreement": false
+  },
+  {
+    "id": "GS-066",
+    "rule_id": "DOC-R184",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 49,
+    "original_text": "Students should move with the spouse when staff accommodation becomes\navailable.",
+    "human_annotation": {
+      "is_rule": false,
+      "rule_type": null,
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": null,
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.313492",
+      "confidence": 3,
+      "notes": "No clear deontic content"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.146388"
+    },
+    "human_llm_agreement": false
+  },
+  {
+    "id": "GS-067",
+    "rule_id": "DOC-R177",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 45,
+    "original_text": "In discharging his/her responsibility to implement this Policy, the President may\nbe assisted by the Campus Environment and Development Committee.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "may",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.313492",
+      "confidence": 5,
+      "notes": "Contains 'may' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.146388"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-068",
+    "rule_id": "DOC-R310",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 82,
+    "original_text": "The AIT campus includes a diverse mixture of settings,\nfrom offices, classrooms and laboratories to houses and dormitories, and each\nsetting may present potential hazards.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "may",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.313492",
+      "confidence": 5,
+      "notes": "Contains 'may' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.146388"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-069",
+    "rule_id": "DOC-R136",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 38,
+    "original_text": "2.2 Consultation refers, in this context, to discussion of problems or potential\nproblems before recourse to remedial action, informal or formal, but not to\ncompletely informal conversations about problems with seniors, colleagues, line\nmanagers, partners, friends or relatives, although these may, of course, solve\nmore straightforward problems.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "may",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.313492",
+      "confidence": 5,
+      "notes": "Contains 'may' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.147384"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-070",
+    "rule_id": "DOC-R023",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 10,
+    "original_text": "The appeal should be\naddressed to the Vice President for Academic Affairs.",
+    "human_annotation": {
+      "is_rule": false,
+      "rule_type": null,
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": null,
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.313492",
+      "confidence": 3,
+      "notes": "No clear deontic content"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.147384"
+    },
+    "human_llm_agreement": false
+  },
+  {
+    "id": "GS-071",
+    "rule_id": "DOC-R236",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 56,
+    "original_text": "Students disturbing the peace of their surroundings shall receive a formal\nreprimand as a first warning.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "shall",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.313492",
+      "confidence": 5,
+      "notes": "Contains 'shall' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.147384"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-072",
+    "rule_id": "DOC-R275",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 70,
+    "original_text": "Proper sports attire is required for each sports facility.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "required",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.313492",
+      "confidence": 5,
+      "notes": "Contains 'required' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.147384"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-073",
+    "rule_id": "DOC-R064",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 19,
+    "original_text": "(vii) Overdue accounts shall be reviewed periodically and follow-up\non collections shall be initiated.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "shall",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.313492",
+      "confidence": 5,
+      "notes": "Contains 'shall' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.147384"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-074",
+    "rule_id": "DOC-R194",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 50,
+    "original_text": "Students may put their names\nin the waiting list and live in staff housing depending on availability.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "may",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.313492",
+      "confidence": 5,
+      "notes": "Contains 'may' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.147384"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-075",
+    "rule_id": "DOC-R041",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 15,
+    "original_text": "Students within the normal study period must pay the semester fee of Baht 188,000\nfor 12 credits Tuition Fee and Registration Fee in advance and/or fully paid up upon\nenrolment but not later than the deadline for adding/dropping of courses, otherwise\nthey will not be allowed to register.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "must",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.313492",
+      "confidence": 5,
+      "notes": "Contains 'must' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.147384"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-076",
+    "rule_id": "DOC-R283",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 70,
+    "original_text": "Last players of the evening must turn off the lights and other electrical\nequipment of the court.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "must",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.313492",
+      "confidence": 5,
+      "notes": "Contains 'must' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.147384"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-077",
+    "rule_id": "DOC-R151",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 39,
+    "original_text": "Hearings should normally be held\nwithin ten working days of the notice.",
+    "human_annotation": {
+      "is_rule": false,
+      "rule_type": null,
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": null,
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.313492",
+      "confidence": 3,
+      "notes": "No clear deontic content"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.147384"
+    },
+    "human_llm_agreement": false
+  },
+  {
+    "id": "GS-078",
+    "rule_id": "DOC-R322",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 84,
+    "original_text": "Vehicle may be locked or fine may also be\nimposed, if needed.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "prohibition",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "may",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.313492",
+      "confidence": 5,
+      "notes": "Contains 'may' deontic marker",
+      "reannotation_reason": "consequence_pattern",
+      "original_type": "permission",
+      "reannotation_date": "2026-02-02T23:17:55.681888"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.147384"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-079",
+    "rule_id": "DOC-R317",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 83,
+    "original_text": "● Any safety and security concerns should be reported to Security Officer.",
+    "human_annotation": {
+      "is_rule": false,
+      "rule_type": null,
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": null,
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.313492",
+      "confidence": 3,
+      "notes": "No clear deontic content"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.147384"
+    },
+    "human_llm_agreement": false
+  },
+  {
+    "id": "GS-080",
+    "rule_id": "DOC-R186",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 49,
+    "original_text": "Exceptions may only be given\nto those whose exchange program is less than two months.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "prohibition",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "may",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.313492",
+      "confidence": 5,
+      "notes": "Contains 'may' deontic marker",
+      "reannotation_reason": "consequence_pattern",
+      "original_type": "permission",
+      "reannotation_date": "2026-02-02T23:17:55.681913"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.147384"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-081",
+    "rule_id": "DOC-R296",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 71,
+    "original_text": "For training sessions, prior permission has to be taken from OFAM and\ntrainer might need to pay for using the facilities.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "need to",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.313492",
+      "confidence": 5,
+      "notes": "Contains 'need to' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": false,
+      "rule_type": null,
+      "confidence": 0.7,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.148700"
+    },
+    "human_llm_agreement": false
+  },
+  {
+    "id": "GS-082",
+    "rule_id": "DOC-R099",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 27,
+    "original_text": "Questions about the plan, enrollment, claim should be directed to\nGenerali Life Assurance (Thailand) Co., Ltd.",
+    "human_annotation": {
+      "is_rule": false,
+      "rule_type": null,
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": null,
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.313492",
+      "confidence": 3,
+      "notes": "No clear deontic content"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.148700"
+    },
+    "human_llm_agreement": false
+  },
+  {
+    "id": "GS-083",
+    "rule_id": "DOC-R036",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 14,
+    "original_text": "All\nnew students are required to attend the orientation seminar.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "required",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.313492",
+      "confidence": 5,
+      "notes": "Contains 'required' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.148700"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-084",
+    "rule_id": "DOC-R024",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 10,
+    "original_text": "A student found guilty of grave cheating by the School\nDean, the Vice President for Academic Affairs and the Academic Senate may\nbe dismissed.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "prohibition",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "may",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.313492",
+      "confidence": 5,
+      "notes": "Contains 'may' deontic marker",
+      "reannotation_reason": "consequence_pattern",
+      "original_type": "permission",
+      "reannotation_date": "2026-02-02T23:17:55.681940"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.148700"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-085",
+    "rule_id": "DOC-R117",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 33,
+    "original_text": "A student work time report should be completed for each student employee at the end\nof each month.",
+    "human_annotation": {
+      "is_rule": false,
+      "rule_type": null,
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": null,
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.313492",
+      "confidence": 3,
+      "notes": "No clear deontic content"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.148700"
+    },
+    "human_llm_agreement": false
+  },
+  {
+    "id": "GS-086",
+    "rule_id": "DOC-R149",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 39,
+    "original_text": "Any\nevidence to be considered in the investigation should be reported to the\ncomplainee, who should have opportunity to challenge it and/or to present\nevidence in defense.",
+    "human_annotation": {
+      "is_rule": false,
+      "rule_type": null,
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": null,
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.313492",
+      "confidence": 3,
+      "notes": "No clear deontic content"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.149428"
+    },
+    "human_llm_agreement": false
+  },
+  {
+    "id": "GS-087",
+    "rule_id": "DOC-R052",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 18,
+    "original_text": "Before a student is accepted for enrolment, the Admissions and\nScholarships Unit (ASU) is required to ensure that there is proof of\nfinancial support for the student’s full study program.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "required",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.313492",
+      "confidence": 5,
+      "notes": "Contains 'required' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.149428"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-088",
+    "rule_id": "DOC-R233",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 56,
+    "original_text": "accommodation units dormitories not designed for such facilities, will be fined\nBaht 2,000 and charged for the services related to the removal of the\nappliances.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "will be",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.313492",
+      "confidence": 5,
+      "notes": "Contains 'will be' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": false,
+      "rule_type": null,
+      "confidence": 0.7,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.149428"
+    },
+    "human_llm_agreement": false
+  },
+  {
+    "id": "GS-089",
+    "rule_id": "DOC-R326",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 87,
+    "original_text": "In all such\ncases, the reservation of the vehicle must be made by a member of the faculty\nor a senior administrative staff member in the School or by the Student Union\nPresident to the Motor Pool.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "must",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.313492",
+      "confidence": 5,
+      "notes": "Contains 'must' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.149428"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-090",
+    "rule_id": "DOC-R187",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 49,
+    "original_text": "Student dormitories may be provided for a\nmaximum period of one month, in case of availability to:\na.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "may",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.313492",
+      "confidence": 5,
+      "notes": "Contains 'may' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.149428"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-091",
+    "rule_id": "DOC-R084",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 24,
+    "original_text": "Invoices are required to be settled by the indicated due date.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "required",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.313492",
+      "confidence": 5,
+      "notes": "Contains 'required' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.149428"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-092",
+    "rule_id": "DOC-R190",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 49,
+    "original_text": "In case of over staying guests, special prior permission must be obtained from\nthe Director, Office of Facilities and Asset Management (OFAM) and a daily rent\nwill be charged for the room.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "must",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.313492",
+      "confidence": 5,
+      "notes": "Contains 'must' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.149428"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-093",
+    "rule_id": "DOC-R182",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 49,
+    "original_text": "Families of non-resident students may not reside on campus if the non-resident student is\noff-campus.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "prohibition",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "may",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.313492",
+      "confidence": 5,
+      "notes": "Contains 'may' deontic marker",
+      "reannotation_reason": "consequence_pattern",
+      "original_type": "permission",
+      "reannotation_date": "2026-02-02T23:17:55.681982"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.149428"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-094",
+    "rule_id": "DOC-R108",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 31,
+    "original_text": "The duties of non-\ninstructional teaching assistants may include assisting faculty in preparing materials for\nlectures, grading assignments and quizzes, projects, preparing laboratory set-ups, or\nposting web-based materials.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "may",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.313492",
+      "confidence": 5,
+      "notes": "Contains 'may' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.149428"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-095",
+    "rule_id": "DOC-R137",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 38,
+    "original_text": "2.3 Preliminary consultation should be available to any member of the Institute\ncommunity who wishes to discuss issues related to problem areas.",
+    "human_annotation": {
+      "is_rule": false,
+      "rule_type": null,
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": null,
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.313492",
+      "confidence": 3,
+      "notes": "No clear deontic content"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.149428"
+    },
+    "human_llm_agreement": false
+  },
+  {
+    "id": "GS-096",
+    "rule_id": "DOC-R332",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 89,
+    "original_text": "Students may wait for the vans at the Thammasat Road near AIT Gate No.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "may",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.313492",
+      "confidence": 5,
+      "notes": "Contains 'may' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "permission",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.149428"
+    },
+    "human_llm_agreement": true
+  },
+  {
+    "id": "GS-097",
+    "rule_id": "DOC-R037",
+    "source_document": "Student-Handbook_August-2021.pdf",
+    "page_number": 14,
+    "original_text": "Writing Placement Test for Registration/Enrolment\nAll degree program students (including CAS and Certificate leading to Master) must\ntake the AIT Writing Test (AIT-WT) upon arrival on campus.",
+    "human_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "subject": null,
+      "condition": null,
+      "action": null,
+      "deontic_marker": "must",
+      "annotator": "Expert Annotator (Simulated)",
+      "annotation_date": "2026-01-29T20:57:26.313492",
+      "confidence": 5,
+      "notes": "Contains 'must' deontic marker"
+    },
+    "llm_annotation": {
+      "is_rule": true,
+      "rule_type": "obligation",
+      "confidence": 0.85,
+      "reasoning": "Fallback classification based on deontic markers",
+      "model": "mistral",
+      "annotation_date": "2026-01-31T06:04:34.149428"
+    },
+    "human_llm_agreement": true
+  }
+]
