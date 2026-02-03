@@ -1,0 +1,125 @@
+{
+  "timestamp": "2026-02-03T05:34:10.791298",
+  "analyses": {
+    "inter_rater_reliability": {
+      "rule_detection": {
+        "accuracy": 0.8020999999999999,
+        "confidence_interval_95": [
+          0.719,
+          0.875
+        ],
+        "n": 96,
+        "binomial_test": {
+          "p_value": 0.0,
+          "null_hypothesis": "p = 0.5",
+          "significant": true,
+          "interpretation": "Significantly better than chance"
+        }
+      },
+      "type_classification": {
+        "accuracy": 0.8,
+        "confidence_interval_95": [
+          0.714,
+          0.886
+        ],
+        "n": 70,
+        "by_type": {
+          "obligation": {
+            "accuracy": 1.0,
+            "agree": 45,
+            "disagree": 0
+          },
+          "prohibition": {
+            "accuracy": 1.0,
+            "agree": 3,
+            "disagree": 0
+          },
+          "permission": {
+            "accuracy": 0.364,
+            "agree": 8,
+            "disagree": 14
+          }
+        },
+        "chi_square_test": {
+          "chi_square": 38.182,
+          "p_value": 0.0,
+          "degrees_of_freedom": 2,
+          "significant": true,
+          "interpretation": "Significant association"
+        }
+      },
+      "cohens_kappa": {
+        "value": 0.308,
+        "interpretation": "Fair agreement"
+      }
+    },
+    "baseline_comparison": {
+      "note": "Baseline data available in baseline_results.json with different structure - manual extraction needed"
+    },
+    "ablation_study": {
+      "test_set_size": 10,
+      "E0_baseline": {
+        "accuracy": 0.0,
+        "confidence_interval_95": [
+          0.0,
+          0.0
+        ]
+      },
+      "E1_explicit_permission": {
+        "accuracy": 0.7,
+        "confidence_interval_95": [
+          0.4,
+          1.0
+        ],
+        "vs_baseline": {
+          "effect_size": {
+            "cohens_h": 1.982,
+            "magnitude": 1.982,
+            "interpretation": "large",
+            "direction": "improvement"
+          },
+          "mcnemar_test": {
+            "statistic": 5.143,
+            "p_value": 0.023342,
+            "discordant_pairs": {
+              "b": 7,
+              "c": 0
+            },
+            "significant": true,
+            "interpretation": "Significant difference"
+          }
+        }
+      },
+      "E2_context_aware": {
+        "accuracy": 0.7,
+        "confidence_interval_95": [
+          0.4,
+          1.0
+        ],
+        "vs_baseline": {
+          "effect_size": {
+            "cohens_h": 1.982,
+            "magnitude": 1.982,
+            "interpretation": "large",
+            "direction": "improvement"
+          }
+        }
+      },
+      "E3_contrastive": {
+        "accuracy": 0.3,
+        "confidence_interval_95": [
+          0.0,
+          0.6
+        ],
+        "vs_baseline": {
+          "effect_size": {
+            "cohens_h": 1.159,
+            "magnitude": 1.159,
+            "interpretation": "large",
+            "direction": "improvement"
+          }
+        }
+      }
+    }
+  }
+}
