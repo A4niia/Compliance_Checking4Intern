@@ -6,6 +6,7 @@ import Rules from './pages/Rules'
 import FOLViewer from './pages/FOLViewer'
 import Pipeline from './pages/Pipeline'
 import Results from './pages/Results'
+import Validation from './pages/Validation'
 
 function App() {
     const [sidebarOpen, setSidebarOpen] = useState(true)
@@ -20,6 +21,7 @@ function App() {
                             <Route path="/" element={<Dashboard />} />
                             <Route path="/methodology" element={<Pipeline />} />
                             <Route path="/results" element={<Results />} />
+                            <Route path="/validation" element={<Validation />} />
                             <Route path="/rules" element={<Rules />} />
                             <Route path="/fol" element={<FOLViewer />} />
                         </Routes>

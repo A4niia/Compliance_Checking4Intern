@@ -1,10 +1,11 @@
 import { NavLink } from 'react-router-dom'
-import { Home, Workflow, BarChart3, FileText, Code, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react'
+import { Home, Workflow, BarChart3, FileText, Code, ChevronLeft, ChevronRight, Sparkles, Shield } from 'lucide-react'
 
 const navItems = [
     { path: '/', icon: Home, label: 'Research Overview', description: 'Key findings & RQs' },
-    { path: '/methodology', icon: Workflow, label: '4-Phase Pipeline', description: 'Methodology execution' },
+    { path: '/methodology', icon: Workflow, label: '5-Phase Pipeline', description: 'Complete methodology' },
     { path: '/results', icon: BarChart3, label: 'Results & Validation', description: 'All experiments' },
+    { path: '/validation', icon: Shield, label: 'Validation Demo', description: 'Interactive checking' },
     { path: '/rules', icon: FileText, label: 'Rules Browser', description: '97 annotated rules' },
     { path: '/fol', icon: Code, label: 'FOL Formulas', description: 'Logic representations' }
 ]
@@ -18,8 +19,8 @@ export default function Sidebar({ open, setOpen }) {
                 </div>
                 {open && (
                     <div>
-                        <h1 className="font-bold text-lg text-gray-800">PolicyChecker</h1>
-                        <p className="text-xs text-gray-500">Research Demo</p>
+                        <h1 className="font-bold text-lg text-gray-800">AITPolicyChecker</h1>
+                        <p className="text-xs text-gray-500">Mr.Ponkrit Kaewsawee st124960</p>
                     </div>
                 )}
             </div>

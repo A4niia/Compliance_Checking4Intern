@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Play, Pause, RotateCcw, CheckCircle, Loader, FileText, Brain, Code, Shield, ArrowRight, Sparkles } from 'lucide-react'
+import { Play, Pause, RotateCcw, CheckCircle, Loader, FileText, Brain, Code, Shield, ArrowRight, Sparkles, AlertTriangle, Database } from 'lucide-react'
 
 export default function Pipeline() {
     const [running, setRunning] = useState(false)
@@ -79,8 +79,27 @@ export default function Pipeline() {
             },
             output: {
                 title: 'SHACL Shape',
-                content: ':SubmissionShape a sh:NodeShape ;\n  sh:targetClass :Assignment ;\n  sh:property [\n    sh:path :deadline ;\n    sh:maxInclusive "17:00"^^xsd:time\n  ] .',
+                content: ':SubmissionShape a sh:NodeShape ;\n  sh:targetClass :Assignment ;\n  sh:property [\n    sh:path :submittedAt ;\n    sh:maxInclusive "17:00:00"^^xsd:time\n  ] .',
                 improvements: ['W3C valid', '1,309 triples', 'Semantic web ready']
+            }
+        },
+        {
+            id: 5,
+            name: 'Rule Validation',
+            description: 'SHACL-based compliance checking',
+            finding: 'Automated policy enforcement',
+            detail: 'Real-time validation with human-readable explanations',
+            icon: AlertTriangle,
+            color: 'red',
+            input: {
+                title: 'Student Data (RDF)',
+                content: ':ST124960 a :Student ;\n  :submitted :A01 .\n:A01 :submittedAt "17:30:00"^^xsd:time ;\n  :deadline "17:00:00"^^xsd:time .',
+                task: 'Apply SHACL shape from Phase 4'
+            },
+            output: {
+                title: 'Validation Result + LLM Explanation',
+                content: '❌ VIOLATION:\n"Student ST124960 submitted assignment A01 at 5:30 PM, which is 30 minutes after the 5:00 PM deadline. This violates the submission policy."',
+                improvements: ['Automated checking', 'LLM-translated', 'Actionable feedback']
             }
         }
     ]
@@ -94,7 +113,7 @@ export default function Pipeline() {
             setProgress(p => {
                 if (p >= 100) {
                     setCurrentPhase(cp => {
-                        if (cp >= 3) {
+                        if (cp >= 4) {
                             clearInterval(interval)
                             setRunning(false)
                             return cp
@@ -116,9 +135,9 @@ export default function Pipeline() {
     }
 
     const getPhaseStyle = (idx) => {
-        const isComplete = idx < currentPhase || (idx === currentPhase && progress === 100)
-        const isRunning = idx === currentPhase && running && progress < 100
-        const isPending = idx > currentPhase || (idx === currentPhase && progress === 0)
+        const isComplete = idx < currentPhase || (idx === currentPhase && progress === 100 && running === false)
+        const isRunning = idx === currentPhase && running
+        const isPending = idx > currentPhase
 
         return {
             isComplete,
@@ -131,8 +150,8 @@ export default function Pipeline() {
         <div className="space-y-6">
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-4xl font-bold text-gray-800">4-Phase Methodology</h1>
-                    <p className="text-gray-600 mt-2 text-lg">Automated policy formalization pipeline with visual demonstrations</p>
+                    <h1 className="text-4xl font-bold text-gray-800">5-Phase Complete Pipeline</h1>
+                    <p className="text-gray-600 mt-2 text-lg">End-to-end: Rule creation → Validation</p>
                 </div>
                 <div className="flex gap-3">
                     <button
@@ -167,13 +186,13 @@ export default function Pipeline() {
                         Overall Pipeline Progress
                     </span>
                     <span className="text-sm text-gray-600 font-mono">
-                        {currentPhase === -1 ? 'Ready to start' : `Phase ${currentPhase + 1}/4 • ${Math.round((currentPhase * 25) + (progress / 4))}%`}
+                        {currentPhase === -1 ? 'Ready to start' : `Phase ${currentPhase + 1}/5 • ${Math.round((currentPhase * 20) + (progress / 5))}%`}
                     </span>
                 </div>
                 <div className="progress-bar-container h-4">
                     <div
                         className={`progress-bar-fill ${running ? 'animated' : ''}`}
-                        style={{ width: currentPhase === -1 ? '0%' : `${(currentPhase * 25) + (progress / 4)}%` }}
+                        style={{ width: currentPhase === -1 ? '0%' : `${(currentPhase * 20) + (progress / 5)}%` }}
                     />
                 </div>
             </div>
@@ -188,15 +207,15 @@ export default function Pipeline() {
                         <div
                             key={phase.id}
                             className={`card border-l-4 transition-all duration-300 ${isComplete ? `border-${phase.color}-500 bg-gradient-to-r from-${phase.color}-50 to-white` :
-                                    isRunning ? `border-${phase.color}-500 bg-gradient-to-r from-${phase.color}-50 to-white shadow-xl` :
-                                        'border-gray-300 bg-gray-50'
+                                isRunning ? `border-${phase.color}-500 bg-gradient-to-r from-${phase.color}-50 to-white shadow-xl` :
+                                    'border-gray-300 bg-gray-50'
                                 }`}
                         >
                             {/* Phase Header */}
                             <div className="flex items-start gap-4 mb-4">
                                 <div className={`w-14 h-14 rounded-full flex items-center justify-center text-white font-bold text-xl flex-shrink-0 transition-all ${isComplete ? `bg-${phase.color}-500` :
-                                        isRunning ? `bg-${phase.color}-500 animate-pulse shadow-lg` :
-                                            'bg-gray-400'
+                                    isRunning ? `bg-${phase.color}-500 animate-pulse shadow-lg` :
+                                        'bg-gray-400'
                                     }`}>
                                     {isComplete ? <CheckCircle className="w-7 h-7" /> : phase.id}
                                 </div>
@@ -241,7 +260,7 @@ export default function Pipeline() {
                                             <span className="text-sm font-semibold text-gray-700 uppercase">Input</span>
                                         </div>
                                         <h4 className="font-semibold text-gray-800 mb-2">{phase.input.title}</h4>
-                                        <div className="bg-gray-900 text-gray-100 p-3 rounded font-mono text-xs mb-2">
+                                        <div className="bg-gray-900 text-gray-100 p-3 rounded font-mono text-xs mb-2 whitespace-pre-wrap">
                                             {phase.input.content}
                                         </div>
                                         {phase.input.issues && (
@@ -266,7 +285,7 @@ export default function Pipeline() {
                                             <span className="text-sm font-semibold text-gray-700 uppercase">Output</span>
                                         </div>
                                         <h4 className="font-semibold text-gray-800 mb-2">{phase.output.title}</h4>
-                                        <div className={`bg-gray-900 text-gray-100 p-3 rounded font-mono text-xs mb-2 ${isRunning ? 'opacity-50' : ''}`}>
+                                        <div className={`bg-gray-900 text-gray-100 p-3 rounded font-mono text-xs mb-2 whitespace-pre-wrap ${isRunning ? 'opacity-50' : ''}`}>
                                             {progress > 50 || isComplete ? phase.output.content : 'Processing...'}
                                         </div>
                                         {(isComplete || (isRunning && progress > 70)) && (
@@ -288,7 +307,9 @@ export default function Pipeline() {
                                 <div className={`p-4 rounded-lg bg-${phase.color}-100 border-l-4 border-${phase.color}-600`}>
                                     <div className="flex items-center gap-2 mb-1">
                                         <Sparkles className={`w-4 h-4 text-${phase.color}-700`} />
-                                        <span className={`font-semibold text-${phase.color}-900`}>Research Finding</span>
+                                        <span className={`font-semibold text-${phase.color}-900`}>
+                                            {phase.id <= 4 ? 'Research Finding' : 'Application'}
+                                        </span>
                                     </div>
                                     <div className={`font-bold text-${phase.color}-800 mb-1`}>{phase.finding}</div>
                                     <div className={`text-sm text-${phase.color}-700`}>{phase.detail}</div>
@@ -300,31 +321,35 @@ export default function Pipeline() {
             </div>
 
             {/* Final Results */}
-            {currentPhase === 3 && progress === 100 && (
+            {currentPhase === 4 && progress === 100 && (
                 <div className="card bg-gradient-to-r from-green-50 to-green-100 border-2 border-green-500">
                     <div className="flex items-center gap-3 mb-4">
                         <CheckCircle className="w-12 h-12 text-green-700" />
                         <div>
-                            <h2 className="text-3xl font-bold text-green-800">Pipeline Complete! 🎉</h2>
-                            <p className="text-green-700">All phases executed successfully</p>
+                            <h2 className="text-3xl font-bold text-green-800">Complete Pipeline Executed! 🎉</h2>
+                            <p className="text-green-700">Rule creation + validation demonstration</p>
                         </div>
                     </div>
-                    <div className="grid grid-cols-4 gap-4">
+                    <div className="grid grid-cols-5 gap-4">
                         <div className="text-center bg-white p-4 rounded-lg">
-                            <div className="text-4xl font-bold text-blue-600 mb-1">97</div>
-                            <div className="text-sm text-gray-600">Rules Processed</div>
+                            <div className="text-3xl font-bold text-blue-600 mb-1">97</div>
+                            <div className="text-xs text-gray-600">Rules</div>
                         </div>
                         <div className="text-center bg-white p-4 rounded-lg">
-                            <div className="text-4xl font-bold text-purple-600 mb-1">99%</div>
-                            <div className="text-sm text-gray-600">Classification</div>
+                            <div className="text-3xl font-bold text-purple-600 mb-1">99%</div>
+                            <div className="text-xs text-gray-600">Classification</div>
                         </div>
                         <div className="text-center bg-white p-4 rounded-lg">
-                            <div className="text-4xl font-bold text-green-600 mb-1">100%</div>
-                            <div className="text-sm text-gray-600">Formalized</div>
+                            <div className="text-3xl font-bold text-green-600 mb-1">100%</div>
+                            <div className="text-xs text-gray-600">Formalized</div>
                         </div>
                         <div className="text-center bg-white p-4 rounded-lg">
-                            <div className="text-4xl font-bold text-orange-600 mb-1">1,309</div>
-                            <div className="text-sm text-gray-600">SHACL Triples</div>
+                            <div className="text-3xl font-bold text-orange-600 mb-1">1,309</div>
+                            <div className="text-xs text-gray-600">Triples</div>
+                        </div>
+                        <div className="text-center bg-white p-4 rounded-lg">
+                            <div className="text-3xl font-bold text-red-600 mb-1">✓</div>
+                            <div className="text-xs text-gray-600">Validated</div>
                         </div>
                     </div>
                 </div>
