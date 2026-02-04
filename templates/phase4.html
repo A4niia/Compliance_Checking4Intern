@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Phase 4: SHACL Translation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 3rem;
+        }
+
+        h1 {
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        .phase-label {
+            color: #999;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .explanation {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-left: 4px solid #667eea;
+            margin: 2rem 0;
+            line-height: 1.6;
+        }
+
+        .transformation {
+            margin: 2rem 0;
+        }
+
+        .fol-box {
+            background: #f0fdf4;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 2px solid #28a745;
+            margin-bottom: 2rem;
+        }
+
+        .fol-box h3 {
+            color: #28a745;
+            margin-bottom: 1rem;
+        }
+
+        .formula {
+            font-family: 'Courier New', monospace;
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+
+        .arrow {
+            text-align: center;
+            font-size: 2rem;
+            color: #667eea;
+            margin: 1rem 0;
+        }
+
+        .shacl-box {
+            background: #fef3f2;
+            padding: 2rem;
+            border-radius: 8px;
+            border: 2px solid #dc3545;
+            margin-bottom: 2rem;
+        }
+
+        .shacl-box h3 {
+            color: #dc3545;
+            margin-bottom: 1rem;
+        }
+
+        .code {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 1.5rem;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            line-height: 1.6;
+            overflow-x: auto;
+        }
+
+        .keyword {
+            color: #569cd6;
+        }
+
+        .string {
+            color: #ce9178;
+        }
+
+        .number {
+            color: #b5cea8;
+        }
+
+        .mapping-section {
+            margin: 2rem 0;
+        }
+
+        .mapping-grid {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 1rem;
+            align-items: center;
+            margin: 1rem 0;
+        }
+
+        .mapping-item {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        .mapping-item.fol {
+            background: #f0fdf4;
+            border: 2px solid #28a745;
+        }
+
+        .mapping-item.shacl {
+            background: #fef3f2;
+            border: 2px solid #dc3545;
+        }
+
+        .mapping-arrow {
+            font-size: 1.5rem;
+            color: #667eea;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 3rem;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #764ba2;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="phase-label">PHASE 4 OF 4</div>
+        <h1>🔗 SHACL Translation</h1>
+
+        <div class="explanation">
+            <strong>Purpose:</strong> Translate FOL formulas into SHACL (Shapes Constraint Language) validation
+            constraints using systematic mapping rules.
+            <br><br>
+            <strong>Why SHACL:</strong> W3C standard for RDF data validation. Enables automated policy compliance
+            checking against knowledge graphs. Integrates with Semantic Web infrastructure.
+        </div>
+
+        <div class="transformation">
+            <div class="fol-box">
+                <h3>⚙️ FOL Formula</h3>
+                <div class="formula">{{ example.fol }}</div>
+            </div>
+
+            <div class="arrow">↓ Translate</div>
+
+            <div class="shacl-box">
+                <h3>🔗 SHACL Shape (Turtle Syntax)</h3>
+                <pre class="code">{{ example.shacl }}</pre>
+            </div>
+        </div>
+
+        <h2 style="margin-top: 2rem; color: #333;">Semantic Mapping</h2>
+        <div class="mapping-section">
+            {% for map in example.mapping %}
+            <div class="mapping-grid">
+                <div class="mapping-item fol">
+                    <strong>{{ map.fol }}</strong>
+                </div>
+                <div class="mapping-arrow">→</div>
+                <div class="mapping-item shacl">
+                    <strong>{{ map.shacl }}</strong>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="explanation" style="background: #d1ecf1; border-color: #0c5460;">
+            <strong>✅ Semantic Preservation:</strong> The FOL-to-SHACL translation preserves policy semantics:
+            <ul style="margin-top: 0.5rem; margin-left: 1.5rem; line-height: 1.8;">
+                <li>Universal quantifiers (∀x) map to <code>sh:targetClass</code></li>
+                <li>Deontic operators determine constraint severity and cardinality</li>
+                <li>Predicates map to RDF properties (<code>sh:path</code>)</li>
+                <li>All 97 shapes validated successfully with RDFlib</li>
+            </ul>
+        </div>
+
+        <h2 style="margin-top: 3rem; color: #333;">Translation Statistics</h2>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value">{{ stats.total_shapes }}</div>
+                <div class="stat-label">SHACL Shapes Generated</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">{{ stats.total_triples }}</div>
+                <div class="stat-label">RDF Triples</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">{{ stats.validation }}</div>
+                <div class="stat-label">Validation Status</div>
+            </div>
+        </div>
+
+        <div class="nav-buttons">
+            <a href="/phase3" class="btn btn-secondary">← Phase 3: FOL Formalization</a>
+            <a href="/results" class="btn btn-primary">View Results →</a>
+        </div>
+    </div>
+</body>
+
+</html>

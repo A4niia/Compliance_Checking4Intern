@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Phase 3: FOL Formalization</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 3rem;
+        }
+
+        h1 {
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        .phase-label {
+            color: #999;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .explanation {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-left: 4px solid #667eea;
+            margin: 2rem 0;
+            line-height: 1.6;
+        }
+
+        .transformation {
+            margin: 2rem 0;
+        }
+
+        .nl-rule {
+            background: #e7f3ff;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 2px solid #007bff;
+            margin-bottom: 2rem;
+        }
+
+        .nl-rule h3 {
+            color: #007bff;
+            margin-bottom: 1rem;
+        }
+
+        .rule-text {
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+
+        .classification {
+            display: inline-block;
+            background: #007bff;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        .arrow {
+            text-align: center;
+            font-size: 2rem;
+            color: #667eea;
+            margin: 1rem 0;
+        }
+
+        .fol-formula {
+            background: #f0fdf4;
+            padding: 2rem;
+            border-radius: 8px;
+            border: 2px solid #28a745;
+            font-family: 'Courier New', monospace;
+            font-size: 1.3rem;
+            line-height: 2;
+            margin-bottom: 2rem;
+        }
+
+        .fol-formula h3 {
+            color: #28a745;
+            margin-bottom: 1rem;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .quantifier {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        .predicate {
+            color: #3498db;
+            font-weight: bold;
+        }
+
+        .deontic {
+            color: #f39c12;
+            font-weight: bold;
+        }
+
+        .temporal {
+            color: #9b59b6;
+            font-weight: bold;
+        }
+
+        .components {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .component-card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .component-name {
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        .component-value {
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .component-desc {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 3rem;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #764ba2;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="phase-label">PHASE 3 OF 4</div>
+        <h1>⚙️ FOL Formalization</h1>
+
+        <div class="explanation">
+            <strong>Purpose:</strong> Convert natural language policy rules into First-Order Logic (FOL) formulas with
+            deontic operators.
+            <br><br>
+            <strong>Key Finding:</strong> 100% of institutional policy rules can be formalized using FOL with deontic
+            operators. Higher-Order Logic (HOL) is NOT required, simplifying automated reasoning.
+        </div>
+
+        <div class="transformation">
+            <div class="nl-rule">
+                <h3>📝 Natural Language Rule</h3>
+                <div class="rule-text">{{ example.rule_text }}</div>
+                <div class="classification">Classification: {{ example.classification }}</div>
+            </div>
+
+            <div class="arrow">↓ Formalize</div>
+
+            <div class="fol-formula">
+                <h3>✅ First-Order Logic Formula</h3>
+                <div>
+                    <span class="quantifier">∀x</span> (<span class="predicate">Student</span>(x) →
+                    <span class="deontic">Obligated</span>(x, <span class="temporal">Before</span>(<span
+                        class="predicate">PayFees</span>(x), <span class="predicate">Register</span>(x))))
+                </div>
+            </div>
+        </div>
+
+        <h2 style="margin-top: 2rem; color: #333;">Formula Components</h2>
+        <div class="components">
+            {% for comp in example.components %}
+            <div class="component-card">
+                <div class="component-name">{{ comp.name }}</div>
+                <div class="component-value">{{ comp.value }}</div>
+                <div class="component-desc">{{ comp.description }}</div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <h2 style="margin-top: 3rem; color: #333;">Formalization Statistics</h2>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value">{{ stats.formalization_success }}</div>
+                <div class="stat-label">Formalization Success</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">{{ stats.requires_hol }}</div>
+                <div class="stat-label">Require Higher-Order Logic</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">{{ stats.fol_sufficient }}</div>
+                <div class="stat-label">FOL Sufficient?</div>
+            </div>
+        </div>
+
+        <div class="nav-buttons">
+            <a href="/phase2" class="btn btn-secondary">← Phase 2: Classification</a>
+            <a href="/phase4" class="btn btn-primary">Next: SHACL Translation →</a>
+        </div>
+    </div>
+</body>
+
+</html>

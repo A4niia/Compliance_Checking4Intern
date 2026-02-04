@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Phase 1: Text Simplification</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 3rem;
+        }
+
+        h1 {
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        .phase-label {
+            color: #999;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .explanation {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-left: 4px solid #667eea;
+            margin: 2rem 0;
+            line-height: 1.6;
+        }
+
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .text-box {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 2px solid #ddd;
+        }
+
+        .text-box.before {
+            border-color: #dc3545;
+        }
+
+        .text-box.after {
+            border-color: #28a745;
+        }
+
+        .text-box h3 {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .text-box.before h3 {
+            color: #dc3545;
+        }
+
+        .text-box.after h3 {
+            color: #28a745;
+        }
+
+        .text-content {
+            background: white;
+            padding: 1rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            line-height: 1.8;
+            white-space: pre-wrap;
+        }
+
+        .line-break {
+            color: #dc3545;
+            background: #ffe0e0;
+            padding: 0 4px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 3rem;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #764ba2;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="phase-label">PHASE 1 OF 4</div>
+        <h1>📝 Text Simplification</h1>
+
+        <div class="explanation">
+            <strong>Purpose:</strong> Remove OCR artifacts and normalize text extracted from PDF documents.
+            Poor text quality from OCR leads to LLM classification failures. This preprocessing step
+            removes line breaks mid-sentence, normalizes whitespace, and cleans formatting issues.
+            <br><br>
+            <strong>Impact:</strong> Improved classification accuracy by 15 percentage points (pp).
+            88% of rules (85/97) were affected by text simplification.
+        </div>
+
+        <h2 style="margin-top: 2rem; color: #333;">Example 1: Line Break Removal</h2>
+        <div class="comparison">
+            <div class="text-box before">
+                <h3>❌ Before Simplification (Raw OCR)</h3>
+                <div class="text-content">{% for ex in examples %}{% if loop.index == 1 %}{{ ex.raw }}{% endif %}{%
+                    endfor %}</div>
+                <p style="margin-top: 1rem; color: #666; font-size: 0.9rem;">
+                    ⚠️ Line breaks mid-sentence confuse LLM parser
+                </p>
+            </div>
+            <div class="text-box after">
+                <h3>✅ After Simplification</h3>
+                <div class="text-content">{% for ex in examples %}{% if loop.index == 1 %}{{ ex.simplified }}{% endif
+                    %}{% endfor %}</div>
+                <p style="margin-top: 1rem; color: #666; font-size: 0.9rem;">
+                    ✅ Clean, continuous sentence for processing
+                </p>
+            </div>
+        </div>
+
+        <h2 style="margin-top: 2rem; color: #333;">Example 2: Whitespace Normalization</h2>
+        <div class="comparison">
+            <div class="text-box before">
+                <h3>❌ Before Simplification</h3>
+                <div class="text-content">{% for ex in examples %}{% if loop.index == 2 %}{{ ex.raw }}{% endif %}{%
+                    endfor %}</div>
+            </div>
+            <div class="text-box after">
+                <h3>✅ After Simplification</h3>
+                <div class="text-content">{% for ex in examples %}{% if loop.index == 2 %}{{ ex.simplified }}{% endif
+                    %}{% endfor %}</div>
+            </div>
+        </div>
+
+        <h2 style="margin-top: 3rem; color: #333;">Overall Statistics</h2>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value">{{ stats.rules_affected }}</div>
+                <div class="stat-label">Rules Affected</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">{{ stats.line_breaks_removed }}</div>
+                <div class="stat-label">Line Breaks Removed</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">{{ stats.accuracy_improvement }}</div>
+                <div class="stat-label">Accuracy Improvement</div>
+            </div>
+        </div>
+
+        <div class="nav-buttons">
+            <a href="/" class="btn btn-secondary">← Back to Overview</a>
+            <a href="/phase2" class="btn btn-primary">Next: LLM Classification →</a>
+        </div>
+    </div>
+</body>
+
+</html>
