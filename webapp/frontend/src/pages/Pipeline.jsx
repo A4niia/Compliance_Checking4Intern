@@ -113,7 +113,7 @@ export default function Pipeline() {
             setProgress(p => {
                 if (p >= 100) {
                     setCurrentPhase(cp => {
-                        if (cp >= 4) {
+                        if (cp >= 5) {
                             clearInterval(interval)
                             setRunning(false)
                             return cp
