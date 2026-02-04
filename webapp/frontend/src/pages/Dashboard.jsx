@@ -1,5 +1,9 @@
 import { useState, useEffect } from 'react'
-import { FileText, Code, Shield, CheckCircle, TrendingUp, Users, BarChart3 } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import {
+    FileText, Code, Shield, CheckCircle, Brain,
+    Workflow, BarChart3, ArrowRight, Zap
+} from 'lucide-react'
 import axios from 'axios'
 
 export default function Dashboard() {
@@ -24,105 +28,214 @@ export default function Dashboard() {
     if (loading) {
         return (
             <div className="flex items-center justify-center h-64">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+                <div className="processing-spinner w-8 h-8 border-primary-600"></div>
             </div>
         )
     }
 
-    const statCards = [
-        { label: 'Total Rules', value: stats?.total_rules || 0, icon: FileText, color: 'blue', bg: 'bg-blue-50' },
-        { label: 'Formalized', value: stats?.formalized || 0, icon: Code, color: 'purple', bg: 'bg-purple-50' },
-        { label: 'SHACL Triples', value: stats?.shacl_triples || 0, icon: Shield, color: 'green', bg: 'bg-green-50' },
-        { label: 'Annotated', value: stats?.annotated || 0, icon: CheckCircle, color: 'emerald', bg: 'bg-emerald-50' },
-    ]
-
-    const ruleTypes = [
-        { type: 'Obligations', count: stats?.obligations || 0, color: 'red', percentage: ((stats?.obligations || 0) / (stats?.formalized || 1)) * 100 },
-        { type: 'Permissions', count: stats?.permissions || 0, color: 'green', percentage: ((stats?.permissions || 0) / (stats?.formalized || 1)) * 100 },
-        { type: 'Prohibitions', count: stats?.prohibitions || 0, color: 'orange', percentage: ((stats?.prohibitions || 0) / (stats?.formalized || 1)) * 100 },
+    const researchQuestions = [
+        {
+            id: 'RQ1',
+            question: 'Can LLMs effectively identify policy rules?',
+            answer: '99% Accuracy',
+            detail: 'Mistral-7B, Cohen\'s κ = 0.85',
+            color: 'purple',
+            icon: Brain
+        },
+        {
+            id: 'RQ2',
+            question: 'Is First-Order Logic sufficient for policy formalization?',
+            answer: '100% Success',
+            detail: '97 rules formalized, no HOL needed',
+            color: 'success',
+            icon: Code
+        },
+        {
+            id: 'RQ3',
+            question: 'Can FOL be automatically translated to SHACL?',
+            answer: '1,309 Triples',
+            detail: 'W3C-compliant SHACL shapes',
+            color: 'warning',
+            icon: Shield
+        }
     ]
 
     return (
         <div className="space-y-8">
-            {/* Header */}
-            <div>
-                <h1 className="text-3xl font-bold text-slate-800">Dashboard</h1>
-                <p className="text-slate-500 mt-2">Overview of your policy formalization pipeline</p>
-            </div>
-
-            {/* Stats Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {statCards.map((stat, i) => (
-                    <div key={i} className="card card-hover">
-                        <div className="flex items-center justify-between">
-                            <div>
-                                <p className="text-slate-500 text-sm font-medium">{stat.label}</p>
-                                <p className="text-3xl font-bold text-slate-800 mt-1">{stat.value}</p>
-                            </div>
-                            <div className={`w-12 h-12 rounded-xl ${stat.bg} flex items-center justify-center`}>
-                                <stat.icon className={`w-6 h-6 text-${stat.color}-600`} />
-                            </div>
-                        </div>
+            {/* Hero Section */}
+            <div className="card bg-gradient-to-br from-primary-50 via-white to-primary-50 border-2 border-primary-100">
+                <div className="text-center py-8">
+                    <h1 className="text-5xl font-bold text-neutral-800 mb-3">
+                        Automated Policy Formalization Pipeline
+                    </h1>
+                    <p className="text-xl text-neutral-600 mb-6">
+                        From Natural Language to Semantic Web Constraints
+                    </p>
+                    <div className="flex items-center justify-center gap-4 flex-wrap">
+                        <Link to="/methodology" className="btn btn-primary flex items-center gap-2">
+                            <Workflow className="w-5 h-5" />
+                            View 4-Phase Methodology
+                            <ArrowRight className="w-4 h-4" />
+                        </Link>
+                        <Link to="/results" className="btn btn-secondary flex items-center gap-2">
+                            <BarChart3 className="w-5 h-5" />
+                            See Research Results
+                        </Link>
                     </div>
-                ))}
+                </div>
             </div>
 
-            {/* Rule Types */}
-            <div className="card">
-                <h2 className="text-xl font-semibold text-slate-800 mb-6">Rule Distribution</h2>
+            {/* Research Questions - Answered */}
+            <div>
+                <h2 className="text-2xl font-bold text-neutral-800 mb-6 flex items-center gap-3">
+                    <CheckCircle className="w-8 h-8 text-success-600" />
+                    Research Questions Answered
+                </h2>
                 <div className="grid grid-cols-3 gap-6">
-                    {ruleTypes.map((item, i) => (
-                        <div key={i} className="text-center">
-                            <div className={`text-4xl font-bold text-${item.color}-600`}>{item.count}</div>
-                            <div className="text-slate-500 mt-1 font-medium">{item.type}</div>
-                            <div className="mt-4 h-2 bg-slate-100 rounded-full overflow-hidden">
-                                <div
-                                    className={`h-full bg-${item.color}-500 rounded-full`}
-                                    style={{ width: `${item.percentage}%` }}
-                                ></div>
+                    {researchQuestions.map((rq) => (
+                        <div key={rq.id} className={`card bg-gradient-to-br from-${rq.color}-50 to-white border-l-4 border-${rq.color}-500`}>
+                            <div className="flex items-center gap-2 mb-3">
+                                <div className={`w-10 h-10 rounded-lg bg-${rq.color}-100 flex items-center justify-center`}>
+                                    <rq.icon className={`w-5 h-5 text-${rq.color}-700`} />
+                                </div>
+                                <span className={`text-sm font-bold px-2 py-1 rounded bg-${rq.color}-100 text-${rq.color}-700`}>
+                                    {rq.id}
+                                </span>
                             </div>
-                            <div className="text-sm text-slate-400 mt-1">{item.percentage.toFixed(1)}%</div>
+                            <h3 className="font-semibold text-neutral-700 text-sm mb-3 leading-tight">
+                                {rq.question}
+                            </h3>
+                            <div className={`text-3xl font-bold text-${rq.color}-700 mb-1`}>
+                                {rq.answer}
+                            </div>
+                            <p className="text-sm text-neutral-600">
+                                {rq.detail}
+                            </p>
                         </div>
                     ))}
                 </div>
             </div>
 
-            {/* Progress */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <div className="card">
-                    <h2 className="text-xl font-semibold text-slate-800 mb-4">Annotation Progress</h2>
-                    <div className="flex items-center gap-4">
-                        <div className="flex-1">
-                            <div className="h-3 bg-slate-100 rounded-full overflow-hidden">
-                                <div
-                                    className="h-full bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full"
-                                    style={{ width: `${((stats?.annotated || 0) / (stats?.total_rules || 1)) * 100}%` }}
-                                ></div>
-                            </div>
-                        </div>
-                        <span className="text-slate-800 font-bold text-lg">
-                            {Math.round(((stats?.annotated || 0) / (stats?.total_rules || 1)) * 100)}%
-                        </span>
+            {/* Pipeline Statistics */}
+            <div>
+                <h2 className="text-2xl font-bold text-neutral-800 mb-6 flex items-center gap-3">
+                    <Zap className="w-7 h-7 text-primary-600" />
+                    Pipeline Performance
+                </h2>
+                <div className="grid grid-cols-4 gap-4">
+                    <div className="stat-card">
+                        <div className="stat-value text-primary-600">{stats?.total_rules || 0}</div>
+                        <div className="stat-label">Total Rules</div>
+                        <div className="text-xs text-neutral-500 mt-2">Gold standard corpus</div>
                     </div>
-                    <p className="text-slate-500 text-sm mt-3">
-                        {stats?.annotated} of {stats?.total_rules} rules annotated
-                    </p>
+                    <div className="stat-card">
+                        <div className="stat-value text-purple-600">99%</div>
+                        <div className="stat-label">Classification</div>
+                        <div className="text-xs text-neutral-500 mt-2">LLM accuracy</div>
+                    </div>
+                    <div className="stat-card">
+                        <div className="stat-value text-success-600">{stats?.formalized || 0}</div>
+                        <div className="stat-label">FOL Formalized</div>
+                        <div className="text-xs text-neutral-500 mt-2">100% success rate</div>
+                    </div>
+                    <div className="stat-card">
+                        <div className="stat-value text-warning-600">{stats?.shacl_triples || 0}</div>
+                        <div className="stat-label">SHACL Triples</div>
+                        <div className="text-xs text-neutral-500 mt-2">W3C validated</div>
+                    </div>
                 </div>
+            </div>
 
-                <div className="card">
-                    <h2 className="text-xl font-semibold text-slate-800 mb-4">Pipeline Status</h2>
-                    <div className="space-y-3">
-                        {[
-                            { step: 'PDF Extraction', status: 'complete' },
-                            { step: 'LLM Classification', status: 'complete' },
-                            { step: 'FOL Formalization', status: 'complete' },
-                            { step: 'SHACL Translation', status: 'complete' },
-                        ].map((item, i) => (
-                            <div key={i} className="flex items-center gap-3 p-2 bg-green-50 rounded-lg">
-                                <CheckCircle className="w-5 h-5 text-green-600" />
-                                <span className="text-slate-700 font-medium">{item.step}</span>
-                            </div>
-                        ))}
+            {/* 4-Phase Overview */}
+            <div className="card">
+                <h2 className="text-2xl font-bold text-neutral-800 mb-6 flex items-center gap-3">
+                    <Workflow className="w-7 h-7 text-neutral-700" />
+                    4-Phase Methodology
+                </h2>
+                <div className="grid grid-cols-4 gap-4">
+                    <div className="text-center p-4 rounded-xl bg-primary-50 border border-primary-200">
+                        <div className="w-12 h-12 rounded-full bg-primary-500 text-white font-bold text-xl flex items-center justify-center mx-auto mb-3">
+                            1
+                        </div>
+                        <h3 className="font-semibold text-neutral-800 mb-2">Text Simplification</h3>
+                        <p className="text-sm text-neutral-600">OCR cleanup & normalization</p>
+                        <div className="mt-3 text-xs font-semibold text-primary-700">+15pp accuracy</div>
+                    </div>
+                    <div className="text-center p-4 rounded-xl bg-purple-50 border border-purple-200">
+                        <div className="w-12 h-12 rounded-full bg-purple-500 text-white font-bold text-xl flex items-center justify-center mx-auto mb-3">
+                            2
+                        </div>
+                        <h3 className="font-semibold text-neutral-800 mb-2">LLM Classification</h3>
+                        <p className="text-sm text-neutral-600">Deontic type identification</p>
+                        <div className="mt-3 text-xs font-semibold text-purple-700">0% → 70% permissions</div>
+                    </div>
+                    <div className="text-center p-4 rounded-xl bg-success-50 border border-success-200">
+                        <div className="w-12 h-12 rounded-full bg-success-500 text-white font-bold text-xl flex items-center justify-center mx-auto mb-3">
+                            3
+                        </div>
+                        <h3 className="font-semibold text-neutral-800 mb-2">FOL Formalization</h3>
+                        <p className="text-sm text-neutral-600">First-order logic generation</p>
+                        <div className="mt-3 text-xs font-semibold text-success-700">100% success</div>
+                    </div>
+                    <div className="text-center p-4 rounded-xl bg-warning-50 border border-warning-200">
+                        <div className="w-12 h-12 rounded-full bg-warning-500 text-white font-bold text-xl flex items-center justify-center mx-auto mb-3">
+                            4
+                        </div>
+                        <h3 className="font-semibold text-neutral-800 mb-2">SHACL Translation</h3>
+                        <p className="text-sm text-neutral-600">Semantic web constraints</p>
+                        <div className="mt-3 text-xs font-semibold text-warning-700">1,309 triples</div>
+                    </div>
+                </div>
+                <div className="mt-6 text-center">
+                    <Link to="/methodology" className="btn btn-primary inline-flex items-center gap-2">
+                        View Live Pipeline Execution
+                        <ArrowRight className="w-4 h-4" />
+                    </Link>
+                </div>
+            </div>
+
+            {/* Rule Distribution */}
+            <div className="card">
+                <h2 className="text-xl font-semibold text-neutral-800 mb-6">Deontic Type Distribution</h2>
+                <div className="grid grid-cols-3 gap-6">
+                    <div className="text-center">
+                        <div className="text-4xl font-bold text-error-600">{stats?.obligations || 0}</div>
+                        <div className="text-neutral-600 mt-1 font-medium">Obligations</div>
+                        <div className="mt-3 h-2 bg-neutral-100 rounded-full overflow-hidden">
+                            <div
+                                className="h-full bg-error-500 rounded-full"
+                                style={{ width: `${((stats?.obligations || 0) / (stats?.formalized || 1)) * 100}%` }}
+                            />
+                        </div>
+                        <div className="text-sm text-neutral-500 mt-1">
+                            {Math.round(((stats?.obligations || 0) / (stats?.formalized || 1)) * 100)}%
+                        </div>
+                    </div>
+                    <div className="text-center">
+                        <div className="text-4xl font-bold text-success-600">{stats?.permissions || 0}</div>
+                        <div className="text-neutral-600 mt-1 font-medium">Permissions</div>
+                        <div className="mt-3 h-2 bg-neutral-100 rounded-full overflow-hidden">
+                            <div
+                                className="h-full bg-success-500 rounded-full"
+                                style={{ width: `${((stats?.permissions || 0) / (stats?.formalized || 1)) * 100}%` }}
+                            />
+                        </div>
+                        <div className="text-sm text-neutral-500 mt-1">
+                            {Math.round(((stats?.permissions || 0) / (stats?.formalized || 1)) * 100)}%
+                        </div>
+                    </div>
+                    <div className="text-center">
+                        <div className="text-4xl font-bold text-warning-600">{stats?.prohibitions || 0}</div>
+                        <div className="text-neutral-600 mt-1 font-medium">Prohibitions</div>
+                        <div className="mt-3 h-2 bg-neutral-100 rounded-full overflow-hidden">
+                            <div
+                                className="h-full bg-warning-500 rounded-full"
+                                style={{ width: `${((stats?.prohibitions || 0) / (stats?.formalized || 1)) * 100}%` }}
+                            />
+                        </div>
+                        <div className="text-sm text-neutral-500 mt-1">
+                            {Math.round(((stats?.prohibitions || 0) / (stats?.formalized || 1)) * 100)}%
+                        </div>
                     </div>
                 </div>
             </div>

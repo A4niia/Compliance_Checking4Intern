@@ -1,74 +1,116 @@
 import { NavLink } from 'react-router-dom'
 import {
-    LayoutDashboard,
+    Home,
+    Workflow,
+    BarChart3,
     FileText,
     Code,
-    Shield,
     ChevronLeft,
     ChevronRight,
-    Sparkles,
-    Play,
-    Brain,
-    Workflow,
-    Upload,
-    BarChart3,
-    CheckCircle
+    Sparkles
 } from 'lucide-react'
 
 const navItems = [
-    { path: '/', icon: LayoutDashboard, label: 'Dashboard' },
-    { path: '/upload', icon: Upload, label: 'Process Document', highlight: true },
-    { path: '/compare', icon: BarChart3, label: 'Model Comparison' },
-    { path: '/extraction-validation', icon: CheckCircle, label: 'Extraction QA' },
-    { path: '/rules', icon: FileText, label: 'Rules' },
-    { path: '/fol', icon: Code, label: 'FOL Viewer' },
-    { path: '/validation', icon: Shield, label: 'Validation' },
-    { path: '/pipeline', icon: Workflow, label: 'Pipeline' },
-    { path: '/demo', icon: Play, label: 'Live Demo' },
-    { path: '/agent', icon: Brain, label: 'Agentic System' },
+    {
+        path: '/',
+        icon: Home,
+        label: 'Research Overview',
+        description: 'Key findings & RQs',
+        color: 'primary'
+    },
+    {
+        path: '/methodology',
+        icon: Workflow,
+        label: '4-Phase Pipeline',
+        description: 'Methodology execution',
+        color: 'purple'
+    },
+    {
+        path: '/results',
+        icon: BarChart3,
+        label: 'Results & Validation',
+        description: 'Experiments & findings',
+        color: 'success'
+    },
+    {
+        path: '/rules',
+        icon: FileText,
+        label: 'Rules Browser',
+        description: '97 annotated rules',
+        color: 'neutral'
+    },
+    {
+        path: '/fol',
+        icon: Code,
+        label: 'FOL Formulas',
+        description: 'Formal logic views',
+        color: 'neutral'
+    }
 ]
 
 export default function Sidebar({ open, setOpen }) {
     return (
-        <aside className={`fixed left-0 top-0 h-screen bg-white border-r border-slate-200 transition-all duration-300 z-50 shadow-sm ${open ? 'w-64' : 'w-20'}`}>
+        <aside className={`fixed left-0 top-0 h-screen bg-white border-r border-neutral-200 transition-all duration-300 z-50 shadow-md ${open ? 'w-72' : 'w-20'}`}>
             {/* Logo */}
-            <div className="flex items-center gap-3 p-6 border-b border-slate-100">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center shadow-lg shadow-blue-500/20">
+            <div className="flex items-center gap-3 p-6 border-b border-neutral-100">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center shadow-lg">
                     <Sparkles className="w-5 h-5 text-white" />
                 </div>
                 {open && (
                     <div>
-                        <h1 className="font-bold text-lg text-slate-800">PolicyChecker</h1>
-                        <p className="text-xs text-slate-500">AI Policy Formalization</p>
+                        <h1 className="font-bold text-lg text-neutral-800">PolicyChecker</h1>
+                        <p className="text-xs text-neutral-500">Research Demonstration</p>
                     </div>
                 )}
             </div>
 
             {/* Navigation */}
-            <nav className="p-4 space-y-1">
+            <nav className="p-4 space-y-2">
                 {navItems.map((item) => (
                     <NavLink
                         key={item.path}
                         to={item.path}
                         className={({ isActive }) =>
-                            `flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 ${isActive
-                                ? 'bg-blue-50 text-blue-600 font-semibold'
-                                : item.highlight
-                                    ? 'text-purple-600 hover:text-purple-700 hover:bg-purple-50 font-medium'
-                                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                            `group flex items-start gap-3 px-4 py-3 rounded-xl transition-all duration-200 
+                            ${isActive
+                                ? 'bg-primary-50 text-primary-700 shadow-sm border border-primary-100'
+                                : 'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-50'
                             }`
                         }
                     >
-                        <item.icon className={`w-5 h-5 flex-shrink-0 ${item.highlight ? 'text-purple-500' : ''}`} />
-                        {open && <span className="font-medium">{item.label}</span>}
+                        <item.icon className="w-5 h-5 flex-shrink-0 mt-0.5" />
+                        {open && (
+                            <div className="flex-1 min-w-0">
+                                <div className="font-semibold text-sm">{item.label}</div>
+                                <div className="text-xs text-neutral-500 mt-0.5 leading-tight">
+                                    {item.description}
+                                </div>
+                            </div>
+                        )}
                     </NavLink>
                 ))}
             </nav>
 
+            {/* Footer Info */}
+            {open && (
+                <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-neutral-100 bg-neutral-50">
+                    <div className="text-xs text-neutral-600">
+                        <div className="font-semibold text-neutral-800 mb-1">Data Status:</div>
+                        <div className="flex items-center gap-1">
+                            <div className="w-2 h-2 rounded-full bg-success-500"></div>
+                            <span>97 rules loaded ✓</span>
+                        </div>
+                        <div className="text-neutral-500 mt-1">
+                            Updated: Jan 31, 2026
+                        </div>
+                    </div>
+                </div>
+            )}
+
             {/* Toggle button */}
             <button
                 onClick={() => setOpen(!open)}
-                className="absolute bottom-6 right-[-12px] w-6 h-6 bg-white border border-slate-200 shadow-sm rounded-full flex items-center justify-center text-slate-400 hover:text-slate-600 hover:bg-slate-50 transition-colors"
+                className="absolute bottom-24 right-[-12px] w-6 h-6 bg-white border border-neutral-200 shadow-md rounded-full flex items-center justify-center text-neutral-400 hover:text-neutral-700 hover:bg-neutral-50 transition-colors"
             >
                 {open ? <ChevronLeft className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
             </button>

@@ -4,37 +4,28 @@ import Sidebar from './components/Sidebar'
 import Dashboard from './pages/Dashboard'
 import Rules from './pages/Rules'
 import FOLViewer from './pages/FOLViewer'
-import Validation from './pages/Validation'
-import Demo from './pages/Demo'
-import Agent from './pages/Agent'
 import Pipeline from './pages/Pipeline'
-import Upload from './pages/Upload'
 import ModelComparison from './pages/ModelComparison'
-import ValidationDashboard from './pages/ValidationDashboard'
+import Results from './pages/Results'
 
 function App() {
     const [sidebarOpen, setSidebarOpen] = useState(true)
 
     return (
         <BrowserRouter>
-            <div className="flex h-screen">
+            <div className="flex h-screen bg-neutral-50">
                 {/* Sidebar */}
                 <Sidebar open={sidebarOpen} setOpen={setSidebarOpen} />
 
                 {/* Main content */}
                 <main className={`flex-1 overflow-auto transition-all duration-300 ${sidebarOpen ? 'ml-64' : 'ml-20'}`}>
-                    <div className="p-8">
+                    <div className="p-8 max-w-7xl mx-auto">
                         <Routes>
                             <Route path="/" element={<Dashboard />} />
+                            <Route path="/methodology" element={<Pipeline />} />
+                            <Route path="/results" element={<Results />} />
                             <Route path="/rules" element={<Rules />} />
                             <Route path="/fol" element={<FOLViewer />} />
-                            <Route path="/validation" element={<Validation />} />
-                            <Route path="/demo" element={<Demo />} />
-                            <Route path="/agent" element={<Agent />} />
-                            <Route path="/pipeline" element={<Pipeline />} />
-                            <Route path="/upload" element={<Upload />} />
-                            <Route path="/compare" element={<ModelComparison />} />
-                            <Route path="/extraction-validation" element={<ValidationDashboard />} />
                         </Routes>
                     </div>
                 </main>
