@@ -242,113 +242,133 @@ export default function Validation() {
 
                             {/* Validation Results */}
                             {validationResult && (
-                                <div className="card">
-                                    <h4 className="font-semibold text-gray-800 mb-3 flex items-center gap-2">
-                                        {validationResult.conforms ? (
-                                            <CheckCircle className="w-5 h-5 text-green-600" />
-                                        ) : (
-                                            <XCircle className="w-5 h-5 text-red-600" />
-                                        )}
-                                        Validation Results
-                                        {validationResult.is_mock && (
-                                            <span className="ml-2 px-2 py-0.5 text-xs bg-amber-100 text-amber-700 rounded">
-                                                pySHACL not installed
-                                            </span>
-                                        )}
-                                    </h4>
-
-                                    {/* Student Info */}
-                                    {validationResult.student && (
-                                        <div className="mb-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
-                                            <h5 className="font-semibold text-sm text-blue-800 mb-2">Student Data Used:</h5>
-                                            <div className="text-sm text-gray-700 grid grid-cols-2 gap-2">
-                                                <div><strong>ID:</strong> {validationResult.student.id}</div>
-                                                <div><strong>Name:</strong> {validationResult.student.name}</div>
-                                                <div><strong>Program:</strong> {validationResult.student.program}</div>
-                                                <div><strong>Fees Paid:</strong> {validationResult.student.fees_paid ? '✅ Yes' : '❌ No'}</div>
+                                <>
+                                    {/* LLM Explanation - Prominent First */}
+                                    {validationResult.llm_explanation && (
+                                        <div className="card bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-300">
+                                            <h4 className="font-semibold text-gray-800 mb-3 flex items-center gap-2">
+                                                <span className="text-2xl">💡</span>
+                                                What This Means
+                                            </h4>
+                                            <div className="bg-white p-4 rounded-lg border border-blue-200">
+                                                <p className="text-gray-800 text-lg leading-relaxed">
+                                                    {validationResult.llm_explanation}
+                                                </p>
+                                            </div>
+                                            <div className="mt-2 text-xs text-gray-500 flex items-center gap-1">
+                                                <span>✨</span>
+                                                <span>AI-generated explanation powered by Mistral</span>
                                             </div>
                                         </div>
                                     )}
 
-                                    <div className={`p-4 rounded-lg mb-4 ${validationResult.conforms
-                                        ? 'bg-green-50 border border-green-200'
-                                        : 'bg-red-50 border border-red-200'
-                                        }`}>
-                                        <div className="font-semibold mb-1">
-                                            {validationResult.conforms ? '✅ CONFORMS' : '❌ VIOLATIONS DETECTED'}
+                                    <div className="card">
+                                        <h4 className="font-semibold text-gray-800 mb-3 flex items-center gap-2">
+                                            {validationResult.conforms ? (
+                                                <CheckCircle className="w-5 h-5 text-green-600" />
+                                            ) : (
+                                                <XCircle className="w-5 h-5 text-red-600" />
+                                            )}
+                                            Technical Validation Results
+                                            {validationResult.is_mock && (
+                                                <span className="ml-2 px-2 py-0.5 text-xs bg-amber-100 text-amber-700 rounded">
+                                                    pySHACL not installed
+                                                </span>
+                                            )}
+                                        </h4>
+
+                                        {/* Student Info */}
+                                        {validationResult.student && (
+                                            <div className="mb-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
+                                                <h5 className="font-semibold text-sm text-blue-800 mb-2">Student Data Used:</h5>
+                                                <div className="text-sm text-gray-700 grid grid-cols-2 gap-2">
+                                                    <div><strong>ID:</strong> {validationResult.student.id}</div>
+                                                    <div><strong>Name:</strong> {validationResult.student.name}</div>
+                                                    <div><strong>Program:</strong> {validationResult.student.program}</div>
+                                                    <div><strong>Fees Paid:</strong> {validationResult.student.fees_paid ? '✅ Yes' : '❌ No'}</div>
+                                                </div>
+                                            </div>
+                                        )}
+
+                                        <div className={`p-4 rounded-lg mb-4 ${validationResult.conforms
+                                            ? 'bg-green-50 border border-green-200'
+                                            : 'bg-red-50 border border-red-200'
+                                            }`}>
+                                            <div className="font-semibold mb-1">
+                                                {validationResult.conforms ? '✅ CONFORMS' : '❌ VIOLATIONS DETECTED'}
+                                            </div>
+                                            <div className="text-sm text-gray-600">
+                                                {validationResult.validation_result?.message ||
+                                                    validationResult.validation_result?.report_text?.substring(0, 200)}
+                                            </div>
                                         </div>
-                                        <div className="text-sm text-gray-600">
-                                            {validationResult.validation_result?.message ||
-                                                validationResult.validation_result?.report_text?.substring(0, 200)}
-                                        </div>
+
+                                        {/* Violations */}
+                                        {validationResult.violations && validationResult.violations.length > 0 && (
+                                            <div className="mb-4">
+                                                <h5 className="font-semibold text-sm text-red-700 mb-2">
+                                                    Violations ({validationResult.violations.length}):
+                                                </h5>
+                                                <div className="bg-red-50 p-3 rounded-lg space-y-1 max-h-32 overflow-y-auto">
+                                                    {validationResult.violations.map((v, i) => (
+                                                        <div key={i} className="text-xs font-mono text-red-800">{v}</div>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        )}
+
+                                        {/* Student RDF */}
+                                        {validationResult.student_rdf && (
+                                            <div>
+                                                <h5 className="font-semibold text-sm text-gray-700 mb-2">Student RDF (Turtle):</h5>
+                                                <pre className="bg-gray-50 p-3 rounded-lg text-xs font-mono overflow-x-auto max-h-48">
+                                                    {validationResult.student_rdf}
+                                                </pre>
+                                            </div>
+                                        )}
                                     </div>
-
-                                    {/* Violations */}
-                                    {validationResult.violations && validationResult.violations.length > 0 && (
-                                        <div className="mb-4">
-                                            <h5 className="font-semibold text-sm text-red-700 mb-2">
-                                                Violations ({validationResult.violations.length}):
-                                            </h5>
-                                            <div className="bg-red-50 p-3 rounded-lg space-y-1 max-h-32 overflow-y-auto">
-                                                {validationResult.violations.map((v, i) => (
-                                                    <div key={i} className="text-xs font-mono text-red-800">{v}</div>
-                                                ))}
-                                            </div>
-                                        </div>
-                                    )}
-
-                                    {/* Student RDF */}
-                                    {validationResult.student_rdf && (
-                                        <div>
-                                            <h5 className="font-semibold text-sm text-gray-700 mb-2">Student RDF (Turtle):</h5>
-                                            <pre className="bg-gray-50 p-3 rounded-lg text-xs font-mono overflow-x-auto max-h-48">
-                                                {validationResult.student_rdf}
-                                            </pre>
-                                        </div>
-                                    )}
-                                </div>
                             )}
-                        </>
-                    ) : (
-                        <div className="card text-center py-12 text-gray-500">
-                            <Database className="w-12 h-12 mx-auto mb-3 opacity-50" />
-                            <p>Select a rule to view details</p>
-                        </div>
+                                </>
+                            ) : (
+                            <div className="card text-center py-12 text-gray-500">
+                                <Database className="w-12 h-12 mx-auto mb-3 opacity-50" />
+                                <p>Select a rule to view details</p>
+                            </div>
                     )}
+                        </div>
                 </div>
-            </div>
 
-            {/* Stats Footer */}
-            <div className="grid grid-cols-5 gap-4">
-                <div className="card text-center">
-                    <div className="text-3xl font-bold text-blue-600">{rules.length}</div>
-                    <div className="text-sm text-gray-600">Total Rules</div>
-                </div>
-                <div className="card text-center">
-                    <div className="text-3xl font-bold text-green-600">
-                        {rules.filter(r => r.has_shacl).length}
+                {/* Stats Footer */}
+                <div className="grid grid-cols-5 gap-4">
+                    <div className="card text-center">
+                        <div className="text-3xl font-bold text-blue-600">{rules.length}</div>
+                        <div className="text-sm text-gray-600">Total Rules</div>
                     </div>
-                    <div className="text-sm text-gray-600">With SHACL</div>
-                </div>
-                <div className="card text-center">
-                    <div className="text-3xl font-bold text-red-600">
-                        {rules.filter(r => r.deontic_type === 'obligation').length}
+                    <div className="card text-center">
+                        <div className="text-3xl font-bold text-green-600">
+                            {rules.filter(r => r.has_shacl).length}
+                        </div>
+                        <div className="text-sm text-gray-600">With SHACL</div>
                     </div>
-                    <div className="text-sm text-gray-600">Obligations</div>
-                </div>
-                <div className="card text-center">
-                    <div className="text-3xl font-bold text-purple-600">
-                        {rules.filter(r => r.deontic_type === 'permission').length}
+                    <div className="card text-center">
+                        <div className="text-3xl font-bold text-red-600">
+                            {rules.filter(r => r.deontic_type === 'obligation').length}
+                        </div>
+                        <div className="text-sm text-gray-600">Obligations</div>
                     </div>
-                    <div className="text-sm text-gray-600">Permissions</div>
-                </div>
-                <div className="card text-center">
-                    <div className="text-3xl font-bold text-amber-600">
-                        {dbStats?.total_students || '?'}
+                    <div className="card text-center">
+                        <div className="text-3xl font-bold text-purple-600">
+                            {rules.filter(r => r.deontic_type === 'permission').length}
+                        </div>
+                        <div className="text-sm text-gray-600">Permissions</div>
                     </div>
-                    <div className="text-sm text-gray-600">Test Students</div>
+                    <div className="card text-center">
+                        <div className="text-3xl font-bold text-amber-600">
+                            {dbStats?.total_students || '?'}
+                        </div>
+                        <div className="text-sm text-gray-600">Test Students</div>
+                    </div>
                 </div>
             </div>
-        </div>
-    )
+            )
 }

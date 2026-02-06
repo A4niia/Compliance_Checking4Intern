@@ -104,6 +104,7 @@ def validate_specific_rule():
     from backend.services.student_db import get_student_by_id, get_student_by_scenario, get_student_violations
     from backend.services.rdf_converter import student_to_rdf
     from backend.services.shacl_validator import validate_student
+    from backend.services.llm_explainer import explain_validation_result
     
     data = request.json or {}
     rule_id = data.get('rule_id')
@@ -147,23 +148,34 @@ def validate_specific_rule():
         # Run SHACL validation
         validation_result = validate_student(student_rdf)
         
+        # Generate LLM explanation
+        student_info = {
+            'id': student['student_id'],
+            'name': student.get('name'),
+            'program': student.get('program'),
+            'fees_paid': student.get('fees_paid'),
+            'is_full_time': student.get('is_full_time')
+        }
+        
+        llm_explanation = explain_validation_result(
+            rule_text=rule.get('original_text'),
+            student_data=student_info,
+            validation_result=validation_result,
+            fol_formula=rule_fol.get('fol_formalization', {}).get('deontic_formula')
+        )
+        
         return jsonify({
             'rule_id': rule_id,
             'rule_text': rule.get('original_text'),
             'deontic_type': rule_fol.get('fol_formalization', {}).get('deontic_type'),
             'fol_formula': rule_fol.get('fol_formalization', {}).get('deontic_formula'),
-            'student': {
-                'id': student['student_id'],
-                'name': student.get('name'),
-                'program': student.get('program'),
-                'fees_paid': student.get('fees_paid'),
-                'is_full_time': student.get('is_full_time')
-            },
+            'student': student_info,
             'student_rdf': student_rdf,
             'validation_result': validation_result,
             'conforms': validation_result.get('conforms', True),
             'violations': validation_result.get('violations', []),
-            'is_mock': validation_result.get('mock', False)
+            'is_mock': validation_result.get('mock', False),
+            'llm_explanation': llm_explanation  # NEW: Natural language explanation
         })
     except Exception as e:
         return jsonify({
