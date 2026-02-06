@@ -28,6 +28,10 @@ app.register_blueprint(pipeline_bp)
 from backend.routes.validation import validation_bp
 app.register_blueprint(validation_bp)
 
+# Register live pipeline blueprint (real-time SSE)
+from backend.routes.live_pipeline import live_pipeline_bp
+app.register_blueprint(live_pipeline_bp)
+
 # Paths
 PROJECT_ROOT = Path(__file__).parent.parent.parent
 RESEARCH_DIR = PROJECT_ROOT / "research"

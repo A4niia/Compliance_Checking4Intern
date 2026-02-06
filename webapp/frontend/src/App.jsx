@@ -4,7 +4,7 @@ import Sidebar from './components/Sidebar'
 import Dashboard from './pages/Dashboard'
 import Rules from './pages/Rules'
 import FOLViewer from './pages/FOLViewer'
-import Pipeline from './pages/Pipeline'
+import LivePipeline from './pages/LivePipeline'
 import Results from './pages/Results'
 import Validation from './pages/Validation'
 
@@ -19,7 +19,7 @@ function App() {
                     <div className="p-8 max-w-7xl mx-auto">
                         <Routes>
                             <Route path="/" element={<Dashboard />} />
-                            <Route path="/methodology" element={<Pipeline />} />
+                            <Route path="/methodology" element={<LivePipeline />} />
                             <Route path="/results" element={<Results />} />
                             <Route path="/validation" element={<Validation />} />
                             <Route path="/rules" element={<Rules />} />
