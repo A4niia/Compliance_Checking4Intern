@@ -1,0 +1,787 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix ait: <http://example.org/ait-policy#> .
+@prefix deontic: <http://example.org/deontic#> .
+
+# Import ontology
+# owl:imports <ait_policy_ontology.ttl> .
+
+
+# Rule: GS-001
+ait:Gs001Shape a sh:NodeShape ;
+    sh:targetClass ait:ContractedResearch ;
+    rdfs:label "GS-001" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "Contracted research may entail confidentiality and restriction on publication." .
+
+# Rule: GS-002
+ait:Gs002Shape a sh:NodeShape ;
+    sh:targetClass ait:Person ;
+    rdfs:label "GS-002" ;
+    deontic:type deontic:prohibition ;
+    sh:severity sh:Violation ;
+    rdfs:comment "Their educational visas may also be cancelled." .
+
+# Rule: GS-003
+ait:Gs003Shape a sh:NodeShape ;
+    sh:targetClass ait:PostgraduateStudent ;
+    rdfs:label "GS-003" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "(2) Continuing full-time postgraduate (PG) students (Master, Doctor and Diploma), i.e., those who completed at least one semester/term, will be invoic" .
+
+# Rule: GS-004
+ait:Gs004Shape a sh:NodeShape ;
+    sh:targetClass ait:Accommodation ;
+    rdfs:label "GS-004" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "Writing-off of doubtful accounts will be requested by OFIN and have to be approved by the President, or their VP designate." .
+
+# Rule: GS-005
+ait:Gs005Shape a sh:NodeShape ;
+    sh:targetClass ait:Invoice ;
+    rdfs:label "GS-005" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "Sponsors must be invoiced for outstanding dues and requested to send AIT a promissory note detailing when and how payment will be made." .
+
+# Rule: GS-006
+ait:Gs006Shape a sh:NodeShape ;
+    sh:targetClass ait:Account ;
+    rdfs:label "GS-006" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "(20) Overdue accounts shall be reviewed periodically, and follow-up collections shall be initiated." .
+
+# Rule: GS-007
+ait:Gs007Shape a sh:NodeShape ;
+    sh:targetClass ait:Examination ;
+    rdfs:label "GS-007" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "(10) Additional payments for audited and repeated courses, as well as beyond the minimum 3 credits for part-time students, registered for the semester" .
+
+# Rule: GS-008
+ait:Gs008Shape a sh:NodeShape ;
+    sh:targetClass ait:Accommodation ;
+    rdfs:label "GS-008" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "FB-6-1-1: CREDIT POLICY notice from the Accommodation Unit, and the tenant is required to vacate the housing unit within two weeks." .
+
+# Rule: GS-009
+ait:Gs009Shape a sh:NodeShape ;
+    sh:targetClass ait:Accommodation ;
+    rdfs:label "GS-009" ;
+    deontic:type deontic:prohibition ;
+    sh:severity sh:Violation ;
+    rdfs:comment "Students shall not disturb fellow students in the residential areas." .
+
+# Rule: GS-010
+ait:Gs010Shape a sh:NodeShape ;
+    sh:targetClass ait:ExchangeStudent ;
+    rdfs:label "GS-010" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "Exceptions to this may only be given to those whose exchange program is less than two months." .
+
+# Rule: GS-011
+ait:Gs011Shape a sh:NodeShape ;
+    sh:targetClass ait:Semester ;
+    rdfs:label "GS-011" ;
+    deontic:type deontic:permission ;
+    sh:severity sh:Info ;
+    rdfs:comment "For subsequent semesters, these students may opt to reside off-campus." .
+
+# Rule: GS-012
+ait:Gs012Shape a sh:NodeShape ;
+    sh:targetClass ait:Accommodation ;
+    rdfs:label "GS-012" ;
+    deontic:type deontic:prohibition ;
+    sh:severity sh:Violation ;
+    rdfs:comment "Graduating students residing beyond the five day limit (including weekends) after graduation, without prior approval from the OFAM Director may have t" .
+
+# Rule: GS-013
+ait:Gs013Shape a sh:NodeShape ;
+    sh:targetClass ait:Student ;
+    rdfs:label "GS-013" ;
+    deontic:type deontic:permission ;
+    sh:severity sh:Info ;
+    rdfs:comment "● New students may choose from all the available units when their queuing number is called." .
+
+# Rule: GS-014
+ait:Gs014Shape a sh:NodeShape ;
+    sh:targetClass ait:Accommodation ;
+    rdfs:label "GS-014" ;
+    deontic:type deontic:permission ;
+    sh:severity sh:Info ;
+    rdfs:comment "Students may put their names on the waiting list and live in employee accommodation subject to availability." .
+
+# Rule: GS-015
+ait:Gs015Shape a sh:NodeShape ;
+    sh:targetClass ait:Person ;
+    rdfs:label "GS-015" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "shall be the responsibility of the guests." .
+
+# Rule: GS-016
+ait:Gs016Shape a sh:NodeShape ;
+    sh:targetClass ait:Dormitory ;
+    rdfs:label "GS-016" ;
+    deontic:type deontic:permission ;
+    sh:severity sh:Info ;
+    rdfs:comment "A student dormitory may be allocated for a maximum period of one month, in case of availability to: a." .
+
+# Rule: GS-017
+ait:Gs017Shape a sh:NodeShape ;
+    sh:targetClass ait:Accommodation ;
+    rdfs:label "GS-017" ;
+    deontic:type deontic:prohibition ;
+    sh:severity sh:Violation ;
+    rdfs:comment "Sub-letting rooms may result in eviction from student accommodation." .
+
+# Rule: GS-018
+ait:Gs018Shape a sh:NodeShape ;
+    sh:targetClass ait:ExchangeStudent ;
+    rdfs:label "GS-018" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "Students, who will study in another country as part of the Exchange/Dual Degree program, are required to vacate their rooms while they study abroad." .
+
+# Rule: GS-019
+ait:Gs019Shape a sh:NodeShape ;
+    sh:targetClass ait:Accommodation ;
+    rdfs:label "GS-019" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "Alternative rooms designated for such purpose must be used." .
+
+# Rule: GS-020
+ait:Gs020Shape a sh:NodeShape ;
+    sh:targetClass ait:Student ;
+    rdfs:label "GS-020" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "Students found guilty may face a fine of Baht 2,000, or the actual costs of the damage caused by smoking or burning." .
+
+# Rule: GS-021
+ait:Gs021Shape a sh:NodeShape ;
+    sh:targetClass ait:Grievance ;
+    rdfs:label "GS-021" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "The Grievance Tribunal must seek to ascertain, to the best of its ability, the facts of the case." .
+
+# Rule: GS-022
+ait:Gs022Shape a sh:NodeShape ;
+    sh:targetClass ait:Employee ;
+    rdfs:label "GS-022" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "Acceptance by an employee of a gift valued at THB 3,000 or more must be reported by the employee to their Unit Head within 15 days of acceptance, givi" .
+
+# Rule: GS-023
+ait:Gs023Shape a sh:NodeShape ;
+    sh:targetClass ait:Person ;
+    rdfs:label "GS-023" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "The accomplishments, activities and individual differences of other people must be respected." .
+
+# Rule: GS-024
+ait:Gs024Shape a sh:NodeShape ;
+    sh:targetClass ait:Grievance ;
+    rdfs:label "GS-024" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "They must inform the President of all settlements made during the grievance process." .
+
+# Rule: GS-025
+ait:Gs025Shape a sh:NodeShape ;
+    sh:targetClass ait:Person ;
+    rdfs:label "GS-025" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "In performing their duties, they must protect the interests of all members of the AIT community." .
+
+# Rule: GS-026
+ait:Gs026Shape a sh:NodeShape ;
+    sh:targetClass ait:GrievanceCommittee ;
+    rdfs:label "GS-026" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "The Grievance Committee must be prepared to identify breaches of the Institute P&Ps, etc." .
+
+# Rule: GS-027
+ait:Gs027Shape a sh:NodeShape ;
+    sh:targetClass ait:Person ;
+    rdfs:label "GS-027" ;
+    deontic:type deontic:permission ;
+    sh:severity sh:Info ;
+    rdfs:comment "Items valued at less than THB 3,000 may be accepted without reporting." .
+
+# Rule: GS-028
+ait:Gs028Shape a sh:NodeShape ;
+    sh:targetClass ait:Employee ;
+    rdfs:label "GS-028" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "When expressing personal opinions outside the Institute, AIT employees and students are required to note explicitly that the opinions expressed are pe" .
+
+# Rule: GS-029
+ait:Gs029Shape a sh:NodeShape ;
+    sh:targetClass ait:GrievanceCommittee ;
+    rdfs:label "GS-029" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "Having gathered the relevant facts, the Grievance Committee should proceed to analyze the grievance." .
+
+# Rule: GS-030
+ait:Gs030Shape a sh:NodeShape ;
+    sh:targetClass ait:Person ;
+    rdfs:label "GS-030" ;
+    deontic:type deontic:permission ;
+    sh:severity sh:Info ;
+    rdfs:comment "39 up to Rangsit and from there may ride a pick-up, popularly known as 'Luth'." .
+
+# Rule: GS-031
+ait:Gs031Shape a sh:NodeShape ;
+    sh:targetClass ait:Accommodation ;
+    rdfs:label "GS-031" ;
+    deontic:type deontic:prohibition ;
+    sh:severity sh:Violation ;
+    rdfs:comment "Thus, they cannot enroll in any course nor can they avail of student privileges and benefits during the suspended period such as use of AIT ID card, a" .
+
+# Rule: GS-032
+ait:Gs032Shape a sh:NodeShape ;
+    sh:targetClass ait:Faculty ;
+    rdfs:label "GS-032" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "The instructor/invigilator should seek an explanation from the student at the end of the examination or when the assignment or project was submitted, " .
+
+# Rule: GS-033
+ait:Gs033Shape a sh:NodeShape ;
+    sh:targetClass ait:Person ;
+    rdfs:label "GS-033" ;
+    deontic:type deontic:permission ;
+    sh:severity sh:Info ;
+    rdfs:comment "2.5 Direct communication may sometimes follow consultation, the complainant seeking the advice of one of the advisors listed in Section C-2.3 above, o" .
+
+# Rule: GS-034
+ait:Gs034Shape a sh:NodeShape ;
+    sh:targetClass ait:Examination ;
+    rdfs:label "GS-034" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "This is an area where our cultural differences can lead to additional misunderstanding; for example, certain conduct and communication may be construe" .
+
+# Rule: GS-035
+ait:Gs035Shape a sh:NodeShape ;
+    sh:targetClass ait:Student ;
+    rdfs:label "GS-035" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "If two or more students compete for a position and they are equally qualified to undertake the work, preference should be given to the student who is " .
+
+# Rule: GS-036
+ait:Gs036Shape a sh:NodeShape ;
+    sh:targetClass ait:Person ;
+    rdfs:label "GS-036" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "Writing-off of outstanding bills including interest due will be requested by Head- OFAM and have to be approved by the AIT Management and forwarded to" .
+
+# Rule: GS-037
+ait:Gs037Shape a sh:NodeShape ;
+    sh:targetClass ait:Student ;
+    rdfs:label "GS-037" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "and for external/sponsored students, authorized documentary proof of sponsorship must be submitted." .
+
+# Rule: GS-038
+ait:Gs038Shape a sh:NodeShape ;
+    sh:targetClass ait:Person ;
+    rdfs:label "GS-038" ;
+    deontic:type deontic:prohibition ;
+    sh:severity sh:Violation ;
+    rdfs:comment "Sports facilities cannot be used for other sporting events aside from the intended use of the court/field." .
+
+# Rule: GS-039
+ait:Gs039Shape a sh:NodeShape ;
+    sh:targetClass ait:Student ;
+    rdfs:label "GS-039" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "Baht 1,250 is the initial premium for new students of August Intake, to be renewed in January semester of the following Medical year; for students stu" .
+
+# Rule: GS-040
+ait:Gs040Shape a sh:NodeShape ;
+    sh:targetClass ait:Person ;
+    rdfs:label "GS-040" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "Finally, they must submit the title page signed by their advisor and by LC to the AIT Registry." .
+
+# Rule: GS-041
+ait:Gs041Shape a sh:NodeShape ;
+    sh:targetClass ait:Person ;
+    rdfs:label "GS-041" ;
+    deontic:type deontic:permission ;
+    sh:severity sh:Info ;
+    rdfs:comment "This linen set and pillow may be kept when leaving AIT." .
+
+# Rule: GS-042
+ait:Gs042Shape a sh:NodeShape ;
+    sh:targetClass ait:Student ;
+    rdfs:label "GS-042" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "Upon receipt of the retake, the School Dean may decide to: ● Downgrade by 1 step the grade the student will receive upon repetition of the exam or res" .
+
+# Rule: GS-043
+ait:Gs043Shape a sh:NodeShape ;
+    sh:targetClass ait:Faculty ;
+    rdfs:label "GS-043" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "However, if cheating was proven, the Department Head and the instructor/invigilator may recommend to the School Dean to disregard the original examina" .
+
+# Rule: GS-044
+ait:Gs044Shape a sh:NodeShape ;
+    sh:targetClass ait:Research ;
+    rdfs:label "GS-044" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "Complete the Student Research Expense - Advance (SRA) form which must be approved by the School and submit to Finance for payment to student." .
+
+# Rule: GS-045
+ait:Gs045Shape a sh:NodeShape ;
+    sh:targetClass ait:Semester ;
+    rdfs:label "GS-045" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "An Assistant’s contract shall be terminated if, during the period of appointment, they are (a) not achieving good academic standing after one semester" .
+
+# Rule: GS-046
+ait:Gs046Shape a sh:NodeShape ;
+    sh:targetClass ait:Student ;
+    rdfs:label "GS-046" ;
+    deontic:type deontic:prohibition ;
+    sh:severity sh:Violation ;
+    rdfs:comment "No member of the AIT community, trustee, faculty, staff, or student, including outreach program participants, should act deliberately or thoughtlessly" .
+
+# Rule: GS-047
+ait:Gs047Shape a sh:NodeShape ;
+    sh:targetClass ait:Student ;
+    rdfs:label "GS-047" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "Thai VISA Extension Fees All Non-Thai students are required to pay Baht 1,900 fee for a VISA extension." .
+
+# Rule: GS-048
+ait:Gs048Shape a sh:NodeShape ;
+    sh:targetClass ait:Person ;
+    rdfs:label "GS-048" ;
+    deontic:type deontic:permission ;
+    sh:severity sh:Info ;
+    rdfs:comment "In emergency cases or if any medical emergency assistance is required, the nurse on duty can be contacted at 02-524-5555." .
+
+# Rule: GS-049
+ait:Gs049Shape a sh:NodeShape ;
+    sh:targetClass ait:Person ;
+    rdfs:label "GS-049" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "Notes of the interview will be recorded and should be agreed upon by all parties." .
+
+# Rule: GS-050
+ait:Gs050Shape a sh:NodeShape ;
+    sh:targetClass ait:Person ;
+    rdfs:label "GS-050" ;
+    deontic:type deontic:prohibition ;
+    sh:severity sh:Violation ;
+    rdfs:comment "Proper swim wear is required." .
+
+# Rule: GS-051
+ait:Gs051Shape a sh:NodeShape ;
+    sh:targetClass ait:Person ;
+    rdfs:label "GS-051" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "All dependents have to complete the health declaration form and get approval from Generali before the effective date." .
+
+# Rule: GS-052
+ait:Gs052Shape a sh:NodeShape ;
+    sh:targetClass ait:Person ;
+    rdfs:label "GS-052" ;
+    deontic:type deontic:permission ;
+    sh:severity sh:Info ;
+    rdfs:comment "When getting off at the Don Muang (Bangkok International Airport), you may take local buses no." .
+
+# Rule: GS-053
+ait:Gs053Shape a sh:NodeShape ;
+    sh:targetClass ait:Person ;
+    rdfs:label "GS-053" ;
+    deontic:type deontic:permission ;
+    sh:severity sh:Info ;
+    rdfs:comment "OFAM is authorized to undertake random inspections and may lay sanctions if the unit is found to be dirty and unhygienic." .
+
+# Rule: GS-054
+ait:Gs054Shape a sh:NodeShape ;
+    sh:targetClass ait:PostgraduateStudent ;
+    rdfs:label "GS-054" ;
+    deontic:type deontic:permission ;
+    sh:severity sh:Info ;
+    rdfs:comment "A special student who is a master or doctoral student studying at another institution and enrolled at AIT under a Memorandum of Understanding, for a p" .
+
+# Rule: GS-055
+ait:Gs055Shape a sh:NodeShape ;
+    sh:targetClass ait:Accommodation ;
+    rdfs:label "GS-055" ;
+    deontic:type deontic:prohibition ;
+    sh:severity sh:Violation ;
+    rdfs:comment "Furniture and appliances should not be removed from the accommodation unit." .
+
+# Rule: GS-056
+ait:Gs056Shape a sh:NodeShape ;
+    sh:targetClass ait:Research ;
+    rdfs:label "GS-056" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "Before Graduation: All students must have their advisor approve and sign the title page of their research report, thesis or dissertation, and then sub" .
+
+# Rule: GS-057
+ait:Gs057Shape a sh:NodeShape ;
+    sh:targetClass ait:Grievance ;
+    rdfs:label "GS-057" ;
+    deontic:type deontic:permission ;
+    sh:severity sh:Info ;
+    rdfs:comment "Formal procedures 3.1 A complainant may, with or without previous recourse to informal channels, decide to seek redress through formal grievance proce" .
+
+# Rule: GS-058
+ait:Gs058Shape a sh:NodeShape ;
+    sh:targetClass ait:Examination ;
+    rdfs:label "GS-058" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "At the beginning of the course, the instructor should make known the criteria that will be considered in determining the grade such as class attendanc" .
+
+# Rule: GS-059
+ait:Gs059Shape a sh:NodeShape ;
+    sh:targetClass ait:Person ;
+    rdfs:label "GS-059" ;
+    deontic:type deontic:prohibition ;
+    sh:severity sh:Violation ;
+    rdfs:comment "No credit shall be granted." .
+
+# Rule: GS-060
+ait:Gs060Shape a sh:NodeShape ;
+    sh:targetClass ait:Person ;
+    rdfs:label "GS-060" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "Responsibility centers are required to produce internal systems and documentation for implementing this policy locally." .
+
+# Rule: GS-061
+ait:Gs061Shape a sh:NodeShape ;
+    sh:targetClass ait:Person ;
+    rdfs:label "GS-061" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "Lessees are required to pay three-month advance deposit to take on the lease of premises." .
+
+# Rule: GS-062
+ait:Gs062Shape a sh:NodeShape ;
+    sh:targetClass ait:Student ;
+    rdfs:label "GS-062" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "Student Assistants shall be students in good standing on the effective dates of their appointment." .
+
+# Rule: GS-063
+ait:Gs063Shape a sh:NodeShape ;
+    sh:targetClass ait:Person ;
+    rdfs:label "GS-063" ;
+    deontic:type deontic:prohibition ;
+    sh:severity sh:Violation ;
+    rdfs:comment "Expulsion shall be imposed for drug abuse." .
+
+# Rule: GS-064
+ait:Gs064Shape a sh:NodeShape ;
+    sh:targetClass ait:Student ;
+    rdfs:label "GS-064" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "Students are required to vacate their rooms within five days (including weekends) after their graduation." .
+
+# Rule: GS-065
+ait:Gs065Shape a sh:NodeShape ;
+    sh:targetClass ait:Person ;
+    rdfs:label "GS-065" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "The settlement should be supported by collated receipts issued under the name of Asian Institute of Technology." .
+
+# Rule: GS-066
+ait:Gs066Shape a sh:NodeShape ;
+    sh:targetClass ait:Accommodation ;
+    rdfs:label "GS-066" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "Students should move with the spouse when staff accommodation becomes available." .
+
+# Rule: GS-067
+ait:Gs067Shape a sh:NodeShape ;
+    sh:targetClass ait:Committee ;
+    rdfs:label "GS-067" ;
+    deontic:type deontic:permission ;
+    sh:severity sh:Info ;
+    rdfs:comment "In discharging his/her responsibility to implement this Policy, the President may be assisted by the Campus Environment and Development Committee." .
+
+# Rule: GS-068
+ait:Gs068Shape a sh:NodeShape ;
+    sh:targetClass ait:Accommodation ;
+    rdfs:label "GS-068" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "The AIT campus includes a diverse mixture of settings, from offices, classrooms and laboratories to houses and dormitories, and each setting may prese" .
+
+# Rule: GS-069
+ait:Gs069Shape a sh:NodeShape ;
+    sh:targetClass ait:Course ;
+    rdfs:label "GS-069" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "2.2 Consultation refers, in this context, to discussion of problems or potential problems before recourse to remedial action, informal or formal, but " .
+
+# Rule: GS-070
+ait:Gs070Shape a sh:NodeShape ;
+    sh:targetClass ait:Accommodation ;
+    rdfs:label "GS-070" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "The appeal should be addressed to the Vice President for Academic Affairs." .
+
+# Rule: GS-071
+ait:Gs071Shape a sh:NodeShape ;
+    sh:targetClass ait:Student ;
+    rdfs:label "GS-071" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "Students disturbing the peace of their surroundings shall receive a formal reprimand as a first warning." .
+
+# Rule: GS-072
+ait:Gs072Shape a sh:NodeShape ;
+    sh:targetClass ait:Person ;
+    rdfs:label "GS-072" ;
+    deontic:type deontic:prohibition ;
+    sh:severity sh:Violation ;
+    rdfs:comment "Proper sports attire is required for each sports facility." .
+
+# Rule: GS-073
+ait:Gs073Shape a sh:NodeShape ;
+    sh:targetClass ait:Account ;
+    rdfs:label "GS-073" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "(vii) Overdue accounts shall be reviewed periodically and follow-up on collections shall be initiated." .
+
+# Rule: GS-074
+ait:Gs074Shape a sh:NodeShape ;
+    sh:targetClass ait:Student ;
+    rdfs:label "GS-074" ;
+    deontic:type deontic:permission ;
+    sh:severity sh:Info ;
+    rdfs:comment "Students may put their names in the waiting list and live in staff housing depending on availability." .
+
+# Rule: GS-075
+ait:Gs075Shape a sh:NodeShape ;
+    sh:targetClass ait:RegistrationFee ;
+    rdfs:label "GS-075" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "Students within the normal study period must pay the semester fee of Baht 188,000 for 12 credits Tuition Fee and Registration Fee in advance and/or fu" .
+
+# Rule: GS-076
+ait:Gs076Shape a sh:NodeShape ;
+    sh:targetClass ait:Person ;
+    rdfs:label "GS-076" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "Last players of the evening must turn off the lights and other electrical equipment of the court." .
+
+# Rule: GS-077
+ait:Gs077Shape a sh:NodeShape ;
+    sh:targetClass ait:Person ;
+    rdfs:label "GS-077" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "Hearings should normally be held within ten working days of the notice." .
+
+# Rule: GS-078
+ait:Gs078Shape a sh:NodeShape ;
+    sh:targetClass ait:Person ;
+    rdfs:label "GS-078" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "Vehicle may be locked or fine may also be imposed, if needed." .
+
+# Rule: GS-079
+ait:Gs079Shape a sh:NodeShape ;
+    sh:targetClass ait:Person ;
+    rdfs:label "GS-079" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "● Any safety and security concerns should be reported to Security Officer." .
+
+# Rule: GS-080
+ait:Gs080Shape a sh:NodeShape ;
+    sh:targetClass ait:ExchangeStudent ;
+    rdfs:label "GS-080" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "Exceptions may only be given to those whose exchange program is less than two months." .
+
+# Rule: GS-081
+ait:Gs081Shape a sh:NodeShape ;
+    sh:targetClass ait:Person ;
+    rdfs:label "GS-081" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "For training sessions, prior permission has to be taken from OFAM and trainer might need to pay for using the facilities." .
+
+# Rule: GS-082
+ait:Gs082Shape a sh:NodeShape ;
+    sh:targetClass ait:Person ;
+    rdfs:label "GS-082" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "Questions about the plan, enrollment, claim should be directed to Generali Life Assurance (Thailand) Co., Ltd." .
+
+# Rule: GS-083
+ait:Gs083Shape a sh:NodeShape ;
+    sh:targetClass ait:Student ;
+    rdfs:label "GS-083" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "All new students are required to attend the orientation seminar." .
+
+# Rule: GS-084
+ait:Gs084Shape a sh:NodeShape ;
+    sh:targetClass ait:Accommodation ;
+    rdfs:label "GS-084" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "A student found guilty of grave cheating by the School Dean, the Vice President for Academic Affairs and the Academic Senate may be dismissed." .
+
+# Rule: GS-085
+ait:Gs085Shape a sh:NodeShape ;
+    sh:targetClass ait:Employee ;
+    rdfs:label "GS-085" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "A student work time report should be completed for each student employee at the end of each month." .
+
+# Rule: GS-086
+ait:Gs086Shape a sh:NodeShape ;
+    sh:targetClass ait:Person ;
+    rdfs:label "GS-086" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "Any evidence to be considered in the investigation should be reported to the complainee, who should have opportunity to challenge it and/or to present" .
+
+# Rule: GS-087
+ait:Gs087Shape a sh:NodeShape ;
+    sh:targetClass ait:Student ;
+    rdfs:label "GS-087" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "Before a student is accepted for enrolment, the Admissions and Scholarships Unit (ASU) is required to ensure that there is proof of financial support " .
+
+# Rule: GS-088
+ait:Gs088Shape a sh:NodeShape ;
+    sh:targetClass ait:Accommodation ;
+    rdfs:label "GS-088" ;
+    deontic:type deontic:prohibition ;
+    sh:severity sh:Violation ;
+    rdfs:comment "accommodation units dormitories not designed for such facilities, will be fined Baht 2,000 and charged for the services related to the removal of the " .
+
+# Rule: GS-089
+ait:Gs089Shape a sh:NodeShape ;
+    sh:targetClass ait:Accommodation ;
+    rdfs:label "GS-089" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "In all such cases, the reservation of the vehicle must be made by a member of the faculty or a senior administrative staff member in the School or by " .
+
+# Rule: GS-090
+ait:Gs090Shape a sh:NodeShape ;
+    sh:targetClass ait:Student ;
+    rdfs:label "GS-090" ;
+    deontic:type deontic:permission ;
+    sh:severity sh:Info ;
+    rdfs:comment "Student dormitories may be provided for a maximum period of one month, in case of availability to: a." .
+
+# Rule: GS-091
+ait:Gs091Shape a sh:NodeShape ;
+    sh:targetClass ait:Invoice ;
+    rdfs:label "GS-091" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "Invoices are required to be settled by the indicated due date." .
+
+# Rule: GS-092
+ait:Gs092Shape a sh:NodeShape ;
+    sh:targetClass ait:Accommodation ;
+    rdfs:label "GS-092" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "In case of over staying guests, special prior permission must be obtained from the Director, Office of Facilities and Asset Management (OFAM) and a da" .
+
+# Rule: GS-093
+ait:Gs093Shape a sh:NodeShape ;
+    sh:targetClass ait:Accommodation ;
+    rdfs:label "GS-093" ;
+    deontic:type deontic:prohibition ;
+    sh:severity sh:Violation ;
+    rdfs:comment "Families of non-resident students may not reside on campus if the non-resident student is off-campus." .
+
+# Rule: GS-094
+ait:Gs094Shape a sh:NodeShape ;
+    sh:targetClass ait:Faculty ;
+    rdfs:label "GS-094" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "The duties of non- instructional teaching assistants may include assisting faculty in preparing materials for lectures, grading assignments and quizze" .
+
+# Rule: GS-095
+ait:Gs095Shape a sh:NodeShape ;
+    sh:targetClass ait:Person ;
+    rdfs:label "GS-095" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "2.3 Preliminary consultation should be available to any member of the Institute community who wishes to discuss issues related to problem areas." .
+
+# Rule: GS-096
+ait:Gs096Shape a sh:NodeShape ;
+    sh:targetClass ait:Student ;
+    rdfs:label "GS-096" ;
+    deontic:type deontic:permission ;
+    sh:severity sh:Info ;
+    rdfs:comment "Students may wait for the vans at the Thammasat Road near AIT Gate No." .
+
+# Rule: GS-097
+ait:Gs097Shape a sh:NodeShape ;
+    sh:targetClass ait:RegistrationFee ;
+    rdfs:label "GS-097" ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
+    rdfs:comment "Writing Placement Test for Registration/Enrolment All degree program students (including CAS and Certificate leading to Master) must take the AIT Writ" .
