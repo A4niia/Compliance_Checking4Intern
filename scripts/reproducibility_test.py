@@ -31,14 +31,25 @@ SHACL_OUTPUT_DIR = PROJECT_ROOT / "shacl"
 class ReproducibilityTest:
     """Runs and tracks reproducibility tests."""
     
-    def __init__(self, num_runs: int = 20, use_mock_llm: bool = False):
+    def __init__(self, num_runs: int = 20, use_mock_llm: bool = False, 
+                 enable_batching: bool = False, enable_cache: bool = False):
         self.num_runs = num_runs
         self.use_mock_llm = use_mock_llm
+        self.enable_batching = enable_batching
+        self.enable_cache = enable_cache
         self.results: List[Dict[str, Any]] = []
         self.start_time = None
         
         # Create results directory
         RESULTS_DIR.mkdir(parents=True, exist_ok=True)
+        
+        # Initialize cache if enabled
+        if self.enable_cache:
+            from scripts.llm_cache import get_cache
+            self.cache = get_cache()
+            print("🔄 LLM Cache enabled")
+        else:
+            self.cache = None
         
     def run_pipeline_iteration(self, run_id: int) -> Dict[str, Any]:
         """Run one complete pipeline iteration."""
@@ -128,14 +139,59 @@ class ReproducibilityTest:
         }
     
     def _run_classification_phase(self, extraction_result: Dict) -> Dict[str, Any]:
-        """Run LLM classification phase (sequential processing)."""
+        """Run LLM classification phase with optional batching."""
+        rules = extraction_result.get("data", [])
+        classifications = {
+            "obligations": 0,
+            "permissions": 0,
+            "prohibitions": 0,
+            "results": []
+        }
+        
+        # Use batch processing if enabled
+        if self.enable_batching and not self.use_mock_llm:
+            try:
+                from scripts.batch_classify import classify_rules_with_batching
+                import os
+                ollama_url = os.getenv("OLLAMA_HOST", "http://10.99.200.2:11434")
+                
+                print("  → Using batch classification (10 rules/call)...")
+                results = classify_rules_with_batching(
+                    rules, 
+                    batch_size=10,
+                    model="mistral",
+                    temperature=0.0,
+                    ollama_url=ollama_url
+                )
+                classifications["results"] = results
+                
+                # Count types
+                for result in results:
+                    rule_type = result.get("type")
+                    if rule_type == "obligation":
+                        classifications["obligations"] += 1
+                    elif rule_type == "permission":
+                        classifications["permissions"] += 1
+                    elif rule_type == "prohibition":
+                        classifications["prohibitions"] += 1
+                        
+            except Exception as e:
+                print(f"  ⚠️  Batch classification failed: {e}, falling back to sequential")
+                self.enable_batching = False
+                return self._run_classification_sequential(rules)
+        else:
+            return self._run_classification_sequential(rules)
+        
+        return classifications
+    
+    def _run_classification_sequential(self, rules: List[Dict]) -> Dict[str, Any]:
+        """Sequential classification (original method)."""
         try:
             from scripts.populate_llm_annotations_v2 import classify_rule_strict
             has_classify = True
         except ImportError:
             has_classify = False
         
-        rules = extraction_result.get("data", [])
         classifications = {
             "obligations": 0,
             "permissions": 0,
@@ -171,7 +227,40 @@ class ReproducibilityTest:
         return classifications
     
     def _run_fol_phase(self, classification_result: Dict) -> Dict[str, Any]:
-        """Run FOL generation phase (sequential processing)."""
+        """Run FOL generation phase with optional batching."""
+        results = classification_result.get("results", [])
+        fol_formulas = []
+        
+        # Use batch processing if enabled
+        if self.enable_batching and not self.use_mock_llm:
+            try:
+                from scripts.batch_fol import generate_fol_with_batching
+                import os
+                ollama_url = os.getenv("OLLAMA_HOST", "http://10.99.200.2:11434")
+                
+                print("  → Using batch FOL generation (5 rules/call)...")
+                fol_formulas = generate_fol_with_batching(
+                    results,
+                    batch_size=5,
+                    model="mistral",
+                    temperature=0.0,
+                    ollama_url=ollama_url
+                )
+                
+            except Exception as e:
+                print(f"  ⚠️  Batch FOL failed: {e}, falling back to sequential")
+                self.enable_batching = False
+                return self._run_fol_sequential(results)
+        else:
+            return self._run_fol_sequential(results)
+        
+        return {
+            "count": len(fol_formulas),
+            "formulas": fol_formulas
+        }
+    
+    def _run_fol_sequential(self, results: List[Dict]) -> Dict[str, Any]:
+        """Sequential FOL generation (original method)."""
         try:
             from scripts.generate_fol_v2 import generate_fol
             import os
@@ -181,7 +270,6 @@ class ReproducibilityTest:
             has_fol = False
             ollama_url = None
         
-        results = classification_result.get("results", [])
         fol_formulas = []
         
         # Process FOL generation sequentially
@@ -484,10 +572,27 @@ def main():
     parser = argparse.ArgumentParser(description="Run reproducibility test for agentic pipeline")
     parser.add_argument("--runs", type=int, default=20, help="Number of iterations (default: 20)")
     parser.add_argument("--mock", action="store_true", help="Use mock LLM for faster testing")
+    parser.add_argument("--enable-batching", action="store_true", 
+                        help="Enable batch LLM processing (10 rules/call for classification, 5 for FOL)")
+    parser.add_argument("--enable-cache", action="store_true",
+                        help="Enable LLM response caching for faster re-runs")
     
     args = parser.parse_args()
     
-    test = ReproducibilityTest(num_runs=args.runs, use_mock_llm=args.mock)
+    print("="*70)
+    print("REPRODUCIBILITY TEST")
+    print("="*70)
+    print(f"Runs: {args.runs}")
+    print(f"Batching: {'✅ Enabled' if args.enable_batching else '❌ Disabled'}")
+    print(f"Caching: {'✅ Enabled' if args.enable_cache else '❌ Disabled'}")
+    print("="*70)
+    
+    test = ReproducibilityTest(
+        num_runs=args.runs, 
+        use_mock_llm=args.mock,
+        enable_batching=args.enable_batching,
+        enable_cache=args.enable_cache
+    )
     report = test.run_all()
     
     # Exit with appropriate code
