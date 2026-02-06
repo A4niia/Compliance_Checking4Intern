@@ -130,7 +130,7 @@ class ReproducibilityTest:
     def _run_classification_phase(self, extraction_result: Dict) -> Dict[str, Any]:
         """Run LLM classification phase."""
         try:
-            from scripts.populate_llm_annotations_v2 import classify_rule
+            from scripts.populate_llm_annotations_v2 import classify_rule_strict
             has_classify = True
         except ImportError:
             has_classify = False
@@ -144,24 +144,23 @@ class ReproducibilityTest:
         }
         
         for rule in rules:
-            if self.use_mock_llm:
+            if self.use_mock_llm or not has_classify:
                 # Use existing annotation for mock
                 rule_type = rule.get("human_annotation", {}).get("rule_type", "obligation")
             else:
                 # Call actual LLM
-                if has_classify:
-                    try:
-                        result = classify_rule(rule.get("original_text", ""))
-                        rule_type = result.get("rule_type", "obligation")
-                    except Exception:
-                        rule_type = "obligation"
-                else:
-                    # Fallback to existing annotation if LLM not available
+                try:
+                    result = classify_rule_strict(rule.get("original_text", ""))
+                    rule_type = result.get("rule_type", "obligation")
+                except Exception as e:
+                    print(f"  Warning: LLM classification failed for rule {rule.get('id')}: {e}")
+                    # Fallback to existing annotation
                     rule_type = rule.get("human_annotation", {}).get("rule_type", "obligation")
             
             classifications["results"].append({
                 "id": rule.get("id"),
-                "type": rule_type
+                "type": rule_type,
+                "original_text": rule.get("original_text", "")
             })
             
             if rule_type == "obligation":
@@ -176,7 +175,9 @@ class ReproducibilityTest:
     def _run_fol_phase(self, classification_result: Dict) -> Dict[str, Any]:
         """Run FOL generation phase."""
         try:
-            from scripts.generate_fol_v2 import generate_fol_formula
+            from scripts.generate_fol_v2 import generate_fol
+            import os
+            ollama_url = os.getenv("OLLAMA_HOST", "http://10.99.200.2:11434")
             has_fol = True
         except ImportError:
             has_fol = False
@@ -188,16 +189,36 @@ class ReproducibilityTest:
             if self.use_mock_llm or not has_fol:
                 # Generate mock FOL
                 fol = f"O({item['type']}(x))"
+                fol_formulas.append({
+                    "id": item.get("id"),
+                    "fol": fol,
+                    "original_text": item.get("original_text", "")
+                })
             else:
                 try:
-                    fol = generate_fol_formula(item.get("original_text", ""))
-                except Exception:
-                    fol = "O(placeholder(x))"
-            
-            fol_formulas.append({
-                "id": item.get("id"),
-                "fol": fol
-            })
+                    result = generate_fol(item.get("original_text", ""), ollama_url)
+                    if result and not result.get("error"):
+                        fol_formulas.append({
+                            "id": item.get("id"),
+                            "fol": result.get("deontic_formula", ""),
+                            "fol_expansion": result.get("fol_expansion", ""),
+                            "deontic_type": result.get("deontic_type", item.get("type")),
+                            "original_text": item.get("original_text", "")
+                        })
+                    else:
+                        # Fallback
+                        fol_formulas.append({
+                            "id": item.get("id"),
+                            "fol": f"O({item['type']}(x))",
+                            "original_text": item.get("original_text", "")
+                        })
+                except Exception as e:
+                    print(f"  Warning: FOL generation failed for {item.get('id')}: {e}")
+                    fol_formulas.append({
+                        "id": item.get("id"),
+                        "fol": f"O({item['type']}(x))",
+                        "original_text": item.get("original_text", "")
+                    })
         
         return {
             "count": len(fol_formulas),
@@ -207,7 +228,7 @@ class ReproducibilityTest:
     def _run_shacl_phase(self, fol_result: Dict, run_id: int) -> Dict[str, Any]:
         """Run SHACL translation phase."""
         try:
-            from scripts.fol_to_shacl_v2 import translate_to_shacl
+            from scripts.fol_to_shacl_v2 import make_refined_shape, PREFIXES
             has_shacl = True
         except ImportError:
             has_shacl = False
@@ -216,10 +237,46 @@ class ReproducibilityTest:
         
         # Generate SHACL
         if has_shacl:
-            shacl_output = translate_to_shacl(formulas)
+            # Format data to match expected schema
+            formatted_rules = []
+            for formula in formulas:
+                formatted_rules.append({
+                    "id": formula.get("id"),
+                    "original_text": formula.get("original_text", ""),
+                    "fol_formalization": {
+                        "deontic_type": formula.get("deontic_type", "obligation"),
+                        "deontic_formula": formula.get("fol", ""),
+                        "fol_expansion": formula.get("fol_expansion", ""),
+                        "subject": ""
+                    }
+                })
+            
+            # Generate shapes
+            shacl_output = PREFIXES
+            for i, rule in enumerate(formatted_rules, 1):
+                shape = make_refined_shape(rule, i)
+                shacl_output += shape
         else:
             # Fallback mock SHACL
             shacl_output = self._generate_mock_shacl(formulas)
+        
+        # Save to file for comparison
+        output_file = RESULTS_DIR / f"run_{run_id:02d}_shapes.ttl"
+        with open(output_file, 'w', encoding='utf-8') as f:
+            f.write(shacl_output)
+        
+        # Calculate file hash
+        file_hash = hashlib.sha256(shacl_output.encode()).hexdigest()[:16]
+        
+        # Count triples (simple approximation)
+        triple_count = shacl_output.count(' ;') + shacl_output.count(' .')
+        
+        return {
+            "file_path": str(output_file),
+            "file_hash": file_hash,
+            "triples": triple_count,
+            "content": shacl_output
+        }
         
         # Save to file for comparison
         output_file = RESULTS_DIR / f"run_{run_id:02d}_shapes.ttl"
