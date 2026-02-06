@@ -3,8 +3,10 @@ import { Database, RefreshCw, Code, Shield, Brain, CheckCircle, XCircle, ArrowRi
 
 export default function Validation() {
     const [currentStep, setCurrentStep] = useState(0)
-    const [scenario, setScenario] = useState('late_submission')
+    const [scenario, setScenario] = useState('multiple_violations')
     const [animating, setAnimating] = useState(false)
+    const [validationData, setValidationData] = useState(null)
+    const [loading, setLoading] = useState(false)
 
     // Real policy rules from AIT Student Handbook
     const scenarios = {
@@ -100,25 +102,44 @@ export default function Validation() {
         }
     ]
 
-    const handleRunValidation = () => {
+    const handleRunValidation = async () => {
+        setLoading(true)
         setAnimating(true)
         setCurrentStep(0)
 
-        const interval = setInterval(() => {
-            setCurrentStep(s => {
-                if (s >= 3) {
-                    clearInterval(interval)
-                    setAnimating(false)
-                    return s
-                }
-                return s + 1
+        try {
+            // Call real API
+            const response = await fetch('/api/validation/run', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ scenario })
             })
-        }, 1500)
+            const data = await response.json()
+            setValidationData(data)
+
+            // Animate steps
+            const interval = setInterval(() => {
+                setCurrentStep(s => {
+                    if (s >= 3) {
+                        clearInterval(interval)
+                        setAnimating(false)
+                        setLoading(false)
+                        return s
+                    }
+                    return s + 1
+                })
+            }, 1500)
+        } catch (error) {
+            console.error('Validation failed:', error)
+            setLoading(false)
+            setAnimating(false)
+        }
     }
 
     const handleReset = () => {
         setCurrentStep(0)
         setAnimating(false)
+        setValidationData(null)
     }
 
     return (
@@ -144,8 +165,8 @@ export default function Validation() {
                     <div className="text-gray-800 text-lg italic mb-2">{currentScenario.ruleText}</div>
                     <div className="flex items-center gap-2">
                         <span className={`px-3 py-1 rounded-full text-xs font-semibold ${currentScenario.deonticType === 'Obligation' ? 'bg-red-100 text-red-700' :
-                                currentScenario.deonticType === 'Permission' ? 'bg-green-100 text-green-700' :
-                                    'bg-orange-100 text-orange-700'
+                            currentScenario.deonticType === 'Permission' ? 'bg-green-100 text-green-700' :
+                                'bg-orange-100 text-orange-700'
                             }`}>
                             {currentScenario.deonticType}
                         </span>
@@ -169,8 +190,8 @@ export default function Validation() {
                                 handleReset()
                             }}
                             className={`p-4 rounded-lg border-2 transition-all text-left ${scenario === key
-                                    ? 'border-blue-500 bg-blue-50 shadow-lg'
-                                    : 'border-gray-300 bg-white hover:border-blue-300'
+                                ? 'border-blue-500 bg-blue-50 shadow-lg'
+                                : 'border-gray-300 bg-white hover:border-blue-300'
                                 }`}
                         >
                             <div className="font-semibold text-gray-800 mb-1">{scn.name}</div>
@@ -224,13 +245,13 @@ export default function Validation() {
                         <div
                             key={step.id}
                             className={`card text-center transition-all ${isActive ? `bg-${step.color}-100 border-2 border-${step.color}-500 shadow-lg` :
-                                    isComplete ? `bg-${step.color}-50` :
-                                        'bg-gray-50'
+                                isComplete ? `bg-${step.color}-50` :
+                                    'bg-gray-50'
                                 }`}
                         >
                             <div className={`w-12 h-12 rounded-full mx-auto mb-2 flex items-center justify-center ${isActive ? `bg-${step.color}-500 animate-pulse` :
-                                    isComplete ? `bg-${step.color}-500` :
-                                        'bg-gray-300'
+                                isComplete ? `bg-${step.color}-500` :
+                                    'bg-gray-300'
                                 }`}>
                                 {isComplete ? (
                                     <CheckCircle className="w-6 h-6 text-white" />
@@ -338,8 +359,8 @@ export default function Validation() {
                             <div>
                                 <div className="text-sm font-semibold text-gray-700 mb-2">Validation Result</div>
                                 <div className={`p-4 rounded-lg ${currentScenario.result === 'compliant'
-                                        ? 'bg-green-100 border-2 border-green-500'
-                                        : 'bg-red-100 border-2 border-red-500'
+                                    ? 'bg-green-100 border-2 border-green-500'
+                                    : 'bg-red-100 border-2 border-red-500'
                                     }`}>
                                     {currentScenario.result === 'compliant' ? (
                                         <>
@@ -414,8 +435,8 @@ Violation ${i + 1}:
                             <div>
                                 <div className="text-sm font-semibold text-gray-700 mb-2">LLM Explanation</div>
                                 <div className={`p-4 rounded-lg ${currentScenario.result === 'compliant'
-                                        ? 'bg-green-50 border-2 border-green-300'
-                                        : 'bg-red-50 border-2 border-red-300'
+                                    ? 'bg-green-50 border-2 border-green-300'
+                                    : 'bg-red-50 border-2 border-red-300'
                                     }`}>
                                     {currentScenario.result === 'compliant' ? (
                                         <div className="text-green-800">
@@ -457,8 +478,8 @@ Violation ${i + 1}:
             {/* Summary */}
             {currentStep >= 3 && !animating && (
                 <div className={`card border-2 ${currentScenario.result === 'compliant'
-                        ? 'border-green-500 bg-gradient-to-r from-green-50 to-green-100'
-                        : 'border-red-500 bg-gradient-to-r from-red-50 to-red-100'
+                    ? 'border-green-500 bg-gradient-to-r from-green-50 to-green-100'
+                    : 'border-red-500 bg-gradient-to-r from-red-50 to-red-100'
                     }`}>
                     <div className="flex items-center gap-3 mb-3">
                         <Sparkles className={`w-8 h-8 ${currentScenario.result === 'compliant' ? 'text-green-700' : 'text-red-700'}`} />

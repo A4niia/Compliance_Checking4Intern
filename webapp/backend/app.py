@@ -38,6 +38,46 @@ RESEARCH_DIR = PROJECT_ROOT / "research"
 SHACL_DIR = PROJECT_ROOT / "shacl"
 
 # ============================================
+# VALIDATION API
+# ============================================
+
+@app.route('/api/validation/run', methods=['POST'])
+def run_validation():
+    """Run SHACL validation on student data from mock database."""
+    from backend.services.student_db import get_student_by_scenario, get_student_violations
+    from backend.services.rdf_converter import student_to_rdf
+    from backend.services.shacl_validator import validate_student
+    
+    data = request.json or {}
+    scenario = data.get('scenario', 'multiple_violations')  # Default to violations
+    
+    # Get student from database
+    student = get_student_by_scenario(scenario)
+    if not student:
+        return jsonify({"error": f"No student found for scenario: {scenario}"}), 404
+    
+    # Get violations
+    violations = get_student_violations(student['student_id'])
+    
+    # Convert to RDF
+    student_rdf = student_to_rdf(student, violations)
+    
+    # Run SHACL validation
+    validation_result = validate_student(student_rdf)
+    
+    return jsonify({
+        "student_id": student['student_id'],
+        "student_name": student.get('name'),
+        "scenario": scenario,
+        "database_data": student,
+        "expected_violations": violations,
+        "rdf_graph": student_rdf,
+        "validation_result": validation_result,
+        "conforms": validation_result.get('conforms', True),
+        "violations": validation_result.get('violations', [])
+    })
+
+# ============================================
 # UTILITY FUNCTIONS
 # ============================================
 
