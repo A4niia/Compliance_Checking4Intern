@@ -147,7 +147,7 @@ JSON:"""
                 "prompt": prompt,
                 "temperature": 0.1,
                 "stream": False,
-                "options": {"num_predict": 400}
+                "options": {"num_predict": 800}
             },
             timeout=120
         )
@@ -155,25 +155,28 @@ JSON:"""
         
         result_text = response.json().get("response", "")
         
-        # Parse JSON from response
+        # Parse JSON from response with improved regex
         import re
-        json_match = re.search(r'\{[^{}]*\}', result_text, re.DOTALL)
+        # Try to match complete JSON object (handles nested structures)
+        json_match = re.search(r'\{.*\}', result_text, re.DOTALL)
         if json_match:
-            result = json.loads(json_match.group())
-            return result
-        else:
-            # Try to find nested JSON
-            json_match = re.search(r'\{.*\}', result_text, re.DOTALL)
-            if json_match:
+            try:
                 result = json.loads(json_match.group())
                 return result
-            
-        raise ValueError(f"Could not parse JSON from response: {result_text[:200]}")
+            except json.JSONDecodeError:
+                # If full match fails, try simpler pattern
+                json_match = re.search(r'\{[^{}]*\}', result_text, re.DOTALL)
+                if json_match:
+                    result = json.loads(json_match.group())
+                    return result
+        
+        # If no JSON found, show more of the response for debugging
+        raise ValueError(f"Could not parse JSON from response: {result_text[:400]}")
         
     except requests.exceptions.ConnectionError:
         raise ConnectionError(f"Cannot connect to Ollama at {OLLAMA_HOST}")
     except json.JSONDecodeError as e:
-        raise ValueError(f"JSON parse error: {e}. Response was: {result_text[:200]}")
+        raise ValueError(f"JSON parse error: {e}. Response was: {result_text[:400]}")
 
 
 def load_gold_standard():

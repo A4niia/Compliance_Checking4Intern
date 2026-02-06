@@ -56,7 +56,7 @@ class ReproducibilityTest:
             phase_start = time.time()
             extraction_result = self._run_extraction_phase()
             run_result["phases"]["extraction"] = {
-                "time_seconds": round(time.time() - phase_start, 2),
+                "time_seconds": round(time.time() - phase_start, 4),  # 0.1ms precision
                 "output_hash": self._hash_output(extraction_result),
                 "items_extracted": extraction_result.get("count", 0)
             }
@@ -65,7 +65,7 @@ class ReproducibilityTest:
             phase_start = time.time()
             classification_result = self._run_classification_phase(extraction_result)
             run_result["phases"]["classification"] = {
-                "time_seconds": round(time.time() - phase_start, 2),
+                "time_seconds": round(time.time() - phase_start, 4),  # 0.1ms precision
                 "output_hash": self._hash_output(classification_result),
                 "obligations": classification_result.get("obligations", 0),
                 "permissions": classification_result.get("permissions", 0),
@@ -76,7 +76,7 @@ class ReproducibilityTest:
             phase_start = time.time()
             fol_result = self._run_fol_phase(classification_result)
             run_result["phases"]["fol_generation"] = {
-                "time_seconds": round(time.time() - phase_start, 2),
+                "time_seconds": round(time.time() - phase_start, 4),  # 0.1ms precision
                 "output_hash": self._hash_output(fol_result),
                 "formulas_generated": fol_result.get("count", 0)
             }
@@ -85,7 +85,7 @@ class ReproducibilityTest:
             phase_start = time.time()
             shacl_result = self._run_shacl_phase(fol_result, run_id)
             run_result["phases"]["shacl_translation"] = {
-                "time_seconds": round(time.time() - phase_start, 2),
+                "time_seconds": round(time.time() - phase_start, 4),  # 0.1ms precision
                 "output_hash": self._hash_output(shacl_result),
                 "triples_generated": shacl_result.get("triples", 0)
             }
@@ -94,7 +94,7 @@ class ReproducibilityTest:
             phase_start = time.time()
             validation_result = self._run_validation_phase(shacl_result)
             run_result["phases"]["validation"] = {
-                "time_seconds": round(time.time() - phase_start, 2),
+                "time_seconds": round(time.time() - phase_start, 4),  # 0.1ms precision
                 "output_hash": self._hash_output(validation_result),
                 "passed": validation_result.get("passed", False)
             }
