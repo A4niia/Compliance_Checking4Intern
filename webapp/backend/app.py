@@ -41,6 +41,73 @@ SHACL_DIR = PROJECT_ROOT / "shacl"
 # VALIDATION API
 # ============================================
 
+@app.route('/api/validation/rules', methods=['GET'])
+def get_validation_rules():
+    """Get all policy rules for validation."""
+    rules = load_rules()
+    fol_data = load_fol_results()
+    
+    # Enhance rules with FOL data
+    fol_map = {r['id']: r for r in fol_data}
+    
+    enhanced_rules = []
+    for rule in rules:
+        rule_id = rule.get('id')
+        fol_info = fol_map.get(rule_id, {})
+        
+        enhanced_rules.append({
+            'id': rule_id,
+            'text': rule.get('original_text', ''),
+            'deontic_type': fol_info.get('fol_formalization', {}).get('deontic_type', 'obligation'),
+            'fol': fol_info.get('fol_formalization', {}).get('deontic_formula', ''),
+            'has_shacl': bool(fol_info.get('fol_formalization'))
+        })
+    
+    return jsonify({
+        'total': len(enhanced_rules),
+        'rules': enhanced_rules
+    })
+
+
+@app.route('/api/validation/validate-rule', methods=['POST'])
+def validate_specific_rule():
+    """Validate a specific rule against test data."""
+    data = request.json or {}
+    rule_id = data.get('rule_id')
+    
+    if not rule_id:
+        return jsonify({"error": "rule_id required"}), 400
+    
+    # Load the specific rule
+    rules = load_rules()
+    rule = next((r for r in rules if r.get('id') == rule_id), None)
+    
+    if not rule:
+        return jsonify({"error": f"Rule {rule_id} not found"}), 404
+    
+    # Load FOL and SHACL for this rule
+    fol_data = load_fol_results()
+    rule_fol = next((f for f in fol_data if f.get('id') == rule_id), None)
+    
+    if not rule_fol:
+        return jsonify({"error": f"No FOL found for rule {rule_id}"}), 404
+    
+    # For now, return the rule data and mock validation
+    # In production, this would run actual pySHACL validation
+    return jsonify({
+        'rule_id': rule_id,
+        'rule_text': rule.get('original_text'),
+        'deontic_type': rule_fol.get('fol_formalization', {}).get('deontic_type'),
+        'fol_formula': rule_fol.get('fol_formalization', {}).get('deontic_formula'),
+        'shacl_shape': '# SHACL shape would be loaded from file',
+        'validation_result': {
+            'conforms': True,
+            'violations': [],
+            'message': 'Mock validation - pySHACL integration pending'
+        }
+    })
+
+
 @app.route('/api/validation/run', methods=['POST'])
 def run_validation():
     """Run SHACL validation on student data from mock database."""

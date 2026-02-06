@@ -1,0 +1,89 @@
+﻿================================================================================
+                    REPRODUCIBILITY TEST ANALYSIS
+================================================================================
+
+≡ƒôè OVERALL METRICS
+  Total runs: 20
+  Successful runs: 20
+  Total duration: ('2026-02-06T23:59:43', '2026-02-06T23:18:40')
+  Average time per run: 123.1s (~2.1 min)
+
+≡ƒÄ» REPRODUCIBILITY ANALYSIS
+  Unique final outputs: 6
+  All identical: False
+  Reproducibility rate: 75.0%
+
+≡ƒôª FINAL HASH DISTRIBUTION
+  978e8a6fdfb95776: 14 runs ( 70.0%) ΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûê
+  46e7b1919cad752b:  2 runs ( 10.0%) ΓûêΓûê
+  d3c5fd90f862695f:  1 runs (  5.0%) Γûê
+  3306a46277d5a433:  1 runs (  5.0%) Γûê
+  d3e49546ba792244:  1 runs (  5.0%) Γûê
+  e4ccd70c56c5f929:  1 runs (  5.0%) Γûê
+
+≡ƒöì PHASE-BY-PHASE ANALYSIS
+
+  CLASSIFICATION:
+    Unique outputs: 18
+    Most common: 2/20 runs
+    Run  1: O=59 P= 7 Pr= 9
+    Run  2: O=59 P= 9 Pr= 8
+    Run  3: O=59 P= 9 Pr= 8
+    Run  4: O=59 P= 8 Pr=10
+    Run  5: O=60 P=10 Pr= 7
+    Run  6: O=60 P= 9 Pr= 8
+    Run  7: O=60 P= 9 Pr= 8
+    Run  8: O=58 P= 9 Pr= 9
+    Run  9: O=61 P= 9 Pr= 7
+    Run 10: O=60 P= 8 Pr= 8
+    Run 11: O=61 P= 8 Pr= 8
+    Run 12: O=59 P= 8 Pr= 9
+    Run 13: O=60 P= 8 Pr= 9
+    Run 14: O=60 P= 8 Pr= 9
+    Run 15: O=61 P= 8 Pr= 9
+    Run 16: O=61 P= 8 Pr= 8
+    Run 17: O=61 P= 7 Pr= 8
+    Run 18: O=60 P= 8 Pr= 8
+    Run 19: O=60 P=10 Pr= 8
+    Run 20: O=60 P= 9 Pr= 8
+
+  FOL GENERATION:
+    Unique outputs: 20
+    Consistency: 1/20 runs match
+
+  SHACL TRANSLATION:
+    Unique outputs: 20
+    Consistency: 1/20 runs match
+
+ΓÅ▒∩╕Å  TIMING STATISTICS
+
+  CLASSIFICATION:
+    Mean: 45.83s
+    Min: 45.16s
+    Max: 49.43s
+    Std: 0.89s
+
+  FOL_GENERATION:
+    Mean: 77.29s
+    Min: 75.00s
+    Max: 79.21s
+    Std: 1.18s
+
+≡ƒÆí KEY FINDINGS
+
+  1. DETERMINISM:
+     ΓÜá∩╕Å  Variability detected - 6 unique outputs
+     ≡ƒôî Dominant pattern: 14/20 runs (70%)
+
+  2. LLM CONSISTENCY:
+     Classification: 2 runs matched most common output
+     FOL Generation: 0 runs matched most common output
+     ΓåÆ Indicates moderate LLM stability
+
+  3. PERFORMANCE:
+     Average per run: 123s
+     = ~46s classification
+     + ~77s FOL
+     Total test time: ~2026-02-06T23:59:43 (41 minutes)
+
+================================================================================
