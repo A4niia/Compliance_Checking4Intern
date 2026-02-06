@@ -433,36 +433,51 @@ def _run_validation(shacl_result: Dict, emitter: PipelineEventEmitter) -> Dict:
 
 @live_pipeline_bp.route('/api/live/upload', methods=['POST'])
 def upload_and_process():
-    """Upload PDF and start pipeline processing."""
+    """Upload PDFs and start pipeline processing."""
     run_id = str(uuid.uuid4())[:8]
     
-    # Handle file upload if present
-    pdf_path = None
+    # Handle multiple file uploads
+    pdf_paths = []
+    upload_dir = PROJECT_ROOT / "uploads"
+    upload_dir.mkdir(exist_ok=True)
+    
+    # Check for multiple files (field name: 'files')
+    files = request.files.getlist('files')
+    if files:
+        for file in files:
+            if file.filename:
+                filename = secure_filename(file.filename)
+                pdf_path = str(upload_dir / f"{run_id}_{filename}")
+                file.save(pdf_path)
+                pdf_paths.append(pdf_path)
+    
+    # Also check for single file (backward compatibility)
     if 'file' in request.files:
         file = request.files['file']
         if file.filename:
             filename = secure_filename(file.filename)
-            upload_dir = PROJECT_ROOT / "uploads"
-            upload_dir.mkdir(exist_ok=True)
             pdf_path = str(upload_dir / f"{run_id}_{filename}")
             file.save(pdf_path)
+            pdf_paths.append(pdf_path)
     
     # Initialize run data
     ACTIVE_RUNS[run_id] = {
         "run_id": run_id,
         "status": "queued",
-        "pdf_path": pdf_path,
+        "pdf_paths": pdf_paths,
+        "file_count": len(pdf_paths),
         "created_at": datetime.now().isoformat()
     }
     
     # Start processing in background thread
-    thread = threading.Thread(target=run_pipeline_async, args=(run_id, pdf_path))
+    thread = threading.Thread(target=run_pipeline_async, args=(run_id, pdf_paths[0] if pdf_paths else None))
     thread.daemon = True
     thread.start()
     
     return jsonify({
         "run_id": run_id,
         "status": "started",
+        "file_count": len(pdf_paths),
         "stream_url": f"/api/live/stream/{run_id}"
     })
 

@@ -56,7 +56,7 @@ export default function LivePipeline() {
     const [phaseData, setPhaseData] = useState({})
     const [reactTraces, setReactTraces] = useState([])
     const [runHistory, setRunHistory] = useState([])
-    const [selectedFile, setSelectedFile] = useState(null)
+    const [selectedFiles, setSelectedFiles] = useState([])
     const [currentRunId, setCurrentRunId] = useState(null)
     const [expandedPhases, setExpandedPhases] = useState({})
     const [error, setError] = useState(null)
@@ -90,10 +90,20 @@ export default function LivePipeline() {
     }
 
     const handleFileSelect = (e) => {
-        const file = e.target.files?.[0]
-        if (file) {
-            setSelectedFile(file)
+        const files = Array.from(e.target.files || [])
+        if (files.length > 0) {
+            setSelectedFiles(prev => [...prev, ...files])
         }
+        // Reset input to allow selecting same file again
+        e.target.value = ''
+    }
+
+    const removeFile = (index) => {
+        setSelectedFiles(prev => prev.filter((_, i) => i !== index))
+    }
+
+    const clearAllFiles = () => {
+        setSelectedFiles([])
     }
 
     const startPipeline = async () => {
@@ -105,11 +115,11 @@ export default function LivePipeline() {
         setTotalTime(0)
 
         try {
-            // Upload file and start processing
+            // Upload files and start processing
             const formData = new FormData()
-            if (selectedFile) {
-                formData.append('file', selectedFile)
-            }
+            selectedFiles.forEach((file) => {
+                formData.append('files', file)
+            })
 
             const response = await fetch('/api/live/upload', {
                 method: 'POST',
@@ -261,6 +271,7 @@ export default function LivePipeline() {
                         ref={fileInputRef}
                         type="file"
                         accept=".pdf"
+                        multiple
                         onChange={handleFileSelect}
                         className="hidden"
                     />
@@ -271,15 +282,25 @@ export default function LivePipeline() {
                         disabled={isRunning}
                     >
                         <Upload className="w-4 h-4" />
-                        {selectedFile ? selectedFile.name : 'Select PDF (optional)'}
+                        Add PDF Files
                     </button>
+
+                    {selectedFiles.length > 0 && (
+                        <button
+                            onClick={clearAllFiles}
+                            className="px-3 py-2 bg-red-500/20 hover:bg-red-500/30 rounded-lg text-sm transition-colors"
+                            disabled={isRunning}
+                        >
+                            Clear All ({selectedFiles.length})
+                        </button>
+                    )}
 
                     <button
                         onClick={startPipeline}
                         disabled={isRunning}
                         className={`px-6 py-2 rounded-lg flex items-center gap-2 font-semibold transition-all ${isRunning
-                                ? 'bg-gray-400 cursor-not-allowed'
-                                : 'bg-white text-indigo-600 hover:bg-indigo-50'
+                            ? 'bg-gray-400 cursor-not-allowed'
+                            : 'bg-white text-indigo-600 hover:bg-indigo-50'
                             }`}
                     >
                         {isRunning ? (
@@ -308,6 +329,28 @@ export default function LivePipeline() {
                         </span>
                     )}
                 </div>
+
+                {/* Selected Files List */}
+                {selectedFiles.length > 0 && (
+                    <div className="mt-4 bg-white/10 rounded-lg p-3">
+                        <div className="text-sm font-medium mb-2">Selected Files ({selectedFiles.length}):</div>
+                        <div className="flex flex-wrap gap-2">
+                            {selectedFiles.map((file, index) => (
+                                <div key={index} className="flex items-center gap-2 bg-white/20 rounded-lg px-3 py-1 text-sm">
+                                    <FileText className="w-3 h-3" />
+                                    <span className="max-w-[200px] truncate">{file.name}</span>
+                                    <button
+                                        onClick={() => removeFile(index)}
+                                        className="hover:text-red-300 transition-colors"
+                                        disabled={isRunning}
+                                    >
+                                        <XCircle className="w-4 h-4" />
+                                    </button>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
             </div>
 
             {/* Error Display */}
@@ -337,10 +380,10 @@ export default function LivePipeline() {
                             <div
                                 key={phase.id}
                                 className={`bg-white rounded-xl border transition-all ${status === 'running'
-                                        ? 'border-blue-300 shadow-lg shadow-blue-100'
-                                        : status === 'complete'
-                                            ? 'border-green-200'
-                                            : 'border-gray-200'
+                                    ? 'border-blue-300 shadow-lg shadow-blue-100'
+                                    : status === 'complete'
+                                        ? 'border-green-200'
+                                        : 'border-gray-200'
                                     }`}
                             >
                                 {/* Phase Header */}
@@ -351,10 +394,10 @@ export default function LivePipeline() {
                                     <div className="flex items-center gap-4">
                                         {getStatusIcon(status)}
                                         <div className={`p-2 rounded-lg ${status === 'complete' ? 'bg-green-100' :
-                                                status === 'running' ? 'bg-blue-100' : 'bg-gray-100'
+                                            status === 'running' ? 'bg-blue-100' : 'bg-gray-100'
                                             }`}>
                                             <Icon className={`w-5 h-5 ${status === 'complete' ? 'text-green-600' :
-                                                    status === 'running' ? 'text-blue-600' : 'text-gray-400'
+                                                status === 'running' ? 'text-blue-600' : 'text-gray-400'
                                                 }`} />
                                         </div>
                                         <div>
@@ -512,8 +555,8 @@ export default function LivePipeline() {
                                     <div className="flex items-center justify-between">
                                         <span className="font-mono text-sm">{run.run_id}</span>
                                         <span className={`px-2 py-0.5 rounded-full text-xs ${run.success ? 'bg-green-100 text-green-700' :
-                                                run.status === 'running' ? 'bg-blue-100 text-blue-700' :
-                                                    'bg-red-100 text-red-700'
+                                            run.status === 'running' ? 'bg-blue-100 text-blue-700' :
+                                                'bg-red-100 text-red-700'
                                             }`}>
                                             {run.status}
                                         </span>
