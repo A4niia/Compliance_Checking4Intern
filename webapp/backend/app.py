@@ -47,8 +47,9 @@ def get_validation_rules():
     rules = load_rules()
     fol_data = load_fol_results()
     
-    # Enhance rules with FOL data
-    fol_map = {r['id']: r for r in fol_data}
+    # Enhance rules with FOL data - fol_data is {"formalized_rules": [...]}
+    fol_list = fol_data.get('formalized_rules', [])
+    fol_map = {r['id']: r for r in fol_list}
     
     enhanced_rules = []
     for rule in rules:
@@ -87,7 +88,8 @@ def validate_specific_rule():
     
     # Load FOL and SHACL for this rule
     fol_data = load_fol_results()
-    rule_fol = next((f for f in fol_data if f.get('id') == rule_id), None)
+    fol_list = fol_data.get('formalized_rules', [])
+    rule_fol = next((f for f in fol_list if f.get('id') == rule_id), None)
     
     if not rule_fol:
         return jsonify({"error": f"No FOL found for rule {rule_id}"}), 404
