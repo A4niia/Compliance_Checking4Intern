@@ -1,0 +1,439 @@
+{
+  "test_info": {
+    "start_time": "2026-02-07T11:10:01.716112",
+    "end_time": "2026-02-07T11:30:19.740392",
+    "total_runs": 10,
+    "use_mock_llm": false
+  },
+  "runs": [
+    {
+      "run_id": 1,
+      "start_time": "2026-02-07T11:10:01.716199",
+      "phases": {
+        "extraction": {
+          "time_seconds": 0.0012,
+          "output_hash": "680edbc1428ec5b8",
+          "items_extracted": 97
+        },
+        "classification": {
+          "time_seconds": 45.4625,
+          "output_hash": "6ededb982ae2f80d",
+          "obligations": 61,
+          "permissions": 11,
+          "prohibitions": 11
+        },
+        "fol_generation": {
+          "time_seconds": 76.337,
+          "output_hash": "273ef6be40e66565",
+          "formulas_generated": 97
+        },
+        "shacl_translation": {
+          "time_seconds": 0.0043,
+          "output_hash": "2088f9268da43ce8",
+          "triples_generated": 590
+        },
+        "validation": {
+          "time_seconds": 0.0967,
+          "output_hash": "492cb860b19c2699",
+          "passed": true
+        }
+      },
+      "errors": [],
+      "final_shacl_hash": "46e7b1919cad752b",
+      "success": true,
+      "end_time": "2026-02-07T11:12:03.620760",
+      "total_time_seconds": 121.9017
+    },
+    {
+      "run_id": 2,
+      "start_time": "2026-02-07T11:12:03.621186",
+      "phases": {
+        "extraction": {
+          "time_seconds": 0.001,
+          "output_hash": "680edbc1428ec5b8",
+          "items_extracted": 97
+        },
+        "classification": {
+          "time_seconds": 45.3669,
+          "output_hash": "6ededb982ae2f80d",
+          "obligations": 61,
+          "permissions": 11,
+          "prohibitions": 11
+        },
+        "fol_generation": {
+          "time_seconds": 76.2943,
+          "output_hash": "273ef6be40e66565",
+          "formulas_generated": 97
+        },
+        "shacl_translation": {
+          "time_seconds": 0.0067,
+          "output_hash": "b86c9219914cc472",
+          "triples_generated": 590
+        },
+        "validation": {
+          "time_seconds": 0.0,
+          "output_hash": "492cb860b19c2699",
+          "passed": true
+        }
+      },
+      "errors": [],
+      "final_shacl_hash": "46e7b1919cad752b",
+      "success": true,
+      "end_time": "2026-02-07T11:14:05.292855",
+      "total_time_seconds": 121.66890000000001
+    },
+    {
+      "run_id": 3,
+      "start_time": "2026-02-07T11:14:05.293107",
+      "phases": {
+        "extraction": {
+          "time_seconds": 0.001,
+          "output_hash": "680edbc1428ec5b8",
+          "items_extracted": 97
+        },
+        "classification": {
+          "time_seconds": 45.5772,
+          "output_hash": "6ededb982ae2f80d",
+          "obligations": 61,
+          "permissions": 11,
+          "prohibitions": 11
+        },
+        "fol_generation": {
+          "time_seconds": 76.1827,
+          "output_hash": "273ef6be40e66565",
+          "formulas_generated": 97
+        },
+        "shacl_translation": {
+          "time_seconds": 0.0037,
+          "output_hash": "5bb780ccec153e4c",
+          "triples_generated": 590
+        },
+        "validation": {
+          "time_seconds": 0.0,
+          "output_hash": "492cb860b19c2699",
+          "passed": true
+        }
+      },
+      "errors": [],
+      "final_shacl_hash": "46e7b1919cad752b",
+      "success": true,
+      "end_time": "2026-02-07T11:16:07.060987",
+      "total_time_seconds": 121.7646
+    },
+    {
+      "run_id": 4,
+      "start_time": "2026-02-07T11:16:07.061619",
+      "phases": {
+        "extraction": {
+          "time_seconds": 0.0011,
+          "output_hash": "680edbc1428ec5b8",
+          "items_extracted": 97
+        },
+        "classification": {
+          "time_seconds": 45.6112,
+          "output_hash": "6ededb982ae2f80d",
+          "obligations": 61,
+          "permissions": 11,
+          "prohibitions": 11
+        },
+        "fol_generation": {
+          "time_seconds": 76.401,
+          "output_hash": "273ef6be40e66565",
+          "formulas_generated": 97
+        },
+        "shacl_translation": {
+          "time_seconds": 0.0049,
+          "output_hash": "c8068d87fff9cb14",
+          "triples_generated": 590
+        },
+        "validation": {
+          "time_seconds": 0.0,
+          "output_hash": "492cb860b19c2699",
+          "passed": true
+        }
+      },
+      "errors": [],
+      "final_shacl_hash": "46e7b1919cad752b",
+      "success": true,
+      "end_time": "2026-02-07T11:18:09.082550",
+      "total_time_seconds": 122.0182
+    },
+    {
+      "run_id": 5,
+      "start_time": "2026-02-07T11:18:09.083082",
+      "phases": {
+        "extraction": {
+          "time_seconds": 0.0011,
+          "output_hash": "680edbc1428ec5b8",
+          "items_extracted": 97
+        },
+        "classification": {
+          "time_seconds": 45.3563,
+          "output_hash": "6ededb982ae2f80d",
+          "obligations": 61,
+          "permissions": 11,
+          "prohibitions": 11
+        },
+        "fol_generation": {
+          "time_seconds": 76.1376,
+          "output_hash": "273ef6be40e66565",
+          "formulas_generated": 97
+        },
+        "shacl_translation": {
+          "time_seconds": 0.0033,
+          "output_hash": "26e79f7c1205da1d",
+          "triples_generated": 590
+        },
+        "validation": {
+          "time_seconds": 0.0,
+          "output_hash": "492cb860b19c2699",
+          "passed": true
+        }
+      },
+      "errors": [],
+      "final_shacl_hash": "46e7b1919cad752b",
+      "success": true,
+      "end_time": "2026-02-07T11:20:10.583962",
+      "total_time_seconds": 121.4983
+    },
+    {
+      "run_id": 6,
+      "start_time": "2026-02-07T11:20:10.584284",
+      "phases": {
+        "extraction": {
+          "time_seconds": 0.0009,
+          "output_hash": "680edbc1428ec5b8",
+          "items_extracted": 97
+        },
+        "classification": {
+          "time_seconds": 45.376,
+          "output_hash": "6ededb982ae2f80d",
+          "obligations": 61,
+          "permissions": 11,
+          "prohibitions": 11
+        },
+        "fol_generation": {
+          "time_seconds": 76.1498,
+          "output_hash": "273ef6be40e66565",
+          "formulas_generated": 97
+        },
+        "shacl_translation": {
+          "time_seconds": 0.0043,
+          "output_hash": "975503cf065ef798",
+          "triples_generated": 590
+        },
+        "validation": {
+          "time_seconds": 0.0,
+          "output_hash": "492cb860b19c2699",
+          "passed": true
+        }
+      },
+      "errors": [],
+      "final_shacl_hash": "46e7b1919cad752b",
+      "success": true,
+      "end_time": "2026-02-07T11:22:12.118283",
+      "total_time_seconds": 121.53099999999999
+    },
+    {
+      "run_id": 7,
+      "start_time": "2026-02-07T11:22:12.118623",
+      "phases": {
+        "extraction": {
+          "time_seconds": 0.0012,
+          "output_hash": "680edbc1428ec5b8",
+          "items_extracted": 97
+        },
+        "classification": {
+          "time_seconds": 45.486,
+          "output_hash": "6ededb982ae2f80d",
+          "obligations": 61,
+          "permissions": 11,
+          "prohibitions": 11
+        },
+        "fol_generation": {
+          "time_seconds": 76.4367,
+          "output_hash": "273ef6be40e66565",
+          "formulas_generated": 97
+        },
+        "shacl_translation": {
+          "time_seconds": 0.0037,
+          "output_hash": "8c5c57caac407b8e",
+          "triples_generated": 590
+        },
+        "validation": {
+          "time_seconds": 0.0,
+          "output_hash": "492cb860b19c2699",
+          "passed": true
+        }
+      },
+      "errors": [],
+      "final_shacl_hash": "46e7b1919cad752b",
+      "success": true,
+      "end_time": "2026-02-07T11:24:14.049293",
+      "total_time_seconds": 121.9276
+    },
+    {
+      "run_id": 8,
+      "start_time": "2026-02-07T11:24:14.049636",
+      "phases": {
+        "extraction": {
+          "time_seconds": 0.0011,
+          "output_hash": "680edbc1428ec5b8",
+          "items_extracted": 97
+        },
+        "classification": {
+          "time_seconds": 45.4225,
+          "output_hash": "6ededb982ae2f80d",
+          "obligations": 61,
+          "permissions": 11,
+          "prohibitions": 11
+        },
+        "fol_generation": {
+          "time_seconds": 76.4585,
+          "output_hash": "273ef6be40e66565",
+          "formulas_generated": 97
+        },
+        "shacl_translation": {
+          "time_seconds": 0.0034,
+          "output_hash": "0ab0a04f9c835cd0",
+          "triples_generated": 590
+        },
+        "validation": {
+          "time_seconds": 0.0,
+          "output_hash": "492cb860b19c2699",
+          "passed": true
+        }
+      },
+      "errors": [],
+      "final_shacl_hash": "46e7b1919cad752b",
+      "success": true,
+      "end_time": "2026-02-07T11:26:15.937891",
+      "total_time_seconds": 121.8855
+    },
+    {
+      "run_id": 9,
+      "start_time": "2026-02-07T11:26:15.938167",
+      "phases": {
+        "extraction": {
+          "time_seconds": 0.0009,
+          "output_hash": "680edbc1428ec5b8",
+          "items_extracted": 97
+        },
+        "classification": {
+          "time_seconds": 45.6187,
+          "output_hash": "6ededb982ae2f80d",
+          "obligations": 61,
+          "permissions": 11,
+          "prohibitions": 11
+        },
+        "fol_generation": {
+          "time_seconds": 76.3221,
+          "output_hash": "273ef6be40e66565",
+          "formulas_generated": 97
+        },
+        "shacl_translation": {
+          "time_seconds": 0.0034,
+          "output_hash": "f0e60fbf5d417cfa",
+          "triples_generated": 590
+        },
+        "validation": {
+          "time_seconds": 0.0,
+          "output_hash": "492cb860b19c2699",
+          "passed": true
+        }
+      },
+      "errors": [],
+      "final_shacl_hash": "46e7b1919cad752b",
+      "success": true,
+      "end_time": "2026-02-07T11:28:17.885782",
+      "total_time_seconds": 121.9451
+    },
+    {
+      "run_id": 10,
+      "start_time": "2026-02-07T11:28:17.886075",
+      "phases": {
+        "extraction": {
+          "time_seconds": 0.0009,
+          "output_hash": "680edbc1428ec5b8",
+          "items_extracted": 97
+        },
+        "classification": {
+          "time_seconds": 45.6115,
+          "output_hash": "6ededb982ae2f80d",
+          "obligations": 61,
+          "permissions": 11,
+          "prohibitions": 11
+        },
+        "fol_generation": {
+          "time_seconds": 76.2355,
+          "output_hash": "273ef6be40e66565",
+          "formulas_generated": 97
+        },
+        "shacl_translation": {
+          "time_seconds": 0.0033,
+          "output_hash": "1d3fb8444f52d6ec",
+          "triples_generated": 590
+        },
+        "validation": {
+          "time_seconds": 0.0,
+          "output_hash": "492cb860b19c2699",
+          "passed": true
+        }
+      },
+      "errors": [],
+      "final_shacl_hash": "46e7b1919cad752b",
+      "success": true,
+      "end_time": "2026-02-07T11:30:19.739920",
+      "total_time_seconds": 121.8512
+    }
+  ],
+  "analysis": {
+    "total_runs": 10,
+    "successful_runs": 10,
+    "unique_outputs": 1,
+    "all_identical": true,
+    "semantic_equivalence": true,
+    "hash_groups": {
+      "46e7b1919cad752b": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ]
+    },
+    "phase_statistics": {
+      "extraction": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "classification": {
+        "mean": 45.49,
+        "min": 45.36,
+        "max": 45.62
+      },
+      "fol_generation": {
+        "mean": 76.3,
+        "min": 76.14,
+        "max": 76.46
+      },
+      "shacl_translation": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.01
+      },
+      "validation": {
+        "mean": 0.01,
+        "min": 0.0,
+        "max": 0.1
+      }
+    },
+    "total_time_mean": 121.8
+  }
+}
