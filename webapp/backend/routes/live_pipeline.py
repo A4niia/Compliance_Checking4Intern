@@ -66,6 +66,19 @@ live_pipeline_bp = Blueprint('live_pipeline', __name__)
 ACTIVE_RUNS: Dict[str, Dict[str, Any]] = {}  # For SSE state tracking
 RUN_QUEUES: Dict[str, Queue] = {}
 
+# LLM Response Cache - avoids reprocessing identical rules
+# Key: hash of rule text, Value: cached response
+LLM_CLASSIFICATION_CACHE: Dict[str, str] = {}
+LLM_FOL_CACHE: Dict[str, str] = {}
+
+def get_cache_key(text: str) -> str:
+    """Generate a cache key from rule text."""
+    return hashlib.md5(text.encode()).hexdigest()[:16]
+
+def cache_enabled() -> bool:
+    """Check if caching is enabled via environment variable."""
+    return os.getenv("USE_CACHE", "true").lower() == "true"
+
 
 class PipelineEventEmitter:
     """Emits events to SSE clients."""
@@ -391,12 +404,18 @@ def _run_classification(extraction_result: Dict, emitter: PipelineEventEmitter) 
     
     if use_llm:
         print(f"[Classification] Using REAL LLM at {ollama_url}")
+        cache_hits = 0
         
         for i, rule in enumerate(rules):
             rule_text = rule.get("original_text", "")
+            cache_key = get_cache_key(rule_text)
             
-            # Build classification prompt
-            prompt = f"""You are a policy classification expert. Classify this academic policy rule into exactly one category.
+            if cache_enabled() and cache_key in LLM_CLASSIFICATION_CACHE:
+                rule_type = LLM_CLASSIFICATION_CACHE[cache_key]
+                cache_hits += 1
+            else:
+                # Build classification prompt
+                prompt = f"""You are a policy classification expert. Classify this academic policy rule into exactly one category.
 
 Policy Rule: "{rule_text}"
 
@@ -409,41 +428,45 @@ Respond with ONLY the category name (one word: obligation, permission, or prohib
 
 Category:"""
 
-            try:
-                response = requests.post(
-                    f"{ollama_url}/api/generate",
-                    json={
-                        "model": "mistral",
-                        "prompt": prompt,
-                        "stream": False,
-                        "options": {
-                            "temperature": 0.0,
-                            "seed": 42,
-                            "num_predict": 20
-                        }
-                    },
-                    timeout=30
-                )
-                
-                if response.status_code == 200:
-                    llm_response = response.json().get("response", "").strip().lower()
-                    # Extract rule type from response
-                    if "permission" in llm_response:
-                        rule_type = "permission"
-                    elif "prohibition" in llm_response:
-                        rule_type = "prohibition"
-                    else:
-                        rule_type = "obligation"
-                else:
-                    print(f"[Classification] LLM error for rule {i}: {response.status_code}")
-                    rule_type = "obligation"  # Default fallback
+                try:
+                    response = requests.post(
+                        f"{ollama_url}/api/generate",
+                        json={
+                            "model": "mistral",
+                            "prompt": prompt,
+                            "stream": False,
+                            "options": {
+                                "temperature": 0.0,
+                                "seed": 42,
+                                "num_predict": 20
+                            }
+                        },
+                        timeout=30
+                    )
                     
-            except Exception as e:
-                print(f"[Classification] LLM exception for rule {i}: {e}")
-                rule_type = "obligation"  # Default fallback
+                    if response.status_code == 200:
+                        llm_response = response.json().get("response", "").strip().lower()
+                        # Extract rule type from response
+                        if "permission" in llm_response:
+                            rule_type = "permission"
+                        elif "prohibition" in llm_response:
+                            rule_type = "prohibition"
+                        else:
+                            rule_type = "obligation"
+                        
+                        # Store in cache
+                        if cache_enabled():
+                            LLM_CLASSIFICATION_CACHE[cache_key] = rule_type
+                    else:
+                        print(f"[Classification] LLM error for rule {i}: {response.status_code}")
+                        rule_type = "obligation"  # Default fallback
+                        
+                except Exception as e:
+                    print(f"[Classification] LLM exception for rule {i}: {e}")
+                    rule_type = "obligation"  # Default fallback
             
             if i < 3:
-                print(f"[Classification] Rule {i}: LLM classified as '{rule_type}', id={rule.get('id')}")
+                print(f"[Classification] Rule {i}: classified as '{rule_type}', id={rule.get('id')}, cached={cache_key in LLM_CLASSIFICATION_CACHE}")
             
             result["classified"].append({
                 "id": rule.get("id"),
@@ -497,6 +520,10 @@ Category:"""
         "prohibitions": result["prohibitions"]
     })
     
+    # Log cache performance (for LLM mode)
+    if use_llm:
+        print(f"[Classification] Cache stats: {cache_hits}/{len(rules)} hits ({100*cache_hits/max(1,len(rules)):.1f}% hit rate)")
+    
     print(f"[Classification] Final counts: O={result['obligations']}, P={result['permissions']}, F={result['prohibitions']}")
     
     return result
@@ -520,73 +547,115 @@ def _run_fol_generation(classification_result: Dict, emitter: PipelineEventEmitt
     formulas = []
     
     if use_llm:
-        print(f"[FOL] Using REAL LLM at {ollama_url}")
+        print(f"[FOL] Using REAL LLM at {ollama_url} with BATCH processing")
         
-        for i, item in enumerate(classified):
-            rule_text = item.get("original_text", "") or item.get("text", "")
-            rule_type = item.get("type", "obligation")
+        # Batch processing: 5 rules per request for 80% fewer LLM calls
+        BATCH_SIZE = 5
+        num_batches = (len(classified) + BATCH_SIZE - 1) // BATCH_SIZE
+        print(f"[FOL] Processing {len(classified)} rules in {num_batches} batches (batch size={BATCH_SIZE})")
+        
+        for batch_idx in range(num_batches):
+            start_idx = batch_idx * BATCH_SIZE
+            end_idx = min(start_idx + BATCH_SIZE, len(classified))
+            batch = classified[start_idx:end_idx]
             
-            # Build FOL generation prompt
-            prompt = f"""You are a formal logic expert. Generate a First-Order Logic (FOL) formula for this academic policy rule.
+            # Build batch prompt with all rules in one request
+            rules_text = ""
+            for idx, item in enumerate(batch):
+                rule_text = item.get("original_text", "") or item.get("text", "")
+                rule_type = item.get("type", "obligation")
+                rules_text += f"\n{idx+1}. [{item.get('id')}] ({rule_type}): \"{rule_text[:200]}\""
+            
+            batch_prompt = f"""You are a formal logic expert. Generate First-Order Logic (FOL) formulas for these academic policy rules.
 
-Policy Rule: "{rule_text}"
-Rule Type: {rule_type}
+Rules to convert:{rules_text}
 
 Use these deontic operators:
 - O(action) for obligations ("must do")
-- P(action) for permissions ("may do")
+- P(action) for permissions ("may do")  
 - F(action) for prohibitions ("must not do")
 
-Use predicates like: Student(x), payFees(x), registerCourse(x), submitAssignment(x), etc.
+Use predicates like: Student(x), payFees(x), registerCourse(x), etc.
 
-Generate ONLY the FOL formula, nothing else. Example format:
-∀x (Student(x) → O(payFees(x)))
+For each rule, output ONLY the rule number and FOL formula on one line, like:
+1: ∀x (Student(x) → O(payFees(x)))
+2: ∀x (Student(x) → P(dropCourse(x)))
 
-FOL Formula:"""
+Output (one formula per line):"""
 
             try:
                 response = requests.post(
                     f"{ollama_url}/api/generate",
                     json={
                         "model": "mistral",
-                        "prompt": prompt,
+                        "prompt": batch_prompt,
                         "stream": False,
                         "options": {
                             "temperature": 0.0,
                             "seed": 42,
-                            "num_predict": 100
+                            "num_predict": 300  # More tokens for batch output
                         }
                     },
-                    timeout=30
+                    timeout=60  # Longer timeout for batch
                 )
                 
                 if response.status_code == 200:
-                    fol = response.json().get("response", "").strip()
-                    # Clean up the response
-                    fol = fol.split("\n")[0].strip()  # Take first line only
-                    if not fol:
-                        fol = f"∀x (Student(x) → O(action_{item['id'][-3:]}))"
-                else:
-                    print(f"[FOL] LLM error for rule {i}: {response.status_code}")
-                    fol = f"∀x (Student(x) → O(action_{item['id'][-3:]}))"
+                    llm_response = response.json().get("response", "").strip()
+                    # Parse batch response
+                    lines = [l.strip() for l in llm_response.split("\n") if l.strip()]
                     
+                    for idx, item in enumerate(batch):
+                        rule_type = item.get("type", "obligation")
+                        fol = None
+                        
+                        # Try to find matching line in response
+                        for line in lines:
+                            if line.startswith(f"{idx+1}:") or line.startswith(f"{idx+1}."):
+                                fol = line.split(":", 1)[-1].strip() if ":" in line else line.split(".", 1)[-1].strip()
+                                break
+                        
+                        # Fallback if not found
+                        if not fol or len(fol) < 5:
+                            if idx < len(lines):
+                                fol = lines[idx].split(":", 1)[-1].strip() if ":" in lines[idx] else lines[idx]
+                            else:
+                                fol = f"∀x (Student(x) → {'O' if rule_type == 'obligation' else 'P' if rule_type == 'permission' else 'F'}(action_{item['id'][-3:]}))"
+                        
+                        formulas.append({
+                            "id": item.get("id"),
+                            "fol": fol[:200],  # Limit length
+                            "type": rule_type
+                        })
+                else:
+                    print(f"[FOL] LLM error for batch {batch_idx}: {response.status_code}")
+                    # Fallback for entire batch
+                    for item in batch:
+                        rule_type = item.get("type", "obligation")
+                        op = "O" if rule_type == "obligation" else "P" if rule_type == "permission" else "F"
+                        formulas.append({
+                            "id": item.get("id"),
+                            "fol": f"∀x (Student(x) → {op}(action_{item['id'][-3:]}))",
+                            "type": rule_type
+                        })
+                        
             except Exception as e:
-                print(f"[FOL] LLM exception for rule {i}: {e}")
-                fol = f"∀x (Student(x) → O(action_{item['id'][-3:]}))"
+                print(f"[FOL] LLM exception for batch {batch_idx}: {e}")
+                # Fallback for entire batch
+                for item in batch:
+                    rule_type = item.get("type", "obligation")
+                    op = "O" if rule_type == "obligation" else "P" if rule_type == "permission" else "F"
+                    formulas.append({
+                        "id": item.get("id"),
+                        "fol": f"∀x (Student(x) → {op}(action_{item['id'][-3:]}))",
+                        "type": rule_type
+                    })
             
-            if i < 3:
-                print(f"[FOL] Rule {i}: generated '{fol[:50]}...'")
+            if batch_idx < 2:
+                print(f"[FOL] Batch {batch_idx}: generated {len(batch)} formulas")
             
-            formulas.append({
-                "id": item.get("id"),
-                "fol": fol,
-                "type": rule_type
-            })
-            
-            # Emit progress every 5 rules
-            if i % 5 == 0:
-                emitter.emit_progress("fol_generation", (i + 1) / len(classified),
-                                     f"Generated {i + 1} of {len(classified)} formulas")
+            # Emit progress per batch
+            emitter.emit_progress("fol_generation", (end_idx) / len(classified),
+                                 f"Batch {batch_idx + 1}/{num_batches}: generated {end_idx} of {len(classified)} formulas")
     else:
         # Demo mode: Template-based FOL generation
         print("[FOL] Using DEMO mode (template-based formulas)")
