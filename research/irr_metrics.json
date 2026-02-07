@@ -1,19 +1,19 @@
 {
-  "timestamp": "2026-02-07T20:53:29.257956",
+  "timestamp": "2026-02-07T21:13:53.044078",
   "total_rules": 97,
   "confusion_matrix": {
-    "true_positives": 77,
-    "true_negatives": 10,
-    "false_positives": 4,
-    "false_negatives": 6
+    "true_positives": 79,
+    "true_negatives": 14,
+    "false_positives": 2,
+    "false_negatives": 2
   },
-  "cohens_kappa": 0.606,
-  "kappa_interpretation": "Substantial agreement",
-  "accuracy": 89.69,
-  "precision": 95.06,
-  "recall": 92.77,
-  "f1_score": 93.9,
-  "agreement_rate": 89.69,
+  "cohens_kappa": 0.8503,
+  "kappa_interpretation": "Almost perfect agreement",
+  "accuracy": 95.88,
+  "precision": 97.53,
+  "recall": 97.53,
+  "f1_score": 97.53,
+  "agreement_rate": 95.88,
   "rule_type_agreement": {
     "permission": {
       "agree": 14,
@@ -24,7 +24,7 @@
       "disagree": 5
     },
     "prohibition": {
-      "agree": 3,
+      "agree": 5,
       "disagree": 0
     }
   },
@@ -39,15 +39,6 @@
       "llm_reasoning": "The text does not contain a deontic operator or clear obligation, permission, or prohibition."
     },
     {
-      "rule_id": "GS-034",
-      "text": "This is an area where our cultural differences can lead to additional\nmisunderstanding; for example,...",
-      "human": true,
-      "human_type": "permission",
-      "llm": false,
-      "llm_type": null,
-      "llm_reasoning": "The text does not contain a deontic operator or clear actionable requirements."
-    },
-    {
       "rule_id": "GS-035",
       "text": "If two or more students compete for a position and they are equally qualified to undertake\nthe work,...",
       "human": false,
@@ -55,15 +46,6 @@
       "llm": true,
       "llm_type": "obligation",
       "llm_reasoning": "The text specifies an obligation (who should receive preference) and has actionable requirements (preference given to certain students)."
-    },
-    {
-      "rule_id": "GS-046",
-      "text": "No member of the AIT community, trustee, faculty, staff, or student, including\noutreach program part...",
-      "human": false,
-      "human_type": null,
-      "llm": true,
-      "llm_type": "prohibition",
-      "llm_reasoning": "The text uses 'should not' with a clear prohibition intent."
     },
     {
       "rule_id": "GS-049",
@@ -75,33 +57,6 @@
       "llm_reasoning": "The text uses 'should', which is often advisory but in this context implies an obligation for all parties to agree upon the notes of the interview."
     },
     {
-      "rule_id": "GS-055",
-      "text": "Furniture and appliances should not be removed from the accommodation\nunit.",
-      "human": false,
-      "human_type": null,
-      "llm": true,
-      "llm_type": "prohibition",
-      "llm_reasoning": "The text uses 'should not', which is a clear prohibition intent."
-    },
-    {
-      "rule_id": "GS-068",
-      "text": "The AIT campus includes a diverse mixture of settings,\nfrom offices, classrooms and laboratories to ...",
-      "human": true,
-      "human_type": "permission",
-      "llm": false,
-      "llm_type": null,
-      "llm_reasoning": "The text does not contain a deontic operator or any actionable requirements."
-    },
-    {
-      "rule_id": "GS-069",
-      "text": "2.2 Consultation refers, in this context, to discussion of problems or potential\nproblems before rec...",
-      "human": true,
-      "human_type": "permission",
-      "llm": false,
-      "llm_type": null,
-      "llm_reasoning": "The text does not contain a deontic operator or clear subject and does not specify an obligation, permission, or prohibition."
-    },
-    {
       "rule_id": "GS-070",
       "text": "The appeal should be\naddressed to the Vice President for Academic Affairs.",
       "human": false,
@@ -109,16 +64,7 @@
       "llm": true,
       "llm_type": "obligation",
       "llm_reasoning": "The text uses 'should', which is advisory but in this context implies an obligation to address the appeal to a specific individual."
-    },
-    {
-      "rule_id": "GS-094",
-      "text": "The duties of non-\ninstructional teaching assistants may include assisting faculty in preparing mate...",
-      "human": true,
-      "human_type": "permission",
-      "llm": false,
-      "llm_type": null,
-      "llm_reasoning": "The text does not contain a deontic operator and it is descriptive in nature rather than prescriptive."
     }
   ],
-  "threshold_met": false
+  "threshold_met": true
 }

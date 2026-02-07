@@ -158,7 +158,8 @@ def post_process_classification(result: dict, text: str) -> dict:
             r'should\s+normally',
             r'should\s+proceed\s+to',
             r'should\s+seek',
-            r'should\s+be\s+(agreed|supported|completed|reported|directed|held)',
+            r'should\s+receive\s+preference',
+            r'should\s+be\s+(supported|completed|reported|directed|held)',
         ]
         
         is_advisory = any(re.search(p, text_lower) for p in advisory_patterns)
