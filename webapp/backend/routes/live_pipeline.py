@@ -489,6 +489,8 @@ def upload_and_process():
     # This fixes the race condition where SSE stream connects before queue exists
     event_queue = Queue()
     RUN_QUEUES[run_id] = event_queue
+    print(f"[Upload] Created queue for run_id: {run_id}")
+    print(f"[Upload] RUN_QUEUES now has: {list(RUN_QUEUES.keys())}")
     
     # Start processing in background thread, passing the pre-created queue
     thread = threading.Thread(
@@ -497,6 +499,7 @@ def upload_and_process():
     )
     thread.daemon = True
     thread.start()
+    print(f"[Upload] Thread started for run_id: {run_id}")
     
     return jsonify({
         "run_id": run_id,
@@ -518,13 +521,18 @@ def get_status(run_id: str):
 @live_pipeline_bp.route('/api/live/stream/<run_id>', methods=['GET'])
 def stream_events(run_id: str):
     """SSE stream for real-time pipeline events."""
+    print(f"[SSE] Stream requested for run_id: {run_id}")
+    print(f"[SSE] Available queues: {list(RUN_QUEUES.keys())}")
+    print(f"[SSE] Queue found: {run_id in RUN_QUEUES}")
     
     def generate():
         if run_id not in RUN_QUEUES:
+            print(f"[SSE] ERROR: Queue not found for {run_id}")
             yield f"data: {json.dumps({'error': 'Run not found or completed'})}\n\n"
             return
         
         queue = RUN_QUEUES[run_id]
+        print(f"[SSE] Connected to queue for {run_id}")
         
         while True:
             try:
