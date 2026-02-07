@@ -1,27 +1,27 @@
 {
-  "timestamp": "2026-02-02T23:41:49.946636",
-  "total_rules": 96,
+  "timestamp": "2026-02-07T20:53:29.257956",
+  "total_rules": 97,
   "confusion_matrix": {
-    "true_positives": 70,
-    "true_negatives": 7,
-    "false_positives": 7,
-    "false_negatives": 12
+    "true_positives": 77,
+    "true_negatives": 10,
+    "false_positives": 4,
+    "false_negatives": 6
   },
-  "cohens_kappa": 0.308,
-  "kappa_interpretation": "Fair agreement",
-  "accuracy": 80.21,
-  "precision": 90.91,
-  "recall": 85.37,
-  "f1_score": 88.05,
-  "agreement_rate": 80.21,
+  "cohens_kappa": 0.606,
+  "kappa_interpretation": "Substantial agreement",
+  "accuracy": 89.69,
+  "precision": 95.06,
+  "recall": 92.77,
+  "f1_score": 93.9,
+  "agreement_rate": 89.69,
   "rule_type_agreement": {
     "permission": {
-      "agree": 8,
+      "agree": 14,
       "disagree": 14
     },
     "obligation": {
-      "agree": 45,
-      "disagree": 0
+      "agree": 41,
+      "disagree": 5
     },
     "prohibition": {
       "agree": 3,
@@ -30,49 +30,13 @@
   },
   "disagreements": [
     {
-      "rule_id": "GS-011",
-      "text": "For subsequent semesters, these\nstudents may opt to reside off-campus.",
-      "human": true,
-      "human_type": "permission",
-      "llm": false,
-      "llm_type": null,
-      "llm_reasoning": "The text 'For subsequent semesters, these students may opt to reside off-campus' is a statement of permission, not a policy rule."
-    },
-    {
-      "rule_id": "GS-016",
-      "text": "A student dormitory may be allocated for a\nmaximum period of one month, in case of availability to:\n...",
-      "human": true,
-      "human_type": "permission",
-      "llm": false,
-      "llm_type": null,
-      "llm_reasoning": "The text does not contain a deontic operator and it is stating a fact about the availability period for a student dormitory, not specifying an obligation, permission, or prohibition."
-    },
-    {
-      "rule_id": "GS-030",
-      "text": "39 up to Rangsit and from there\nmay ride a pick-up, popularly known as \"Luth\".",
-      "human": true,
-      "human_type": "permission",
-      "llm": false,
-      "llm_type": null,
-      "llm_reasoning": "The text provides a permission, but it lacks clear mandatory intent and specific actions."
-    },
-    {
-      "rule_id": "GS-032",
-      "text": "The instructor/invigilator should seek an explanation from\nthe student at the end of the examination...",
-      "human": false,
-      "human_type": null,
-      "llm": true,
-      "llm_type": "obligation",
-      "llm_reasoning": "The text clearly outlines an obligation for the subject to take specific actions (seek an explanation and submit a report) with the deontic operator 'should'."
-    },
-    {
       "rule_id": "GS-033",
       "text": "2.5 Direct communication may sometimes follow consultation, the complainant\nseeking the advice of on...",
       "human": true,
       "human_type": "permission",
       "llm": false,
       "llm_type": null,
-      "llm_reasoning": "The text does not contain a deontic operator and does not impose an obligation, permission, or prohibition."
+      "llm_reasoning": "The text does not contain a deontic operator or clear obligation, permission, or prohibition."
     },
     {
       "rule_id": "GS-034",
@@ -81,7 +45,7 @@
       "human_type": "permission",
       "llm": false,
       "llm_type": null,
-      "llm_reasoning": "The text does not contain a deontic operator or specific actionable requirements."
+      "llm_reasoning": "The text does not contain a deontic operator or clear actionable requirements."
     },
     {
       "rule_id": "GS-035",
@@ -90,7 +54,7 @@
       "human_type": null,
       "llm": true,
       "llm_type": "obligation",
-      "llm_reasoning": "The text contains a deontic operator 'should', it specifies an obligation (preference should be given), and there is a clear subject (students competing for a position)."
+      "llm_reasoning": "The text specifies an obligation (who should receive preference) and has actionable requirements (preference given to certain students)."
     },
     {
       "rule_id": "GS-046",
@@ -98,17 +62,8 @@
       "human": false,
       "human_type": null,
       "llm": true,
-      "llm_type": "obligation",
-      "llm_reasoning": "The text contains a deontic operator 'should', specifies an obligation to not interfere with others' study, work or home environment, and has a clear subject"
-    },
-    {
-      "rule_id": "GS-048",
-      "text": "In emergency cases or if any medical emergency\nassistance is required, the nurse on duty can be cont...",
-      "human": true,
-      "human_type": "obligation",
-      "llm": false,
-      "llm_type": null,
-      "llm_reasoning": "The text provides information about how to contact the nurse in an emergency, but does not contain a deontic operator and does not impose any mandatory actions, so it is not considered a policy rule."
+      "llm_type": "prohibition",
+      "llm_reasoning": "The text uses 'should not' with a clear prohibition intent."
     },
     {
       "rule_id": "GS-049",
@@ -117,16 +72,7 @@
       "human_type": "obligation",
       "llm": false,
       "llm_type": null,
-      "llm_reasoning": "The text contains 'should', which is often a recommendation rather than a mandatory rule."
-    },
-    {
-      "rule_id": "GS-052",
-      "text": "When getting off at the Don Muang (Bangkok International Airport), you may\ntake local buses no.",
-      "human": true,
-      "human_type": "permission",
-      "llm": false,
-      "llm_type": null,
-      "llm_reasoning": "The text does not contain a DEONTIC operator that specifies an OBLIGATION, PERMISSION, or PROHIBITION with clear SUBJECT and actionable REQUIREMENTS."
+      "llm_reasoning": "The text uses 'should', which is often advisory but in this context implies an obligation for all parties to agree upon the notes of the interview."
     },
     {
       "rule_id": "GS-055",
@@ -135,16 +81,7 @@
       "human_type": null,
       "llm": true,
       "llm_type": "prohibition",
-      "llm_reasoning": "The text 'Furniture and appliances should not be removed from the accommodation unit' is a prohibition rule as it specifies that something cannot be done (removing furniture and appliances). The deontic marker 'should not' indicates this, although it's often used for recommendations, in this context, it carries a clear prohibitive intent."
-    },
-    {
-      "rule_id": "GS-067",
-      "text": "In discharging his/her responsibility to implement this Policy, the President may\nbe assisted by the...",
-      "human": true,
-      "human_type": "permission",
-      "llm": false,
-      "llm_type": null,
-      "llm_reasoning": "The text does not contain a deontic operator specifying an obligation, permission or prohibition."
+      "llm_reasoning": "The text uses 'should not', which is a clear prohibition intent."
     },
     {
       "rule_id": "GS-068",
@@ -153,7 +90,7 @@
       "human_type": "permission",
       "llm": false,
       "llm_type": null,
-      "llm_reasoning": "The text does not contain a deontic operator or any specific actionable requirements."
+      "llm_reasoning": "The text does not contain a deontic operator or any actionable requirements."
     },
     {
       "rule_id": "GS-069",
@@ -162,34 +99,16 @@
       "human_type": "permission",
       "llm": false,
       "llm_type": null,
-      "llm_reasoning": "The text does not contain a deontic operator and does not specify an obligation, permission, or prohibition."
+      "llm_reasoning": "The text does not contain a deontic operator or clear subject and does not specify an obligation, permission, or prohibition."
     },
     {
-      "rule_id": "GS-079",
-      "text": "● Any safety and security concerns should be reported to Security Officer.",
+      "rule_id": "GS-070",
+      "text": "The appeal should be\naddressed to the Vice President for Academic Affairs.",
       "human": false,
       "human_type": null,
       "llm": true,
       "llm_type": "obligation",
-      "llm_reasoning": "The use of 'should' in this context implies an obligation to act."
-    },
-    {
-      "rule_id": "GS-085",
-      "text": "A student work time report should be completed for each student employee at the end\nof each month.",
-      "human": false,
-      "human_type": null,
-      "llm": true,
-      "llm_type": "obligation",
-      "llm_reasoning": "The text instructs 'a student work time report should be completed', implying an obligation for the student employee to do so."
-    },
-    {
-      "rule_id": "GS-086",
-      "text": "Any\nevidence to be considered in the investigation should be reported to the\ncomplainee, who should ...",
-      "human": false,
-      "human_type": null,
-      "llm": true,
-      "llm_type": "obligation",
-      "llm_reasoning": "The text specifies that the investigator must report evidence and give the complainee an opportunity to challenge it or present evidence in defense."
+      "llm_reasoning": "The text uses 'should', which is advisory but in this context implies an obligation to address the appeal to a specific individual."
     },
     {
       "rule_id": "GS-094",
@@ -198,7 +117,7 @@
       "human_type": "permission",
       "llm": false,
       "llm_type": null,
-      "llm_reasoning": "The text does not contain a deontic operator (must, shall, may, should) and it is describing duties rather than enforcing obligations, permissions, or prohibitions."
+      "llm_reasoning": "The text does not contain a deontic operator and it is descriptive in nature rather than prescriptive."
     }
   ],
   "threshold_met": false

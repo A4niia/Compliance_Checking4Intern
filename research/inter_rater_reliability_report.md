@@ -1,6 +1,6 @@
 # Inter-Rater Reliability Report
 
-**Generated:** 2026-02-02 23:41
+**Generated:** 2026-02-07 20:53
 **Purpose:** Calculate agreement between human and LLM rule annotations
 
 ---
@@ -9,9 +9,9 @@
 
 | Metric | Value | Threshold | Status |
 |--------|-------|-----------|--------|
-| **Cohen's Kappa** | **0.308** | ≥ 0.80 | ❌ BELOW |
-| Interpretation | Fair agreement | Substantial+ | - |
-| Agreement Rate | 80.21% | ≥ 95% | ⚠️ |
+| **Cohen's Kappa** | **0.606** | ≥ 0.80 | ❌ BELOW |
+| Interpretation | Substantial agreement | Substantial+ | - |
+| Agreement Rate | 89.69% | ≥ 95% | ⚠️ |
 
 ---
 
@@ -21,19 +21,19 @@
 
 | Metric | Value |
 |--------|-------|
-| Total Rules Analyzed | 96 |
-| Cohen's Kappa (κ) | 0.308 |
-| Accuracy | 80.21% |
-| Precision | 90.91% |
-| Recall | 85.37% |
-| F1-Score | 88.05% |
+| Total Rules Analyzed | 97 |
+| Cohen's Kappa (κ) | 0.606 |
+| Accuracy | 89.69% |
+| Precision | 95.06% |
+| Recall | 92.77% |
+| F1-Score | 93.9% |
 
 ### Confusion Matrix
 
 |                    | LLM: Not Rule | LLM: Is Rule |
 |--------------------|---------------|--------------|
-| **Human: Not Rule** | 7 (TN) | 7 (FP) |
-| **Human: Is Rule** | 12 (FN) | 70 (TP) |
+| **Human: Not Rule** | 10 (TN) | 4 (FP) |
+| **Human: Is Rule** | 6 (FN) | 77 (TP) |
 
 ---
 
@@ -48,35 +48,31 @@
 | 0.61 - 0.80 | Substantial agreement |
 | 0.81 - 1.00 | Almost perfect agreement ✅ |
 
-**Your Result:** κ = 0.308 → **Fair agreement**
+**Your Result:** κ = 0.606 → **Substantial agreement**
 
 ---
 
 ## Disagreement Analysis
 
-Total disagreements: 19
+Total disagreements: 10
 
 ### Rules Where Human and LLM Disagreed
 
 | Rule ID | Human | LLM | Text (truncated) |
 |---------|-------|-----|------------------|
-| GS-011 | Rule | Not Rule | For subsequent semesters, these
-students may opt t... |
-| GS-016 | Rule | Not Rule | A student dormitory may be allocated for a
-maximum... |
-| GS-030 | Rule | Not Rule | 39 up to Rangsit and from there
-may ride a pick-up... |
-| GS-032 | Not Rule | Rule | The instructor/invigilator should seek an explanat... |
 | GS-033 | Rule | Not Rule | 2.5 Direct communication may sometimes follow cons... |
 | GS-034 | Rule | Not Rule | This is an area where our cultural differences can... |
 | GS-035 | Not Rule | Rule | If two or more students compete for a position and... |
 | GS-046 | Not Rule | Rule | No member of the AIT community, trustee, faculty, ... |
-| GS-048 | Rule | Not Rule | In emergency cases or if any medical emergency
-ass... |
 | GS-049 | Rule | Not Rule | Notes of the interview will be recorded and
 should... |
-
-*...and 9 more disagreements*
+| GS-055 | Not Rule | Rule | Furniture and appliances should not be removed fro... |
+| GS-068 | Rule | Not Rule | The AIT campus includes a diverse mixture of setti... |
+| GS-069 | Rule | Not Rule | 2.2 Consultation refers, in this context, to discu... |
+| GS-070 | Not Rule | Rule | The appeal should be
+addressed to the Vice Preside... |
+| GS-094 | Rule | Not Rule | The duties of non-
+instructional teaching assistan... |
 
 ---
 
@@ -84,8 +80,8 @@ should... |
 
 ### What This Demonstrates
 
-1. **Inter-rater reliability approaching target** (κ = 0.308)
-2. **LLM classifications are moderately reliable** (80.21% accuracy)
+1. **Inter-rater reliability approaching target** (κ = 0.606)
+2. **LLM classifications are moderately reliable** (89.69% accuracy)
 3. **Answer to RQ1**: LLMs can reasonably identify policy rules with agreement comparable to human annotators
 
 ### Methodology Validation
