@@ -17,3 +17,11 @@ pyshacl>=0.25.0
 
 # Database
 psycopg2-binary>=2.9.0
+torch>=2.0.0
+transformers>=4.30.0
+pandas>=1.5.0
+scipy>=1.10.0
+statsmodels>=0.14.0
+numpy>=1.24.0
+langchain>=0.0.200
+python-dotenv>=1.0.0

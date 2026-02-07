@@ -92,8 +92,11 @@ PREFIXES = """@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 SEVERITY_MAP = {
     "obligation": "sh:Violation",
     "prohibition": "sh:Violation", 
-    "permission": "sh:Info"
+    "permission": "sh:Info"          # Permission shape itself is informational
 }
+
+# Permission-as-Exception: default restriction severity
+DEFAULT_RESTRICTION_SEVERITY = "sh:Warning"  # Default restriction for unpermitted actions
 
 
 def clean_text(text: str) -> str:
@@ -174,17 +177,18 @@ def make_refined_shape(rule: dict, idx: int) -> str:
     # Detect appropriate target class
     target_class = detect_target_class(original_text, subject)
     
-    # Get severity based on deontic type
+    # --- Permission-as-Exception Pattern ---
+    # For permissions: generate PAIRED shapes (default restriction + exception)
+    # Based on Governatori & Rotolo (2010) — Defeasible Deontic Logic
+    if dtype == 'permission':
+        return make_permission_exception_shape(rule, idx, target_class, formula, subject)
+    
+    # For obligations and prohibitions: standard shape
     severity = SEVERITY_MAP.get(dtype, 'sh:Warning')
-    
-    # Clean text for comment
     comment = clean_text(original_text)
-    
-    # Normalize rule ID for shape name
     shape_name = re.sub(r'[^A-Za-z0-9]', '', rule_id).capitalize()
     
-    # Build shape
-    shape = f"\n# Rule: {rule_id}\n"
+    shape = f"\n# Rule: {rule_id} ({dtype})\n"
     shape += f"ait:{shape_name}Shape a sh:NodeShape ;\n"
     shape += f"    sh:targetClass ait:{target_class} ;\n"
     shape += f'    rdfs:label "{rule_id}" ;\n'
@@ -193,6 +197,82 @@ def make_refined_shape(rule: dict, idx: int) -> str:
     shape += f'    rdfs:comment "{comment}" .\n'
     
     return shape
+
+
+def make_permission_exception_shape(rule: dict, idx: int, 
+                                    target_class: str,
+                                    formula: str,
+                                    subject: str) -> str:
+    """
+    Generate Permission-as-Exception pattern (paired SHACL shapes).
+    
+    Based on Governatori & Rotolo (2010) — Defeasible Deontic Logic:
+    - Shape 1: DEFAULT RESTRICTION — the action is restricted by default
+    - Shape 2: PERMISSION EXCEPTION — documents the explicit grant
+    
+    This makes permissions enforceable: the default restriction catches
+    violations when someone acts without having the permission grant,
+    while the permission shape documents the exception.
+    
+    Example:
+        Rule: "Students may request a leave of absence"
+        → Default: Requesting leave without permission = Warning
+        → Permission: Documents that students ARE permitted to request
+    """
+    fol = rule.get('fol_formalization', {})
+    rule_id = rule.get('id', f'R{idx}')
+    original_text = rule.get('original_text', '')
+    comment = clean_text(original_text)
+    shape_name = re.sub(r'[^A-Za-z0-9]', '', rule_id).capitalize()
+    
+    # Extract the action from the FOL formula for better annotation
+    action = extract_action_from_formula(formula)
+    
+    output = ""
+    
+    # --- Shape 1: Default Restriction ---
+    output += f"\n# Rule: {rule_id} — DEFAULT RESTRICTION (permission-as-exception)\n"
+    output += f"# Under closed-world assumption: action restricted unless explicitly permitted\n"
+    output += f"ait:{shape_name}DefaultShape a sh:NodeShape ;\n"
+    output += f"    sh:targetClass ait:{target_class} ;\n"
+    output += f'    rdfs:label "{rule_id} Default Restriction" ;\n'
+    output += f"    deontic:type deontic:prohibition ;\n"
+    output += f"    deontic:defaultRestriction true ;\n"
+    output += f"    sh:severity {DEFAULT_RESTRICTION_SEVERITY} ;\n"
+    output += f'    rdfs:comment "Default: {action} is restricted unless permission is granted. '
+    output += f'Source: {comment}" .\n'
+    
+    # --- Shape 2: Permission Exception ---
+    output += f"\n# Rule: {rule_id} — PERMISSION EXCEPTION\n"
+    output += f"# Grants explicit permission, overriding the default restriction\n"
+    output += f"ait:{shape_name}PermissionShape a sh:NodeShape ;\n"
+    output += f"    sh:targetClass ait:{target_class} ;\n"
+    output += f'    rdfs:label "{rule_id} Permission" ;\n'
+    output += f"    deontic:type deontic:permission ;\n"
+    output += f"    deontic:permissionScope \"explicit\" ;\n"
+    output += f"    deontic:overrides ait:{shape_name}DefaultShape ;\n"
+    output += f"    sh:severity sh:Info ;\n"
+    output += f'    rdfs:comment "Permission: {comment}" .\n'
+    
+    return output
+
+
+def extract_action_from_formula(formula: str) -> str:
+    """
+    Extract the action verb/predicate from a FOL formula.
+    E.g., 'P(requestExtension(student))' → 'requestExtension'
+    """
+    # Try to match the innermost predicate
+    match = re.search(r'[POF]\(([a-zA-Z]+)', formula)
+    if match:
+        action = match.group(1)
+        # Convert camelCase to readable
+        readable = re.sub(r'([A-Z])', r' \1', action).strip().lower()
+        return readable
+    
+    # Fallback: first word
+    words = formula.split()
+    return words[0] if words else 'action'
 
 
 def generate_refined_shapes():
@@ -226,6 +306,7 @@ def generate_refined_shapes():
     output += f'    rdfs:comment "Generated: {datetime.now().isoformat()}" .\n\n'
     
     stats = {"obligation": 0, "permission": 0, "prohibition": 0, "skipped": 0}
+    permission_pairs = 0  # Track permission-as-exception pairs
     target_classes_used = {}
     
     for i, rule in enumerate(rules, 1):
@@ -238,6 +319,8 @@ def generate_refined_shapes():
         dtype = fol.get('deontic_type', 'obligation')
         if dtype in stats:
             stats[dtype] += 1
+        if dtype == 'permission':
+            permission_pairs += 1
         
         # Track target classes
         target = detect_target_class(
@@ -253,12 +336,14 @@ def generate_refined_shapes():
     with open(output_file, 'w', encoding='utf-8') as f:
         f.write(output)
     
+    total_shapes = stats['obligation'] + stats['prohibition'] + (permission_pairs * 2)
     print(f"\n✅ Saved refined shapes: {output_file}")
     print(f"\n📊 Statistics:")
-    print(f"   Obligations: {stats['obligation']}")
-    print(f"   Permissions: {stats['permission']}")
-    print(f"   Prohibitions: {stats['prohibition']}")
+    print(f"   Obligations: {stats['obligation']} shapes")
+    print(f"   Permissions: {stats['permission']} → {permission_pairs * 2} shapes (paired default+exception)")
+    print(f"   Prohibitions: {stats['prohibition']} shapes")
     print(f"   Skipped: {stats['skipped']}")
+    print(f"   Total shapes generated: {total_shapes}")
     
     print(f"\n📊 Target Classes Used:")
     for cls, count in sorted(target_classes_used.items(), key=lambda x: -x[1]):

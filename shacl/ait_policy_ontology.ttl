@@ -2,6 +2,7 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix ait: <http://example.org/ait-policy#> .
 @prefix deontic: <http://example.org/deontic#> .
 
@@ -35,6 +36,22 @@ deontic:permission a deontic:DeonticType ;
 deontic:prohibition a deontic:DeonticType ;
     rdfs:label "Prohibition" ;
     rdfs:comment "Must not/Cannot - forbidden action" .
+
+# Permission-as-Exception Properties (Governatori & Rotolo, 2010)
+deontic:permissionScope a owl:DatatypeProperty ;
+    rdfs:label "Permission Scope" ;
+    rdfs:comment "Scope of permission: explicit, implicit, or conditional" ;
+    rdfs:range xsd:string .
+
+deontic:defaultRestriction a owl:DatatypeProperty ;
+    rdfs:label "Default Restriction" ;
+    rdfs:comment "Marks a shape as a default restriction that can be overridden by a permission" ;
+    rdfs:range xsd:boolean .
+
+deontic:overrides a owl:ObjectProperty ;
+    rdfs:label "Overrides" ;
+    rdfs:comment "Links a permission shape to the default restriction it overrides" ;
+    rdfs:range sh:NodeShape .
 
 # =============================================================================
 # CORE ENTITIES (Actors)
