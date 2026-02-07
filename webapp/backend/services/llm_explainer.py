@@ -91,7 +91,8 @@ Your explanation:"""
                 "prompt": prompt,
                 "stream": False,
                 "options": {
-                    "temperature": 0.3,  # Slightly creative but consistent
+                    "temperature": 0.0,  # Changed from 0.3 for reproducibility
+                    "seed": 42,          # Fixed seed for deterministic output
                     "num_predict": 150,   # Short explanation
                     "stop": ["\n\n"]
                 }

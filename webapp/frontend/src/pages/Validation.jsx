@@ -327,48 +327,50 @@ export default function Validation() {
                                             </div>
                                         )}
                                     </div>
-                            )}
                                 </>
-                            ) : (
-                            <div className="card text-center py-12 text-gray-500">
-                                <Database className="w-12 h-12 mx-auto mb-3 opacity-50" />
-                                <p>Select a rule to view details</p>
-                            </div>
+                            )}
+                        </>
+                    ) : (
+                        <div className="card text-center py-12 text-gray-500">
+                            <Database className="w-12 h-12 mx-auto mb-3 opacity-50" />
+                            <p>Select a rule to view details</p>
+                        </div>
                     )}
-                        </div>
-                </div>
-
-                {/* Stats Footer */}
-                <div className="grid grid-cols-5 gap-4">
-                    <div className="card text-center">
-                        <div className="text-3xl font-bold text-blue-600">{rules.length}</div>
-                        <div className="text-sm text-gray-600">Total Rules</div>
-                    </div>
-                    <div className="card text-center">
-                        <div className="text-3xl font-bold text-green-600">
-                            {rules.filter(r => r.has_shacl).length}
-                        </div>
-                        <div className="text-sm text-gray-600">With SHACL</div>
-                    </div>
-                    <div className="card text-center">
-                        <div className="text-3xl font-bold text-red-600">
-                            {rules.filter(r => r.deontic_type === 'obligation').length}
-                        </div>
-                        <div className="text-sm text-gray-600">Obligations</div>
-                    </div>
-                    <div className="card text-center">
-                        <div className="text-3xl font-bold text-purple-600">
-                            {rules.filter(r => r.deontic_type === 'permission').length}
-                        </div>
-                        <div className="text-sm text-gray-600">Permissions</div>
-                    </div>
-                    <div className="card text-center">
-                        <div className="text-3xl font-bold text-amber-600">
-                            {dbStats?.total_students || '?'}
-                        </div>
-                        <div className="text-sm text-gray-600">Test Students</div>
-                    </div>
                 </div>
             </div>
-            )
+
+            {/* Stats Footer */}
+            <div className="grid grid-cols-5 gap-4">
+                <div className="card text-center">
+                    <div className="text-3xl font-bold text-blue-600">{rules.length}</div>
+                    <div className="text-sm text-gray-600">Total Rules</div>
+                </div>
+                <div className="card text-center">
+                    <div className="text-3xl font-bold text-green-600">
+                        {rules.filter(r => r.has_shacl).length}
+                    </div>
+                    <div className="text-sm text-gray-600">With SHACL</div>
+                </div>
+                <div className="card text-center">
+                    <div className="text-3xl font-bold text-red-600">
+                        {rules.filter(r => r.deontic_type === 'obligation').length}
+                    </div>
+                    <div className="text-sm text-gray-600">Obligations</div>
+                </div>
+                <div className="card text-center">
+                    <div className="text-3xl font-bold text-purple-600">
+                        {rules.filter(r => r.deontic_type === 'permission').length}
+                    </div>
+                    <div className="text-sm text-gray-600">Permissions</div>
+                </div>
+                <div className="card text-center">
+                    <div className="text-3xl font-bold text-amber-600">
+                        {dbStats?.total_students || '?'}
+                    </div>
+                    <div className="text-sm text-gray-600">Test Students</div>
+                </div>
+            </div>
+        </div>
+    )
 }
+

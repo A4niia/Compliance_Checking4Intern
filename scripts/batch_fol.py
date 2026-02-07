@@ -77,6 +77,7 @@ JSON output:"""
                 "temperature": temperature,
                 "stream": False,
                 "options": {
+                    "seed": 42,  # Fixed seed for reproducibility
                     "num_predict": 1000 + (len(rules) * 100),  # Longer for FOL
                     "stop": ["\n\n"]
                 }

@@ -152,9 +152,12 @@ JSON:"""
             json={
                 "model": model,
                 "prompt": prompt,
-                "temperature": 0.0,  # Changed from 0.1 for reproducibility
                 "stream": False,
-                "options": {"num_predict": 800}
+                "options": {
+                    "temperature": 0.0,  # For reproducibility
+                    "seed": 42,          # Fixed seed for deterministic output
+                    "num_predict": 800
+                }
             },
             timeout=120
         )

@@ -108,6 +108,7 @@ JSON output:"""
                 "temperature": temperature,
                 "stream": False,
                 "options": {
+                    "seed": 42,  # Fixed seed for reproducibility
                     "num_predict": 500 + (len(rules) * 30)  # Dynamic based on batch size
                 }
             },

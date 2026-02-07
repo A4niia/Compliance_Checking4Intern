@@ -150,7 +150,7 @@ class LLMService:
         return self.default_models.get(task, "glm-4.7-flash")
     
     def generate(self, prompt: str, model: str = None, 
-                 temperature: float = 0.1, 
+                 temperature: float = 0.0,  # Changed from 0.1 for reproducibility
                  max_tokens: int = 2048) -> dict:
         """Generate response from LLM"""
         model = model or self.default_models["classification"]
@@ -164,6 +164,7 @@ class LLMService:
                     "stream": False,
                     "options": {
                         "temperature": temperature,
+                        "seed": 42,  # Fixed seed for reproducibility
                         "num_predict": max_tokens
                     }
                 },
