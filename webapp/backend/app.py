@@ -13,6 +13,9 @@ from datetime import datetime
 app = Flask(__name__)
 CORS(app)
 
+# Configure upload settings
+app.config['MAX_CONTENT_LENGTH'] = 100 * 1024 * 1024  # 100 MB max upload size
+
 # Add agent to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
