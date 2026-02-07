@@ -502,15 +502,15 @@ ait:Gs061Shape a sh:NodeShape ;
 ait:Gs062Shape a sh:NodeShape ;
     sh:targetClass ait:Student ;
     rdfs:label "GS-062" ;
-    deontic:type deontic:permission ;
-    sh:severity sh:Info ;
+    deontic:type deontic:prohibition ;
+    sh:severity sh:Violation ;
     rdfs:comment "Student Assistants shall be students in good standing on the effective dates of their appointment." .
 
 # Rule: GS-063
 ait:Gs063Shape a sh:NodeShape ;
     sh:targetClass ait:Person ;
     rdfs:label "GS-063" ;
-    deontic:type deontic:prohibition ;
+    deontic:type deontic:obligation ;
     sh:severity sh:Violation ;
     rdfs:comment "Expulsion shall be imposed for drug abuse." .
 
@@ -582,7 +582,7 @@ ait:Gs071Shape a sh:NodeShape ;
 ait:Gs072Shape a sh:NodeShape ;
     sh:targetClass ait:Person ;
     rdfs:label "GS-072" ;
-    deontic:type deontic:prohibition ;
+    deontic:type deontic:obligation ;
     sh:severity sh:Violation ;
     rdfs:comment "Proper sports attire is required for each sports facility." .
 
@@ -622,8 +622,8 @@ ait:Gs076Shape a sh:NodeShape ;
 ait:Gs077Shape a sh:NodeShape ;
     sh:targetClass ait:Person ;
     rdfs:label "GS-077" ;
-    deontic:type deontic:permission ;
-    sh:severity sh:Info ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
     rdfs:comment "Hearings should normally be held within ten working days of the notice." .
 
 # Rule: GS-078
@@ -702,7 +702,7 @@ ait:Gs086Shape a sh:NodeShape ;
 ait:Gs087Shape a sh:NodeShape ;
     sh:targetClass ait:Student ;
     rdfs:label "GS-087" ;
-    deontic:type deontic:obligation ;
+    deontic:type deontic:prohibition ;
     sh:severity sh:Violation ;
     rdfs:comment "Before a student is accepted for enrolment, the Admissions and Scholarships Unit (ASU) is required to ensure that there is proof of financial support " .
 
@@ -718,8 +718,8 @@ ait:Gs088Shape a sh:NodeShape ;
 ait:Gs089Shape a sh:NodeShape ;
     sh:targetClass ait:Accommodation ;
     rdfs:label "GS-089" ;
-    deontic:type deontic:obligation ;
-    sh:severity sh:Violation ;
+    deontic:type deontic:permission ;
+    sh:severity sh:Info ;
     rdfs:comment "In all such cases, the reservation of the vehicle must be made by a member of the faculty or a senior administrative staff member in the School or by " .
 
 # Rule: GS-090

@@ -62,7 +62,7 @@ ait:Gs006Shape a sh:NodeShape ;
 ait:Gs007Shape a sh:NodeShape ;
     sh:targetClass ait:Examination ;
     rdfs:label "GS-007" ;
-    deontic:type deontic:prohibition ;
+    deontic:type deontic:obligation ;
     sh:severity sh:Violation ;
     rdfs:comment "(10) Additional payments for audited and repeated courses, as well as beyond the minimum 3 credits for part-time students, registered for the semester" .
 
@@ -86,8 +86,8 @@ ait:Gs009Shape a sh:NodeShape ;
 ait:Gs010Shape a sh:NodeShape ;
     sh:targetClass ait:ExchangeStudent ;
     rdfs:label "GS-010" ;
-    deontic:type deontic:permission ;
-    sh:severity sh:Info ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
     rdfs:comment "Exceptions to this may only be given to those whose exchange program is less than two months." .
 
 # Rule: GS-011
@@ -334,15 +334,15 @@ ait:Gs040Shape a sh:NodeShape ;
 ait:Gs041Shape a sh:NodeShape ;
     sh:targetClass ait:Person ;
     rdfs:label "GS-041" ;
-    deontic:type deontic:permission ;
-    sh:severity sh:Info ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
     rdfs:comment "This linen set and pillow may be kept when leaving AIT." .
 
 # Rule: GS-042
 ait:Gs042Shape a sh:NodeShape ;
     sh:targetClass ait:Student ;
     rdfs:label "GS-042" ;
-    deontic:type deontic:obligation ;
+    deontic:type deontic:prohibition ;
     sh:severity sh:Violation ;
     rdfs:comment "Upon receipt of the retake, the School Dean may decide to: ● Downgrade by 1 step the grade the student will receive upon repetition of the exam or res" .
 
@@ -350,8 +350,8 @@ ait:Gs042Shape a sh:NodeShape ;
 ait:Gs043Shape a sh:NodeShape ;
     sh:targetClass ait:Faculty ;
     rdfs:label "GS-043" ;
-    deontic:type deontic:obligation ;
-    sh:severity sh:Violation ;
+    deontic:type deontic:permission ;
+    sh:severity sh:Info ;
     rdfs:comment "However, if cheating was proven, the Department Head and the instructor/invigilator may recommend to the School Dean to disregard the original examina" .
 
 # Rule: GS-044
@@ -374,7 +374,7 @@ ait:Gs045Shape a sh:NodeShape ;
 ait:Gs046Shape a sh:NodeShape ;
     sh:targetClass ait:Student ;
     rdfs:label "GS-046" ;
-    deontic:type deontic:obligation ;
+    deontic:type deontic:prohibition ;
     sh:severity sh:Violation ;
     rdfs:comment "No member of the AIT community, trustee, faculty, staff, or student, including outreach program participants, should act deliberately or thoughtlessly" .
 
@@ -406,7 +406,7 @@ ait:Gs049Shape a sh:NodeShape ;
 ait:Gs050Shape a sh:NodeShape ;
     sh:targetClass ait:Person ;
     rdfs:label "GS-050" ;
-    deontic:type deontic:obligation ;
+    deontic:type deontic:prohibition ;
     sh:severity sh:Violation ;
     rdfs:comment "Proper swim wear is required." .
 
@@ -502,8 +502,8 @@ ait:Gs061Shape a sh:NodeShape ;
 ait:Gs062Shape a sh:NodeShape ;
     sh:targetClass ait:Student ;
     rdfs:label "GS-062" ;
-    deontic:type deontic:permission ;
-    sh:severity sh:Info ;
+    deontic:type deontic:prohibition ;
+    sh:severity sh:Violation ;
     rdfs:comment "Student Assistants shall be students in good standing on the effective dates of their appointment." .
 
 # Rule: GS-063
@@ -630,8 +630,8 @@ ait:Gs077Shape a sh:NodeShape ;
 ait:Gs078Shape a sh:NodeShape ;
     sh:targetClass ait:Person ;
     rdfs:label "GS-078" ;
-    deontic:type deontic:permission ;
-    sh:severity sh:Info ;
+    deontic:type deontic:prohibition ;
+    sh:severity sh:Violation ;
     rdfs:comment "Vehicle may be locked or fine may also be imposed, if needed." .
 
 # Rule: GS-079

@@ -1,0 +1,1072 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ex: <http://example.org/policy#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ex:GS_001Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_001_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Info ;
+        sh:message "Compliance required for GS_001" ;
+    ] .
+
+
+ex:GS_002Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_002_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_002" ;
+    ] .
+
+
+ex:GS_003Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_003_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_003" ;
+    ] .
+
+
+ex:GS_004Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_004_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_004" ;
+    ] .
+
+
+ex:GS_005Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_005_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_005" ;
+    ] .
+
+
+ex:GS_006Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_006_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_006" ;
+    ] .
+
+
+ex:GS_007Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_007_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_007" ;
+    ] .
+
+
+ex:GS_008Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_008_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_008" ;
+    ] .
+
+
+ex:GS_009Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_009_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_009" ;
+    ] .
+
+
+ex:GS_010Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_010_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Info ;
+        sh:message "Compliance required for GS_010" ;
+    ] .
+
+
+ex:GS_011Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_011_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Info ;
+        sh:message "Compliance required for GS_011" ;
+    ] .
+
+
+ex:GS_012Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_012_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_012" ;
+    ] .
+
+
+ex:GS_013Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_013_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Info ;
+        sh:message "Compliance required for GS_013" ;
+    ] .
+
+
+ex:GS_014Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_014_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Info ;
+        sh:message "Compliance required for GS_014" ;
+    ] .
+
+
+ex:GS_015Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_015_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_015" ;
+    ] .
+
+
+ex:GS_016Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_016_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Info ;
+        sh:message "Compliance required for GS_016" ;
+    ] .
+
+
+ex:GS_017Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_017_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_017" ;
+    ] .
+
+
+ex:GS_018Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_018_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_018" ;
+    ] .
+
+
+ex:GS_019Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_019_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_019" ;
+    ] .
+
+
+ex:GS_020Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_020_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_020" ;
+    ] .
+
+
+ex:GS_021Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_021_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_021" ;
+    ] .
+
+
+ex:GS_022Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_022_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_022" ;
+    ] .
+
+
+ex:GS_023Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_023_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_023" ;
+    ] .
+
+
+ex:GS_024Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_024_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_024" ;
+    ] .
+
+
+ex:GS_025Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_025_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_025" ;
+    ] .
+
+
+ex:GS_026Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_026_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_026" ;
+    ] .
+
+
+ex:GS_027Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_027_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Info ;
+        sh:message "Compliance required for GS_027" ;
+    ] .
+
+
+ex:GS_028Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_028_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_028" ;
+    ] .
+
+
+ex:GS_029Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_029_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_029" ;
+    ] .
+
+
+ex:GS_030Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_030_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Info ;
+        sh:message "Compliance required for GS_030" ;
+    ] .
+
+
+ex:GS_031Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_031_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_031" ;
+    ] .
+
+
+ex:GS_032Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_032_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_032" ;
+    ] .
+
+
+ex:GS_033Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_033_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Info ;
+        sh:message "Compliance required for GS_033" ;
+    ] .
+
+
+ex:GS_034Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_034_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_034" ;
+    ] .
+
+
+ex:GS_035Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_035_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_035" ;
+    ] .
+
+
+ex:GS_036Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_036_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_036" ;
+    ] .
+
+
+ex:GS_037Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_037_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_037" ;
+    ] .
+
+
+ex:GS_038Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_038_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_038" ;
+    ] .
+
+
+ex:GS_039Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_039_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_039" ;
+    ] .
+
+
+ex:GS_040Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_040_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_040" ;
+    ] .
+
+
+ex:GS_041Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_041_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Info ;
+        sh:message "Compliance required for GS_041" ;
+    ] .
+
+
+ex:GS_042Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_042_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Info ;
+        sh:message "Compliance required for GS_042" ;
+    ] .
+
+
+ex:GS_043Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_043_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_043" ;
+    ] .
+
+
+ex:GS_044Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_044_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_044" ;
+    ] .
+
+
+ex:GS_045Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_045_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_045" ;
+    ] .
+
+
+ex:GS_046Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_046_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_046" ;
+    ] .
+
+
+ex:GS_047Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_047_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_047" ;
+    ] .
+
+
+ex:GS_048Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_048_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Info ;
+        sh:message "Compliance required for GS_048" ;
+    ] .
+
+
+ex:GS_049Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_049_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_049" ;
+    ] .
+
+
+ex:GS_050Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_050_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_050" ;
+    ] .
+
+
+ex:GS_051Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_051_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_051" ;
+    ] .
+
+
+ex:GS_052Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_052_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Info ;
+        sh:message "Compliance required for GS_052" ;
+    ] .
+
+
+ex:GS_053Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_053_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Info ;
+        sh:message "Compliance required for GS_053" ;
+    ] .
+
+
+ex:GS_054Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_054_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Info ;
+        sh:message "Compliance required for GS_054" ;
+    ] .
+
+
+ex:GS_055Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_055_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_055" ;
+    ] .
+
+
+ex:GS_056Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_056_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_056" ;
+    ] .
+
+
+ex:GS_057Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_057_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Info ;
+        sh:message "Compliance required for GS_057" ;
+    ] .
+
+
+ex:GS_058Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_058_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_058" ;
+    ] .
+
+
+ex:GS_059Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_059_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_059" ;
+    ] .
+
+
+ex:GS_060Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_060_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_060" ;
+    ] .
+
+
+ex:GS_061Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_061_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_061" ;
+    ] .
+
+
+ex:GS_062Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_062_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_062" ;
+    ] .
+
+
+ex:GS_063Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_063_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_063" ;
+    ] .
+
+
+ex:GS_064Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_064_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_064" ;
+    ] .
+
+
+ex:GS_065Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_065_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_065" ;
+    ] .
+
+
+ex:GS_066Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_066_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_066" ;
+    ] .
+
+
+ex:GS_067Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_067_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Info ;
+        sh:message "Compliance required for GS_067" ;
+    ] .
+
+
+ex:GS_068Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_068_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_068" ;
+    ] .
+
+
+ex:GS_069Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_069_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_069" ;
+    ] .
+
+
+ex:GS_070Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_070_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_070" ;
+    ] .
+
+
+ex:GS_071Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_071_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_071" ;
+    ] .
+
+
+ex:GS_072Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_072_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_072" ;
+    ] .
+
+
+ex:GS_073Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_073_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_073" ;
+    ] .
+
+
+ex:GS_074Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_074_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Info ;
+        sh:message "Compliance required for GS_074" ;
+    ] .
+
+
+ex:GS_075Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_075_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_075" ;
+    ] .
+
+
+ex:GS_076Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_076_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_076" ;
+    ] .
+
+
+ex:GS_077Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_077_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_077" ;
+    ] .
+
+
+ex:GS_078Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_078_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Info ;
+        sh:message "Compliance required for GS_078" ;
+    ] .
+
+
+ex:GS_079Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_079_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_079" ;
+    ] .
+
+
+ex:GS_080Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_080_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Info ;
+        sh:message "Compliance required for GS_080" ;
+    ] .
+
+
+ex:GS_081Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_081_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_081" ;
+    ] .
+
+
+ex:GS_082Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_082_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_082" ;
+    ] .
+
+
+ex:GS_083Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_083_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_083" ;
+    ] .
+
+
+ex:GS_084Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_084_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_084" ;
+    ] .
+
+
+ex:GS_085Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_085_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_085" ;
+    ] .
+
+
+ex:GS_086Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_086_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_086" ;
+    ] .
+
+
+ex:GS_087Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_087_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_087" ;
+    ] .
+
+
+ex:GS_088Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_088_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_088" ;
+    ] .
+
+
+ex:GS_089Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_089_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_089" ;
+    ] .
+
+
+ex:GS_090Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_090_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Info ;
+        sh:message "Compliance required for GS_090" ;
+    ] .
+
+
+ex:GS_091Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_091_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_091" ;
+    ] .
+
+
+ex:GS_092Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_092_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_092" ;
+    ] .
+
+
+ex:GS_093Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_093_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_093" ;
+    ] .
+
+
+ex:GS_094Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_094_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Info ;
+        sh:message "Compliance required for GS_094" ;
+    ] .
+
+
+ex:GS_095Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_095_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Info ;
+        sh:message "Compliance required for GS_095" ;
+    ] .
+
+
+ex:GS_096Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_096_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Info ;
+        sh:message "Compliance required for GS_096" ;
+    ] .
+
+
+ex:GS_097Shape
+    a sh:NodeShape ;
+    sh:targetClass ex:Student ;
+    sh:property [
+        sh:path ex:GS_097_compliance ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Compliance required for GS_097" ;
+    ] .
+

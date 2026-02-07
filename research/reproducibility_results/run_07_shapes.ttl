@@ -62,7 +62,7 @@ ait:Gs006Shape a sh:NodeShape ;
 ait:Gs007Shape a sh:NodeShape ;
     sh:targetClass ait:Examination ;
     rdfs:label "GS-007" ;
-    deontic:type deontic:prohibition ;
+    deontic:type deontic:obligation ;
     sh:severity sh:Violation ;
     rdfs:comment "(10) Additional payments for audited and repeated courses, as well as beyond the minimum 3 credits for part-time students, registered for the semester" .
 
@@ -86,8 +86,8 @@ ait:Gs009Shape a sh:NodeShape ;
 ait:Gs010Shape a sh:NodeShape ;
     sh:targetClass ait:ExchangeStudent ;
     rdfs:label "GS-010" ;
-    deontic:type deontic:permission ;
-    sh:severity sh:Info ;
+    deontic:type deontic:obligation ;
+    sh:severity sh:Violation ;
     rdfs:comment "Exceptions to this may only be given to those whose exchange program is less than two months." .
 
 # Rule: GS-011
@@ -190,7 +190,7 @@ ait:Gs022Shape a sh:NodeShape ;
 ait:Gs023Shape a sh:NodeShape ;
     sh:targetClass ait:Person ;
     rdfs:label "GS-023" ;
-    deontic:type deontic:obligation ;
+    deontic:type deontic:prohibition ;
     sh:severity sh:Violation ;
     rdfs:comment "The accomplishments, activities and individual differences of other people must be respected." .
 
@@ -366,7 +366,7 @@ ait:Gs044Shape a sh:NodeShape ;
 ait:Gs045Shape a sh:NodeShape ;
     sh:targetClass ait:Semester ;
     rdfs:label "GS-045" ;
-    deontic:type deontic:prohibition ;
+    deontic:type deontic:obligation ;
     sh:severity sh:Violation ;
     rdfs:comment "An Assistant’s contract shall be terminated if, during the period of appointment, they are (a) not achieving good academic standing after one semester" .
 
@@ -374,7 +374,7 @@ ait:Gs045Shape a sh:NodeShape ;
 ait:Gs046Shape a sh:NodeShape ;
     sh:targetClass ait:Student ;
     rdfs:label "GS-046" ;
-    deontic:type deontic:obligation ;
+    deontic:type deontic:prohibition ;
     sh:severity sh:Violation ;
     rdfs:comment "No member of the AIT community, trustee, faculty, staff, or student, including outreach program participants, should act deliberately or thoughtlessly" .
 
@@ -406,7 +406,7 @@ ait:Gs049Shape a sh:NodeShape ;
 ait:Gs050Shape a sh:NodeShape ;
     sh:targetClass ait:Person ;
     rdfs:label "GS-050" ;
-    deontic:type deontic:obligation ;
+    deontic:type deontic:prohibition ;
     sh:severity sh:Violation ;
     rdfs:comment "Proper swim wear is required." .
 
@@ -550,7 +550,7 @@ ait:Gs067Shape a sh:NodeShape ;
 ait:Gs068Shape a sh:NodeShape ;
     sh:targetClass ait:Accommodation ;
     rdfs:label "GS-068" ;
-    deontic:type deontic:prohibition ;
+    deontic:type deontic:obligation ;
     sh:severity sh:Violation ;
     rdfs:comment "The AIT campus includes a diverse mixture of settings, from offices, classrooms and laboratories to houses and dormitories, and each setting may prese" .
 

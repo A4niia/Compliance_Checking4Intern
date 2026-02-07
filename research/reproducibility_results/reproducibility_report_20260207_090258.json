@@ -1,0 +1,439 @@
+{
+  "test_info": {
+    "start_time": "2026-02-07T08:52:26.331083",
+    "end_time": "2026-02-07T09:02:58.333966",
+    "total_runs": 10,
+    "use_mock_llm": false
+  },
+  "runs": [
+    {
+      "run_id": 1,
+      "start_time": "2026-02-07T08:52:26.331177",
+      "phases": {
+        "extraction": {
+          "time_seconds": 0.0013,
+          "output_hash": "680edbc1428ec5b8",
+          "items_extracted": 97
+        },
+        "classification": {
+          "time_seconds": 20.5401,
+          "output_hash": "21dcf125049a5ac1",
+          "obligations": 48,
+          "permissions": 24,
+          "prohibitions": 21
+        },
+        "fol_generation": {
+          "time_seconds": 50.9335,
+          "output_hash": "68ee52773ee2e41e",
+          "formulas_generated": 97
+        },
+        "shacl_translation": {
+          "time_seconds": 0.0041,
+          "output_hash": "e169d25631c9737c",
+          "triples_generated": 590
+        },
+        "validation": {
+          "time_seconds": 0.0931,
+          "output_hash": "492cb860b19c2699",
+          "passed": true
+        }
+      },
+      "errors": [],
+      "final_shacl_hash": "61f9772d4949bae1",
+      "success": true,
+      "end_time": "2026-02-07T08:53:37.906048",
+      "total_time_seconds": 71.5721
+    },
+    {
+      "run_id": 2,
+      "start_time": "2026-02-07T08:53:37.906395",
+      "phases": {
+        "extraction": {
+          "time_seconds": 0.001,
+          "output_hash": "680edbc1428ec5b8",
+          "items_extracted": 97
+        },
+        "classification": {
+          "time_seconds": 11.2331,
+          "output_hash": "5018bfdae3bee99d",
+          "obligations": 47,
+          "permissions": 27,
+          "prohibitions": 23
+        },
+        "fol_generation": {
+          "time_seconds": 51.1368,
+          "output_hash": "68ee52773ee2e41e",
+          "formulas_generated": 97
+        },
+        "shacl_translation": {
+          "time_seconds": 0.0072,
+          "output_hash": "fe9a1c1b671561f2",
+          "triples_generated": 590
+        },
+        "validation": {
+          "time_seconds": 0.0,
+          "output_hash": "492cb860b19c2699",
+          "passed": true
+        }
+      },
+      "errors": [],
+      "final_shacl_hash": "61f9772d4949bae1",
+      "success": true,
+      "end_time": "2026-02-07T08:54:40.287469",
+      "total_time_seconds": 62.3781
+    },
+    {
+      "run_id": 3,
+      "start_time": "2026-02-07T08:54:40.287748",
+      "phases": {
+        "extraction": {
+          "time_seconds": 0.0012,
+          "output_hash": "680edbc1428ec5b8",
+          "items_extracted": 97
+        },
+        "classification": {
+          "time_seconds": 11.2171,
+          "output_hash": "5018bfdae3bee99d",
+          "obligations": 47,
+          "permissions": 27,
+          "prohibitions": 23
+        },
+        "fol_generation": {
+          "time_seconds": 50.9431,
+          "output_hash": "68ee52773ee2e41e",
+          "formulas_generated": 97
+        },
+        "shacl_translation": {
+          "time_seconds": 0.0032,
+          "output_hash": "0434e5ffe4b2b81f",
+          "triples_generated": 590
+        },
+        "validation": {
+          "time_seconds": 0.0,
+          "output_hash": "492cb860b19c2699",
+          "passed": true
+        }
+      },
+      "errors": [],
+      "final_shacl_hash": "61f9772d4949bae1",
+      "success": true,
+      "end_time": "2026-02-07T08:55:42.455297",
+      "total_time_seconds": 62.1646
+    },
+    {
+      "run_id": 4,
+      "start_time": "2026-02-07T08:55:42.455593",
+      "phases": {
+        "extraction": {
+          "time_seconds": 0.0009,
+          "output_hash": "680edbc1428ec5b8",
+          "items_extracted": 97
+        },
+        "classification": {
+          "time_seconds": 11.1836,
+          "output_hash": "5018bfdae3bee99d",
+          "obligations": 47,
+          "permissions": 27,
+          "prohibitions": 23
+        },
+        "fol_generation": {
+          "time_seconds": 50.9002,
+          "output_hash": "68ee52773ee2e41e",
+          "formulas_generated": 97
+        },
+        "shacl_translation": {
+          "time_seconds": 0.0031,
+          "output_hash": "d72522c730d3d28f",
+          "triples_generated": 590
+        },
+        "validation": {
+          "time_seconds": 0.0,
+          "output_hash": "492cb860b19c2699",
+          "passed": true
+        }
+      },
+      "errors": [],
+      "final_shacl_hash": "61f9772d4949bae1",
+      "success": true,
+      "end_time": "2026-02-07T08:56:44.546010",
+      "total_time_seconds": 62.0878
+    },
+    {
+      "run_id": 5,
+      "start_time": "2026-02-07T08:56:44.546337",
+      "phases": {
+        "extraction": {
+          "time_seconds": 0.001,
+          "output_hash": "680edbc1428ec5b8",
+          "items_extracted": 97
+        },
+        "classification": {
+          "time_seconds": 11.1693,
+          "output_hash": "5018bfdae3bee99d",
+          "obligations": 47,
+          "permissions": 27,
+          "prohibitions": 23
+        },
+        "fol_generation": {
+          "time_seconds": 50.9112,
+          "output_hash": "68ee52773ee2e41e",
+          "formulas_generated": 97
+        },
+        "shacl_translation": {
+          "time_seconds": 0.0035,
+          "output_hash": "10fbf7cf7a6de86d",
+          "triples_generated": 590
+        },
+        "validation": {
+          "time_seconds": 0.0001,
+          "output_hash": "492cb860b19c2699",
+          "passed": true
+        }
+      },
+      "errors": [],
+      "final_shacl_hash": "61f9772d4949bae1",
+      "success": true,
+      "end_time": "2026-02-07T08:57:46.634305",
+      "total_time_seconds": 62.085100000000004
+    },
+    {
+      "run_id": 6,
+      "start_time": "2026-02-07T08:57:46.634925",
+      "phases": {
+        "extraction": {
+          "time_seconds": 0.001,
+          "output_hash": "680edbc1428ec5b8",
+          "items_extracted": 97
+        },
+        "classification": {
+          "time_seconds": 11.181,
+          "output_hash": "5018bfdae3bee99d",
+          "obligations": 47,
+          "permissions": 27,
+          "prohibitions": 23
+        },
+        "fol_generation": {
+          "time_seconds": 51.1263,
+          "output_hash": "68ee52773ee2e41e",
+          "formulas_generated": 97
+        },
+        "shacl_translation": {
+          "time_seconds": 0.0035,
+          "output_hash": "5f7ab7dec2ec05dc",
+          "triples_generated": 590
+        },
+        "validation": {
+          "time_seconds": 0.0001,
+          "output_hash": "492cb860b19c2699",
+          "passed": true
+        }
+      },
+      "errors": [],
+      "final_shacl_hash": "61f9772d4949bae1",
+      "success": true,
+      "end_time": "2026-02-07T08:58:48.949714",
+      "total_time_seconds": 62.3119
+    },
+    {
+      "run_id": 7,
+      "start_time": "2026-02-07T08:58:48.950222",
+      "phases": {
+        "extraction": {
+          "time_seconds": 0.0009,
+          "output_hash": "680edbc1428ec5b8",
+          "items_extracted": 97
+        },
+        "classification": {
+          "time_seconds": 11.1643,
+          "output_hash": "5018bfdae3bee99d",
+          "obligations": 47,
+          "permissions": 27,
+          "prohibitions": 23
+        },
+        "fol_generation": {
+          "time_seconds": 51.2084,
+          "output_hash": "68ee52773ee2e41e",
+          "formulas_generated": 97
+        },
+        "shacl_translation": {
+          "time_seconds": 0.0033,
+          "output_hash": "e87974e90544500b",
+          "triples_generated": 590
+        },
+        "validation": {
+          "time_seconds": 0.0,
+          "output_hash": "492cb860b19c2699",
+          "passed": true
+        }
+      },
+      "errors": [],
+      "final_shacl_hash": "61f9772d4949bae1",
+      "success": true,
+      "end_time": "2026-02-07T08:59:51.329751",
+      "total_time_seconds": 62.3769
+    },
+    {
+      "run_id": 8,
+      "start_time": "2026-02-07T08:59:51.330067",
+      "phases": {
+        "extraction": {
+          "time_seconds": 0.001,
+          "output_hash": "680edbc1428ec5b8",
+          "items_extracted": 97
+        },
+        "classification": {
+          "time_seconds": 11.2238,
+          "output_hash": "5018bfdae3bee99d",
+          "obligations": 47,
+          "permissions": 27,
+          "prohibitions": 23
+        },
+        "fol_generation": {
+          "time_seconds": 51.0557,
+          "output_hash": "68ee52773ee2e41e",
+          "formulas_generated": 97
+        },
+        "shacl_translation": {
+          "time_seconds": 0.0032,
+          "output_hash": "5afd997e18777961",
+          "triples_generated": 590
+        },
+        "validation": {
+          "time_seconds": 0.0,
+          "output_hash": "492cb860b19c2699",
+          "passed": true
+        }
+      },
+      "errors": [],
+      "final_shacl_hash": "61f9772d4949bae1",
+      "success": true,
+      "end_time": "2026-02-07T09:00:53.616537",
+      "total_time_seconds": 62.2837
+    },
+    {
+      "run_id": 9,
+      "start_time": "2026-02-07T09:00:53.616827",
+      "phases": {
+        "extraction": {
+          "time_seconds": 0.0009,
+          "output_hash": "680edbc1428ec5b8",
+          "items_extracted": 97
+        },
+        "classification": {
+          "time_seconds": 11.2201,
+          "output_hash": "5018bfdae3bee99d",
+          "obligations": 47,
+          "permissions": 27,
+          "prohibitions": 23
+        },
+        "fol_generation": {
+          "time_seconds": 51.0976,
+          "output_hash": "68ee52773ee2e41e",
+          "formulas_generated": 97
+        },
+        "shacl_translation": {
+          "time_seconds": 0.0032,
+          "output_hash": "ad49602174426603",
+          "triples_generated": 590
+        },
+        "validation": {
+          "time_seconds": 0.0,
+          "output_hash": "492cb860b19c2699",
+          "passed": true
+        }
+      },
+      "errors": [],
+      "final_shacl_hash": "61f9772d4949bae1",
+      "success": true,
+      "end_time": "2026-02-07T09:01:55.941397",
+      "total_time_seconds": 62.3218
+    },
+    {
+      "run_id": 10,
+      "start_time": "2026-02-07T09:01:55.941697",
+      "phases": {
+        "extraction": {
+          "time_seconds": 0.0009,
+          "output_hash": "680edbc1428ec5b8",
+          "items_extracted": 97
+        },
+        "classification": {
+          "time_seconds": 11.292,
+          "output_hash": "5018bfdae3bee99d",
+          "obligations": 47,
+          "permissions": 27,
+          "prohibitions": 23
+        },
+        "fol_generation": {
+          "time_seconds": 51.0927,
+          "output_hash": "68ee52773ee2e41e",
+          "formulas_generated": 97
+        },
+        "shacl_translation": {
+          "time_seconds": 0.0032,
+          "output_hash": "af55f6e9b8876745",
+          "triples_generated": 590
+        },
+        "validation": {
+          "time_seconds": 0.0,
+          "output_hash": "492cb860b19c2699",
+          "passed": true
+        }
+      },
+      "errors": [],
+      "final_shacl_hash": "61f9772d4949bae1",
+      "success": true,
+      "end_time": "2026-02-07T09:02:58.333400",
+      "total_time_seconds": 62.3888
+    }
+  ],
+  "analysis": {
+    "total_runs": 10,
+    "successful_runs": 10,
+    "unique_outputs": 1,
+    "all_identical": true,
+    "semantic_equivalence": true,
+    "hash_groups": {
+      "61f9772d4949bae1": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ]
+    },
+    "phase_statistics": {
+      "extraction": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "classification": {
+        "mean": 12.14,
+        "min": 11.16,
+        "max": 20.54
+      },
+      "fol_generation": {
+        "mean": 51.04,
+        "min": 50.9,
+        "max": 51.21
+      },
+      "shacl_translation": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.01
+      },
+      "validation": {
+        "mean": 0.01,
+        "min": 0.0,
+        "max": 0.09
+      }
+    },
+    "total_time_mean": 63.2
+  }
+}
