@@ -65,7 +65,7 @@ def get_pipeline_steps():
             "description": "LLM identifies rules",
             "icon": "🤖",
             "status": "complete",
-            "details": "Mistral 7B with 99% accuracy"
+            "details": "Mistral 7B with 95.88% validated accuracy (κ=0.8503)"
         },
         {
             "id": 5,

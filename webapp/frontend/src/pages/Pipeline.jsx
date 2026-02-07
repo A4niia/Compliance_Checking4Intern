@@ -31,7 +31,7 @@ export default function Pipeline() {
             name: 'LLM Classification',
             description: 'Deontic type identification using Mistral-7B',
             finding: 'Permission challenge solved',
-            detail: '0% → 70% (p = 0.023), 99% overall accuracy',
+            detail: '0% → 50% (p = 0.023), 95.88% validated accuracy',
             icon: Brain,
             color: 'purple',
             input: {
@@ -42,7 +42,7 @@ export default function Pipeline() {
             output: {
                 title: 'LLM Classification',
                 content: 'Type: Obligation',
-                improvements: ['99% accuracy', 'κ = 0.85', 'Mistral-7B']
+                improvements: ['95.88% accuracy', 'κ = 0.8503', 'Mistral-7B']
             }
         },
         {
@@ -336,8 +336,8 @@ export default function Pipeline() {
                             <div className="text-xs text-gray-600">Rules</div>
                         </div>
                         <div className="text-center bg-white p-4 rounded-lg">
-                            <div className="text-3xl font-bold text-purple-600 mb-1">99%</div>
-                            <div className="text-xs text-gray-600">Classification</div>
+                            <div className="text-3xl font-bold text-purple-600 mb-1">95.88%</div>
+                            <div className="text-xs text-gray-600">Accuracy</div>
                         </div>
                         <div className="text-center bg-white p-4 rounded-lg">
                             <div className="text-3xl font-bold text-green-600 mb-1">100%</div>

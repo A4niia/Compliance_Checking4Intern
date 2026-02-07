@@ -113,9 +113,9 @@ export default function Dashboard() {
                         <div className="text-xs text-gray-500 mt-1">Gold standard</div>
                     </div>
                     <div className="card text-center hover:transform hover:scale-105 transition-transform">
-                        <div className="text-4xl font-bold text-purple-600 mb-2">99%</div>
+                        <div className="text-4xl font-bold text-purple-600 mb-2">95.88%</div>
                         <div className="text-sm text-gray-600 font-medium uppercase tracking-wide">Classification</div>
-                        <div className="text-xs text-gray-500 mt-1">LLM accuracy</div>
+                        <div className="text-xs text-gray-500 mt-1">Validated accuracy (v4)</div>
                     </div>
                     <div className="card text-center hover:transform hover:scale-105 transition-transform">
                         <div className="text-4xl font-bold text-green-600 mb-2">{stats?.formalized || 97}</div>
@@ -147,7 +147,7 @@ export default function Dashboard() {
                         <div className="w-12 h-12 rounded-full bg-purple-500 text-white font-bold text-xl flex items-center justify-center mx-auto mb-3">2</div>
                         <h3 className="font-semibold text-gray-800 mb-2">LLM Classification</h3>
                         <p className="text-sm text-gray-600">Deontic types</p>
-                        <div className="mt-3 text-xs font-semibold text-purple-700">0% → 70% permissions</div>
+                        <div className="mt-3 text-xs font-semibold text-purple-700">0% → 50% permissions</div>
                     </div>
                     <div className="text-center p-4 rounded-xl bg-green-50 border border-green-200">
                         <div className="w-12 h-12 rounded-full bg-green-500 text-white font-bold text-xl flex items-center justify-center mx-auto mb-3">3</div>
