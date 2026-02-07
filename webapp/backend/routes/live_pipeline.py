@@ -29,6 +29,12 @@ from werkzeug.utils import secure_filename
 PROJECT_ROOT = Path(__file__).parent.parent.parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
+# Log paths at module load time for debugging
+print(f"[LivePipeline] __file__ = {__file__}")
+print(f"[LivePipeline] PROJECT_ROOT = {PROJECT_ROOT}")
+print(f"[LivePipeline] research/ exists: {(PROJECT_ROOT / 'research').exists()}")
+print(f"[LivePipeline] gold_standard_annotated_v2.json exists: {(PROJECT_ROOT / 'research' / 'gold_standard_annotated_v2.json').exists()}")
+
 live_pipeline_bp = Blueprint('live_pipeline', __name__)
 
 # In-memory storage for runs (in production, use Redis or database)
