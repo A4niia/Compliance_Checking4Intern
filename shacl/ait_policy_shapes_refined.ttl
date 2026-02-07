@@ -10,7 +10,7 @@
 # owl:imports <ait_policy_ontology.ttl> .
 
 ait:PolicyShapesGraph a owl:Ontology ;
-    rdfs:comment "Generated: 2026-02-07T20:13:39.970604" .
+    rdfs:comment "Generated: 2026-02-07T20:31:16.755671" .
 
 
 # Rule: GS-001 (obligation)

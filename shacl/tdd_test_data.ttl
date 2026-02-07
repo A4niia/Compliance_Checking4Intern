@@ -7,7 +7,7 @@
 # =============================================================================
 # TDD Test Data v2 — FOL-Aware Generation
 # =============================================================================
-# Generated: 2026-02-07T20:20:53.371056
+# Generated: 2026-02-07T20:33:15.978879
 # Source: fol_formalization_v2_results.json
 # Generator: generate_test_data.py v2 (FOL-aware property extraction)
 #

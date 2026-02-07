@@ -1,6 +1,6 @@
 # SHACL Translation Report (Refined)
 
-**Generated:** 2026-02-07T20:13:39.975287
+**Generated:** 2026-02-07T20:31:16.760732
 **Input:** fol_formalization_v2_results.json
 **Output:** ait_policy_shapes_refined.ttl
 
