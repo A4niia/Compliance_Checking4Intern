@@ -237,8 +237,8 @@ def run_validation():
 
 def load_rules():
     """Load gold standard rules with latest annotations."""
-    # Use v2 file with LLM annotations (Jan 31, 2026)
-    gs_file = RESEARCH_DIR / "gold_standard_annotated_v2.json"
+    # Use v4 file with latest validated annotations
+    gs_file = RESEARCH_DIR / "gold_standard_annotated_v4.json"
     if gs_file.exists():
         with open(gs_file, 'r', encoding='utf-8') as f:
             return json.load(f)
@@ -246,7 +246,7 @@ def load_rules():
 
 def save_rules(rules):
     """Save rules to file."""
-    gs_file = RESEARCH_DIR / "gold_standard_annotated_v2.json"
+    gs_file = RESEARCH_DIR / "gold_standard_annotated_v4.json"
     with open(gs_file, 'w', encoding='utf-8') as f:
         json.dump(rules, f, indent=2, ensure_ascii=False)
 

@@ -28,7 +28,7 @@ export default function Rules() {
 
     const loadLocalData = () => {
         // Fallback: use axios to fetch the JSON file directly
-        axios.get('/research/gold_standard_annotated_v2.json')
+        axios.get('/research/gold_standard_annotated_v4.json')
             .then(res => {
                 console.log('Loaded local data:', res.data.length, 'rules')
                 setRulesData({ rules: res.data, total: res.data.length })
@@ -116,8 +116,8 @@ export default function Rules() {
                                     key={type}
                                     onClick={() => setFilterType(type)}
                                     className={`px-4 py-2 rounded-lg font-medium text-sm transition-colors ${filterType === type
-                                            ? 'bg-blue-600 text-white'
-                                            : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                                        ? 'bg-blue-600 text-white'
+                                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                                         }`}
                                 >
                                     {type} ({typeCounts[type]})
@@ -175,9 +175,9 @@ export default function Rules() {
                                     {/* Type Badges */}
                                     <div className="flex items-center gap-2 mb-3 flex-wrap">
                                         <span className={`px-3 py-1 rounded-full text-xs font-semibold ${deonticType.toLowerCase() === 'obligation' ? 'bg-red-100 text-red-700' :
-                                                deonticType.toLowerCase() === 'permission' ? 'bg-green-100 text-green-700' :
-                                                    deonticType.toLowerCase() === 'prohibition' ? 'bg-orange-100 text-orange-700' :
-                                                        'bg-gray-100 text-gray-700'
+                                            deonticType.toLowerCase() === 'permission' ? 'bg-green-100 text-green-700' :
+                                                deonticType.toLowerCase() === 'prohibition' ? 'bg-orange-100 text-orange-700' :
+                                                    'bg-gray-100 text-gray-700'
                                             }`}>
                                             {deonticType.charAt(0).toUpperCase() + deonticType.slice(1)}
                                         </span>
