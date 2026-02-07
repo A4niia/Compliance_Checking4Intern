@@ -62,7 +62,7 @@ ait:Gs006Shape a sh:NodeShape ;
 ait:Gs007Shape a sh:NodeShape ;
     sh:targetClass ait:Examination ;
     rdfs:label "GS-007" ;
-    deontic:type deontic:obligation ;
+    deontic:type deontic:prohibition ;
     sh:severity sh:Violation ;
     rdfs:comment "(10) Additional payments for audited and repeated courses, as well as beyond the minimum 3 credits for part-time students, registered for the semester" .
 
@@ -86,8 +86,8 @@ ait:Gs009Shape a sh:NodeShape ;
 ait:Gs010Shape a sh:NodeShape ;
     sh:targetClass ait:ExchangeStudent ;
     rdfs:label "GS-010" ;
-    deontic:type deontic:obligation ;
-    sh:severity sh:Violation ;
+    deontic:type deontic:permission ;
+    sh:severity sh:Info ;
     rdfs:comment "Exceptions to this may only be given to those whose exchange program is less than two months." .
 
 # Rule: GS-011
@@ -366,7 +366,7 @@ ait:Gs044Shape a sh:NodeShape ;
 ait:Gs045Shape a sh:NodeShape ;
     sh:targetClass ait:Semester ;
     rdfs:label "GS-045" ;
-    deontic:type deontic:prohibition ;
+    deontic:type deontic:obligation ;
     sh:severity sh:Violation ;
     rdfs:comment "An Assistant’s contract shall be terminated if, during the period of appointment, they are (a) not achieving good academic standing after one semester" .
 
@@ -406,7 +406,7 @@ ait:Gs049Shape a sh:NodeShape ;
 ait:Gs050Shape a sh:NodeShape ;
     sh:targetClass ait:Person ;
     rdfs:label "GS-050" ;
-    deontic:type deontic:obligation ;
+    deontic:type deontic:prohibition ;
     sh:severity sh:Violation ;
     rdfs:comment "Proper swim wear is required." .
 
@@ -502,8 +502,8 @@ ait:Gs061Shape a sh:NodeShape ;
 ait:Gs062Shape a sh:NodeShape ;
     sh:targetClass ait:Student ;
     rdfs:label "GS-062" ;
-    deontic:type deontic:obligation ;
-    sh:severity sh:Violation ;
+    deontic:type deontic:permission ;
+    sh:severity sh:Info ;
     rdfs:comment "Student Assistants shall be students in good standing on the effective dates of their appointment." .
 
 # Rule: GS-063
@@ -622,15 +622,15 @@ ait:Gs076Shape a sh:NodeShape ;
 ait:Gs077Shape a sh:NodeShape ;
     sh:targetClass ait:Person ;
     rdfs:label "GS-077" ;
-    deontic:type deontic:obligation ;
-    sh:severity sh:Violation ;
+    deontic:type deontic:permission ;
+    sh:severity sh:Info ;
     rdfs:comment "Hearings should normally be held within ten working days of the notice." .
 
 # Rule: GS-078
 ait:Gs078Shape a sh:NodeShape ;
     sh:targetClass ait:Person ;
     rdfs:label "GS-078" ;
-    deontic:type deontic:obligation ;
+    deontic:type deontic:prohibition ;
     sh:severity sh:Violation ;
     rdfs:comment "Vehicle may be locked or fine may also be imposed, if needed." .
 
@@ -646,7 +646,7 @@ ait:Gs079Shape a sh:NodeShape ;
 ait:Gs080Shape a sh:NodeShape ;
     sh:targetClass ait:ExchangeStudent ;
     rdfs:label "GS-080" ;
-    deontic:type deontic:obligation ;
+    deontic:type deontic:prohibition ;
     sh:severity sh:Violation ;
     rdfs:comment "Exceptions may only be given to those whose exchange program is less than two months." .
 
@@ -662,7 +662,7 @@ ait:Gs081Shape a sh:NodeShape ;
 ait:Gs082Shape a sh:NodeShape ;
     sh:targetClass ait:Person ;
     rdfs:label "GS-082" ;
-    deontic:type deontic:obligation ;
+    deontic:type deontic:prohibition ;
     sh:severity sh:Violation ;
     rdfs:comment "Questions about the plan, enrollment, claim should be directed to Generali Life Assurance (Thailand) Co., Ltd." .
 
@@ -702,7 +702,7 @@ ait:Gs086Shape a sh:NodeShape ;
 ait:Gs087Shape a sh:NodeShape ;
     sh:targetClass ait:Student ;
     rdfs:label "GS-087" ;
-    deontic:type deontic:obligation ;
+    deontic:type deontic:prohibition ;
     sh:severity sh:Violation ;
     rdfs:comment "Before a student is accepted for enrolment, the Admissions and Scholarships Unit (ASU) is required to ensure that there is proof of financial support " .
 
@@ -710,7 +710,7 @@ ait:Gs087Shape a sh:NodeShape ;
 ait:Gs088Shape a sh:NodeShape ;
     sh:targetClass ait:Accommodation ;
     rdfs:label "GS-088" ;
-    deontic:type deontic:obligation ;
+    deontic:type deontic:prohibition ;
     sh:severity sh:Violation ;
     rdfs:comment "accommodation units dormitories not designed for such facilities, will be fined Baht 2,000 and charged for the services related to the removal of the " .
 
@@ -742,7 +742,7 @@ ait:Gs091Shape a sh:NodeShape ;
 ait:Gs092Shape a sh:NodeShape ;
     sh:targetClass ait:Accommodation ;
     rdfs:label "GS-092" ;
-    deontic:type deontic:obligation ;
+    deontic:type deontic:prohibition ;
     sh:severity sh:Violation ;
     rdfs:comment "In case of over staying guests, special prior permission must be obtained from the Director, Office of Facilities and Asset Management (OFAM) and a da" .
 
@@ -758,8 +758,8 @@ ait:Gs093Shape a sh:NodeShape ;
 ait:Gs094Shape a sh:NodeShape ;
     sh:targetClass ait:Faculty ;
     rdfs:label "GS-094" ;
-    deontic:type deontic:obligation ;
-    sh:severity sh:Violation ;
+    deontic:type deontic:permission ;
+    sh:severity sh:Info ;
     rdfs:comment "The duties of non- instructional teaching assistants may include assisting faculty in preparing materials for lectures, grading assignments and quizze" .
 
 # Rule: GS-095

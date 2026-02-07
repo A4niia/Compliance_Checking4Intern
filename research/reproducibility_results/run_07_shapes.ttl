@@ -70,7 +70,7 @@ ait:Gs007Shape a sh:NodeShape ;
 ait:Gs008Shape a sh:NodeShape ;
     sh:targetClass ait:Accommodation ;
     rdfs:label "GS-008" ;
-    deontic:type deontic:obligation ;
+    deontic:type deontic:prohibition ;
     sh:severity sh:Violation ;
     rdfs:comment "FB-6-1-1: CREDIT POLICY notice from the Accommodation Unit, and the tenant is required to vacate the housing unit within two weeks." .
 
@@ -78,7 +78,7 @@ ait:Gs008Shape a sh:NodeShape ;
 ait:Gs009Shape a sh:NodeShape ;
     sh:targetClass ait:Accommodation ;
     rdfs:label "GS-009" ;
-    deontic:type deontic:prohibition ;
+    deontic:type deontic:obligation ;
     sh:severity sh:Violation ;
     rdfs:comment "Students shall not disturb fellow students in the residential areas." .
 
@@ -86,7 +86,7 @@ ait:Gs009Shape a sh:NodeShape ;
 ait:Gs010Shape a sh:NodeShape ;
     sh:targetClass ait:ExchangeStudent ;
     rdfs:label "GS-010" ;
-    deontic:type deontic:obligation ;
+    deontic:type deontic:prohibition ;
     sh:severity sh:Violation ;
     rdfs:comment "Exceptions to this may only be given to those whose exchange program is less than two months." .
 
@@ -374,7 +374,7 @@ ait:Gs045Shape a sh:NodeShape ;
 ait:Gs046Shape a sh:NodeShape ;
     sh:targetClass ait:Student ;
     rdfs:label "GS-046" ;
-    deontic:type deontic:prohibition ;
+    deontic:type deontic:obligation ;
     sh:severity sh:Violation ;
     rdfs:comment "No member of the AIT community, trustee, faculty, staff, or student, including outreach program participants, should act deliberately or thoughtlessly" .
 
@@ -502,7 +502,7 @@ ait:Gs061Shape a sh:NodeShape ;
 ait:Gs062Shape a sh:NodeShape ;
     sh:targetClass ait:Student ;
     rdfs:label "GS-062" ;
-    deontic:type deontic:obligation ;
+    deontic:type deontic:prohibition ;
     sh:severity sh:Violation ;
     rdfs:comment "Student Assistants shall be students in good standing on the effective dates of their appointment." .
 
@@ -630,8 +630,8 @@ ait:Gs077Shape a sh:NodeShape ;
 ait:Gs078Shape a sh:NodeShape ;
     sh:targetClass ait:Person ;
     rdfs:label "GS-078" ;
-    deontic:type deontic:obligation ;
-    sh:severity sh:Violation ;
+    deontic:type deontic:permission ;
+    sh:severity sh:Info ;
     rdfs:comment "Vehicle may be locked or fine may also be imposed, if needed." .
 
 # Rule: GS-079
@@ -646,7 +646,7 @@ ait:Gs079Shape a sh:NodeShape ;
 ait:Gs080Shape a sh:NodeShape ;
     sh:targetClass ait:ExchangeStudent ;
     rdfs:label "GS-080" ;
-    deontic:type deontic:obligation ;
+    deontic:type deontic:prohibition ;
     sh:severity sh:Violation ;
     rdfs:comment "Exceptions may only be given to those whose exchange program is less than two months." .
 
@@ -662,7 +662,7 @@ ait:Gs081Shape a sh:NodeShape ;
 ait:Gs082Shape a sh:NodeShape ;
     sh:targetClass ait:Person ;
     rdfs:label "GS-082" ;
-    deontic:type deontic:obligation ;
+    deontic:type deontic:prohibition ;
     sh:severity sh:Violation ;
     rdfs:comment "Questions about the plan, enrollment, claim should be directed to Generali Life Assurance (Thailand) Co., Ltd." .
 
@@ -710,7 +710,7 @@ ait:Gs087Shape a sh:NodeShape ;
 ait:Gs088Shape a sh:NodeShape ;
     sh:targetClass ait:Accommodation ;
     rdfs:label "GS-088" ;
-    deontic:type deontic:obligation ;
+    deontic:type deontic:prohibition ;
     sh:severity sh:Violation ;
     rdfs:comment "accommodation units dormitories not designed for such facilities, will be fined Baht 2,000 and charged for the services related to the removal of the " .
 
@@ -742,7 +742,7 @@ ait:Gs091Shape a sh:NodeShape ;
 ait:Gs092Shape a sh:NodeShape ;
     sh:targetClass ait:Accommodation ;
     rdfs:label "GS-092" ;
-    deontic:type deontic:obligation ;
+    deontic:type deontic:prohibition ;
     sh:severity sh:Violation ;
     rdfs:comment "In case of over staying guests, special prior permission must be obtained from the Director, Office of Facilities and Asset Management (OFAM) and a da" .
 
@@ -766,8 +766,8 @@ ait:Gs094Shape a sh:NodeShape ;
 ait:Gs095Shape a sh:NodeShape ;
     sh:targetClass ait:Person ;
     rdfs:label "GS-095" ;
-    deontic:type deontic:obligation ;
-    sh:severity sh:Violation ;
+    deontic:type deontic:permission ;
+    sh:severity sh:Info ;
     rdfs:comment "2.3 Preliminary consultation should be available to any member of the Institute community who wishes to discuss issues related to problem areas." .
 
 # Rule: GS-096
