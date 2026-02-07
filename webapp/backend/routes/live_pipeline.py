@@ -25,7 +25,8 @@ from flask import Blueprint, request, jsonify, Response, stream_with_context
 from werkzeug.utils import secure_filename
 
 # Add project paths
-PROJECT_ROOT = Path(__file__).parent.parent.parent
+# live_pipeline.py is in webapp/backend/routes/ so we need 4 parents to reach repo root
+PROJECT_ROOT = Path(__file__).parent.parent.parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
 live_pipeline_bp = Blueprint('live_pipeline', __name__)
