@@ -469,18 +469,24 @@ export default function LivePipeline() {
                                 {isExpanded && (data.intermediate || status !== 'pending') && (
                                     <div className="border-t p-4 bg-gray-50 space-y-3">
                                         {/* Phase Results */}
-                                        {phase.id === 'classification' && data.obligations !== undefined && (
+                                        {phase.id === 'classification' && (data.obligations !== undefined || data.intermediate?.distribution) && (
                                             <div className="grid grid-cols-3 gap-3">
                                                 <div className="bg-blue-50 p-3 rounded-lg text-center">
-                                                    <div className="text-2xl font-bold text-blue-600">{data.obligations}</div>
+                                                    <div className="text-2xl font-bold text-blue-600">
+                                                        {data.obligations ?? data.intermediate?.distribution?.obligations ?? 0}
+                                                    </div>
                                                     <div className="text-xs text-blue-500">Obligations</div>
                                                 </div>
                                                 <div className="bg-green-50 p-3 rounded-lg text-center">
-                                                    <div className="text-2xl font-bold text-green-600">{data.permissions}</div>
+                                                    <div className="text-2xl font-bold text-green-600">
+                                                        {data.permissions ?? data.intermediate?.distribution?.permissions ?? 0}
+                                                    </div>
                                                     <div className="text-xs text-green-500">Permissions</div>
                                                 </div>
                                                 <div className="bg-red-50 p-3 rounded-lg text-center">
-                                                    <div className="text-2xl font-bold text-red-600">{data.prohibitions}</div>
+                                                    <div className="text-2xl font-bold text-red-600">
+                                                        {data.prohibitions ?? data.intermediate?.distribution?.prohibitions ?? 0}
+                                                    </div>
                                                     <div className="text-xs text-red-500">Prohibitions</div>
                                                 </div>
                                             </div>

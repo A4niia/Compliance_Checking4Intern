@@ -296,6 +296,7 @@ def _run_extraction(pdf_path: Optional[str], emitter: PipelineEventEmitter) -> D
 def _run_classification(extraction_result: Dict, emitter: PipelineEventEmitter) -> Dict:
     """Run LLM classification phase."""
     rules = extraction_result.get("rules", [])
+    print(f"[Classification] Received {len(rules)} rules to classify")
     
     result = {
         "obligations": 0,
@@ -306,6 +307,8 @@ def _run_classification(extraction_result: Dict, emitter: PipelineEventEmitter) 
     
     for i, rule in enumerate(rules):
         rule_type = rule.get("human_annotation", {}).get("rule_type", "obligation")
+        if i < 3:  # Log first 3 rules for debugging
+            print(f"[Classification] Rule {i}: type={rule_type}, id={rule.get('id')}")
         
         result["classified"].append({
             "id": rule.get("id"),
@@ -330,6 +333,8 @@ def _run_classification(extraction_result: Dict, emitter: PipelineEventEmitter) 
         "permissions": result["permissions"],
         "prohibitions": result["prohibitions"]
     })
+    
+    print(f"[Classification] Final counts: O={result['obligations']}, P={result['permissions']}, F={result['prohibitions']}")
     
     return result
 
