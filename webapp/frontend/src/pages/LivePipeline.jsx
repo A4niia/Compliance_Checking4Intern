@@ -525,8 +525,8 @@ export default function LivePipeline() {
                                                                 {f.fol}
                                                             </div>
                                                             <span className={`ml-2 px-2 py-0.5 rounded text-xs ${f.type === 'obligation' ? 'bg-blue-100 text-blue-700' :
-                                                                    f.type === 'permission' ? 'bg-green-100 text-green-700' :
-                                                                        'bg-red-100 text-red-700'
+                                                                f.type === 'permission' ? 'bg-green-100 text-green-700' :
+                                                                    'bg-red-100 text-red-700'
                                                                 }`}>
                                                                 {f.type}
                                                             </span>
@@ -538,7 +538,45 @@ export default function LivePipeline() {
 
                                         {phase.id === 'shacl_translation' && data.intermediate?.shacl_preview && (
                                             <div className="bg-white p-3 rounded-lg">
-                                                <div className="text-sm font-medium mb-2">SHACL Preview</div>
+                                                <div className="flex justify-between items-center mb-2">
+                                                    <div className="text-sm font-medium">SHACL Preview</div>
+                                                    <button
+                                                        onClick={async () => {
+                                                            try {
+                                                                const response = await fetch(`/api/live/shacl/${currentRunId}`)
+                                                                if (response.ok) {
+                                                                    const content = await response.text()
+                                                                    // Create modal with full SHACL content
+                                                                    const modal = document.createElement('div')
+                                                                    modal.id = 'shacl-modal'
+                                                                    modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50'
+                                                                    modal.innerHTML = `
+                                                                        <div class="bg-white rounded-lg max-w-4xl max-h-[80vh] w-full m-4 flex flex-col">
+                                                                            <div class="flex justify-between items-center p-4 border-b">
+                                                                                <h3 class="text-lg font-semibold">Full SHACL Content (${data.shapes || 'N/A'} shapes)</h3>
+                                                                                <button class="text-gray-500 hover:text-gray-700" onclick="document.getElementById('shacl-modal').remove()">✕</button>
+                                                                            </div>
+                                                                            <pre class="p-4 overflow-auto flex-1 text-xs bg-gray-50">${content.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</pre>
+                                                                            <div class="p-4 border-t flex gap-2">
+                                                                                <button class="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700" onclick="navigator.clipboard.writeText(document.querySelector('#shacl-modal pre').textContent)">Copy to Clipboard</button>
+                                                                                <button class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300" onclick="document.getElementById('shacl-modal').remove()">Close</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    `
+                                                                    document.body.appendChild(modal)
+                                                                } else {
+                                                                    alert('SHACL file not found')
+                                                                }
+                                                            } catch (error) {
+                                                                console.error('Error loading SHACL:', error)
+                                                                alert('Error loading SHACL content')
+                                                            }
+                                                        }}
+                                                        className="px-3 py-1 bg-indigo-100 text-indigo-700 text-xs font-medium rounded-full hover:bg-indigo-200"
+                                                    >
+                                                        Show Full SHACL
+                                                    </button>
+                                                </div>
                                                 <pre className="text-xs bg-gray-100 p-2 rounded overflow-x-auto max-h-40">
                                                     {data.intermediate.shacl_preview}
                                                 </pre>

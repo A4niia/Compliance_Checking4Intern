@@ -1,0 +1,111 @@
+@prefix ex: <http://example.org/policy#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+# =============================================================================
+# RDF Test Data for SHACL Validation
+# Contains sample student records with varying compliance levels
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Student 1: Fully Compliant Student
+# All policy rules satisfied
+# -----------------------------------------------------------------------------
+ex:student_001 a ex:Student ;
+    rdfs:label "John Doe" ;
+    ex:studentId "ST2024001" ;
+    ex:enrollmentStatus "active" ;
+    ex:hasPaidFees true ;
+    ex:registeredCredits 15 ;
+    ex:hasValidInsurance true ;
+    ex:hasSignedCodeOfConduct true ;
+    ex:gpa 3.5 ;
+    ex:attendanceRate 0.95 ;
+    ex:GS_001_compliance true ;
+    ex:GS_002_compliance true ;
+    ex:GS_003_compliance true ;
+    ex:GS_004_compliance true ;
+    ex:GS_005_compliance true .
+
+# -----------------------------------------------------------------------------
+# Student 2: Partial Compliance
+# Some rules violated (missing fee payment, low attendance)
+# -----------------------------------------------------------------------------
+ex:student_002 a ex:Student ;
+    rdfs:label "Jane Smith" ;
+    ex:studentId "ST2024002" ;
+    ex:enrollmentStatus "active" ;
+    ex:hasPaidFees false ;  # Violation: hasn't paid fees
+    ex:registeredCredits 18 ;
+    ex:hasValidInsurance true ;
+    ex:hasSignedCodeOfConduct true ;
+    ex:gpa 2.8 ;
+    ex:attendanceRate 0.65 ;  # Violation: below 80% threshold
+    ex:GS_001_compliance false ;  # Fee payment violation
+    ex:GS_002_compliance true ;
+    ex:GS_003_compliance false ;  # Attendance violation
+    ex:GS_004_compliance true ;
+    ex:GS_005_compliance true .
+
+# -----------------------------------------------------------------------------
+# Student 3: Multiple Violations
+# Academic probation scenario
+# -----------------------------------------------------------------------------
+ex:student_003 a ex:Student ;
+    rdfs:label "Bob Johnson" ;
+    ex:studentId "ST2024003" ;
+    ex:enrollmentStatus "probation" ;
+    ex:hasPaidFees true ;
+    ex:registeredCredits 22 ;  # Violation: exceeds max credits (21)
+    ex:hasValidInsurance false ;  # Violation: no insurance
+    ex:hasSignedCodeOfConduct true ;
+    ex:gpa 1.8 ;  # Violation: below minimum GPA (2.0)
+    ex:attendanceRate 0.70 ;
+    ex:GS_001_compliance true ;
+    ex:GS_002_compliance false ;  # Credit limit violation
+    ex:GS_003_compliance false ;  # Attendance violation
+    ex:GS_004_compliance false ;  # GPA violation
+    ex:GS_005_compliance false .  # Insurance violation
+
+# -----------------------------------------------------------------------------
+# Student 4: New Student (Edge Case)
+# Recently enrolled, some requirements pending
+# -----------------------------------------------------------------------------
+ex:student_004 a ex:Student ;
+    rdfs:label "Alice Brown" ;
+    ex:studentId "ST2024004" ;
+    ex:enrollmentStatus "new" ;
+    ex:hasPaidFees true ;
+    ex:registeredCredits 12 ;
+    ex:hasValidInsurance true ;
+    ex:hasSignedCodeOfConduct false ;  # Pending: hasn't signed yet
+    ex:gpa 0.0 ;  # No grades yet
+    ex:attendanceRate 1.0 ;  # Perfect attendance so far
+    ex:GS_001_compliance true ;
+    ex:GS_002_compliance true ;
+    ex:GS_003_compliance true ;
+    ex:GS_004_compliance true ;
+    ex:GS_005_compliance true .
+
+# -----------------------------------------------------------------------------
+# Student 5: Graduate Student
+# Different rules apply
+# -----------------------------------------------------------------------------
+ex:student_005 a ex:Student ;
+    rdfs:label "Charlie Davis" ;
+    ex:studentId "ST2024005" ;
+    ex:enrollmentStatus "active" ;
+    ex:studentType "graduate" ;
+    ex:hasPaidFees true ;
+    ex:registeredCredits 9 ;
+    ex:hasValidInsurance true ;
+    ex:hasSignedCodeOfConduct true ;
+    ex:gpa 3.8 ;
+    ex:attendanceRate 0.92 ;
+    ex:hasThesisAdvisor true ;
+    ex:GS_001_compliance true ;
+    ex:GS_002_compliance true ;
+    ex:GS_003_compliance true ;
+    ex:GS_004_compliance true ;
+    ex:GS_005_compliance true .

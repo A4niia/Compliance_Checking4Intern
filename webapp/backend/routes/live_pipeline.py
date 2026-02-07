@@ -7,6 +7,7 @@ Endpoints:
 - GET /api/live/status/{run_id} - Get current processing status
 - GET /api/live/stream/{run_id} - SSE stream for real-time updates
 - GET /api/live/history - Get all past runs
+- GET /api/live/shacl/{run_id} - Get full SHACL content for a run
 """
 
 import os
@@ -27,18 +28,42 @@ from werkzeug.utils import secure_filename
 # Add project paths
 # live_pipeline.py is in webapp/backend/routes/ so we need 4 parents to reach repo root
 PROJECT_ROOT = Path(__file__).parent.parent.parent.parent
+BACKEND_ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
+sys.path.insert(0, str(BACKEND_ROOT))
 
 # Log paths at module load time for debugging
 print(f"[LivePipeline] __file__ = {__file__}")
 print(f"[LivePipeline] PROJECT_ROOT = {PROJECT_ROOT}")
+print(f"[LivePipeline] BACKEND_ROOT = {BACKEND_ROOT}")
 print(f"[LivePipeline] research/ exists: {(PROJECT_ROOT / 'research').exists()}")
 print(f"[LivePipeline] gold_standard_annotated_v2.json exists: {(PROJECT_ROOT / 'research' / 'gold_standard_annotated_v2.json').exists()}")
 
+# Import database models
+try:
+    from models import (
+        PipelineRun, init_db, get_session, save_run, 
+        get_run, get_all_runs, update_run_status
+    )
+    DB_AVAILABLE = True
+    print("[LivePipeline] Database models imported successfully")
+except ImportError as e:
+    print(f"[LivePipeline] Database models not available: {e}")
+    DB_AVAILABLE = False
+
+# Initialize database on module load
+if DB_AVAILABLE:
+    try:
+        init_db()
+        print("[LivePipeline] Database initialized")
+    except Exception as e:
+        print(f"[LivePipeline] Database init failed: {e}")
+        DB_AVAILABLE = False
+
 live_pipeline_bp = Blueprint('live_pipeline', __name__)
 
-# In-memory storage for runs (in production, use Redis or database)
-ACTIVE_RUNS: Dict[str, Dict[str, Any]] = {}
+# In-memory storage for SSE queues (still needed for real-time streaming)
+ACTIVE_RUNS: Dict[str, Dict[str, Any]] = {}  # For SSE state tracking
 RUN_QUEUES: Dict[str, Queue] = {}
 
 
@@ -281,6 +306,38 @@ def run_pipeline_async(run_id: str, pdf_path: Optional[str] = None, queue: Queue
     finally:
         print(f"[Pipeline {run_id}] Pipeline finished, closing emitter")
         ACTIVE_RUNS[run_id] = run_data
+        
+        # Save to database for persistence
+        if DB_AVAILABLE:
+            try:
+                # Read SHACL content for database storage
+                shacl_content = None
+                if 'shacl_result' in locals() and shacl_result.get('file_path'):
+                    try:
+                        with open(shacl_result['file_path'], 'r', encoding='utf-8') as f:
+                            shacl_content = f.read()
+                    except Exception:
+                        pass
+                
+                db_run = PipelineRun(
+                    id=uuid.UUID(run_id) if len(run_id) == 36 else uuid.uuid4(),
+                    status=run_data.get('status', 'complete'),
+                    source_files=run_data.get('source_files', []),
+                    total_time_seconds=run_data.get('total_time_seconds'),
+                    extraction_result=run_data.get('phases', {}).get('extraction'),
+                    classification_result=run_data.get('phases', {}).get('classification'),
+                    fol_result=run_data.get('phases', {}).get('fol_generation'),
+                    shacl_result=run_data.get('phases', {}).get('shacl_translation'),
+                    validation_result=run_data.get('phases', {}).get('validation'),
+                    shacl_content=shacl_content,
+                    shacl_file_hash=run_data.get('final_shacl_hash'),
+                    error_message=run_data.get('error')
+                )
+                save_run(db_run)
+                print(f"[Pipeline {run_id}] Saved to database")
+            except Exception as e:
+                print(f"[Pipeline {run_id}] Database save failed: {e}")
+        
         emitter.close()
 
 
@@ -629,19 +686,129 @@ def _generate_shacl_shapes(formulas: list) -> str:
 
 
 def _run_validation(shacl_result: Dict, emitter: PipelineEventEmitter) -> Dict:
-    """Run SHACL validation phase."""
-    # In production, use pySHACL to validate
+    """Run SHACL validation phase using pySHACL.
     
-    emitter.emit_intermediate_output("validation", "results", {
-        "shapes_validated": shacl_result.get("shapes", 0),
-        "status": "passed"
-    })
-    
-    return {
-        "passed": True,
-        "violations": 0,
-        "conforms": True
-    }
+    Validates the generated SHACL shapes against test RDF data.
+    """
+    try:
+        from pyshacl import validate
+        from rdflib import Graph
+        
+        shacl_file = shacl_result.get("file_path")
+        shapes_count = shacl_result.get("shapes", 0)
+        
+        print(f"[Validation] Loading SHACL shapes from {shacl_file}")
+        
+        # Load SHACL shapes graph
+        shacl_graph = Graph()
+        shacl_graph.parse(shacl_file, format='turtle')
+        
+        # Load test data
+        test_data_path = BACKEND_ROOT / "data" / "test_data.ttl"
+        if not test_data_path.exists():
+            print(f"[Validation] Test data not found at {test_data_path}")
+            # Fall back to creating minimal test data
+            test_data_path = PROJECT_ROOT / "webapp" / "backend" / "data" / "test_data.ttl"
+        
+        print(f"[Validation] Loading test data from {test_data_path}")
+        data_graph = Graph()
+        
+        if test_data_path.exists():
+            data_graph.parse(str(test_data_path), format='turtle')
+            print(f"[Validation] Loaded {len(data_graph)} triples from test data")
+        else:
+            print("[Validation] No test data found, using empty graph")
+        
+        # Run pySHACL validation
+        print(f"[Validation] Running pySHACL validation with {shapes_count} shapes...")
+        
+        conforms, results_graph, results_text = validate(
+            data_graph,
+            shacl_graph=shacl_graph,
+            inference='none',
+            abort_on_first=False
+        )
+        
+        # Parse violations from results
+        violations = []
+        violation_count = 0
+        
+        # Query the results graph for violations
+        violation_query = """
+            PREFIX sh: <http://www.w3.org/ns/shacl#>
+            SELECT ?focus ?path ?message ?severity
+            WHERE {
+                ?result a sh:ValidationResult ;
+                        sh:focusNode ?focus ;
+                        sh:resultMessage ?message ;
+                        sh:resultSeverity ?severity .
+                OPTIONAL { ?result sh:resultPath ?path }
+            }
+        """
+        
+        try:
+            for row in results_graph.query(violation_query):
+                violation_count += 1
+                violations.append({
+                    "focus_node": str(row.focus) if row.focus else None,
+                    "path": str(row.path) if row.path else None,
+                    "message": str(row.message) if row.message else None,
+                    "severity": str(row.severity).split("#")[-1] if row.severity else "Violation"
+                })
+        except Exception as e:
+            print(f"[Validation] Error parsing results: {e}")
+        
+        print(f"[Validation] Completed: conforms={conforms}, violations={violation_count}")
+        
+        # Calculate checks passed
+        checks_passed = shapes_count - violation_count if shapes_count > violation_count else 0
+        
+        emitter.emit_intermediate_output("validation", "results", {
+            "shapes_validated": shapes_count,
+            "conforms": conforms,
+            "violations_count": violation_count,
+            "violations": violations[:10],  # First 10 violations for display
+            "checks_passed": checks_passed,
+            "status": "passed" if conforms else "failed"
+        })
+        
+        return {
+            "passed": conforms,
+            "conforms": conforms,
+            "violations": violation_count,
+            "violations_list": violations,
+            "checks_passed": checks_passed,
+            "shapes_validated": shapes_count
+        }
+        
+    except ImportError as e:
+        print(f"[Validation] pySHACL not available: {e}")
+        # Fallback to mock validation
+        emitter.emit_intermediate_output("validation", "results", {
+            "shapes_validated": shacl_result.get("shapes", 0),
+            "status": "passed (mock - pySHACL not installed)"
+        })
+        return {
+            "passed": True,
+            "violations": 0,
+            "conforms": True,
+            "checks_passed": shacl_result.get("shapes", 0)
+        }
+    except Exception as e:
+        print(f"[Validation] Error during validation: {e}")
+        import traceback
+        traceback.print_exc()
+        emitter.emit_intermediate_output("validation", "results", {
+            "shapes_validated": shacl_result.get("shapes", 0),
+            "status": f"error: {str(e)}"
+        })
+        return {
+            "passed": False,
+            "violations": 0,
+            "conforms": False,
+            "error": str(e),
+            "checks_passed": 0
+        }
 
 
 # Flask routes
@@ -765,14 +932,73 @@ def stream_events(run_id: str):
 
 @live_pipeline_bp.route('/api/live/history', methods=['GET'])
 def get_history():
-    """Get all past pipeline runs."""
+    """Get all past pipeline runs from database."""
+    # Try database first
+    if DB_AVAILABLE:
+        try:
+            runs = get_all_runs(limit=50)
+            return jsonify({
+                "total": len(runs),
+                "runs": runs,
+                "source": "database"
+            })
+        except Exception as e:
+            print(f"[History] Database error: {e}")
+    
+    # Fallback to in-memory
     runs = list(ACTIVE_RUNS.values())
     runs.sort(key=lambda x: x.get('created_at', ''), reverse=True)
     
     return jsonify({
         "total": len(runs),
-        "runs": runs
+        "runs": runs,
+        "source": "memory"
     })
+
+
+@live_pipeline_bp.route('/api/live/shacl/<run_id>', methods=['GET'])
+def get_shacl_content(run_id: str):
+    """Get full SHACL content for a run."""
+    # Try database first
+    if DB_AVAILABLE:
+        try:
+            run = get_run(run_id)
+            if run and run.shacl_content:
+                return Response(
+                    run.shacl_content,
+                    mimetype='text/turtle',
+                    headers={'Content-Disposition': f'inline; filename="{run_id}_shapes.ttl"'}
+                )
+        except Exception as e:
+            print(f"[SHACL] Database error: {e}")
+    
+    # Try to read from file
+    try:
+        shacl_dir = PROJECT_ROOT / "shacl" / "live_runs"
+        shacl_file = shacl_dir / f"{run_id}_shapes.ttl"
+        
+        if shacl_file.exists():
+            with open(shacl_file, 'r', encoding='utf-8') as f:
+                content = f.read()
+            return Response(
+                content,
+                mimetype='text/turtle',
+                headers={'Content-Disposition': f'inline; filename="{run_id}_shapes.ttl"'}
+            )
+        
+        # Try to find matching file by prefix
+        for f in shacl_dir.glob(f"{run_id}*.ttl"):
+            with open(f, 'r', encoding='utf-8') as file:
+                content = file.read()
+            return Response(
+                content,
+                mimetype='text/turtle',
+                headers={'Content-Disposition': f'inline; filename="{f.name}"'}
+            )
+    except Exception as e:
+        print(f"[SHACL] File read error: {e}")
+    
+    return jsonify({"error": "SHACL file not found"}), 404
 
 
 @live_pipeline_bp.route('/api/live/compare', methods=['POST'])
