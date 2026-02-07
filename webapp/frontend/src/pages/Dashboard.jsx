@@ -118,7 +118,7 @@ export default function Dashboard() {
                         <div className="text-xs text-gray-500 mt-1">Validated accuracy (v4)</div>
                     </div>
                     <div className="card text-center hover:transform hover:scale-105 transition-transform">
-                        <div className="text-4xl font-bold text-green-600 mb-2">{stats?.formalized || 97}</div>
+                        <div className="text-4xl font-bold text-green-600 mb-2">{stats?.formalized || 96}</div>
                         <div className="text-sm text-gray-600 font-medium uppercase tracking-wide">FOL Formalized</div>
                         <div className="text-xs text-gray-500 mt-1">100% success</div>
                     </div>
@@ -184,25 +184,25 @@ export default function Dashboard() {
                         <div className="text-4xl font-bold text-red-600 mb-2">{stats?.obligations || 65}</div>
                         <div className="text-gray-600 font-medium">Obligations</div>
                         <div className="mt-3 h-2 bg-gray-100 rounded-full overflow-hidden">
-                            <div className="h-full bg-red-500 rounded-full" style={{ width: `${((stats?.obligations || 65) / (stats?.formalized || 97)) * 100}%` }}></div>
+                            <div className="h-full bg-red-500 rounded-full" style={{ width: `${((stats?.obligations || 65) / (stats?.formalized || 96)) * 100}%` }}></div>
                         </div>
-                        <div className="text-sm text-gray-500 mt-1">{Math.round(((stats?.obligations || 65) / (stats?.formalized || 97)) * 100)}%</div>
+                        <div className="text-sm text-gray-500 mt-1">{Math.round(((stats?.obligations || 65) / (stats?.formalized || 96)) * 100)}%</div>
                     </div>
                     <div className="text-center">
                         <div className="text-4xl font-bold text-green-600 mb-2">{stats?.permissions || 17}</div>
                         <div className="text-gray-600 font-medium">Permissions</div>
                         <div className="mt-3 h-2 bg-gray-100 rounded-full overflow-hidden">
-                            <div className="h-full bg-green-500 rounded-full" style={{ width: `${((stats?.permissions || 17) / (stats?.formalized || 97)) * 100}%` }}></div>
+                            <div className="h-full bg-green-500 rounded-full" style={{ width: `${((stats?.permissions || 17) / (stats?.formalized || 96)) * 100}%` }}></div>
                         </div>
-                        <div className="text-sm text-gray-500 mt-1">{Math.round(((stats?.permissions || 17) / (stats?.formalized || 97)) * 100)}%</div>
+                        <div className="text-sm text-gray-500 mt-1">{Math.round(((stats?.permissions || 17) / (stats?.formalized || 96)) * 100)}%</div>
                     </div>
                     <div className="text-center">
-                        <div className="text-4xl font-bold text-orange-600 mb-2">{stats?.prohibitions || 15}</div>
+                        <div className="text-4xl font-bold text-orange-600 mb-2">{stats?.prohibitions || 14}</div>
                         <div className="text-gray-600 font-medium">Prohibitions</div>
                         <div className="mt-3 h-2 bg-gray-100 rounded-full overflow-hidden">
-                            <div className="h-full bg-orange-500 rounded-full" style={{ width: `${((stats?.prohibitions || 15) / (stats?.formalized || 97)) * 100}%` }}></div>
+                            <div className="h-full bg-orange-500 rounded-full" style={{ width: `${((stats?.prohibitions || 14) / (stats?.formalized || 96)) * 100}%` }}></div>
                         </div>
-                        <div className="text-sm text-gray-500 mt-1">{Math.round(((stats?.prohibitions || 15) / (stats?.formalized || 97)) * 100)}%</div>
+                        <div className="text-sm text-gray-500 mt-1">{Math.round(((stats?.prohibitions || 14) / (stats?.formalized || 96)) * 100)}%</div>
                     </div>
                 </div>
             </div>

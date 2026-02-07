@@ -69,7 +69,7 @@ export default function Pipeline() {
             name: 'SHACL Translation',
             description: 'W3C-compliant RDF constraints',
             finding: '1,309 W3C-compliant triples',
-            detail: '97 shapes, 12 target classes',
+            detail: '96 shapes, 12 target classes',
             icon: Shield,
             color: 'orange',
             input: {

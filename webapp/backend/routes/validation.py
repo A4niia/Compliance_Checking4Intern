@@ -49,7 +49,7 @@ def get_pipeline_steps():
             "description": "Extract text from PDFs",
             "icon": "🔍",
             "status": "complete",
-            "details": "Using DeepSeek-OCR for high accuracy"
+            "details": "Using PyMuPDF for reproducible text extraction"
         },
         {
             "id": 3,

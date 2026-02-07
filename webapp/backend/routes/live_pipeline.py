@@ -37,7 +37,7 @@ print(f"[LivePipeline] __file__ = {__file__}")
 print(f"[LivePipeline] PROJECT_ROOT = {PROJECT_ROOT}")
 print(f"[LivePipeline] BACKEND_ROOT = {BACKEND_ROOT}")
 print(f"[LivePipeline] research/ exists: {(PROJECT_ROOT / 'research').exists()}")
-print(f"[LivePipeline] gold_standard_annotated_v2.json exists: {(PROJECT_ROOT / 'research' / 'gold_standard_annotated_v2.json').exists()}")
+print(f"[LivePipeline] gold_standard_annotated_v4.json exists: {(PROJECT_ROOT / 'research' / 'gold_standard_annotated_v4.json').exists()}")
 
 # Import database models
 try:
@@ -357,7 +357,7 @@ def run_pipeline_async(run_id: str, pdf_path: Optional[str] = None, queue: Queue
 def _run_extraction(pdf_path: Optional[str], emitter: PipelineEventEmitter) -> Dict:
     """Run text extraction phase."""
     # Load existing gold standard for demo
-    gold_standard_path = PROJECT_ROOT / "research" / "gold_standard_annotated_v2.json"
+    gold_standard_path = PROJECT_ROOT / "research" / "gold_standard_annotated_v4.json"
     print(f"[Extraction] Looking for gold standard at: {gold_standard_path}")
     print(f"[Extraction] File exists: {gold_standard_path.exists()}")
     
