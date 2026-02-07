@@ -70,8 +70,8 @@ export default function Dashboard() {
                             <span className="text-sm font-bold px-2 py-1 rounded bg-purple-100 text-purple-700">RQ1</span>
                         </div>
                         <h3 className="font-semibold text-gray-700 text-sm mb-3">Can LLMs identify policy rules?</h3>
-                        <div className="text-3xl font-bold text-purple-700 mb-1">99%</div>
-                        <p className="text-sm text-gray-600">Mistral-7B, κ=0.85</p>
+                        <div className="text-3xl font-bold text-purple-700 mb-1">95.88%</div>
+                        <p className="text-sm text-gray-600">Mistral-7B, κ=0.8503</p>
                     </div>
 
                     <div className="card bg-gradient-to-br from-green-50 to-white border-l-4 border-green-500">
