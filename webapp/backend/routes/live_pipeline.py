@@ -38,10 +38,14 @@ RUN_QUEUES: Dict[str, Queue] = {}
 class PipelineEventEmitter:
     """Emits events to SSE clients."""
     
-    def __init__(self, run_id: str):
+    def __init__(self, run_id: str, existing_queue: Queue = None):
         self.run_id = run_id
-        self.queue = Queue()
-        RUN_QUEUES[run_id] = self.queue
+        # Use existing queue if provided (to avoid race condition)
+        if existing_queue:
+            self.queue = existing_queue
+        else:
+            self.queue = Queue()
+            RUN_QUEUES[run_id] = self.queue
     
     def emit(self, event_type: str, data: Dict[str, Any]):
         """Emit an event to all listeners."""
@@ -114,9 +118,10 @@ class PipelineEventEmitter:
             del RUN_QUEUES[self.run_id]
 
 
-def run_pipeline_async(run_id: str, pdf_path: Optional[str] = None):
+def run_pipeline_async(run_id: str, pdf_path: Optional[str] = None, queue: Queue = None):
     """Run pipeline in background thread with event emission."""
-    emitter = PipelineEventEmitter(run_id)
+    print(f"[Pipeline {run_id}] Starting pipeline execution...")
+    emitter = PipelineEventEmitter(run_id, existing_queue=queue)
     
     run_data = ACTIVE_RUNS.get(run_id, {})
     run_data["status"] = "running"
@@ -125,6 +130,7 @@ def run_pipeline_async(run_id: str, pdf_path: Optional[str] = None):
     
     try:
         # Phase 1: Text Extraction
+        print(f"[Pipeline {run_id}] Phase 1: Text Extraction")
         emitter.emit_phase_start("extraction", "Extracting and simplifying text from PDF")
         phase_start = time.time()
         
@@ -245,12 +251,16 @@ def run_pipeline_async(run_id: str, pdf_path: Optional[str] = None):
         emitter.emit_complete(True, run_data)
         
     except Exception as e:
+        import traceback
+        print(f"[Pipeline {run_id}] ERROR: {str(e)}")
+        print(f"[Pipeline {run_id}] Traceback: {traceback.format_exc()}")
         run_data["status"] = "error"
         run_data["error"] = str(e)
         emitter.emit_error("pipeline", str(e))
         emitter.emit_complete(False, run_data)
     
     finally:
+        print(f"[Pipeline {run_id}] Pipeline finished, closing emitter")
         ACTIVE_RUNS[run_id] = run_data
         emitter.close()
 
@@ -259,10 +269,14 @@ def _run_extraction(pdf_path: Optional[str], emitter: PipelineEventEmitter) -> D
     """Run text extraction phase."""
     # Load existing gold standard for demo
     gold_standard_path = PROJECT_ROOT / "research" / "gold_standard_annotated_v2.json"
+    print(f"[Extraction] Looking for gold standard at: {gold_standard_path}")
+    print(f"[Extraction] File exists: {gold_standard_path.exists()}")
     
     if gold_standard_path.exists():
         with open(gold_standard_path, 'r', encoding='utf-8') as f:
             rules = json.load(f)
+        
+        print(f"[Extraction] Loaded {len(rules)} rules")
         
         # Emit intermediate output
         emitter.emit_intermediate_output("extraction", "extracted_text", {
@@ -271,6 +285,8 @@ def _run_extraction(pdf_path: Optional[str], emitter: PipelineEventEmitter) -> D
         })
         
         return {"rules": rules}
+    
+    print("[Extraction] WARNING: Gold standard file not found, returning empty rules")
     
     return {"rules": []}
 
@@ -469,8 +485,16 @@ def upload_and_process():
         "created_at": datetime.now().isoformat()
     }
     
-    # Start processing in background thread
-    thread = threading.Thread(target=run_pipeline_async, args=(run_id, pdf_paths[0] if pdf_paths else None))
+    # Pre-create the event queue BEFORE starting the thread
+    # This fixes the race condition where SSE stream connects before queue exists
+    event_queue = Queue()
+    RUN_QUEUES[run_id] = event_queue
+    
+    # Start processing in background thread, passing the pre-created queue
+    thread = threading.Thread(
+        target=run_pipeline_async, 
+        args=(run_id, pdf_paths[0] if pdf_paths else None, event_queue)
+    )
     thread.daemon = True
     thread.start()
     

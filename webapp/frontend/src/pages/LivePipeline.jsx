@@ -168,15 +168,27 @@ export default function LivePipeline() {
         eventSource.onmessage = (event) => {
             try {
                 const data = JSON.parse(event.data)
+                // Check for error event from backend
+                if (data.error) {
+                    setError(data.error)
+                    eventSource.close()
+                    setIsRunning(false)
+                    return
+                }
                 handleEvent(data)
             } catch (err) {
                 console.error('Failed to parse SSE event:', err)
             }
         }
 
-        eventSource.onerror = () => {
+        eventSource.onerror = (err) => {
+            console.error('SSE connection error:', err)
             eventSource.close()
             setIsRunning(false)
+            // Only set error if we haven't received any phases yet
+            if (Object.keys(phaseData).length === 0) {
+                setError('Connection to pipeline lost. Please try again.')
+            }
         }
     }
 
