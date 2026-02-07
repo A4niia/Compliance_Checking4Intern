@@ -20,12 +20,14 @@ services:
       - FLASK_ENV=production
       - PYTHONUNBUFFERED=1
       - DATABASE_URL=postgresql://postgres:${POSTGRES_PASSWORD}@postgres:5432/policychecker
+      - USE_LLM=true
+      - OLLAMA_HOST=http://10.99.200.2:11434
     depends_on:
       - postgres
     networks:
       - ait-network
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:5000/api/health"]
+      test: [ "CMD", "curl", "-f", "http://localhost:5000/api/health" ]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -43,7 +45,7 @@ services:
     networks:
       - ait-network
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost/health"]
+      test: [ "CMD", "curl", "-f", "http://localhost/health" ]
       interval: 30s
       timeout: 10s
       retries: 3

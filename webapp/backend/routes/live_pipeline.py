@@ -71,12 +71,13 @@ class PipelineEventEmitter:
             "status": "running"
         })
     
-    def emit_phase_complete(self, phase: str, result: Dict[str, Any], time_seconds: float):
+    def emit_phase_complete(self, phase: str, result: Dict[str, Any], time_seconds: float, item_count: int = 0):
         """Emit phase completion event."""
         self.emit("phase_complete", {
             "phase": phase,
             "result": result,
             "time_seconds": time_seconds,
+            "item_count": item_count,
             "status": "complete"
         })
     
@@ -157,10 +158,11 @@ def run_pipeline_async(run_id: str, pdf_path: Optional[str] = None, queue: Queue
             "items_count": len(extracted_text.get("rules", [])),
             "status": "complete"
         }
+        extraction_count = len(extracted_text.get("rules", []))
         emitter.emit_phase_complete("extraction", {
-            "rules_found": len(extracted_text.get("rules", [])),
+            "rules_found": extraction_count,
             "sample": extracted_text.get("rules", [])[:3]
-        }, run_data["phases"]["extraction"]["time_seconds"])
+        }, run_data["phases"]["extraction"]["time_seconds"], item_count=extraction_count)
         
         # Phase 2: LLM Classification
         emitter.emit_phase_start("classification", "Classifying rules using LLM")
@@ -181,8 +183,10 @@ def run_pipeline_async(run_id: str, pdf_path: Optional[str] = None, queue: Queue
             "prohibitions": classification_result.get("prohibitions", 0),
             "status": "complete"
         }
+        classification_count = classification_result.get("obligations", 0) + classification_result.get("permissions", 0) + classification_result.get("prohibitions", 0)
         emitter.emit_phase_complete("classification", classification_result, 
-                                    run_data["phases"]["classification"]["time_seconds"])
+                                    run_data["phases"]["classification"]["time_seconds"],
+                                    item_count=classification_count)
         
         # Phase 3: FOL Generation
         emitter.emit_phase_start("fol_generation", "Generating First-Order Logic formulas")
@@ -201,10 +205,12 @@ def run_pipeline_async(run_id: str, pdf_path: Optional[str] = None, queue: Queue
             "formulas_count": fol_result.get("count", 0),
             "status": "complete"
         }
+        fol_count = fol_result.get("count", 0)
         emitter.emit_phase_complete("fol_generation", {
-            "formulas_generated": fol_result.get("count", 0),
-            "sample_formulas": fol_result.get("formulas", [])[:3]
-        }, run_data["phases"]["fol_generation"]["time_seconds"])
+            "formulas_generated": fol_count,
+            "sample_formulas": fol_result.get("formulas", [])[:3],
+            "all_formulas": fol_result.get("formulas", [])  # Include all for expanded view
+        }, run_data["phases"]["fol_generation"]["time_seconds"], item_count=fol_count)
         
         # Phase 4: SHACL Translation
         emitter.emit_phase_start("shacl_translation", "Translating to SHACL shapes")
@@ -224,8 +230,10 @@ def run_pipeline_async(run_id: str, pdf_path: Optional[str] = None, queue: Queue
             "output_file": shacl_result.get("file_path"),
             "status": "complete"
         }
+        shacl_count = shacl_result.get("shapes", 0)
         emitter.emit_phase_complete("shacl_translation", shacl_result, 
-                                    run_data["phases"]["shacl_translation"]["time_seconds"])
+                                    run_data["phases"]["shacl_translation"]["time_seconds"],
+                                    item_count=shacl_count)
         
         # Phase 5: Validation
         emitter.emit_phase_start("validation", "Validating SHACL shapes")
@@ -245,8 +253,10 @@ def run_pipeline_async(run_id: str, pdf_path: Optional[str] = None, queue: Queue
             "violations": validation_result.get("violations", 0),
             "status": "complete"
         }
+        validation_count = validation_result.get("checks_passed", 0)
         emitter.emit_phase_complete("validation", validation_result, 
-                                    run_data["phases"]["validation"]["time_seconds"])
+                                    run_data["phases"]["validation"]["time_seconds"],
+                                    item_count=validation_count)
         
         # Calculate totals
         run_data["status"] = "complete"
@@ -301,9 +311,19 @@ def _run_extraction(pdf_path: Optional[str], emitter: PipelineEventEmitter) -> D
 
 
 def _run_classification(extraction_result: Dict, emitter: PipelineEventEmitter) -> Dict:
-    """Run LLM classification phase."""
+    """Run LLM classification phase.
+    
+    When USE_LLM=true: Calls Ollama Mistral for real classification
+    When USE_LLM=false: Uses pre-computed annotations from gold standard (demo mode)
+    """
+    import requests
+    
     rules = extraction_result.get("rules", [])
     print(f"[Classification] Received {len(rules)} rules to classify")
+    
+    # Check if we should use real LLM
+    use_llm = os.getenv("USE_LLM", "false").lower() == "true"
+    ollama_url = os.getenv("OLLAMA_HOST", "http://10.99.200.2:11434")
     
     result = {
         "obligations": 0,
@@ -312,28 +332,107 @@ def _run_classification(extraction_result: Dict, emitter: PipelineEventEmitter) 
         "classified": []
     }
     
-    for i, rule in enumerate(rules):
-        rule_type = rule.get("human_annotation", {}).get("rule_type", "obligation")
-        if i < 3:  # Log first 3 rules for debugging
-            print(f"[Classification] Rule {i}: type={rule_type}, id={rule.get('id')}")
+    if use_llm:
+        print(f"[Classification] Using REAL LLM at {ollama_url}")
         
-        result["classified"].append({
-            "id": rule.get("id"),
-            "text": rule.get("original_text", "")[:100],
-            "type": rule_type
-        })
+        for i, rule in enumerate(rules):
+            rule_text = rule.get("original_text", "")
+            
+            # Build classification prompt
+            prompt = f"""You are a policy classification expert. Classify this academic policy rule into exactly one category.
+
+Policy Rule: "{rule_text}"
+
+Categories:
+- obligation: Rules requiring students to do something (keywords: must, shall, required, mandatory)
+- permission: Rules allowing students to do something (keywords: may, can, allowed, permitted)  
+- prohibition: Rules forbidding students from doing something (keywords: must not, shall not, prohibited, forbidden)
+
+Respond with ONLY the category name (one word: obligation, permission, or prohibition).
+
+Category:"""
+
+            try:
+                response = requests.post(
+                    f"{ollama_url}/api/generate",
+                    json={
+                        "model": "mistral",
+                        "prompt": prompt,
+                        "stream": False,
+                        "options": {
+                            "temperature": 0.0,
+                            "seed": 42,
+                            "num_predict": 20
+                        }
+                    },
+                    timeout=30
+                )
+                
+                if response.status_code == 200:
+                    llm_response = response.json().get("response", "").strip().lower()
+                    # Extract rule type from response
+                    if "permission" in llm_response:
+                        rule_type = "permission"
+                    elif "prohibition" in llm_response:
+                        rule_type = "prohibition"
+                    else:
+                        rule_type = "obligation"
+                else:
+                    print(f"[Classification] LLM error for rule {i}: {response.status_code}")
+                    rule_type = "obligation"  # Default fallback
+                    
+            except Exception as e:
+                print(f"[Classification] LLM exception for rule {i}: {e}")
+                rule_type = "obligation"  # Default fallback
+            
+            if i < 3:
+                print(f"[Classification] Rule {i}: LLM classified as '{rule_type}', id={rule.get('id')}")
+            
+            result["classified"].append({
+                "id": rule.get("id"),
+                "text": rule_text[:100],
+                "type": rule_type,
+                "original_text": rule_text
+            })
+            
+            if rule_type == "obligation":
+                result["obligations"] += 1
+            elif rule_type == "permission":
+                result["permissions"] += 1
+            elif rule_type == "prohibition":
+                result["prohibitions"] += 1
+            
+            # Emit progress every 5 rules (more frequent for LLM mode)
+            if i % 5 == 0:
+                emitter.emit_progress("classification", (i + 1) / len(rules), 
+                                     f"Classified {i + 1} of {len(rules)} rules")
+    else:
+        # Demo mode: Use pre-computed annotations
+        print("[Classification] Using DEMO mode (pre-computed annotations)")
         
-        if rule_type == "obligation":
-            result["obligations"] += 1
-        elif rule_type == "permission":
-            result["permissions"] += 1
-        elif rule_type == "prohibition":
-            result["prohibitions"] += 1
-        
-        # Emit progress every 10 rules
-        if i % 10 == 0:
-            emitter.emit_progress("classification", (i + 1) / len(rules), 
-                                 f"Classified {i + 1} of {len(rules)} rules")
+        for i, rule in enumerate(rules):
+            rule_type = rule.get("human_annotation", {}).get("rule_type", "obligation")
+            if i < 3:
+                print(f"[Classification] Rule {i}: type={rule_type}, id={rule.get('id')}")
+            
+            result["classified"].append({
+                "id": rule.get("id"),
+                "text": rule.get("original_text", "")[:100],
+                "type": rule_type,
+                "original_text": rule.get("original_text", "")
+            })
+            
+            if rule_type == "obligation":
+                result["obligations"] += 1
+            elif rule_type == "permission":
+                result["permissions"] += 1
+            elif rule_type == "prohibition":
+                result["prohibitions"] += 1
+            
+            # Emit progress every 10 rules
+            if i % 10 == 0:
+                emitter.emit_progress("classification", (i + 1) / len(rules), 
+                                     f"Classified {i + 1} of {len(rules)} rules")
     
     emitter.emit_intermediate_output("classification", "distribution", {
         "obligations": result["obligations"],
@@ -347,32 +446,118 @@ def _run_classification(extraction_result: Dict, emitter: PipelineEventEmitter) 
 
 
 def _run_fol_generation(classification_result: Dict, emitter: PipelineEventEmitter) -> Dict:
-    """Run FOL generation phase."""
+    """Run FOL generation phase.
+    
+    When USE_LLM=true: Calls Ollama Mistral for real FOL formula generation
+    When USE_LLM=false: Uses template-based formulas (demo mode)
+    """
+    import requests
+    
     classified = classification_result.get("classified", [])
+    print(f"[FOL] Received {len(classified)} rules to generate FOL for")
+    
+    # Check if we should use real LLM
+    use_llm = os.getenv("USE_LLM", "false").lower() == "true"
+    ollama_url = os.getenv("OLLAMA_HOST", "http://10.99.200.2:11434")
     
     formulas = []
-    for i, item in enumerate(classified):
-        rule_type = item.get("type", "obligation")
+    
+    if use_llm:
+        print(f"[FOL] Using REAL LLM at {ollama_url}")
         
-        # Generate mock FOL (in production, call LLM)
-        if rule_type == "obligation":
-            fol = f"∀x (Student(x) → O(comply(x, rule_{item['id'][-3:]}))"
-        elif rule_type == "permission":
-            fol = f"∀x (Student(x) → P(perform(x, action_{item['id'][-3:]}))"
-        else:
-            fol = f"∀x (Student(x) → F(violate(x, rule_{item['id'][-3:]}))"
+        for i, item in enumerate(classified):
+            rule_text = item.get("original_text", "") or item.get("text", "")
+            rule_type = item.get("type", "obligation")
+            
+            # Build FOL generation prompt
+            prompt = f"""You are a formal logic expert. Generate a First-Order Logic (FOL) formula for this academic policy rule.
+
+Policy Rule: "{rule_text}"
+Rule Type: {rule_type}
+
+Use these deontic operators:
+- O(action) for obligations ("must do")
+- P(action) for permissions ("may do")
+- F(action) for prohibitions ("must not do")
+
+Use predicates like: Student(x), payFees(x), registerCourse(x), submitAssignment(x), etc.
+
+Generate ONLY the FOL formula, nothing else. Example format:
+∀x (Student(x) → O(payFees(x)))
+
+FOL Formula:"""
+
+            try:
+                response = requests.post(
+                    f"{ollama_url}/api/generate",
+                    json={
+                        "model": "mistral",
+                        "prompt": prompt,
+                        "stream": False,
+                        "options": {
+                            "temperature": 0.0,
+                            "seed": 42,
+                            "num_predict": 100
+                        }
+                    },
+                    timeout=30
+                )
+                
+                if response.status_code == 200:
+                    fol = response.json().get("response", "").strip()
+                    # Clean up the response
+                    fol = fol.split("\n")[0].strip()  # Take first line only
+                    if not fol:
+                        fol = f"∀x (Student(x) → O(action_{item['id'][-3:]}))"
+                else:
+                    print(f"[FOL] LLM error for rule {i}: {response.status_code}")
+                    fol = f"∀x (Student(x) → O(action_{item['id'][-3:]}))"
+                    
+            except Exception as e:
+                print(f"[FOL] LLM exception for rule {i}: {e}")
+                fol = f"∀x (Student(x) → O(action_{item['id'][-3:]}))"
+            
+            if i < 3:
+                print(f"[FOL] Rule {i}: generated '{fol[:50]}...'")
+            
+            formulas.append({
+                "id": item.get("id"),
+                "fol": fol,
+                "type": rule_type
+            })
+            
+            # Emit progress every 5 rules
+            if i % 5 == 0:
+                emitter.emit_progress("fol_generation", (i + 1) / len(classified),
+                                     f"Generated {i + 1} of {len(classified)} formulas")
+    else:
+        # Demo mode: Template-based FOL generation
+        print("[FOL] Using DEMO mode (template-based formulas)")
         
-        formulas.append({
-            "id": item.get("id"),
-            "fol": fol,
-            "type": rule_type
-        })
-        
-        if i % 10 == 0:
-            emitter.emit_progress("fol_generation", (i + 1) / len(classified),
-                                 f"Generated {i + 1} of {len(classified)} formulas")
+        for i, item in enumerate(classified):
+            rule_type = item.get("type", "obligation")
+            
+            # Generate template-based FOL
+            if rule_type == "obligation":
+                fol = f"∀x (Student(x) → O(comply(x, rule_{item['id'][-3:]}))"
+            elif rule_type == "permission":
+                fol = f"∀x (Student(x) → P(perform(x, action_{item['id'][-3:]}))"
+            else:
+                fol = f"∀x (Student(x) → F(violate(x, rule_{item['id'][-3:]}))"
+            
+            formulas.append({
+                "id": item.get("id"),
+                "fol": fol,
+                "type": rule_type
+            })
+            
+            if i % 10 == 0:
+                emitter.emit_progress("fol_generation", (i + 1) / len(classified),
+                                     f"Generated {i + 1} of {len(classified)} formulas")
     
     emitter.emit_intermediate_output("fol_generation", "formulas", formulas[:5])
+    
+    print(f"[FOL] Generated {len(formulas)} FOL formulas")
     
     return {"count": len(formulas), "formulas": formulas}
 

@@ -210,6 +210,7 @@ export default function LivePipeline() {
                         ...prev[event.data.phase],
                         ...event.data.result,
                         time_seconds: event.data.time_seconds,
+                        item_count: event.data.item_count || 0,
                         status: 'complete'
                     }
                 }))
@@ -442,7 +443,12 @@ export default function LivePipeline() {
                                     </div>
 
                                     <div className="flex items-center gap-4">
-                                        {data.time_seconds && (
+                                        {data.item_count > 0 && (
+                                            <span className="px-2 py-1 bg-indigo-100 text-indigo-700 text-xs font-semibold rounded-full">
+                                                {data.item_count} items
+                                            </span>
+                                        )}
+                                        {data.time_seconds > 0 && (
                                             <span className="text-sm text-gray-500 flex items-center gap-1">
                                                 <Clock className="w-3 h-3" />
                                                 {data.time_seconds.toFixed(2)}s
@@ -504,13 +510,26 @@ export default function LivePipeline() {
                                             </div>
                                         )}
 
-                                        {phase.id === 'fol_generation' && data.intermediate?.formulas && (
+                                        {phase.id === 'fol_generation' && (data.all_formulas || data.intermediate?.formulas) && (
                                             <div className="bg-white p-3 rounded-lg">
-                                                <div className="text-sm font-medium mb-2">Sample FOL Formulas</div>
-                                                <div className="space-y-2 font-mono text-sm">
-                                                    {data.intermediate.formulas.slice(0, 3).map((f, i) => (
-                                                        <div key={i} className="p-2 bg-gray-100 rounded text-xs">
-                                                            {f.fol}
+                                                <div className="flex justify-between items-center mb-2">
+                                                    <div className="text-sm font-medium">
+                                                        FOL Formulas ({(data.all_formulas || data.intermediate?.formulas || []).length} total)
+                                                    </div>
+                                                </div>
+                                                <div className="space-y-2 font-mono text-sm max-h-64 overflow-y-auto">
+                                                    {(data.all_formulas || data.intermediate?.formulas || []).map((f, i) => (
+                                                        <div key={i} className="p-2 bg-gray-100 rounded text-xs flex justify-between items-start">
+                                                            <div className="flex-1">
+                                                                <span className="text-gray-500 mr-2">{f.id || `#${i + 1}`}</span>
+                                                                {f.fol}
+                                                            </div>
+                                                            <span className={`ml-2 px-2 py-0.5 rounded text-xs ${f.type === 'obligation' ? 'bg-blue-100 text-blue-700' :
+                                                                    f.type === 'permission' ? 'bg-green-100 text-green-700' :
+                                                                        'bg-red-100 text-red-700'
+                                                                }`}>
+                                                                {f.type}
+                                                            </span>
                                                         </div>
                                                     ))}
                                                 </div>
