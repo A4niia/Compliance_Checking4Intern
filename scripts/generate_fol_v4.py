@@ -404,7 +404,7 @@ def generate_fol_report(results: dict) -> str:
 
 def main():
     parser = argparse.ArgumentParser(description="Generate FOL from v4 gold standard")
-    parser.add_argument("--ollama-url", default="http://localhost:11434", help="Ollama server URL")
+    parser.add_argument("--ollama-url", default="http://10.99.200.2:11434", help="Ollama server URL")
     parser.add_argument("--limit", type=int, default=None, help="Limit number of rules to process")
     args = parser.parse_args()
     
