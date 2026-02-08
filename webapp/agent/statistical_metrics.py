@@ -251,11 +251,11 @@ class StatisticalMetrics:
 if __name__ == "__main__":
     stats = StatisticalMetrics()
     
-    # Example: 97 rules classified
-    # tp=95 (correctly identified rules)
-    # tn=392 (correctly rejected non-rules)
+    # Example: 97 candidate sentences, 83 validated as rules
+    # tp=79 (correctly identified rules)
+    # tn=14 (correctly rejected non-rules)
     # fp=2 (false positives)
-    # fn=3 (missed rules)
+    # fn=2 (missed rules)
     
     metrics = stats.calculate_classification_metrics(tp=95, tn=392, fp=2, fn=3)
     

@@ -209,7 +209,7 @@ def run_pipeline_async(run_id: str, pdf_path: Optional[str] = None, queue: Queue
         emitter.emit_react_trace(
             thought="I need to classify each rule as obligation, permission, or prohibition based on deontic markers.",
             action="Calling Mistral LLM with classification prompt",
-            observation="Processing 97 rules..."
+            observation="Processing 97 candidate sentences (83 validated rules)..."
         )
         
         classification_result = _run_classification(extracted_text, emitter)

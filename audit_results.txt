@@ -1,0 +1,45 @@
+﻿============================================================
+AUTHORITATIVE DATA (gold_standard_annotated_v4.json)
+============================================================
+
+Total entries: 97
+
+Category             Human           LLM v4         
+--------------------------------------------------
+Is Rule (True)       83              81             
+Is Rule (False)      14              16             
+Obligations          47              48             
+Permissions          31              15             
+Prohibitions         5               18             
+
+============================================================
+SCANNING FILES FOR POTENTIAL OBSOLETE VALUES
+============================================================
+py : Traceback (most recent call last):
+At line:1 char:1
++ py audit_consistency.py 2>&1 | 
+Out-File -FilePath audit_results.txt - 
+...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpeci 
+   fied: (Traceback (most recent call  
+   last)::String) [], RemoteExceptio   
+ n
+    + FullyQualifiedErrorId : NativeCo 
+   mmandError
+ 
+  File "D:\Thesis-PoC_v1\RuleChecker_Po
+Cv1\audit_consistency.py", line 128, 
+in <module>
+    print(f"\n\u26a0\ufe0f  FOUND 
+{sum(len(v) for v in 
+findings.values())} POTENTIAL 
+ISSUES:\n")
+  File "C:\Users\Asus\AppData\Local\Pro
+grams\Python\Python310\lib\encodings\cp
+1252.py", line 19, in encode
+    return codecs.charmap_encode(input,
+self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec 
+can't encode characters in position 
+2-3: character maps to <undefined>

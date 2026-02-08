@@ -11,8 +11,9 @@ export default function Results() {
         precision: 97.53,
         recall: 97.53,
         f1: 97.53,
-        totalRules: 97,
-        matrix: { tp: 79, tn: 14, fp: 2, fn: 2 },
+        totalSentences: 97,  // Candidate sentences extracted
+        validatedRules: 83,  // Confirmed as policy rules
+        matrix: { tp: 79, tn: 14, fp: 2, fn: 2 },  // tn=14 are non-rules
         thresholdMet: true
     }
 

@@ -279,13 +279,15 @@ class PolicyAgent:
     def _extract_rules(self, document_path: str = None) -> Dict:
         """Extract rules from document (RQ1)."""
         # Simulate extraction with metrics
-        rules_count = 97  # From actual extraction
-        accuracy = 0.9588  # Validated accuracy (v4)
+        candidates_count = 97  # Candidate sentences extracted
+        validated_rules = 83   # Confirmed as policy rules (is_rule=True)
+        accuracy = 0.9588      # Validated accuracy (v4)
         
         self.metrics.record("rule_extraction_accuracy", accuracy, "RQ1")
         
         return {
-            "rules_extracted": rules_count,
+            "candidates_extracted": candidates_count,
+            "validated_rules": validated_rules,
             "accuracy": accuracy,
             "status": "success"
         }
