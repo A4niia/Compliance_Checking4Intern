@@ -4,7 +4,7 @@
     "text": "Contracted research may entail confidentiality and restriction on publication.",
     "type": "obligation",
     "raw_response": " ait:CR_PublicationRestrictionShape a sh:NodeShape ;\n    sh:targetClass ait:Employee ;\n    sh:severity sh:Violation ;\n    sh:property [\n        sh:path ait:hasContractedResearch ;\n        sh:minCount 1 ;\n        sh:message \"Confidentiality and restriction on publication may apply.\" ;\n    ] ;\n    sh:property [\n        sh:path ait:publication ;\n        sh:maxCount 0 ;\n        sh:message \"Publication is restricted due to contracted research.\" ;\n    ] .",
-    "elapsed_seconds": 9.68,
+    "elapsed_seconds": 4.9,
     "validation": {
       "syntax_valid": true,
       "has_node_shape": true,
@@ -66,7 +66,7 @@
     "text": "(2) Continuing full-time postgraduate (PG) students (Master, Doctor and Diploma), i.e., those who completed at least one semester/term, will be invoic",
     "type": "obligation",
     "raw_response": " ```\nait:PG_Student_Fee_PolicyShape a sh:NodeShape ;\n    sh:targetClass ait:Student ;\n    sh:severity sh:Violation ;\n    sh:property [\n        sh:path ait:hasStudentStatus ;\n        sh:valueData \"[Master, Doctor, Diploma]\"^^xsd:string ;\n        sh:minCount 1 ;\n    ] ;\n    sh:property [\n        sh:path ait:hasCompletedSemesters ;\n        sh:minCount 1 ;\n    ] ;\n    sh:property [\n        sh:path ait:isFullTime ;\n        sh:minCount 1 ;\n    ] ;\n    sh:property [\n        sh:path ait:hasInvoicedFees ",
-    "elapsed_seconds": 1.83,
+    "elapsed_seconds": 1.85,
     "validation": {
       "syntax_valid": false,
       "has_node_shape": true,
@@ -190,7 +190,7 @@
     "text": "(10) Additional payments for audited and repeated courses, as well as beyond the minimum 3 credits for part-time students, registered for the semester",
     "type": "obligation",
     "raw_response": " ```\nait:GR_10Shape a sh:NodeShape ;\n    sh:targetClass ait:Student ;\n    sh:severity sh:Violation ;\n    sh:property [\n        sh:path ait:registeredCourse ;\n        sh:minCount 1 ;\n        sh:hasValue (<http://example.org/mid-semesterExaminationStartDate>) ;\n        sh:inConstraint (sh:greaterThan sh:value (timeDuration \"P7D\")) ;\n    ] ;\n    sh:property [\n        sh:path ait:courseAuditStatus ;\n        sh:hasValue ait:audited ;\n    ] ;\n    sh:property [\n        sh:path ait:courseRepeatStatus ;\n",
-    "elapsed_seconds": 1.23,
+    "elapsed_seconds": 1.25,
     "validation": {
       "syntax_valid": false,
       "has_node_shape": true,
@@ -252,7 +252,7 @@
     "text": "Students shall not disturb fellow students in the residential areas.",
     "type": "prohibition",
     "raw_response": " ```\nait:GS_DisturbanceShape a sh:NodeShape ;\n    sh:targetClass ait:Student ;\n    sh:severity sh:Violation ;\n    sh:property [\n        sh:path ait:disturbs ;\n        sh:minCount 1 ;\n        sh:message \"Students shall not disturb fellow students in the residential areas.\" ;\n    ] .\n```",
-    "elapsed_seconds": 0.48,
+    "elapsed_seconds": 0.5,
     "validation": {
       "syntax_valid": false,
       "has_node_shape": true,
@@ -314,7 +314,7 @@
     "text": "For subsequent semesters, these students may opt to reside off-campus.",
     "type": "permission",
     "raw_response": " ait:GS_OffCampusResidenceShape a sh:NodeShape ;\n    sh:targetClass ait:Student ;\n    sh:severity sh:Info ;\n    sh:property [\n        sh:path ait:residesOnCampus ;\n        sh:minCount 0 ;\n        sh:maxCount 1 ;\n        sh:inValue true ;\n    ] .\n    sh:property [\n        sh:path ait:semester ;\n        sh:minCount 1 ;\n    ] .\n    sh:property [\n        sh:path ait:residesOffCampus ;\n        sh:minCount 1 ;\n    ] .",
-    "elapsed_seconds": 0.74,
+    "elapsed_seconds": 0.76,
     "validation": {
       "syntax_valid": true,
       "has_node_shape": true,
@@ -345,7 +345,7 @@
     "text": "Graduating students residing beyond the five day limit (including weekends) after graduation, without prior approval from the OFAM Director may have t",
     "type": "prohibition",
     "raw_response": " ```\nait:GR_001Shape a sh:NodeShape ;\n    sh:targetClass ait:Student ;\n    sh:severity sh:Violation ;\n    sh:property [\n        sh:path ait:graduationDate ;\n        sh:minCount 1 ;\n    ] ;\n    sh:property [\n        sh:path ait:residenceEndDate ;\n        sh:hasValueMoreThan (sh:dateAdd(ait:fiveDayLimit, sh:d4L(\"P5D\"))) ;\n    ] ;\n    sh:property [\n        sh:path ait:approvalFromOFAMDirector ;\n        sh:minCount 0 ;\n    ] .\n\nait:AU_001Shape a sh:NodeShape ;\n    sh:targetClass ait:AccommodationUni",
-    "elapsed_seconds": 2.6,
+    "elapsed_seconds": 2.58,
     "validation": {
       "syntax_valid": true,
       "has_node_shape": true,
@@ -376,7 +376,7 @@
     "text": "● New students may choose from all the available units when their queuing number is called.",
     "type": "permission",
     "raw_response": " ```\nait:GR_001Shape a sh:NodeShape ;\n    sh:targetClass ait:Student ;\n    sh:severity sh:Info ;\n    sh:property [\n        sh:path ait:choosesUnit ;\n        sh:minCount 1 ;\n        sh:message \"New students may choose from all the available units when their queuing number is called.\" ;\n    ] .\n```",
-    "elapsed_seconds": 0.51,
+    "elapsed_seconds": 0.5,
     "validation": {
       "syntax_valid": false,
       "has_node_shape": true,
@@ -438,7 +438,7 @@
     "text": "shall be the responsibility of the guests.",
     "type": "obligation",
     "raw_response": " ait:GR_001Shape a sh:NodeShape ;\n    sh:targetClass ait:Guest ;\n    sh:severity sh:Violation ;\n    sh:property [\n        sh:path ait:responsibility ;\n        sh:minCount 1 ;\n        sh:message \"The responsibility shall be of the guests.\" ;\n    ] .",
-    "elapsed_seconds": 0.46,
+    "elapsed_seconds": 0.45,
     "validation": {
       "syntax_valid": true,
       "has_node_shape": true,
@@ -469,7 +469,7 @@
     "text": "A student dormitory may be allocated for a maximum period of one month, in case of availability to: a.",
     "type": "permission",
     "raw_response": " ```\nait:GS_PolicyRule_001Shape a sh:NodeShape ;\n    sh:targetClass ait:StudentDormitory ;\n    sh:severity sh:Violation ;\n    sh:property [\n        sh:path ait:allocationPeriod ;\n        sh:minCount 1 ;\n        sh:maxCount 1 ;\n        sh:hasValue \"<http://example.org/ontology#Month>\"^^xsd:string ;\n        sh:maxCount 0 (sh:notExactlyOneOf (sh:value [sh:value \"<http://example.org/ontology#MoreThanAMonth>\"])) ;\n    ] .\n```",
-    "elapsed_seconds": 0.75,
+    "elapsed_seconds": 0.76,
     "validation": {
       "syntax_valid": false,
       "has_node_shape": true,
@@ -500,7 +500,7 @@
     "text": "Sub-letting rooms may result in eviction from student accommodation.",
     "type": "prohibition",
     "raw_response": " ```\nait:GS_SublettingShape a sh:NodeShape ;\n    sh:targetClass ait:Student ;\n    sh:severity sh:Violation ;\n    sh:property [\n        sh:path ait:subLetting ;\n        sh:minCount 1 ;\n        sh:message \"Sub-letting rooms may result in eviction from student accommodation.\" ;\n    ] .\n```",
-    "elapsed_seconds": 0.49,
+    "elapsed_seconds": 0.5,
     "validation": {
       "syntax_valid": false,
       "has_node_shape": true,
@@ -593,7 +593,7 @@
     "text": "Students found guilty may face a fine of Baht 2,000, or the actual costs of the damage caused by smoking or burning.",
     "type": "prohibition",
     "raw_response": " ```\nait:GS_SmokingFineShape a sh:NodeShape ;\n    sh:targetClass ait:Student ;\n    sh:severity sh:Violation ;\n    sh:property [\n        sh:path ait:hasSmokingOffence ;\n        sh:minCount 1 ;\n        sh:message \"Students found guilty may face a fine of Baht 2,000 or the actual costs of the damage caused by smoking.\" ;\n    ] .\n```\n\nAssuming that `ait:Student`, `ait:hasSmokingOffence` are already defined in your ontology. If not, you would need to define them first.",
-    "elapsed_seconds": 0.73,
+    "elapsed_seconds": 0.74,
     "validation": {
       "syntax_valid": true,
       "has_node_shape": true,
@@ -655,7 +655,7 @@
     "text": "Acceptance by an employee of a gift valued at THB 3,000 or more must be reported by the employee to their Unit Head within 15 days of acceptance, givi",
     "type": "obligation",
     "raw_response": " ```\nait:ER_003Shape a sh:NodeShape ;\n    sh:targetClass ait:Employee ;\n    sh:severity sh:Violation ;\n    sh:property [\n        sh:path ait:acceptedGift ;\n        sh:minCount 1 ;\n        sh:hasValue (<http://example.org/values#THB3000>) ;\n    ] ;\n    sh:property [\n        sh:path ait:reportDate ;\n        sh:datatype sh:xsdDateTime ;\n        sh:minCount 1 ;\n        sh:hasValue (\"\"^^<http://www.w3.org/2001/XMLSchema#dateTime>) ;\n    ] ;\n    sh:property [\n        sh:path ait:unitHeadReportedTo ;\n ",
-    "elapsed_seconds": 1.27,
+    "elapsed_seconds": 1.28,
     "validation": {
       "syntax_valid": false,
       "has_node_shape": true,
@@ -717,7 +717,7 @@
     "text": "They must inform the President of all settlements made during the grievance process.",
     "type": "obligation",
     "raw_response": " ait:GS_01_Shape a sh:NodeShape ;\n    sh:targetClass ait:Employee ;\n    sh:severity sh:Violation ;\n    sh:property [\n        sh:path ait:madeSettlementDuringGrievanceProcess ;\n        sh:minCount 1 ;\n        sh:message \"They must inform the President of all settlements made during the grievance process.\" ;\n    ] .",
-    "elapsed_seconds": 0.52,
+    "elapsed_seconds": 0.53,
     "validation": {
       "syntax_valid": true,
       "has_node_shape": true,
@@ -810,7 +810,7 @@
     "text": "Items valued at less than THB 3,000 may be accepted without reporting.",
     "type": "permission",
     "raw_response": " ait:GS_ItemValueRuleShape a sh:NodeShape ;\n    sh:targetClass ait:Item ;\n    sh:severity sh:Info ;\n    sh:property [\n        sh:path ait:value ;\n        sh:minCount 1 ;\n        sh:hasDatatype sh:xsd:decimal ;\n        sh:nodeKind sh:Literal ;\n        sh:datatypeMinInclusive \"3000\"^^xsd:decimal ;\n        sh:maxCount 0 ;\n    ] .",
-    "elapsed_seconds": 0.61,
+    "elapsed_seconds": 0.62,
     "validation": {
       "syntax_valid": true,
       "has_node_shape": true,
@@ -841,7 +841,7 @@
     "text": "When expressing personal opinions outside the Institute, AIT employees and students are required to note explicitly that the opinions expressed are pe",
     "type": "obligation",
     "raw_response": " ```\nait:GS_PolicyRule_01Shape a sh:NodeShape ;\n    sh:targetClass ait:Employee, ait:Student ;\n    sh:severity sh:Violation ;\n    sh:property [\n        sh:path ait:expressesOpinionOutsideInstitute ;\n        sh:minCount 1 ;\n        sh:message \"The opinions expressed are personal and do not necessarily represent the position of the Institute.\" ;\n    ] ;\n    sh:property [\n        sh:path ait:notesExplicitly ;\n        sh:minCount 1 ;\n        sh:message \"Note explicitly that the opinions expressed ar",
-    "elapsed_seconds": 0.77,
+    "elapsed_seconds": 0.78,
     "validation": {
       "syntax_valid": false,
       "has_node_shape": true,
@@ -872,7 +872,7 @@
     "text": "39 up to Rangsit and from there may ride a pick-up, popularly known as \"Luth\".",
     "type": "permission",
     "raw_response": " ```\nait:GR_39Shape a sh:NodeShape ;\n    sh:targetClass ait:Person ;\n    sh:severity sh:Violation ;\n    sh:property [\n        sh:path ait:ridesLuth ;\n        sh:minCount 1 ;\n        sh:message \"May ride a pick-up, popularly known as 'Luth', only from Rangsit.\" ;\n    ] .\n```",
-    "elapsed_seconds": 0.51,
+    "elapsed_seconds": 0.52,
     "validation": {
       "syntax_valid": false,
       "has_node_shape": true,
@@ -903,7 +903,7 @@
     "text": "Thus, they cannot enroll in any course nor can they avail of student privileges and benefits during the suspended period such as use of AIT ID card, a",
     "type": "prohibition",
     "raw_response": " ```\nait:GS_SuspensionShape a sh:NodeShape ;\n    sh:targetClass ait:Student ;\n    sh:severity sh:Violation ;\n    sh:property [\n        sh:path ait:enrolledInCourse ;\n        sh:minCount 0 ;\n        sh:message \"Cannot enroll in any course during the suspended period.\" ;\n    ] ;\n    sh:property [\n        sh:path ait:hasStudentPrivileges ;\n        sh:maxCount 0 ;\n        sh:message \"Cannot avail of student privileges and benefits during the suspended period.\" ;\n    ] ;\n    sh:property [\n        sh:",
-    "elapsed_seconds": 2.06,
+    "elapsed_seconds": 2.08,
     "validation": {
       "syntax_valid": false,
       "has_node_shape": true,
@@ -934,7 +934,7 @@
     "text": "If two or more students compete for a position and they are equally qualified to undertake the work, preference should be given to the student who is ",
     "type": "obligation",
     "raw_response": " ```\nait:GS_CompetitionShape a sh:NodeShape ;\n    sh:targetClass ait:Student ;\n    sh:severity sh:Violation ;\n    sh:property [\n        sh:path ait:competesWith ;\n        sh:minCount 2 ;\n    ] ;\n    sh:property [\n        sh:path ait:qualificationLevel ;\n        sh:minCount 1 ;\n    ] ;\n    sh:property [\n        sh:path ait:fundingStatus ;\n        sh:hasValue (<http://example.org/ait-policy#selfPaying> , <http://example.org/ait-policy#partiallyFunded>) ;\n        sh:minCount 1 ;\n    ] ;\n    sh:prop",
-    "elapsed_seconds": 1.08,
+    "elapsed_seconds": 1.1,
     "validation": {
       "syntax_valid": false,
       "has_node_shape": true,
@@ -965,7 +965,7 @@
     "text": "Writing-off of outstanding bills including interest due will be requested by Head- OFAM and have to be approved by the AIT Management and forwarded to",
     "type": "obligation",
     "raw_response": " ```\nait:GS_01RuleShape a sh:NodeShape ;\n    sh:targetClass ait:Employee ;\n    sh:severity sh:Violation ;\n    sh:property [\n        sh:path ait:requestsOutstandingBills ;\n        sh:minCount 1 ;\n        sh:nodeKind sh:BlankNode ;\n        sh:valueShape (sh:OR (\n            sh:nodeShape (sh:targetClass ait:HeadOfAM)\n        ) ) ;\n    ] ;\n    sh:property [\n        sh:path ait:approvedByAITManagement ;\n        sh:minCount 1 ;\n        sh:nodeKind sh:BlankNode ;\n        sh:valueShape (sh:targetClass a",
-    "elapsed_seconds": 1.03,
+    "elapsed_seconds": 1.05,
     "validation": {
       "syntax_valid": false,
       "has_node_shape": true,
@@ -996,7 +996,7 @@
     "text": "and for external/sponsored students, authorized documentary proof of sponsorship must be submitted.",
     "type": "obligation",
     "raw_response": " ait:GS_ExternalSponsoredStudentShape a sh:NodeShape ;\n    sh:targetClass ait:Student ;\n    sh:severity sh:Violation ;\n    sh:property [\n        sh:path ait:hasDocumentaryProofOfSponsorship ;\n        sh:minCount 1 ;\n        sh:message \"Authorized documentary proof of sponsorship must be submitted for external/sponsored students.\" ;\n    ] .",
-    "elapsed_seconds": 0.52,
+    "elapsed_seconds": 0.53,
     "validation": {
       "syntax_valid": true,
       "has_node_shape": true,
@@ -1027,7 +1027,7 @@
     "text": "Sports facilities cannot be used for other sporting events aside from the intended use of the court/field.",
     "type": "prohibition",
     "raw_response": " ait:GS_01_SportsFacilityShape a sh:NodeShape ;\n    sh:targetClass ait:SportsFacility ;\n    sh:severity sh:Violation ;\n    sh:property [\n        sh:path ait:usedFor ;\n        sh:class sh:node ;\n        sh:minCount 1 ;\n        sh:hasValue ^ait:SportingEvent ;\n        sh:inClass [ sh:path ait:intendedUse ] ;\n        sh:maxCount 1 ;\n    ] .",
-    "elapsed_seconds": 0.62,
+    "elapsed_seconds": 0.63,
     "validation": {
       "syntax_valid": true,
       "has_node_shape": true,
@@ -1058,7 +1058,7 @@
     "text": "Baht 1,250 is the initial premium for new students of August Intake, to be renewed in January semester of the following Medical year; for students stu",
     "type": "obligation",
     "raw_response": " ```\nait:GS_InitialInsurancePremiumShape a sh:NodeShape ;\n    sh:targetClass ait:Student ;\n    sh:severity sh:Violation ;\n    sh:property [\n        sh:path ait:initialPremium ;\n        sh:valueType sh:xsd:decimal ;\n        sh:minCount 1 ;\n        sh:hasValue \"1250\"^^xsd:decimal ;\n        sh:inClass [ sh:complementOf (sh:Node_Self ) ] ;\n    ] ;\n    sh:property [\n        sh:path ait:intakeMonth ;\n        sh:valueType sh:xsd:string ;\n        sh:hasValue \"August\"^^xsd:string ;\n        sh:inClass [ s",
-    "elapsed_seconds": 2.74,
+    "elapsed_seconds": 2.75,
     "validation": {
       "syntax_valid": false,
       "has_node_shape": true,
@@ -1089,7 +1089,7 @@
     "text": "Finally, they must submit the title page signed by their advisor and by LC to the AIT Registry.",
     "type": "obligation",
     "raw_response": " ```\nait:GS_TitlePageSubmissionShape a sh:NodeShape ;\n    sh:targetClass ait:Student ;\n    sh:severity sh:Violation ;\n    sh:property [\n        sh:path ait:titlePageSignedByAdvisor ;\n        sh:minCount 1 ;\n        sh:message \"The title page must be signed by their advisor.\" ;\n    ] ;\n    sh:property [\n        sh:path ait:titlePageSignedByLC ;\n        sh:minCount 1 ;\n        sh:message \"The title page must be signed by LC.\" ;\n    ] ;\n    sh:property [\n        sh:path ait:titlePageSubmittedToAITR",
-    "elapsed_seconds": 0.98,
+    "elapsed_seconds": 0.97,
     "validation": {
       "syntax_valid": false,
       "has_node_shape": true,
@@ -1120,7 +1120,7 @@
     "text": "This linen set and pillow may be kept when leaving AIT.",
     "type": "permission",
     "raw_response": " ```\nait:GS_LinenSetPillowShape a sh:NodeShape ;\n    sh:targetClass ait:LinenSet ;\n    sh:severity sh:Violation ;\n    sh:property [\n        sh:path ait:keptWhenLeavingAIT ;\n        sh:minCount 1 ;\n        sh:message \"This linen set and pillow may be kept when leaving AIT.\" ;\n    ] .\n```",
-    "elapsed_seconds": 0.54,
+    "elapsed_seconds": 0.53,
     "validation": {
       "syntax_valid": false,
       "has_node_shape": true,
@@ -1151,7 +1151,7 @@
     "text": "Upon receipt of the retake, the School Dean may decide to: ● Downgrade by 1 step the grade the student will receive upon repetition of the exam or res",
     "type": "prohibition",
     "raw_response": " ```\nait:GR_034Shape a sh:NodeShape ;\n    sh:targetClass ait:Student ;\n    sh:severity sh:Violation ;\n    sh:property [\n        sh:path ait:retake ;\n        sh:minCount 1 ;\n    ] ;\n    sh:property [\n        sh:path ait:gradeDowngrade ;\n        sh:cardinality sh:minCount 1 ;\n    ] ;\n    sh:property [\n        sh:path ait:zeroScore ;\n        sh:maxCount 1 ;\n    ] ;\n    sh:property [\n        sh:path ait:failingGrade ;\n        sh:maxCount 1 ;\n    ] .\n```",
-    "elapsed_seconds": 0.83,
+    "elapsed_seconds": 0.84,
     "validation": {
       "syntax_valid": false,
       "has_node_shape": true,
@@ -1182,7 +1182,7 @@
     "text": "However, if cheating was proven, the Department Head and the instructor/invigilator may recommend to the School Dean to disregard the original examina",
     "type": "obligation",
     "raw_response": " ```\nait:GS_PolicyRuleShape a sh:NodeShape ;\n    sh:targetClass ait:Student ;\n    sh:severity sh:Violation ;\n    sh:property [\n        sh:path ait:hasCheatingEvidence ;\n        sh:minCount 1 ;\n    ] ;\n    sh:property [\n        sh:path ait:recommendationToDean ;\n        sh:minCount 1 ;\n    ] ;\n    sh:property [\n        sh:path ait:requiresEquivalentWorkOrRetakeExam ;\n        sh:minCount 1 ;\n    ] .\n```\n\nIn this example, I assumed the following properties for the Student class:\n- `ait:hasCheatingE",
-    "elapsed_seconds": 1.11,
+    "elapsed_seconds": 1.1,
     "validation": {
       "syntax_valid": false,
       "has_node_shape": true,
@@ -1244,7 +1244,7 @@
     "text": "An Assistant’s contract shall be terminated if, during the period of appointment, they are (a) not achieving good academic standing after one semester",
     "type": "obligation",
     "raw_response": " ```\nait:GS_AssistantsContractTerminationShape a sh:NodeShape ;\n    sh:targetClass ait:Employee ;\n    sh:severity sh:Violation ;\n    sh:property [\n        sh:path ait:hasAcademicStanding ;\n        sh:minCount 1 ;\n        sh:nodeKind sh:BlankNode ;\n        sh:valueShape (sh:NodeShape (\n            sh:targetClass ait:AcademicStanding ;\n            sh:severity sh:Violation ;\n            sh:property [\n                sh:path ait:grade ;\n                sh:hasValue \"<good>\"^^xsd:string ;\n            ",
-    "elapsed_seconds": 1.24,
+    "elapsed_seconds": 1.25,
     "validation": {
       "syntax_valid": false,
       "has_node_shape": true,
@@ -1275,7 +1275,7 @@
     "text": "No member of the AIT community, trustee, faculty, staff, or student, including outreach program participants, should act deliberately or thoughtlessly",
     "type": "prohibition",
     "raw_response": " ```\nait:GS_InterferenceShape a sh:NodeShape ;\n    sh:targetClass ait:Trustee, ait:Faculty, ait:Staff, ait:Student, ait:OutreachProgramParticipant ;\n    sh:severity sh:Violation ;\n    sh:property [\n        sh:path ait:interferesWith ;\n        sh:minCount 1 ;\n        sh:message \"No member of the AIT community should act deliberately or thoughtlessly to interfere with the study, work or home environment of other members of the community.\" ;\n    ] .\n```",
-    "elapsed_seconds": 0.7,
+    "elapsed_seconds": 0.71,
     "validation": {
       "syntax_valid": false,
       "has_node_shape": true,
@@ -1306,7 +1306,7 @@
     "text": "Thai VISA Extension Fees All Non-Thai students are required to pay Baht 1,900 fee for a VISA extension.",
     "type": "obligation",
     "raw_response": " ```\nait:GS_VISAExtensionFeeShape a sh:NodeShape ;\n    sh:targetClass ait:Student ;\n    sh:severity sh:Violation ;\n    sh:property [\n        sh:path ait:visaExtension ;\n        sh:minCount 1 ;\n        sh:hasValue \"@THB 1900\"^^xsd:string ;\n        sh:message \"All Non-Thai students are required to pay Baht 1,900 fee for a VISA extension.\" ;\n    ] .\n```",
-    "elapsed_seconds": 0.65,
+    "elapsed_seconds": 0.66,
     "validation": {
       "syntax_valid": false,
       "has_node_shape": true,
@@ -1492,7 +1492,7 @@
     "text": "A special student who is a master or doctoral student studying at another institution and enrolled at AIT under a Memorandum of Understanding, for a p",
     "type": "permission",
     "raw_response": " ```\nait:GS_SpecialStudentShape a sh:NodeShape ;\n    sh:targetClass ait:Student ;\n    sh:severity sh:Violation ;\n    sh:property [\n        sh:path ait:enrollmentType ;\n        sh:valueShape (sh:nodeValue sh:literal \"Memorandum of Understanding\"^^xsd:string) ;\n        sh:minCount 1 ;\n    ] ;\n    sh:property [\n        sh:path ait:studentLevel ;\n        sh:valueShape (sh:oneOf (sh:nodeValue sh:literal \"Master\"^^xsd:string) (sh:nodeValue sh:literal \"Doctoral\"^^xsd:string)) ;\n        sh:minCount 1 ;\n",
-    "elapsed_seconds": 1.82,
+    "elapsed_seconds": 1.81,
     "validation": {
       "syntax_valid": false,
       "has_node_shape": true,
@@ -1554,7 +1554,7 @@
     "text": "Before Graduation: All students must have their advisor approve and sign the title page of their research report, thesis or dissertation, and then sub",
     "type": "obligation",
     "raw_response": " ```\nait:GR_001Shape a sh:NodeShape ;\n    sh:targetClass ait:Student ;\n    sh:severity sh:Violation ;\n    sh:property [\n        sh:path ait:hasAdvisorApprovedTitlePage ;\n        sh:minCount 1 ;\n        sh:message \"The advisor has not approved and signed the title page of the research report, thesis or dissertation.\" ;\n    ] ;\n    sh:property [\n        sh:path ait:hasSignedTitlePageByAdvisor ;\n        sh:minCount 1 ;\n        sh:message \"The advisor has not signed the title page of the research re",
-    "elapsed_seconds": 1.38,
+    "elapsed_seconds": 1.37,
     "validation": {
       "syntax_valid": true,
       "has_node_shape": true,
@@ -1585,7 +1585,7 @@
     "text": "Formal procedures 3.1 A complainant may, with or without previous recourse to informal channels, decide to seek redress through formal grievance proce",
     "type": "permission",
     "raw_response": " ait:GS_PolicyRule_03_1Shape a sh:NodeShape ;\n    sh:targetClass ait:Complainant ;\n    sh:severity sh:Violation ;\n    sh:property [\n        sh:path ait:decidesToSeekRedressThroughFormalGrievanceProcedures ;\n        sh:minCount 1 ;\n        sh:message \"The complainant may seek redress through formal grievance procedures, with or without previous recourse to informal channels.\" ;\n    ] .",
-    "elapsed_seconds": 0.6,
+    "elapsed_seconds": 0.61,
     "validation": {
       "syntax_valid": true,
       "has_node_shape": true,
@@ -1616,7 +1616,7 @@
     "text": "At the beginning of the course, the instructor should make known the criteria that will be considered in determining the grade such as class attendanc",
     "type": "obligation",
     "raw_response": " ```\nait:GR_001Shape a sh:NodeShape ;\n    sh:targetClass ait:Student ;\n    sh:severity sh:Violation ;\n    sh:property [\n        sh:path ait:criteriaForGrade ;\n        sh:minCount 1 ;\n        sh:message \"The instructor should make known the criteria that will be considered in determining the grade such as class attendance, class participation, papers, examinations, projects and presentations.\" ;\n    ] .\n```",
-    "elapsed_seconds": 0.58,
+    "elapsed_seconds": 0.59,
     "validation": {
       "syntax_valid": false,
       "has_node_shape": true,
@@ -1678,7 +1678,7 @@
     "text": "Responsibility centers are required to produce internal systems and documentation for implementing this policy locally.",
     "type": "obligation",
     "raw_response": " ```\nait:RS_001Shape a sh:NodeShape ;\n    sh:targetClass ait:Employee ;\n    sh:severity sh:Violation ;\n    sh:property [\n        sh:path ait:hasInternalSystem ;\n        sh:minCount 1 ;\n        sh:message \"Responsibility centers are required to produce internal systems.\" ;\n    ] ;\n    sh:property [\n        sh:path ait:hasDocumentation ;\n        sh:minCount 1 ;\n        sh:message \"for implementing this policy locally.\" ;\n    ] .\n```",
-    "elapsed_seconds": 0.67,
+    "elapsed_seconds": 0.68,
     "validation": {
       "syntax_valid": false,
       "has_node_shape": true,
@@ -1740,7 +1740,7 @@
     "text": "Student Assistants shall be students in good standing on the effective dates of their appointment.",
     "type": "obligation",
     "raw_response": " ```\nait:GS_062Shape a sh:NodeShape ;\n    sh:targetClass ait:Student ;\n    sh:severity sh:Violation ;\n    sh:property [\n        sh:path ait:studentStatus ;\n        sh:minCount 1 ;\n        sh:message \"The student must be in good standing on the effective dates of their appointment.\" ;\n    ] .\n```",
-    "elapsed_seconds": 0.49,
+    "elapsed_seconds": 0.5,
     "validation": {
       "syntax_valid": false,
       "has_node_shape": true,
@@ -1771,7 +1771,7 @@
     "text": "Expulsion shall be imposed for drug abuse.",
     "type": "prohibition",
     "raw_response": " Here is the SHACL shape for your policy rule:\n\n```turtle\nait:GS_PolicyRule01Shape a sh:NodeShape ;\n    sh:targetClass ait:Student ;\n    sh:severity sh:Violation ;\n    sh:property [\n        sh:path ait:drugAbuse ;\n        sh:maxCount 1 ;\n        sh:message \"Expulsion shall be imposed for drug abuse.\" ;\n    ] .\n```",
-    "elapsed_seconds": 0.55,
+    "elapsed_seconds": 0.56,
     "validation": {
       "syntax_valid": false,
       "has_node_shape": true,
@@ -1833,7 +1833,7 @@
     "text": "In discharging his/her responsibility to implement this Policy, the President may be assisted by the Campus Environment and Development Committee.",
     "type": "permission",
     "raw_response": " ait:GS_PolicyAssistanceShape a sh:NodeShape ;\n    sh:targetClass ait:Employee ;\n    sh:severity sh:Violation ;\n    sh:property [\n        sh:path ait:assists ;\n        sh:minCount 1 ;\n        sh:type sh:IRI ;\n        sh:value <http://example.org/ait-policy#CampusEnvironmentAndDevelopmentCommittee> ;\n    ] .",
-    "elapsed_seconds": 0.54,
+    "elapsed_seconds": 0.55,
     "validation": {
       "syntax_valid": true,
       "has_node_shape": true,
@@ -2019,7 +2019,7 @@
     "text": "Students within the normal study period must pay the semester fee of Baht 188,000 for 12 credits Tuition Fee and Registration Fee in advance and/or fu",
     "type": "obligation",
     "raw_response": " ```\nait:GR_023Shape a sh:NodeShape ;\n    sh:targetClass ait:Student ;\n    sh:severity sh:Violation ;\n    sh:property [\n        sh:path ait:studyPeriodEnded ;\n        sh:minCount 1 ;\n    ] ;\n    sh:property [\n        sh:path ait:enrolmentDate ;\n        sh:minCount 1 ;\n    ] ;\n    sh:property [\n        sh:path ait:creditCount ;\n        sh:valueType sh:xsd:integer ;\n        sh:datatype sh:xsd:int ;\n        sh:minInclusive 12 ;\n    ] ;\n    sh:property [\n        sh:path ait:tuitionFee ;\n        sh:v",
-    "elapsed_seconds": 4.21,
+    "elapsed_seconds": 4.24,
     "validation": {
       "syntax_valid": false,
       "has_node_shape": true,
@@ -2174,7 +2174,7 @@
     "text": "All new students are required to attend the orientation seminar.",
     "type": "obligation",
     "raw_response": " Here is the SHACL shape for your policy rule:\n\n```turtle\nait:OR_001Shape a sh:NodeShape ;\n    sh:targetClass ait:Student ;\n    sh:severity sh:Violation ;\n    sh:property [\n        sh:path ait:attendedOrientationSeminar ;\n        sh:minCount 1 ;\n        sh:message \"All new students are required to attend the orientation seminar.\" ;\n    ] .\n```",
-    "elapsed_seconds": 0.57,
+    "elapsed_seconds": 0.58,
     "validation": {
       "syntax_valid": false,
       "has_node_shape": true,
@@ -2267,7 +2267,7 @@
     "text": "accommodation units dormitories not designed for such facilities, will be fined Baht 2,000 and charged for the services related to the removal of the ",
     "type": "prohibition",
     "raw_response": " ```\nait:GS_PolicyRule_001Shape a sh:NodeShape ;\n    sh:targetClass ait:AccommodationUnit ;\n    sh:severity sh:Violation ;\n    sh:property [\n        sh:path ait:hasDormitoryDesign ;\n        sh:minCount 1 ;\n        sh:nodeKind sh:BlankNode ;\n        sh:valueShape (\n            sh:targetClass ait:Dormitory ;\n            sh:severity sh:Violation ;\n            sh:property [\n                sh:path ait:designedFor ;\n                sh:minCount 1 ;\n                sh:value sh:\"appliances\"^^xsd:string ",
-    "elapsed_seconds": 2.75,
+    "elapsed_seconds": 2.77,
     "validation": {
       "syntax_valid": false,
       "has_node_shape": true,
@@ -2298,7 +2298,7 @@
     "text": "In all such cases, the reservation of the vehicle must be made by a member of the faculty or a senior administrative staff member in the School or by ",
     "type": "obligation",
     "raw_response": " ```\nait:VR_090Shape a sh:NodeShape ;\n    sh:targetClass ait:Employee ;\n    sh:severity sh:Violation ;\n    sh:property [\n        sh:path ait:reservationOfVehicle ;\n        sh:minCount 1 ;\n        sh:or [\n            sh:valueType sh:string ;\n            sh:hasValue \"faculty\" ;\n            sh:hasValue \"senior administrative staff member\" ;\n            sh:hasValue \"Student Union President\" ;\n        ] ;\n    ] .\n\nait:SP_091Shape a sh:NodeShape ;\n    sh:targetClass ait:School ;\n    sh:severity sh:Vio",
-    "elapsed_seconds": 1.37,
+    "elapsed_seconds": 1.39,
     "validation": {
       "syntax_valid": false,
       "has_node_shape": true,
@@ -2329,7 +2329,7 @@
     "text": "Student dormitories may be provided for a maximum period of one month, in case of availability to: a.",
     "type": "permission",
     "raw_response": " ```\nait:GR_01Shape a sh:NodeShape ;\n    sh:targetClass ait:StudentDormitory ;\n    sh:severity sh:Violation ;\n    sh:property [\n        sh:path ait:providedForPeriod ;\n        sh:minCount 1 ;\n        sh:hasDatatype sh:xsdDuration ;\n        sh:maxInclusive \"P1M\"^^xsdduration ;\n        sh:message \"The provided period for student dormitories may not exceed one month.\" ;\n    ] .\n```\n\nAssuming that `ait:StudentDormitory` is the appropriate entity to represent a dormitory provided for students. The pr",
-    "elapsed_seconds": 0.89,
+    "elapsed_seconds": 0.9,
     "validation": {
       "syntax_valid": true,
       "has_node_shape": true,
@@ -2391,7 +2391,7 @@
     "text": "In case of over staying guests, special prior permission must be obtained from the Director, Office of Facilities and Asset Management (OFAM) and a da",
     "type": "obligation",
     "raw_response": " ```\nait:GR_01Shape a sh:NodeShape ;\n    sh:targetClass ait:Guest ;\n    sh:severity sh:Violation ;\n    sh:property [\n        sh:path ait:stayDuration ;\n        sh:minCount 1 ;\n    ] ;\n    sh:property [\n        sh:path ait:permissionFromOFAM ;\n        sh:maxCount 0 ;\n        sh:inClass ait:Boolean ;\n    ] ;\n    sh:property [\n        sh:path ait:dailyRentCharge ;\n        sh:minCount 1 ;\n        sh:inClass ait:MonetaryAmount ;\n    ] .\n```",
-    "elapsed_seconds": 0.79,
+    "elapsed_seconds": 0.8,
     "validation": {
       "syntax_valid": false,
       "has_node_shape": true,
@@ -2453,7 +2453,7 @@
     "text": "Students may wait for the vans at the Thammasat Road near AIT Gate No.",
     "type": "permission",
     "raw_response": " ```\nait:GS_PolicyRule_001Shape a sh:NodeShape ;\n    sh:targetClass ait:Student ;\n    sh:severity sh:Info ;\n    sh:property [\n        sh:path ait:waitingLocation ;\n        sh:hasValue @ Thammasat Road near AIT Gate No. ;\n        sh:minCount 0 ;\n        sh:maxCount 1 ;\n        sh:message \"Students may wait for the vans at the specified location.\" ;\n    ] .\n```",
-    "elapsed_seconds": 0.61,
+    "elapsed_seconds": 0.62,
     "validation": {
       "syntax_valid": false,
       "has_node_shape": true,
@@ -2484,7 +2484,7 @@
     "text": "Writing Placement Test for Registration/Enrolment All degree program students (including CAS and Certificate leading to Master) must take the AIT Writ",
     "type": "obligation",
     "raw_response": " ```\nait:PR_001Shape a sh:NodeShape ;\n    sh:targetClass ait:Student ;\n    sh:severity sh:Violation ;\n    sh:property [\n        sh:path ait:hasTakenAITWritingTest ;\n        sh:minCount 1 ;\n        sh:message \"All degree program students must take the AIT Writing Test (AIT-WT) upon arrival on campus.\" ;\n    ] .\n```",
-    "elapsed_seconds": 0.55,
+    "elapsed_seconds": 0.56,
     "validation": {
       "syntax_valid": false,
       "has_node_shape": true,
