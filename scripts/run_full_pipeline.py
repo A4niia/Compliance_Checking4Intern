@@ -16,11 +16,28 @@ import argparse
 import json
 import os
 import re
+import subprocess
 import sys
 import time
 from pathlib import Path
 from datetime import datetime
 from typing import List, Dict, Tuple
+
+# Ensure pdfplumber is available
+try:
+    import pdfplumber
+except ImportError:
+    print("⚠️  pdfplumber not installed. Installing now...")
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "pdfplumber"])
+    import pdfplumber
+
+# Ensure requests is available
+try:
+    import requests
+except ImportError:
+    print("⚠️  requests not installed. Installing now...")
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "requests"])
+    import requests
 
 # --- Paths ---
 PROJECT_ROOT = Path(__file__).parent.parent
@@ -57,11 +74,6 @@ RULE_PATTERN = re.compile('|'.join(DEONTIC_MARKERS), re.IGNORECASE)
 
 def extract_sentences_from_pdf(pdf_path: Path) -> List[Dict]:
     """Extract sentences from a PDF using pdfplumber."""
-    try:
-        import pdfplumber
-    except ImportError:
-        print("⚠️  pdfplumber not installed. Run: pip install pdfplumber")
-        return []
 
     sentences = []
     with pdfplumber.open(pdf_path) as pdf:
@@ -162,7 +174,6 @@ def prefilter_sentence(text: str) -> Dict:
 
 def classify_with_llm(text: str, source_name: str) -> Dict:
     """Classify a sentence using Ollama LLM."""
-    import requests
 
     prompt = f"""You are a legal policy analyst. Classify whether the following sentence from {source_name} is a POLICY RULE (a binding obligation, permission, or prohibition) or NOT A RULE (descriptive, procedural, or informational).
 
@@ -222,7 +233,11 @@ def step2_classify(source: str) -> Path:
             rejected.append(sent)
 
     print(f"  🔍 Pre-filter: {len(candidates)} candidates, {len(rejected)} rejected")
-    print(f"     Filter rate: {len(rejected)/len(sentences)*100:.1f}%")
+    if len(sentences) > 0:
+        print(f"     Filter rate: {len(rejected)/len(sentences)*100:.1f}%")
+    else:
+        print("  ⚠️  No sentences extracted — check PDF files and pdfplumber installation")
+        return None
 
     # Classify candidates with LLM
     print(f"  🤖 Classifying {len(candidates)} candidates via {MODEL}...")
@@ -253,7 +268,7 @@ def step2_classify(source: str) -> Path:
     print(f"     Total sentences:    {len(sentences)}")
     print(f"     Candidates:         {len(candidates)}")
     print(f"     Rules detected:     {rules_found}")
-    print(f"     Detection rate:     {rules_found/len(sentences)*100:.1f}%")
+    print(f"     Detection rate:     {rules_found/max(len(sentences),1)*100:.1f}%")
 
     # Count by type
     type_counts = {"obligation": 0, "permission": 0, "prohibition": 0}
@@ -306,7 +321,6 @@ Respond ONLY with a JSON object:
 {{"fol_formula": "the FOL formula", "subject": "who it applies to", "predicate": "what action", "variables": ["x", "y"]}}"""
 
     try:
-        import requests
         resp = requests.post(
             f"{OLLAMA_HOST}/api/generate",
             json={"model": MODEL, "prompt": prompt, "stream": False,
