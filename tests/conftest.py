@@ -9,8 +9,10 @@ from pathlib import Path
 
 # Project paths
 PROJECT_ROOT = Path(__file__).parent.parent
-SHACL_DIR = PROJECT_ROOT / "shacl"
-RESEARCH_DIR = PROJECT_ROOT / "research"
+SHACL_DIR    = PROJECT_ROOT / "shacl"
+SHAPES_DIR   = SHACL_DIR / "shapes"
+ONTOLOGY_DIR = SHACL_DIR / "ontology"
+TEST_DATA_DIR = SHACL_DIR / "test_data"
 
 # Try to import rdflib and pyshacl
 try:
@@ -34,14 +36,17 @@ def project_root():
 
 @pytest.fixture(scope="session")
 def shacl_dir():
-    """Return SHACL directory path."""
     return SHACL_DIR
 
 
 @pytest.fixture(scope="session")
-def research_dir():
-    """Return research directory path."""
-    return RESEARCH_DIR
+def shapes_dir():
+    return SHAPES_DIR
+
+
+@pytest.fixture(scope="session")
+def test_data_dir():
+    return TEST_DATA_DIR
 
 
 @pytest.fixture(scope="session")
@@ -50,10 +55,7 @@ def shapes_graph():
     if not HAS_SHACL_DEPS:
         pytest.skip("rdflib/pyshacl not installed")
     
-    shapes_file = SHACL_DIR / "ait_policy_shapes_refined.ttl"
-    if not shapes_file.exists():
-        # Fall back to original shapes
-        shapes_file = SHACL_DIR / "ait_policy_shapes.ttl"
+    shapes_file = SHAPES_DIR / "ait_policy_shapes.ttl"
     
     if not shapes_file.exists():
         pytest.skip(f"Shapes file not found: {shapes_file}")
@@ -69,44 +71,13 @@ def ontology_graph():
     if not HAS_SHACL_DEPS:
         pytest.skip("rdflib/pyshacl not installed")
     
-    ontology_file = SHACL_DIR / "ait_policy_ontology.ttl"
+    ontology_file = ONTOLOGY_DIR / "ait_policy_ontology.ttl"
     if not ontology_file.exists():
         pytest.skip(f"Ontology file not found: {ontology_file}")
     
     g = Graph()
     g.parse(str(ontology_file), format="turtle")
     return g
-
-
-@pytest.fixture(scope="session")
-def gold_standard():
-    """Load the gold standard annotated dataset."""
-    gs_file = RESEARCH_DIR / "gold_standard_annotated_v2.json"
-    if not gs_file.exists():
-        pytest.skip(f"Gold standard not found: {gs_file}")
-    
-    with open(gs_file, 'r', encoding='utf-8') as f:
-        data = json.load(f)
-    
-    if isinstance(data, list):
-        return data
-    return data.get("rules", data.get("items", []))
-
-
-@pytest.fixture(scope="session")
-def fol_results():
-    """Load FOL formalization results."""
-    fol_file = RESEARCH_DIR / "fol_formalization_v2_results.json"
-    if not fol_file.exists():
-        fol_file = RESEARCH_DIR / "fol_formalization_results.json"
-    
-    if not fol_file.exists():
-        pytest.skip(f"FOL results not found: {fol_file}")
-    
-    with open(fol_file, 'r', encoding='utf-8') as f:
-        data = json.load(f)
-    
-    return data.get("formalized_rules", [])
 
 
 @pytest.fixture

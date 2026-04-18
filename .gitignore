@@ -53,14 +53,14 @@ htmlcov/
 # Docker
 .docker/
 
-# Frontend build
-webapp/frontend/node_modules/
-webapp/frontend/dist/
-webapp/frontend/.vite/
+# Pipeline runtime outputs (generated, not committed)
+output/
 
-# Cache
-.cache/
-*.cache
+# LLM cache (local, large)
+cache/llm_cache.db
+
+# LangGraph checkpoints
+langgraph_agent/.langgraph_cache/
 
 # Temporary files
 tmp/
@@ -69,22 +69,3 @@ temp/
 
 # Jupyter
 .ipynb_checkpoints/
-
-# LaTeX
-latex/*.aux
-latex/*.log
-latex/*.out
-latex/*.toc
-latex/*.lof
-latex/*.lot
-latex/*.bbl
-latex/*.blg
-latex/*.synctex.gz
-latex/*.fdb_latexmk
-latex/*.fls
-
-# Research data (optional - uncomment if sensitive)
-# research/*.json
-
-# SHACL validation outputs
-shacl/*.log

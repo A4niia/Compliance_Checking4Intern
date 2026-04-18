@@ -13,9 +13,8 @@ import sys
 import pytest
 from pathlib import Path
 
-# Add scripts to path
-sys.path.insert(0, str(Path(__file__).parent.parent / "scripts"))
-from prefilter import PreFilter, FilterResult
+sys.path.insert(0, str(Path(__file__).parent.parent))
+from core.prefilter import PreFilter, FilterResult
 
 
 @pytest.fixture
