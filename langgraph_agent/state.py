@@ -4,10 +4,17 @@ from typing import Annotated, List, TypedDict
 import operator
 
 
-class SentenceItem(TypedDict):
+class SentenceItem(TypedDict, total=False):
+    # required
     text: str
     page: int
     source: str
+    # optional — populated by prefilter_node
+    deontic_strength: str       # "strong" | "weak" | "consequence" | "none"
+    speech_act: str             # "directive" | "commissive" | "prohibitive" | "assertive" | "suggestive"
+    section_context: str
+    section_weight: float
+    confidence_boost: float
 
 
 class RuleItem(TypedDict):

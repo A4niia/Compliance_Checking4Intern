@@ -30,14 +30,21 @@ def prefilter_node(state: PipelineState) -> PipelineState:
             results = _prefilter.filter_sentences(texts)
             for item, result in zip(items, results):
                 if result.is_candidate:
-                    candidates.append(item)
+                    enriched: SentenceItem = {
+                        **item,
+                        "deontic_strength": result.deontic_strength,
+                        "speech_act": result.speech_act,
+                        "section_context": result.section_context,
+                        "section_weight": result.section_weight,
+                        "confidence_boost": result.confidence_boost,
+                    }
+                    candidates.append(enriched)
         except Exception as exc:
             errors.append(f"prefilter: error processing {source}: {exc}")
             # On error, pass all sentences through to avoid losing data
             candidates.extend(items)
 
     return {
-        **state,
         "candidates": candidates,
         "current_step": "prefilter",
         "errors": errors,

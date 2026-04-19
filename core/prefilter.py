@@ -121,6 +121,34 @@ WEAK_PATTERN = re.compile('|'.join(WEAK_DEONTIC_MARKERS), re.IGNORECASE)
 CONSEQUENCE_PATTERN = re.compile('|'.join(CONSEQUENCE_MARKERS), re.IGNORECASE)
 
 # =============================================================================
+# MAY DISAMBIGUATION
+# =============================================================================
+
+EPISTEMIC_MAY_PATTERNS = [
+    re.compile(r"\bmay\s+be\b", re.IGNORECASE),
+    re.compile(r"\bmay\s+have\b", re.IGNORECASE),
+    re.compile(r"\bmay\s+entail\b", re.IGNORECASE),
+    re.compile(r"\bmay\s+include\b", re.IGNORECASE),
+    re.compile(r"\bmay\s+contain\b", re.IGNORECASE),
+    re.compile(r"\bmay\s+result\s+in\b", re.IGNORECASE),
+]
+
+DEONTIC_MAY_PATTERNS = [
+    re.compile(r"\bmay\s+(apply|request|submit|use|access|file|obtain|appeal)\b",
+               re.IGNORECASE),
+    re.compile(r"\bmay\s+not\b", re.IGNORECASE),
+]
+
+def disambiguate_may(text: str) -> str:
+    if not re.search(r"\bmay\b", text, re.IGNORECASE):
+        return "n/a"
+    if any(p.search(text) for p in DEONTIC_MAY_PATTERNS):
+        return "deontic"
+    if any(p.search(text) for p in EPISTEMIC_MAY_PATTERNS):
+        return "epistemic"
+    return "ambiguous"
+
+# =============================================================================
 # SECTION HEADER DETECTION
 # =============================================================================
 
@@ -405,6 +433,17 @@ class PreFilter:
             confidence_boost = 0.10 * section_weight
         elif strength == "weak":
             # Weak markers — need LLM to disambiguate
+            if "may" in text.lower():
+                may_sense = disambiguate_may(text)
+                if may_sense == "epistemic":
+                    return FilterResult(
+                        text=text, is_candidate=False,
+                        deontic_strength="none",
+                        rejection_reason="Epistemic 'may' (possibility, not permission)",
+                        speech_act="assertive",
+                        section_context=section_name, section_weight=section_weight,
+                    )
+            
             if section_weight < 0.5:
                 # In a low-deontic section with weak markers → likely not a rule
                 return FilterResult(

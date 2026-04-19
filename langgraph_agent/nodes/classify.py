@@ -26,6 +26,13 @@ You are a legal policy analyst specialising in institutional policy documents.
 Classify whether the sentence below is a POLICY RULE — a deontic statement that \
 creates a binding obligation, grants a permission, or imposes a prohibition.
 
+IMPORTANT DISTINCTIONS:
+- "may be X-ed" / "may have" / "may entail" = DESCRIPTIVE possibility, NOT a rule.
+  Example: "Research may be sponsored by agencies." → NOT A RULE (describes what CAN happen).
+- "may apply for" / "may request" / "may use" = PERMISSION (deontic rule).
+  Example: "Students may apply for leave." → PERMISSION RULE (grants a right).
+- "may not" = always a PROHIBITION.
+
 Context hints:
 - Deontic strength: {deontic_strength}
 - Speech act: {speech_act}
@@ -74,10 +81,24 @@ def classify_node(state: PipelineState) -> PipelineState:
     # If not available, use empty dict — classify still works without hints
     for i, item in enumerate(candidates):
         text = item["text"]
-        hint = {}  # prefilter hints (populated if attached to item)
+
+        # Read prefilter hints from the enriched SentenceItem
+        hint = {
+            "deontic_strength": item.get("deontic_strength", "unknown"),
+            "speech_act":       item.get("speech_act", "unknown"),
+            "section_context":  item.get("section_context", "unknown"),
+        }
+        boost = float(item.get("confidence_boost", 0.0))
+
+        # Include hints in cache key so hint changes invalidate stale entries
+        cache_params = {
+            "deontic_strength": hint["deontic_strength"],
+            "speech_act": hint["speech_act"],
+            "prompt_version": 2,
+        }
 
         # --- cache check ---
-        cached = _cache.get(text, model, "classification")
+        cached = _cache.get(text, model, "classification", extra_params=cache_params)
         if cached:
             result = cached
         else:
@@ -85,7 +106,7 @@ def classify_node(state: PipelineState) -> PipelineState:
                 prompt = _build_prompt(item, hint)
                 response = _llm.invoke([HumanMessage(content=prompt)])
                 result = _parse_response(response.content)
-                _cache.set(text, model, "classification", result)
+                _cache.set(text, model, "classification", result, extra_params=cache_params)
             except Exception as exc:
                 errors.append(f"classify[{i}]: {exc}")
                 result = {"is_rule": False, "rule_type": "none",
@@ -94,7 +115,14 @@ def classify_node(state: PipelineState) -> PipelineState:
         if not result.get("is_rule"):
             continue
 
-        confidence = float(result.get("confidence", 0.5))
+        # Sanitise inconsistent LLM output: is_rule=True but rule_type missing
+        if result.get("rule_type") in ("none", None, ""):
+            result["rule_type"] = "obligation"  # conservative default
+            result["confidence"] = max(float(result.get("confidence", 0.5)) - 0.1, 0.4)
+
+        # Apply prefilter confidence boost (additive, clamped to [0, 1])
+        raw_conf = float(result.get("confidence", 0.5))
+        confidence = max(0.0, min(1.0, raw_conf + boost))
         rule_id = f"AIT-{i:04d}"
 
         rule = RuleItem(
@@ -103,8 +131,8 @@ def classify_node(state: PipelineState) -> PipelineState:
             source_document=item["source"],
             rule_type=result.get("rule_type", "obligation"),
             confidence=confidence,
-            prefilter_strength=hint.get("deontic_strength", "unknown"),
-            section_context=hint.get("section_context", ""),
+            prefilter_strength=hint["deontic_strength"],
+            section_context=hint["section_context"],
         )
 
         if confidence >= CONFIDENCE_HIGH:
@@ -114,7 +142,6 @@ def classify_node(state: PipelineState) -> PipelineState:
         # below CONFIDENCE_LOW → discard
 
     return {
-        **state,
         "rules": rules,
         "uncertain_rules": uncertain,
         "current_step": "classify",

@@ -4,7 +4,7 @@ import json
 import re
 import sys
 from pathlib import Path
-from typing import List
+from typing import List, Tuple
 
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 from core.llm_cache import get_cache
@@ -16,6 +16,8 @@ from langgraph_agent.state import PipelineState, RuleItem, SHACLShape
 
 _cache = get_cache()
 _llm = get_llm()
+
+MAX_REPAIR_ATTEMPTS = 2
 
 _SHACL_PREFIXES = """\
 @prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -42,15 +44,53 @@ Shape name: ait:{shape_id}Shape
 
 Return ONLY the Turtle block for this shape. No explanations, no markdown fences."""
 
+_REPAIR_PROMPT = """\
+The following SHACL Turtle has a syntax error. Fix it and return ONLY the corrected Turtle.
+Do NOT add markdown fences. Return raw Turtle only.
 
-def _validate_turtle(text: str) -> bool:
+Original Turtle:
+{turtle}
+
+Error: {error}
+
+Return ONLY valid Turtle. No explanations, no markdown fences."""
+
+
+def _validate_turtle(text: str) -> Tuple[bool, str]:
+    """Validate Turtle syntax. Returns (is_valid, error_message)."""
     try:
         from rdflib import Graph
         g = Graph()
         g.parse(data=_SHACL_PREFIXES + "\n" + text, format="turtle")
-        return True
-    except Exception:
-        return False
+        return True, ""
+    except Exception as exc:
+        return False, str(exc)
+
+
+def _strip_fences(text: str) -> str:
+    """Strip markdown code fences if model wrapped the output."""
+    text = re.sub(r"^```[a-z]*\n?", "", text, flags=re.MULTILINE)
+    text = re.sub(r"```$", "", text, flags=re.MULTILINE)
+    return text.strip()
+
+
+def _repair_turtle(turtle: str, error: str, rule_id: str) -> Tuple[str, bool]:
+    """Attempt to repair invalid Turtle by re-prompting the LLM with the error.
+    Returns (repaired_turtle, is_valid)."""
+    for attempt in range(1, MAX_REPAIR_ATTEMPTS + 1):
+        try:
+            prompt = _REPAIR_PROMPT.format(turtle=turtle, error=error)
+            response = _llm.invoke([HumanMessage(content=prompt)])
+            repaired = _strip_fences(response.content.strip())
+            valid, new_error = _validate_turtle(repaired)
+            if valid:
+                return repaired, True
+            # Update for next attempt
+            turtle = repaired
+            error = new_error
+        except Exception:
+            break  # LLM call failed, stop retrying
+    return turtle, False
 
 
 def direct_shacl_node(state: PipelineState) -> PipelineState:
@@ -76,12 +116,17 @@ def direct_shacl_node(state: PipelineState) -> PipelineState:
                     shape_id=shape_id,
                 )
                 response = _llm.invoke([HumanMessage(content=prompt)])
-                turtle = response.content.strip()
-                # Strip markdown fences if model wrapped them
-                turtle = re.sub(r"^```[a-z]*\n?", "", turtle, flags=re.MULTILINE)
-                turtle = re.sub(r"```$", "", turtle, flags=re.MULTILINE).strip()
-                valid = _validate_turtle(turtle)
-                _cache.set(text, model, "direct_shacl", {"turtle": turtle, "valid": valid})
+                turtle = _strip_fences(response.content.strip())
+                valid, parse_error = _validate_turtle(turtle)
+
+                # ── Repair loop: re-prompt LLM with the error ──
+                if not valid and turtle:
+                    turtle, valid = _repair_turtle(
+                        turtle, parse_error, rule["rule_id"]
+                    )
+
+                _cache.set(text, model, "direct_shacl",
+                           {"turtle": turtle, "valid": valid})
             except Exception as exc:
                 errors.append(f"direct_shacl[{rule['rule_id']}]: {exc}")
                 turtle = ""
@@ -98,8 +143,6 @@ def direct_shacl_node(state: PipelineState) -> PipelineState:
             ))
 
     return {
-        **state,
         "shacl_shapes": new_shapes,
-        "current_step": "direct_shacl",
         "errors": errors,
     }

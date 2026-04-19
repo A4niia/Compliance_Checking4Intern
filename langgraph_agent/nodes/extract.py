@@ -19,13 +19,52 @@ _NOISE = re.compile(
 )
 
 
-def _split_sentences(raw: str) -> List[str]:
-    """Naive sentence splitter adequate for policy PDF text."""
-    # Normalise whitespace
+_LIST_MARKER = re.compile(r"\n\s*(\d+\.|\([a-z]\)|[a-z]\)|\*|\-)\s+")
+_SOFT_WRAP = re.compile(r"(?<=[a-z,;:])\n(?=[a-z])")
+_MULTI_NL = re.compile(r"\n{2,}")
+_TRAILING_LIST_NUM = re.compile(r"\s*\n?\s*\d+\.\s*$")
+
+import os
+USE_SPACY = os.getenv("EXTRACT_SPACY", "0") == "1"
+
+if USE_SPACY:
+    import spacy
+    _nlp = spacy.load("en_core_web_sm", disable=["ner", "tagger"])
+
+def _normalise(raw: str) -> str:
+    """Clean PDF extraction artifacts before sentence splitting."""
+    # Rejoin soft-wrapped lines: "...to the\ncommittee..." -> "...to the committee..."
+    raw = _SOFT_WRAP.sub(" ", raw)
+    # Collapse blank lines
+    raw = _MULTI_NL.sub("\n", raw)
+    # Normalise whitespace (preserves newlines where untouched)
     raw = re.sub(r"[ \t]+", " ", raw)
-    # Split on period / semicolon followed by whitespace + capital letter
-    parts = re.split(r"(?<=[.;])\s+(?=[A-Z])", raw)
-    return [p.strip() for p in parts if p.strip()]
+    return raw
+
+def _split_sentences(raw: str) -> List[str]:
+    raw = _normalise(raw)
+    if USE_SPACY:
+        doc = _nlp(raw)
+        return [s.text.strip() for s in doc.sents if s.text.strip()]
+
+    # First pass: split on list markers (they always start a new item)
+    items = _LIST_MARKER.split(raw)
+
+    # Second pass: split each item on sentence boundaries
+    sentences: list[str] = []
+    for item in items:
+        item = item.strip()
+        if not item:
+            continue
+        # Split on . or ; followed by whitespace + capital letter
+        parts = re.split(r"(?<=[.;])\s+(?=[A-Z])", item)
+        for p in parts:
+            # Strip trailing list markers that leaked through
+            p = _TRAILING_LIST_NUM.sub("", p.strip())
+            if p:
+                sentences.append(p)
+
+    return sentences
 
 
 def _is_noise(text: str) -> bool:
@@ -64,7 +103,6 @@ def extract_node(state: PipelineState) -> PipelineState:
             errors.append(f"extract: failed to read {pdf_path.name}: {exc}")
 
     return {
-        **state,
         "extracted_sentences": sentences,
         "total_sentences": len(sentences),
         "current_step": "extract",

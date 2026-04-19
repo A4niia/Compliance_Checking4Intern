@@ -80,7 +80,6 @@ def reclassify_node(state: PipelineState) -> PipelineState:
         # else: drop the uncertain rule — second opinion says it's not a rule
 
     return {
-        **state,
         "rules": confirmed,
         "uncertain_rules": [],   # cleared — all decisions made
         "current_step": "reclassify",

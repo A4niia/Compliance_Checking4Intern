@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import List
 
 from langgraph_agent.state import FOLItem, PipelineState, SHACLShape
+from rdflib import Graph, Namespace, RDFS
 
 PROJECT_ROOT = Path(__file__).parent.parent.parent
 
@@ -33,31 +34,110 @@ _SUBJECT_MAP = [
 ]
 
 
-def _infer_target_class(text: str) -> str:
+_ONTOLOGY_PATH = PROJECT_ROOT / "shacl" / "ontology" / "ait_policy_ontology.ttl"
+AIT = Namespace("http://example.org/ait-policy#")
+
+# One-time load
+_ontology_classes: set[str] | None = None
+
+def _load_ontology_classes() -> set[str]:
+    global _ontology_classes
+    if _ontology_classes is None:
+        g = Graph()
+        if _ONTOLOGY_PATH.exists():
+            g.parse(str(_ONTOLOGY_PATH), format="turtle")
+        _ontology_classes = {
+            str(s).split("#")[-1] for s in g.subjects(RDFS.subClassOf, None)
+        } | {str(s).split("#")[-1] for s, _, _ in g.triples((None, None, None))
+             if str(s).startswith(str(AIT))}
+    return _ontology_classes
+
+
+def _candidates_from_subject(subj: str) -> list[str]:
+    """Convert 'the postgraduate students' into ['PostgraduateStudent', 'Student']."""
+    words = re.findall(r"[A-Za-z]+", subj.lower())
+    # strip determiners
+    words = [w for w in words if w not in {"the", "a", "an", "any", "all", "each", "every", "some"}]
+    # singularise trivially (drop trailing 's')
+    words = [w[:-1] if w.endswith("s") and len(w) > 3 else w for w in words]
+    if not words:
+        return []
+    # Candidates: full concat, pairwise, single
+    joined = "".join(w.capitalize() for w in words)
+    singles = [w.capitalize() for w in words]
+    return [joined] + singles
+
+
+def _infer_target_class(text: str, fol: FOLItem | None = None) -> str:
+    """Infer a target class by (1) FOL subject, (2) regex map, (3) Person fallback."""
+    # --- Strategy A: use FOL subject if it matches an ontology class ---
+    if fol is not None:
+        preds = fol.get("predicates") or {}
+        if isinstance(preds, dict):
+            subj = (preds.get("subject") or "").strip()
+            if subj:
+                candidates = _candidates_from_subject(subj)
+                classes = _load_ontology_classes()
+                for c in candidates:
+                    if c in classes:
+                        return c
+
+    # --- Strategy B: regex map on rule text ---
     t = text.lower()
     for pattern, cls in _SUBJECT_MAP:
         if re.search(pattern, t):
             return cls
+
+    # --- Strategy C: fallback — but narrower than Person ---
     return "Person"
 
 
-def _slugify(text: str, max_words: int = 4) -> str:
+def _slugify(text: str, max_words: int = 4, first_lower: bool = False) -> str:
     """Turn rule text into a camelCase property-path slug."""
+    # Normalise whitespace (PDF newlines etc.) before stripping
+    text = re.sub(r"\s+", " ", text)
     words = re.sub(r"[^a-zA-Z0-9 ]", "", text).split()
-    return "".join(w.capitalize() for w in words[:max_words])
+    if not words:
+        return "policyRule"
+    selected = words[:max_words]
+    result = "".join(w.capitalize() for w in selected)
+    if first_lower and result:
+        result = result[0].lower() + result[1:]
+    return result
+
+
+# Reserved/placeholder predicates to reject — these are logical variables
+# or lazy LLM outputs that carry no semantic content
+_PLACEHOLDER_PREDICATES = {
+    "x", "y", "z", "n", "m",           # logical variables
+    "action", "subject", "predicate",  # LLM lazy placeholders
+    "condition", "thing", "entity",
+}
 
 
 def _property_path(fol: FOLItem) -> str:
-    """Derive a SHACL property path from the FOL formula."""
-    # Try to extract predicate name from deontic_formula e.g. O(payFee(x))
+    """Derive a SHACL property path from the FOL formula.
+    Priority: deontic predicate > predicates.action > rule text slug.
+    Rejects single-letter tokens and known placeholders."""
+    # --- Try deontic operator argument ---
     m = re.search(r"[OPF]\(([a-zA-Z_]+)", fol["deontic_formula"])
     if m:
         raw = m.group(1)
-        # Convert snake_case or PascalCase to camelCase
-        parts = re.sub(r"([A-Z])", r" \1", raw).strip().split()
-        return parts[0][0].lower() + parts[0][1:] + "".join(p.capitalize() for p in parts[1:])
-    # Fallback: slug from rule text
-    return _slugify(fol["text"])
+        if len(raw) > 1 and raw.lower() not in _PLACEHOLDER_PREDICATES:
+            # Convert snake_case or PascalCase to camelCase
+            parts = re.sub(r"([A-Z])", r" \1", raw).strip().split()
+            return parts[0][0].lower() + parts[0][1:] + "".join(
+                p.capitalize() for p in parts[1:]
+            )
+
+    # --- Try predicates.action from FOL output ---
+    predicates = fol.get("predicates") or {}
+    action = predicates.get("action", "") if isinstance(predicates, dict) else ""
+    if action and action.lower() not in _PLACEHOLDER_PREDICATES:
+        return _slugify(action, max_words=3, first_lower=True)
+
+    # --- Fall back to slug from rule text ---
+    return _slugify(fol["text"], max_words=4, first_lower=True)
 
 
 _DEONTIC_CONSTRAINT = {
@@ -72,13 +152,14 @@ def _fol_to_turtle(fol: FOLItem) -> tuple[str, str, bool]:
     Returns (turtle_text, target_class, syntax_valid).
     """
     shape_id = fol["rule_id"].replace("-", "_") + "Shape"
-    target_class = _infer_target_class(fol["text"])
+    target_class = _infer_target_class(fol["text"], fol)
     deontic_type = fol["deontic_type"]
     constraint, severity = _DEONTIC_CONSTRAINT.get(
         deontic_type, ("sh:minCount 1 ;", "sh:Violation")
     )
     prop_path = _property_path(fol)
-    message = fol["text"].replace('"', "'")[:200]
+    # Sanitise message for Turtle string literal (no newlines, no unescaped quotes)
+    message = fol["text"].replace("\n", " ").replace("\r", " ").replace('"', "'")[:200]
 
     turtle = (
         f"# Rule: {fol['rule_id']} | {deontic_type.upper()}\n"
@@ -93,6 +174,43 @@ def _fol_to_turtle(fol: FOLItem) -> tuple[str, str, bool]:
         f"    ] .\n"
     )
     return turtle, target_class, True
+
+
+# ── Inline NL fallback for FOL-to-Turtle failures ────────────────────────
+def _try_direct_fallback(fol: FOLItem) -> SHACLShape | None:
+    """When _fol_to_turtle fails, attempt direct NL-to-SHACL via LLM.
+    Reuses the same prompt and repair logic as direct_shacl_node."""
+    from langgraph_agent.nodes.direct_shacl import (
+        _DIRECT_PROMPT, _strip_fences, _validate_turtle, _repair_turtle, _llm,
+    )
+    shape_id = fol["rule_id"].replace("-", "_")
+    try:
+        prompt = _DIRECT_PROMPT.format(
+            text=fol["text"],
+            rule_type=fol["deontic_type"],
+            shape_id=shape_id,
+        )
+        from langchain_core.messages import HumanMessage
+        response = _llm.invoke([HumanMessage(content=prompt)])
+        turtle = _strip_fences(response.content.strip())
+        valid, parse_error = _validate_turtle(turtle)
+
+        # Attempt repair if invalid
+        if not valid and turtle:
+            turtle, valid = _repair_turtle(turtle, parse_error, fol["rule_id"])
+
+        if turtle:
+            return SHACLShape(
+                rule_id=fol["rule_id"],
+                turtle_text=turtle,
+                target_class=_infer_target_class(fol["text"]),
+                deontic_type=fol["deontic_type"],
+                syntax_valid=valid,
+                generation_method="fol_fallback",
+            )
+    except Exception:
+        pass
+    return None
 
 
 def shacl_node(state: PipelineState) -> PipelineState:
@@ -115,7 +233,15 @@ def shacl_node(state: PipelineState) -> PipelineState:
                 generation_method="fol_mediated",
             ))
         except Exception as exc:
-            errors.append(f"shacl[{fol['rule_id']}]: {exc}")
+            errors.append(
+                f"shacl[{fol['rule_id']}]: {exc} (attempting NL fallback)"
+            )
+            # ── Inline NL fallback: recover via direct LLM prompt ──
+            fallback = _try_direct_fallback(fol)
+            if fallback:
+                new_shapes.append(fallback)
+                if fallback["turtle_text"]:
+                    ttl_blocks.append(fallback["turtle_text"] + "\n")
 
     # Write combined TTL to output/
     output_dir = PROJECT_ROOT / "output" / state["source"]
@@ -124,9 +250,7 @@ def shacl_node(state: PipelineState) -> PipelineState:
     Path(output_path).write_text("".join(ttl_blocks), encoding="utf-8")
 
     return {
-        **state,
         "shacl_shapes": new_shapes,
         "shacl_output_path": output_path,
-        "current_step": "shacl",
         "errors": errors,
     }

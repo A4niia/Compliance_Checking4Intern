@@ -1,5 +1,6 @@
 # Dependencies
 node_modules/
+graphdb_data/
 __pycache__/
 *.pyc
 *.pyo
@@ -31,6 +32,7 @@ build/
 .env.local
 .env.*.local
 *.env
+.gitignore
 
 # Logs
 *.log
@@ -53,7 +55,7 @@ htmlcov/
 # Docker
 .docker/
 
-# Pipeline runtime outputs (generated, not committed)
+# Pipeline runtime outputs
 output/
 
 # LLM cache (local, large)
