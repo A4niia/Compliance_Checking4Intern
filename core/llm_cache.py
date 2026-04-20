@@ -208,6 +208,17 @@ class LLMCache:
         conn.close()
 
 
+def prompt_key(version: str, **extras) -> dict:
+    """Build ``extra_params`` dict for cache calls, always including prompt version.
+
+    Usage::
+
+        cache.get(text, model, "classification",
+                  extra_params=prompt_key("v3-hints", deontic_strength="strong"))
+    """
+    return {"prompt_version": version, **extras}
+
+
 # Global cache instance
 _cache_instance = None
 

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 import re
 import sys
 from pathlib import Path
@@ -98,6 +99,9 @@ Output ONLY a JSON object:
 
 def _generate_with_retry(text: str, rule_type: str, max_retries: int = 1) -> dict | None:
     """Generate FOL, retry with stricter prompt if placeholder detected."""
+    # §7 — Ablation: disable retry loop
+    if os.getenv("ABLATION_NO_FOL_RETRY", "0") == "1":
+        max_retries = 0
     prompt = _FOL_PROMPT.format(text=text, rule_type=rule_type)
     response = _llm.invoke([HumanMessage(content=prompt)])
     parsed = _parse_fol(response.content)
@@ -130,7 +134,8 @@ def fol_node(state: PipelineState) -> PipelineState:
     fol_formulas: List[FOLItem] = []
     fol_failed: List[RuleItem] = []
 
-    for rule in rules:
+    from tqdm import tqdm
+    for rule in tqdm(rules, desc="Generating FOL", leave=False):
         text = rule["text"]
         rule_type = rule["rule_type"]
 

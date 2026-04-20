@@ -141,37 +141,66 @@ def _property_path(fol: FOLItem) -> str:
 
 
 _DEONTIC_CONSTRAINT = {
-    "obligation":  ("sh:minCount 1 ;", "sh:Violation"),
-    "prohibition": ("sh:maxCount 0 ;", "sh:Violation"),
-    "permission":  ("sh:minCount 0 ;", "sh:Info"),
+    "obligation":  "sh:minCount 1 ;",
+    "prohibition": "sh:maxCount 0 ;",
+    "permission":  "sh:minCount 0 ;",
 }
 
 
-def _fol_to_turtle(fol: FOLItem) -> tuple[str, str, bool]:
+def _severity_for(rule_type: str, confidence: float = 1.0) -> str:
+    """Confidence-weighted severity tiers (§5.2).
+
+    - Permissions are always ``sh:Info``
+    - High-confidence obligations/prohibitions → ``sh:Violation``
+    - Medium-confidence → ``sh:Warning``
+    - Low-confidence → ``sh:Info``
+    """
+    if rule_type == "permission":
+        return "sh:Info"
+    if confidence >= 0.85:
+        return "sh:Violation"
+    if confidence >= 0.6:
+        return "sh:Warning"
+    return "sh:Info"
+
+
+def _fol_to_turtle(fol: FOLItem, confidence: float = 1.0) -> tuple[str, str, bool]:
     """
     Returns (turtle_text, target_class, syntax_valid).
+
+    Implements:
+    - §4.4: ``sh:targetSubjectsOf`` fallback when target class is Person
+    - §5.1: Named property shape URIs (``ait:AIT_xxxxShape_prop1``)
+    - §5.2: Confidence-weighted severity
     """
     shape_id = fol["rule_id"].replace("-", "_") + "Shape"
+    prop_shape_id = shape_id + "_prop1"
     target_class = _infer_target_class(fol["text"], fol)
     deontic_type = fol["deontic_type"]
-    constraint, severity = _DEONTIC_CONSTRAINT.get(
-        deontic_type, ("sh:minCount 1 ;", "sh:Violation")
-    )
+    constraint = _DEONTIC_CONSTRAINT.get(deontic_type, "sh:minCount 1 ;")
+    severity = _severity_for(deontic_type, confidence)
     prop_path = _property_path(fol)
     # Sanitise message for Turtle string literal (no newlines, no unescaped quotes)
     message = fol["text"].replace("\n", " ").replace("\r", " ").replace('"', "'")[:200]
+
+    # §4.4 — Use sh:targetSubjectsOf when target class is Person (weak inference)
+    if target_class == "Person":
+        target_clause = f"sh:targetSubjectsOf ait:{prop_path}"
+    else:
+        target_clause = f"sh:targetClass ait:{target_class}"
 
     turtle = (
         f"# Rule: {fol['rule_id']} | {deontic_type.upper()}\n"
         f"# FOL: {fol['deontic_formula']}\n"
         f"ait:{shape_id} a sh:NodeShape ;\n"
-        f"    sh:targetClass ait:{target_class} ;\n"
+        f"    {target_clause} ;\n"
         f"    sh:severity {severity} ;\n"
-        f"    sh:property [\n"
-        f"        sh:path ait:{prop_path} ;\n"
-        f"        {constraint}\n"
-        f"        sh:message \"{message}\" ;\n"
-        f"    ] .\n"
+        f"    sh:property ait:{prop_shape_id} .\n"
+        f"\n"
+        f"ait:{prop_shape_id} a sh:PropertyShape ;\n"
+        f"    sh:path ait:{prop_path} ;\n"
+        f"    {constraint}\n"
+        f"    sh:message \"{message}\" .\n"
     )
     return turtle, target_class, True
 

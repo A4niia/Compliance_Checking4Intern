@@ -17,6 +17,8 @@ from langgraph_agent.state import PipelineState, RuleItem
 _cache = get_cache()
 _llm = get_second_llm()
 
+RECLASSIFY_PROMPT_VERSION = "v1"
+
 # Reclassify uses a more directive prompt — no confidence band, just binary verdict
 _RECLASSIFY_PROMPT = """\
 You are a strict policy compliance expert. Your task is to make a FINAL \
@@ -55,10 +57,22 @@ def reclassify_node(state: PipelineState) -> PipelineState:
     model = SECOND_MODEL
     errors: List[str] = []
 
-    for rule in uncertain:
+    # §7 — Ablation: skip reclassify, drop uncertain rules
+    import os
+    if os.getenv("ABLATION_SKIP_RECLASSIFY", "0") == "1":
+        return {
+            "rules": confirmed,
+            "uncertain_rules": [],
+            "current_step": "reclassify",
+            "errors": ["ablation: reclassify skipped"],
+        }
+
+    from tqdm import tqdm
+    for rule in tqdm(uncertain, desc="Reclassifying", leave=False):
         text = rule["text"]
 
-        cached = _cache.get(text, model, "reclassification")
+        cached = _cache.get(text, model, "reclassification",
+                            extra_params={"prompt_version": RECLASSIFY_PROMPT_VERSION})
         if cached:
             result = cached
         else:
@@ -66,7 +80,8 @@ def reclassify_node(state: PipelineState) -> PipelineState:
                 prompt = _RECLASSIFY_PROMPT.format(text=text)
                 response = _llm.invoke([HumanMessage(content=prompt)])
                 result = _parse(response.content)
-                _cache.set(text, model, "reclassification", result)
+                _cache.set(text, model, "reclassification", result,
+                           extra_params={"prompt_version": RECLASSIFY_PROMPT_VERSION})
             except Exception as exc:
                 errors.append(f"reclassify[{rule['rule_id']}]: {exc}")
                 result = {"is_rule": False}

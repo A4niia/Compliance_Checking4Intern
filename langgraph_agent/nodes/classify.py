@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 import re
 import sys
 from pathlib import Path
@@ -79,7 +80,8 @@ def classify_node(state: PipelineState) -> PipelineState:
 
     # Gather prefilter hints if available (prefilter stores them in candidates)
     # If not available, use empty dict — classify still works without hints
-    for i, item in enumerate(candidates):
+    from tqdm import tqdm
+    for i, item in enumerate(tqdm(candidates, desc="Classifying", leave=False)):
         text = item["text"]
 
         # Read prefilter hints from the enriched SentenceItem
@@ -89,6 +91,12 @@ def classify_node(state: PipelineState) -> PipelineState:
             "section_context":  item.get("section_context", "unknown"),
         }
         boost = float(item.get("confidence_boost", 0.0))
+
+        # §7 — Ablation: strip hints if no-hints ablation is active
+        if os.getenv("ABLATION_NO_HINTS", "0") == "1":
+            hint = {"deontic_strength": "unknown", "speech_act": "unknown",
+                    "section_context": "unknown"}
+            boost = 0.0
 
         # Include hints in cache key so hint changes invalidate stale entries
         cache_params = {

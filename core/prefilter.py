@@ -434,15 +434,19 @@ class PreFilter:
         elif strength == "weak":
             # Weak markers — need LLM to disambiguate
             if "may" in text.lower():
-                may_sense = disambiguate_may(text)
-                if may_sense == "epistemic":
-                    return FilterResult(
-                        text=text, is_candidate=False,
-                        deontic_strength="none",
-                        rejection_reason="Epistemic 'may' (possibility, not permission)",
-                        speech_act="assertive",
-                        section_context=section_name, section_weight=section_weight,
-                    )
+                # §7 — Ablation: skip may disambiguation if disabled
+                import os
+                if os.getenv("ABLATION_NO_MAY_DISAMBIG", "0") != "1":
+                    may_sense = disambiguate_may(text)
+                    if may_sense == "epistemic":
+                        return FilterResult(
+                            text=text, is_candidate=False,
+                            deontic_strength="none",
+                            rejection_reason="Epistemic 'may' (possibility, not permission)",
+                            speech_act="assertive",
+                            section_context=section_name, section_weight=section_weight,
+                        )
+
             
             if section_weight < 0.5:
                 # In a low-deontic section with weak markers → likely not a rule

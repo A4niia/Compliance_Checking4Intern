@@ -1,6 +1,9 @@
 from __future__ import annotations
 
 import json
+import os
+import platform
+import subprocess
 from collections import defaultdict
 from datetime import datetime
 from pathlib import Path
@@ -11,6 +14,38 @@ PROJECT_ROOT = Path(__file__).parent.parent.parent
 
 # Shapes that fire on more than this fraction of target entities are flagged
 FALSE_POSITIVE_THRESHOLD = 0.80
+
+
+def _capture_environment() -> dict:
+    """Capture runtime environment for thesis reproducibility (§6.2)."""
+    env = {
+        "python": platform.python_version(),
+        "platform": platform.platform(),
+        "ollama_model": os.getenv("OLLAMA_MODEL", "mistral"),
+        "ollama_second_model": os.getenv("OLLAMA_SECOND_MODEL", "mistral"),
+        "seed": os.getenv("OLLAMA_SEED", "42"),
+        "pipeline_version": os.getenv("PIPELINE_VERSION", "dev"),
+        "extract_spacy": os.getenv("EXTRACT_SPACY", "0"),
+    }
+    # Ollama model digest (if Ollama is reachable)
+    try:
+        import requests
+        host = os.getenv("OLLAMA_HOST", "http://localhost:11434")
+        r = requests.get(f"{host}/api/tags", timeout=3)
+        for m in r.json().get("models", []):
+            if m["name"].startswith(env["ollama_model"]):
+                env["ollama_model_digest"] = m.get("digest", "")[:12]
+                break
+    except Exception:
+        pass
+    # Git SHA
+    try:
+        env["git_sha"] = subprocess.check_output(
+            ["git", "rev-parse", "HEAD"], text=True, stderr=subprocess.DEVNULL
+        ).strip()[:8]
+    except Exception:
+        env["git_sha"] = "unknown"
+    return env
 
 
 def report_node(state: PipelineState) -> PipelineState:
@@ -31,7 +66,8 @@ def report_node(state: PipelineState) -> PipelineState:
     report = {
         "timestamp": datetime.now().isoformat(),
         "source": source,
-        "pipeline_version": "2.0-langgraph",
+        "pipeline_version": os.getenv("PIPELINE_VERSION", "dev"),
+        "environment": _capture_environment(),
         "summary": {
             "sentences_extracted":  state.get("total_sentences", 0),
             "candidates_prefiltered": len(state.get("candidates", [])),

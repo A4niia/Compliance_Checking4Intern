@@ -16,6 +16,15 @@ def prefilter_node(state: PipelineState) -> PipelineState:
     sentences: List[SentenceItem] = state["extracted_sentences"]
     errors: List[str] = []
 
+    # §7 — Ablation: skip prefilter entirely, pass all sentences through
+    import os
+    if os.getenv("ABLATION_SKIP_PREFILTER", "0") == "1":
+        return {
+            "candidates": list(sentences),
+            "current_step": "prefilter",
+            "errors": ["ablation: prefilter skipped"],
+        }
+
     # Group sentences by their source PDF so the PreFilter can use page context
     from collections import defaultdict
     by_source: dict[str, List[SentenceItem]] = defaultdict(list)

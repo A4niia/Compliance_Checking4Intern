@@ -29,6 +29,7 @@ build/
 
 # Environment
 .env
+.env.example
 .env.local
 .env.*.local
 *.env
@@ -57,6 +58,7 @@ htmlcov/
 
 # Pipeline runtime outputs
 output/
+tests/
 
 # LLM cache (local, large)
 cache/llm_cache.db

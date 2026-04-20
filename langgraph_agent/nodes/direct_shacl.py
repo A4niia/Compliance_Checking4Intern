@@ -18,6 +18,7 @@ _cache = get_cache()
 _llm = get_llm()
 
 MAX_REPAIR_ATTEMPTS = 2
+DIRECT_SHACL_PROMPT_VERSION = "v1"
 
 _SHACL_PREFIXES = """\
 @prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -94,17 +95,24 @@ def _repair_turtle(turtle: str, error: str, rule_id: str) -> Tuple[str, bool]:
 
 
 def direct_shacl_node(state: PipelineState) -> PipelineState:
+    # §7 — Ablation: skip direct NL fallback entirely
+    import os
+    if os.getenv("ABLATION_SKIP_DIRECT_SHACL", "0") == "1":
+        return {"shacl_shapes": [], "errors": ["ablation: direct_shacl skipped"]}
+
     failed_rules: List[RuleItem] = state.get("fol_failed", [])
     model = DEFAULT_MODEL
     errors: List[str] = []
 
     new_shapes: List[SHACLShape] = []
 
-    for rule in failed_rules:
+    from tqdm import tqdm
+    for rule in tqdm(failed_rules, desc="Direct SHACL", leave=False):
         text = rule["text"]
         shape_id = rule["rule_id"].replace("-", "_")
 
-        cached = _cache.get(text, model, "direct_shacl")
+        cached = _cache.get(text, model, "direct_shacl",
+                            extra_params={"prompt_version": DIRECT_SHACL_PROMPT_VERSION})
         if cached:
             turtle = cached.get("turtle", "")
             valid = cached.get("valid", False)
@@ -126,7 +134,8 @@ def direct_shacl_node(state: PipelineState) -> PipelineState:
                     )
 
                 _cache.set(text, model, "direct_shacl",
-                           {"turtle": turtle, "valid": valid})
+                           {"turtle": turtle, "valid": valid},
+                           extra_params={"prompt_version": DIRECT_SHACL_PROMPT_VERSION})
             except Exception as exc:
                 errors.append(f"direct_shacl[{rule['rule_id']}]: {exc}")
                 turtle = ""
