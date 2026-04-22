@@ -146,6 +146,10 @@ Compliance_Checking4Intern/
 │   ├── ontology/             # Domain ontology (Person, Student, Faculty, …)
 │   └── test_data/            # 180 Pos/Neg test entities per rule
 ├── output/                   # Pipeline reports & intermediate artifacts
+├── demo/                     # Compliance Dashboard (FastAPI + HTML)
+│   ├── app.py                # FastAPI backend with pyshacl validation
+│   ├── templates/index.html  # Dashboard UI
+│   └── static/               # CSS + JS
 ├── tests/                    # Pytest suite (121 tests)
 │   ├── test_prefilter.py     # Core prefilter unit tests
 │   ├── test_shacl_shapes.py  # Gold-standard SHACL shape validation
@@ -213,6 +217,34 @@ pytest -m prefilter        # prefilter unit tests only
 pytest -m shacl            # SHACL shape syntactic tests only
 pytest tests/test_may_disambiguation.py  # May disambiguation eval set
 ```
+
+## 🖥️ Compliance Dashboard (Demo)
+
+An interactive web dashboard for demonstrating the practical application of the
+generated SHACL shapes. Browse extracted rules, inspect FOL formulas and SHACL
+shapes, submit sample RDF data, and visualize compliance violations in real-time.
+
+### Running the demo
+
+```bash
+pip install fastapi uvicorn jinja2 python-multipart
+python demo/app.py
+# Open http://localhost:8000
+```
+
+### Features
+
+| Feature | Description |
+|---------|-------------|
+| **Pipeline Stats** | Real-time display of extraction, classification, and shape generation metrics |
+| **Rule Browser** | Search and filter 484 classified rules by type (obligation/prohibition/permission) |
+| **Rule Detail** | Click any rule to see its text, FOL formula, and generated SHACL shape |
+| **Compliance Check** | Paste or edit RDF data in Turtle format and run `pyshacl` validation |
+| **Violation Report** | Severity-coded violations with affected entities, source shapes, and messages |
+
+The dashboard loads pipeline outputs from `output/ait/` and validates against
+all syntactically valid SHACL shapes. Invalid shape blocks (from the NL fallback)
+are automatically skipped during parsing.
 
 ## ⚠️ Current limitations
 
