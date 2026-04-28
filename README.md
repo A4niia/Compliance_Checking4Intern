@@ -188,4 +188,18 @@ Outputs land in `output/ait/`:
 python web/app.py
 ```
 
-### Deployment
+### Deployment situation
+
+## References
+
+The pipeline design draws on:
+
+- Goknil et al. (2024) — PAPEL: hierarchical filtering for policy extraction
+- Brodie et al. (2006) — Section-aware classification for legal documents
+- Searle (1969) — Speech Act Theory (directive / commissive / prohibitive / …)
+- Governatori & Rotolo (2010) — Permission-as-exception in deontic logic
+  (`deontic:overrides` in the ontology)
+
+## License
+
+Academic research project — AIT Master's Thesis.
