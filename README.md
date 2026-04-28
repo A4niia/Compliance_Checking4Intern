@@ -2,7 +2,7 @@
 
 Compliance Checking Model is an agentic model pipeline that summarizes an instituion's policy rules from PDF documents to produce a SHACL validation shapes. Given a set of PDF documents, it  uses PyMuPDF to read and extract the document contents and then forward them to Ollama to classify the rules based on deontic logic (obligation, permission and prohibition). The rules are then formalized using First-Order Logic to translate into SHACL shapes for validating the student actions according to institutional policies.
 
-### How the project is organize
+## How the project is organize
 
 Given a folder of policy PDFs, PolicyChecker runs a nine-stage pipeline:
 
@@ -93,7 +93,7 @@ AITGPT-compliance-checking/
 └── requirements.txt             # Python dependencies
 ```
 
-### Set up local/dev environment
+## Set up local/dev environment
 
 **Prerequisites**
   |Tool|Min version|
@@ -190,7 +190,7 @@ Outputs land in `output/ait/`:
 python web/app.py
 ```
 
-### Deployment situation
+## Deployment situation
 
 ## References
 
