@@ -1,8 +1,8 @@
-###AITGPT-compliance-checking
+## AITGPT-compliance-checking
 
 Compliance Checking Model is an agentic model pipeline that summarizes an instituion's policy rules from PDF documents to produce a SHACL validation shapes. Given a set of PDF documents, it  uses PyMuPDF to read and extract the document contents and then forward them to Ollama to classify the rules based on deontic logic (obligation, permission and prohibition). The rules are then formalized using First-Order Logic to translate into SHACL shapes for validating the student actions according to institutional policies.
 
-###How the project is organize
+### How the project is organize
 
 Given a folder of policy PDFs, PolicyChecker runs a nine-stage pipeline:
 
@@ -28,7 +28,10 @@ Given a folder of policy PDFs, PolicyChecker runs a nine-stage pipeline:
 
 The pipeline is orchestrated as a LangGraph state machine with conditional routing,
 parallel fallback branches, and full ablation support for research measurement.
-'''
+
+### Project Structure
+```
+
 AITGPT-compliance-checking/
 ├── core/                        # Shared utilities
 │   ├── prefilter.py             # Heuristic pre-filter (deontic marker detection)
@@ -90,3 +93,47 @@ AITGPT-compliance-checking/
 └── requirements.txt             # Python dependencies
 ```
 
+### Set up local/dev environment
+
+(1) Clone git repository
+``` bash
+git clone https://github.com/AIT-brainlab/AITGPT-compliance-checking.git
+cd AITGPT-compliance-checking
+```
+(2) Create and activate virutal environment
+```bash
+python -m venv .venv
+```
+  Linux / macOS:
+``` bash
+ source .venv/bin/activate
+```
+Windows (PowerShell):
+``` bash
+.venv\Scripts\Activate.ps1
+```
+(3) Install Python Dependencies
+``` bash
+pip install -r requirements.txt
+```
+(4) Set up environmanet
+``` bash
+cp .env.example .env
+```
+(5) Pull and start an Ollama
+``` bash
+ollama pull mistral
+```
+   In another terminal (keep it open):
+``` bash
+ollama serve
+```
+(6) Run the pipeline
+``` bash
+python -m langgraph_agent.run --source ait
+```
+(7) Open website and dashboard
+``` bash
+python web/app.py
+```
+### Deployment
