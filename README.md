@@ -177,12 +177,6 @@ python -m langgraph_agent.run --source ait
 
 Outputs land in `output/ait/`:
 
-- `pipeline_report.json` — summary stats, violation triage, and environment metadata
-- `classified_rules.json` — all rules with deontic type and confidence
-- `fol_formulas.json` — generated FOL formulas
-- `shapes_generated.ttl` — pipeline-produced SHACL shapes
-- `validation_results.json` — pyshacl output against test data
-
   |File|Contents|
   |----|--------|
   |pipeline_report.json|Summary stats, violation triage, environment metadata|
