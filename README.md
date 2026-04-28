@@ -95,44 +95,44 @@ AITGPT-compliance-checking/
 
 ### Set up local/dev environment
 
-(1) Clone git repository
+**(1) Clone git repository**
 ``` bash
 git clone https://github.com/AIT-brainlab/AITGPT-compliance-checking.git
 cd AITGPT-compliance-checking
 ```
-(2) Create and activate virutal environment
+**(2) Create and activate virutal environment**
 ```bash
 python -m venv .venv
 ```
-  Linux / macOS:
+- Linux / macOS:
 ``` bash
  source .venv/bin/activate
 ```
-Windows (PowerShell):
+- Windows (PowerShell):
 ``` bash
 .venv\Scripts\Activate.ps1
 ```
-(3) Install Python Dependencies
+**(3) Install Python Dependencies**
 ``` bash
 pip install -r requirements.txt
 ```
-(4) Set up environmanet
+**(4) Set up environmanet**
 ``` bash
 cp .env.example .env
 ```
-(5) Pull and start an Ollama
+**(5) Pull and start an Ollama**
 ``` bash
 ollama pull mistral
 ```
-   In another terminal (keep it open):
+   - In another terminal (keep it open):
 ``` bash
 ollama serve
 ```
-(6) Run the pipeline
+**(6) Run the pipeline**
 ``` bash
 python -m langgraph_agent.run --source ait
 ```
-(7) Open website and dashboard
+**(7) Open website and dashboard**
 ``` bash
 python web/app.py
 ```
