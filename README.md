@@ -95,6 +95,17 @@ AITGPT-compliance-checking/
 
 ### Set up local/dev environment
 
+Prerequisites
+  |Tool|Min version|
+  |----------|-----------|
+  | Python | 3.10+ |
+  | Ollama | 0.15.2+ |     
+  | PostgreSQL | 15+ |  
+
+Note: PostgreSQL is only needed if you use the db/ module to load entity data into
+the compliance dashboard. The core pipeline (langgraph_agent/) does not require it.
+
+
 **(1) Clone git repository**
 ``` bash
 git clone https://github.com/AIT-brainlab/AITGPT-compliance-checking.git
