@@ -183,6 +183,14 @@ Outputs land in `output/ait/`:
 - `shapes_generated.ttl` — pipeline-produced SHACL shapes
 - `validation_results.json` — pyshacl output against test data
 
+  |File|Contents|
+  |----|--------|
+  |pipeline_report.json|Summary stats, violation triage, environment metadata|
+  |classified_rules.json|All rules with deontic type and confidence score|
+  |fol_formulas.json| Generated FOL formulas per rule|
+  |shapes_generated.ttl|Pipeline-produced SHACL shapes|
+  |validation_results.json|pyshacl output against TDD test data|
+
 **(7) Open website and dashboard**
 ``` bash
 python web/app.py
