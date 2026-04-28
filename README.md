@@ -28,7 +28,7 @@ Given a folder of policy PDFs, PolicyChecker runs a nine-stage pipeline:
 
 The pipeline is orchestrated as a LangGraph state machine with conditional routing,
 parallel fallback branches, and full ablation support for research measurement.
-
+'''
 AITGPT-compliance-checking/
 ├── core/                        # Shared utilities
 │   ├── prefilter.py             # Heuristic pre-filter (deontic marker detection)
