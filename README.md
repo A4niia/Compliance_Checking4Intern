@@ -95,7 +95,7 @@ AITGPT-compliance-checking/
 
 ### Set up local/dev environment
 
-Prerequisites
+**Prerequisites**
   |Tool|Min version|
   |----------|-----------|
   | Python | 3.10+ |
@@ -133,6 +133,31 @@ pip install -r requirements.txt
 **(4) Set up environmanet**
 ``` bash
 cp .env.example .env
+```
+
+Setting in .env:
+``` bash 
+  # Ollama
+  OLLAMA_HOST=http://localhost:11434
+  OLLAMA_MODEL=mistral
+  OLLAMA_SECOND_MODEL=mistral        # override for a different second-opinion model
+  OLLAMA_SEED=42                     # fixed seed -> reproducible results
+
+  # Pipeline
+  PIPELINE_VERSION=2.1-hints         # bump whenever prompts change to invalidate cache
+
+  # Extraction
+  EXTRACT_SPACY=0                    # 1 = spaCy sentencizer (requires spacy installed)
+
+  # LLM cache
+  CACHE_MAX_ENTRIES=2000
+
+  # PostgreSQL (only needed for db/ entity loader)
+  POSTGRES_HOST=localhost
+  POSTGRES_PORT=5432
+  POSTGRES_DB=ait_database
+  POSTGRES_USER=myuser
+  POSTGRES_PASSWORD=mypassword
 ```
 
 **(5) Pull and start an Ollama**
