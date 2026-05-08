@@ -74,11 +74,6 @@ policy-checker/
 ├── pyproject.toml                  # Project dependencies (uv)
 ├── uv.lock                         # Pinned dependency lockfile
 │
-├── docs/                           # Documentation
-├── data/                           # Tabular / CSV data (placeholder)
-├── models/                         # Model weights placeholder (see models/README.md)
-├── notebooks/                      # Jupyter notebooks (placeholder)
-├── logs/                           # Runtime logs (placeholder)
 │
 ├── institutional_policy/           # Source PDF policy documents (research input)
 │   └── AIT/
