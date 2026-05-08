@@ -24,8 +24,8 @@ from policy_checker import PROJECT_ROOT
 # Suppress rdflib's verbose tracebacks for ISO8601 parsing on failed literals
 logging.getLogger("rdflib.term").setLevel(logging.ERROR)
 
-from policy_checker.langgraph_agent.graph import build_graph
-from policy_checker.langgraph_agent.state import PipelineState
+from policy_checker.models.graph import build_graph
+from policy_checker.models.state import PipelineState
 
 SOURCES = {
     "ait": {

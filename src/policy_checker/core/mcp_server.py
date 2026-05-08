@@ -211,7 +211,7 @@ def get_metrics(source: str = "ait") -> dict:
 
 def run_pipeline(source: str = "ait", ablation: str = "baseline") -> dict:
     try:
-        from policy_checker.langgraph_agent.run import run
+        from policy_checker.models.run import run
         report = run(source, verbose=False, ablation=ablation)
         return {"success": True, "source": source, "ablation": ablation, "report": report}
     except Exception as exc:

@@ -14,8 +14,8 @@ from policy_checker.core.llm_cache import get_cache
  
 from langchain_core.messages import HumanMessage
  
-from policy_checker.langgraph_agent.llm import DEFAULT_MODEL, get_llm
-from policy_checker.langgraph_agent.state import FOLItem, PipelineState, RuleItem
+from policy_checker.models.llm import DEFAULT_MODEL, get_llm
+from policy_checker.models.state import FOLItem, PipelineState, RuleItem
  
 
 _cache = get_cache()

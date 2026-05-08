@@ -1,4 +1,4 @@
-from policy_checker.langgraph_agent.state import PipelineState
+from policy_checker.models.state import PipelineState
 
 CONFIDENCE_HIGH = 0.6
 CONFIDENCE_LOW = 0.4

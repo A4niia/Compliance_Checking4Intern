@@ -64,7 +64,7 @@ eval = [
 package = true   # team convention
 
 [project.scripts]
-policy-checker = "policy_checker.langgraph_agent.run:main"
+policy-checker = "policy_checker.models.run:main"
 policy-mcp     = "policy_checker.core.mcp_server:run_mcp_server"
 
 [build-system]
