@@ -1,0 +1,63 @@
+services:
+  dev:
+    image: ${PROJECT_NAME}:latest
+    container_name: ${PROJECT_NAME}-dev
+    build:
+      context: .
+      dockerfile: dockerfile
+      args:
+        - BUILD_VERSION=DEV
+        - WORKDIR=/Projects/${PROJECT_NAME}
+    ports:
+      - 8000:8000
+    env_file:
+      - .env
+    environment:
+      # Override to use service names instead of localhost
+      - POSTGRES_HOST=postgres
+      - OLLAMA_HOST=http://ollama:11434
+    volumes:
+      # Team convention: mount entire project folder
+      - .:/Projects/${PROJECT_NAME}:cached
+      # Team convention: named volumes for caching
+      - venv:/Projects/${PROJECT_NAME}/.venv
+      - python:/Projects/${PROJECT_NAME}/.python
+      - uv_cache:/Projects/${PROJECT_NAME}/.uv_cache
+      # Team convention: forward Docker socket
+      - /var/run/docker.sock:/var/run/docker-host.sock
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-ait_database}
+      POSTGRES_USER: ${POSTGRES_USER:-myuser}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      # Auto-run schema on first start
+      - ./src/policy_checker/db/schema.sql:/docker-entrypoint-initdb.d/01_schema.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-myuser}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "5432:5432"
+
+  ollama:
+    image: ollama/ollama:latest
+    volumes:
+      - ollama_data:/root/.ollama
+    ports:
+      - "11434:11434"
+    restart: unless-stopped
+
+volumes:
+  venv:           # team convention: cache .venv
+  python:         # team convention: cache uv-managed Python
+  uv_cache:       # team convention: cache uv download cache
+  postgres_data:
+  ollama_data:

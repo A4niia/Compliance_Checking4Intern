@@ -1,0 +1,313 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix ait: <http://example.org/ait-policy#> .
+@prefix deontic: <http://example.org/deontic#> .
+
+# =============================================================================
+# AIT Policy Domain Ontology
+# =============================================================================
+# This ontology defines the domain concepts for AIT institutional policies.
+# Used as target classes for SHACL shape validation.
+# =============================================================================
+
+ait:PolicyOntology a owl:Ontology ;
+    rdfs:label "AIT Policy Ontology" ;
+    rdfs:comment "Domain ontology for Asian Institute of Technology policy documents" .
+
+# =============================================================================
+# DEONTIC TYPES
+# =============================================================================
+
+deontic:DeonticType a rdfs:Class ;
+    rdfs:label "Deontic Type" ;
+    rdfs:comment "Base class for deontic operators" .
+
+deontic:obligation a deontic:DeonticType ;
+    rdfs:label "Obligation" ;
+    rdfs:comment "Must/Shall - required action" .
+
+deontic:permission a deontic:DeonticType ;
+    rdfs:label "Permission" ;
+    rdfs:comment "May/Can - allowed action" .
+
+deontic:prohibition a deontic:DeonticType ;
+    rdfs:label "Prohibition" ;
+    rdfs:comment "Must not/Cannot - forbidden action" .
+
+# Permission-as-Exception Properties (Governatori & Rotolo, 2010)
+deontic:permissionScope a owl:DatatypeProperty ;
+    rdfs:label "Permission Scope" ;
+    rdfs:comment "Scope of permission: explicit, implicit, or conditional" ;
+    rdfs:range xsd:string .
+
+deontic:defaultRestriction a owl:DatatypeProperty ;
+    rdfs:label "Default Restriction" ;
+    rdfs:comment "Marks a shape as a default restriction that can be overridden by a permission" ;
+    rdfs:range xsd:boolean .
+
+deontic:overrides a owl:ObjectProperty ;
+    rdfs:label "Overrides" ;
+    rdfs:comment "Links a permission shape to the default restriction it overrides" ;
+    rdfs:range sh:NodeShape .
+
+# =============================================================================
+# CORE ENTITIES (Actors)
+# =============================================================================
+
+ait:Person a owl:Class ;
+    rdfs:label "Person" ;
+    rdfs:comment "Any person affiliated with AIT" .
+
+ait:Student a owl:Class ;
+    rdfs:subClassOf ait:Person ;
+    rdfs:label "Student" ;
+    rdfs:comment "Enrolled student at AIT" .
+
+ait:PostgraduateStudent a owl:Class ;
+    rdfs:subClassOf ait:Student ;
+    rdfs:label "Postgraduate Student" ;
+    rdfs:comment "Master, Doctoral, or Diploma student" .
+
+ait:UndergraduateStudent a owl:Class ;
+    rdfs:subClassOf ait:Student ;
+    rdfs:label "Undergraduate Student" ;
+    rdfs:comment "Bachelor degree student" .
+
+ait:ExchangeStudent a owl:Class ;
+    rdfs:subClassOf ait:Student ;
+    rdfs:label "Exchange Student" ;
+    rdfs:comment "Student on exchange program" .
+
+ait:Employee a owl:Class ;
+    rdfs:subClassOf ait:Person ;
+    rdfs:label "Employee" ;
+    rdfs:comment "AIT staff member" .
+
+ait:Faculty a owl:Class ;
+    rdfs:subClassOf ait:Employee ;
+    rdfs:label "Faculty" ;
+    rdfs:comment "Academic faculty member" .
+
+ait:Staff a owl:Class ;
+    rdfs:subClassOf ait:Employee ;
+    rdfs:label "Staff" ;
+    rdfs:comment "Administrative or support staff" .
+
+ait:Sponsor a owl:Class ;
+    rdfs:label "Sponsor" ;
+    rdfs:comment "Entity sponsoring student fees" .
+
+ait:Committee a owl:Class ;
+    rdfs:label "Committee" ;
+    rdfs:comment "Institutional committee" .
+
+ait:GrievanceCommittee a owl:Class ;
+    rdfs:subClassOf ait:Committee ;
+    rdfs:label "Grievance Committee" ;
+    rdfs:comment "Committee for handling grievances" .
+
+# =============================================================================
+# DOCUMENTS & ARTIFACTS
+# =============================================================================
+
+ait:Document a owl:Class ;
+    rdfs:label "Document" ;
+    rdfs:comment "Any official document" .
+
+ait:ResearchPublication a owl:Class ;
+    rdfs:subClassOf ait:Document ;
+    rdfs:label "Research Publication" ;
+    rdfs:comment "Academic research output" .
+
+ait:Contract a owl:Class ;
+    rdfs:subClassOf ait:Document ;
+    rdfs:label "Contract" ;
+    rdfs:comment "Legal contract or agreement" .
+
+ait:Invoice a owl:Class ;
+    rdfs:subClassOf ait:Document ;
+    rdfs:label "Invoice" ;
+    rdfs:comment "Fee invoice" .
+
+ait:Report a owl:Class ;
+    rdfs:subClassOf ait:Document ;
+    rdfs:label "Report" ;
+    rdfs:comment "Official report" .
+
+# =============================================================================
+# FINANCIAL ENTITIES
+# =============================================================================
+
+ait:FinancialEntity a owl:Class ;
+    rdfs:label "Financial Entity" ;
+    rdfs:comment "Financial-related entity" .
+
+ait:Fee a owl:Class ;
+    rdfs:subClassOf ait:FinancialEntity ;
+    rdfs:label "Fee" ;
+    rdfs:comment "Any fee payable" .
+
+ait:TuitionFee a owl:Class ;
+    rdfs:subClassOf ait:Fee ;
+    rdfs:label "Tuition Fee" ;
+    rdfs:comment "Course tuition fees" .
+
+ait:RegistrationFee a owl:Class ;
+    rdfs:subClassOf ait:Fee ;
+    rdfs:label "Registration Fee" ;
+    rdfs:comment "Semester registration fee" .
+
+ait:AccommodationFee a owl:Class ;
+    rdfs:subClassOf ait:Fee ;
+    rdfs:label "Accommodation Fee" ;
+    rdfs:comment "Housing charges" .
+
+ait:Account a owl:Class ;
+    rdfs:subClassOf ait:FinancialEntity ;
+    rdfs:label "Account" ;
+    rdfs:comment "Financial account" .
+
+ait:OverdueAccount a owl:Class ;
+    rdfs:subClassOf ait:Account ;
+    rdfs:label "Overdue Account" ;
+    rdfs:comment "Account with overdue payments" .
+
+# =============================================================================
+# ACCOMMODATION
+# =============================================================================
+
+ait:Accommodation a owl:Class ;
+    rdfs:label "Accommodation" ;
+    rdfs:comment "Campus housing" .
+
+ait:Dormitory a owl:Class ;
+    rdfs:subClassOf ait:Accommodation ;
+    rdfs:label "Dormitory" ;
+    rdfs:comment "Student dormitory" .
+
+ait:StaffAccommodation a owl:Class ;
+    rdfs:subClassOf ait:Accommodation ;
+    rdfs:label "Staff Accommodation" ;
+    rdfs:comment "Employee housing" .
+
+# =============================================================================
+# ACADEMIC ENTITIES
+# =============================================================================
+
+ait:AcademicEntity a owl:Class ;
+    rdfs:label "Academic Entity" ;
+    rdfs:comment "Academic-related entity" .
+
+ait:Course a owl:Class ;
+    rdfs:subClassOf ait:AcademicEntity ;
+    rdfs:label "Course" ;
+    rdfs:comment "Academic course" .
+
+ait:Semester a owl:Class ;
+    rdfs:subClassOf ait:AcademicEntity ;
+    rdfs:label "Semester" ;
+    rdfs:comment "Academic semester" .
+
+ait:Registration a owl:Class ;
+    rdfs:subClassOf ait:AcademicEntity ;
+    rdfs:label "Registration" ;
+    rdfs:comment "Course or semester registration" .
+
+ait:Examination a owl:Class ;
+    rdfs:subClassOf ait:AcademicEntity ;
+    rdfs:label "Examination" ;
+    rdfs:comment "Academic examination" .
+
+ait:Research a owl:Class ;
+    rdfs:subClassOf ait:AcademicEntity ;
+    rdfs:label "Research" ;
+    rdfs:comment "Research activity" .
+
+ait:ContractedResearch a owl:Class ;
+    rdfs:subClassOf ait:Research ;
+    rdfs:label "Contracted Research" ;
+    rdfs:comment "Externally contracted research" .
+
+# =============================================================================
+# EVENTS & PROCESSES
+# =============================================================================
+
+ait:Process a owl:Class ;
+    rdfs:label "Process" ;
+    rdfs:comment "Administrative process" .
+
+ait:Grievance a owl:Class ;
+    rdfs:subClassOf ait:Process ;
+    rdfs:label "Grievance" ;
+    rdfs:comment "Formal grievance case" .
+
+ait:Appeal a owl:Class ;
+    rdfs:subClassOf ait:Process ;
+    rdfs:label "Appeal" ;
+    rdfs:comment "Decision appeal" .
+
+ait:Violation a owl:Class ;
+    rdfs:label "Violation" ;
+    rdfs:comment "Policy violation" .
+
+ait:AcademicIntegrityViolation a owl:Class ;
+    rdfs:subClassOf ait:Violation ;
+    rdfs:label "Academic Integrity Violation" ;
+    rdfs:comment "Cheating, plagiarism, etc." .
+
+# =============================================================================
+# PROPERTIES
+# =============================================================================
+
+ait:hasFee a owl:ObjectProperty ;
+    rdfs:domain ait:Student ;
+    rdfs:range ait:Fee ;
+    rdfs:label "has fee" .
+
+ait:paidFee a owl:ObjectProperty ;
+    rdfs:domain ait:Student ;
+    rdfs:range ait:Fee ;
+    rdfs:label "paid fee" .
+
+ait:hasRegistration a owl:ObjectProperty ;
+    rdfs:domain ait:Student ;
+    rdfs:range ait:Registration ;
+    rdfs:label "has registration" .
+
+ait:occupies a owl:ObjectProperty ;
+    rdfs:domain ait:Person ;
+    rdfs:range ait:Accommodation ;
+    rdfs:label "occupies" .
+
+ait:hasAccount a owl:ObjectProperty ;
+    rdfs:domain ait:Person ;
+    rdfs:range ait:Account ;
+    rdfs:label "has account" .
+
+ait:sponsoredBy a owl:ObjectProperty ;
+    rdfs:domain ait:Student ;
+    rdfs:range ait:Sponsor ;
+    rdfs:label "sponsored by" .
+
+ait:enrolledIn a owl:ObjectProperty ;
+    rdfs:domain ait:Student ;
+    rdfs:range ait:Course ;
+    rdfs:label "enrolled in" .
+
+ait:isActive a owl:DatatypeProperty ;
+    rdfs:domain ait:Person ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "is active" .
+
+ait:paymentStatus a owl:DatatypeProperty ;
+    rdfs:domain ait:Fee ;
+    rdfs:range xsd:string ;
+    rdfs:label "payment status" .
+
+ait:dueDate a owl:DatatypeProperty ;
+    rdfs:domain ait:Fee ;
+    rdfs:range xsd:date ;
+    rdfs:label "due date" .
