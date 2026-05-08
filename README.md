@@ -114,13 +114,13 @@ policy-checker/
         │   ├── prefilter.py        # Heuristic sentence pre-filter (deontic markers)
         │   └── mcp_server.py       # MCP JSON-RPC server for external tool access
         │
-        ├── db/                     # PostgreSQL integration
+        ├── data/                     # PostgreSQL integration
         │   ├── connection.py       # psycopg2 connection manager
         │   ├── rdf_converter.py    # Converts DB rows to RDF Turtle (data graph)
         │   ├── seed.py             # Seeds realistic AIT demo data
         │   └── schema.sql          # Database schema (students, fees, accommodations...)
         │
-        ├── models/        # LangGraph pipeline
+        ├── langgraph_agent/        # LangGraph pipeline
         │   ├── graph.py            # Builds and compiles the StateGraph
         │   ├── state.py            # PipelineState TypedDict definition
         │   ├── llm.py              # ChatOllama factory (deterministic decoding)
@@ -230,13 +230,13 @@ uv run python -m policy_checker.database.seed
 
 ```bash
 # Standard run
-uv run python -m policy_checker.models.run --source ait
+uv run python -m policy_checker.langgraph_agent.run --source ait
 
 # With per-step statistics
-uv run python -m policy_checker.models.run --source ait --verbose
+uv run python -m policy_checker.langgraph_agent.run --source ait --verbose
 
 # Ablation study (thesis §7)
-uv run python -m policy_checker.models.run --source ait --ablation no-hints
+uv run python -m policy_checker.langgraph_agent.run --source ait --ablation no-hints
 ```
 
 ### Step 8 — Run the web dashboard
