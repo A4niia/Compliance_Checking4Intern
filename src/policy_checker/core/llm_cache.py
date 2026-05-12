@@ -34,7 +34,7 @@ class LLMCache:
         """
         if cache_path is None:
             # cache_dir = Path(__file__).parent.parent / "cache"
-            cache_dir = PROJECT_ROOT / "cache"
+            cache_dir = PROJECT_ROOT / "data" / "cache"
             cache_dir.mkdir(parents=True, exist_ok=True)
             cache_path = cache_dir / "llm_cache.db"
 

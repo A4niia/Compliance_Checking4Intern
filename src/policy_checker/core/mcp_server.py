@@ -169,7 +169,7 @@ def check_status() -> dict:
 
 
 def list_rules(source: str = "ait", rule_type: str = "all", limit: int = 50) -> dict:
-    rules_path = PROJECT_ROOT / "output" / source / "classified_rules.json"
+    rules_path = PROJECT_ROOT / "data" / "output" / source / "classified_rules.json"
     if not rules_path.exists():
         return {"success": False, "error": f"No classified_rules.json found for source '{source}'"}
     rules = json.loads(rules_path.read_text(encoding="utf-8"))
@@ -188,7 +188,7 @@ def list_rules(source: str = "ait", rule_type: str = "all", limit: int = 50) -> 
 
 
 def get_metrics(source: str = "ait") -> dict:
-    metrics_path = PROJECT_ROOT / "output" / source / "thesis_metrics.json"
+    metrics_path = PROJECT_ROOT / "data" / "output" / source / "thesis_metrics.json"
     if metrics_path.exists():
         return {
             "success": True,
@@ -211,7 +211,7 @@ def get_metrics(source: str = "ait") -> dict:
 
 def run_pipeline(source: str = "ait", ablation: str = "baseline") -> dict:
     try:
-        from policy_checker.langgraph_agent.run import run
+        from langgraph_agent.run import run
         report = run(source, verbose=False, ablation=ablation)
         return {"success": True, "source": source, "ablation": ablation, "report": report}
     except Exception as exc:

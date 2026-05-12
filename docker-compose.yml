@@ -15,7 +15,6 @@ services:
     environment:
       # Override to use service names instead of localhost
       - POSTGRES_HOST=postgres
-      - OLLAMA_HOST=http://ollama:11434
     volumes:
       # Team convention: mount entire project folder
       - .:/Projects/compliance-checker:cached
@@ -38,7 +37,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
       # Auto-run schema on first start
-      - ./src/policy_checker/db/schema.sql:/docker-entrypoint-initdb.d/01_schema.sql:ro
+      - ./src/policy_checker/database/schema.sql:/docker-entrypoint-initdb.d/01_schema.sql:ro
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-myuser}"]
       interval: 5s
@@ -46,14 +45,6 @@ services:
       retries: 5
     ports:
       - "5432:5432"
-
-  ollama:
-    image: ollama/ollama:latest
-    volumes:
-      - ollama_data:/root/.ollama
-    ports:
-      - "11434:11434"
-    restart: unless-stopped
 
 volumes:
   venv:           # team convention: cache .venv

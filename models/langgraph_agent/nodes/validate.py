@@ -6,14 +6,14 @@ from typing import List
 from pyshacl import validate
 from rdflib import Graph, Namespace, RDF, SH, BNode
 
-from policy_checker.langgraph_agent.state import PipelineState, SHACLShape
+from langgraph_agent.state import PipelineState, SHACLShape
  
 # PROJECT_ROOT = Path(__file__).parent.parent.parent
 from policy_checker import PROJECT_ROOT
  
-SHACL_SHAPES_FILE  = PROJECT_ROOT / "shacl" / "shapes"   / "ait_policy_shapes.ttl"
-SHACL_TEST_FILE    = PROJECT_ROOT / "shacl" / "test_data" / "tdd_test_data_fixed.ttl"
-ONTOLOGY_FILE      = PROJECT_ROOT / "shacl" / "ontology"  / "ait_policy_ontology.ttl"
+SHACL_SHAPES_FILE  = PROJECT_ROOT / "data" / "shacl" / "shapes"   / "ait_policy_shapes.ttl"
+SHACL_TEST_FILE    = PROJECT_ROOT / "data" / "shacl" / "test_data" / "tdd_test_data_fixed.ttl"
+ONTOLOGY_FILE      = PROJECT_ROOT / "data" / "shacl" / "ontology"  / "ait_policy_ontology.ttl"
 
 AIT = Namespace("http://example.org/ait-policy#")
 
@@ -36,7 +36,7 @@ def _resolve_parent_shape(source_shape, shapes_graph: Graph) -> str:
 
 def _merge_shapes(pipeline_shapes: List[SHACLShape]) -> Graph:
     """Merge authoritative shapes with pipeline-generated shapes into one graph."""
-    from policy_checker.langgraph_agent.nodes.shacl import _TTL_PREFIXES
+    from langgraph_agent.nodes.shacl import _TTL_PREFIXES
 
     g = Graph()
 
@@ -129,7 +129,7 @@ def validate_node(state: PipelineState) -> PipelineState:
     }
 
     # Save validation results (cap violations at 50 for JSON file size)
-    output_dir = PROJECT_ROOT / "output" / state["source"]
+    output_dir = PROJECT_ROOT / "data" / "output" / state["source"]
     output_dir.mkdir(parents=True, exist_ok=True)
     import json
     save_results = {**validation_results, "violations": violations[:50]}

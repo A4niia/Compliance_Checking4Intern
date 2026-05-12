@@ -130,7 +130,7 @@ def compute_m4(eval_results: list[dict]) -> dict:
 
 def build_report(source: str = "ait") -> MetricsReport:
     """Load all intermediate outputs and compute M1–M5."""
-    out = PROJECT_ROOT / "output" / source
+    out = PROJECT_ROOT / "data" / "output" / source
 
     # Load data
     alignments = _load_json(out / "gold_alignment.json", [])
@@ -141,7 +141,7 @@ def build_report(source: str = "ait") -> MetricsReport:
 
     # Load gold rules for M2
     from evaluation.align import load_gold_rules
-    shapes_file = PROJECT_ROOT / "shacl" / "shapes" / "ait_policy_shapes.ttl"
+    shapes_file = PROJECT_ROOT / "data" / "shacl" / "shapes" / "ait_policy_shapes.ttl"
     gold_rules = []
     if shapes_file.exists():
         gold = load_gold_rules(shapes_file)
@@ -255,7 +255,7 @@ def main() -> None:
         print(format_console(report))
 
     if args.save:
-        out_dir = PROJECT_ROOT / "output" / args.source
+        out_dir = PROJECT_ROOT / "data" / "output" / args.source
         out_dir.mkdir(parents=True, exist_ok=True)
         out_path = out_dir / "thesis_metrics.json"
         out_path.write_text(

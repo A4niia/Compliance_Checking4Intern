@@ -37,13 +37,13 @@ app.mount("/static", StaticFiles(directory=str(DEMO_DIR / "static")), name="stat
 templates = Jinja2Templates(directory=str(DEMO_DIR / "templates"))
 
 # ── Data paths ────────────────────────────────────────────────────────────
-OUTPUT_DIR = PROJECT_ROOT / "output" / "ait"
+OUTPUT_DIR = PROJECT_ROOT / "data" / "output" / "ait"
 SHAPES_FILE = OUTPUT_DIR / "shapes_generated.ttl"
 RULES_FILE = OUTPUT_DIR / "classified_rules.json"
 FOL_FILE = OUTPUT_DIR / "fol_formulas.json"
 REPORT_FILE = OUTPUT_DIR / "pipeline_report.json"
-TEST_DATA_FILE = PROJECT_ROOT / "shacl" / "test_data" / "tdd_test_data_fixed.ttl"
-ONTOLOGY_FILE = PROJECT_ROOT / "shacl" / "ontology" / "ait_policy_ontology.ttl"
+TEST_DATA_FILE = PROJECT_ROOT / "data" / "shacl" / "test_data" / "tdd_test_data_fixed.ttl"
+ONTOLOGY_FILE = PROJECT_ROOT / "data" / "shacl" / "ontology" / "ait_policy_ontology.ttl"
 
 
 # ── Cached data loading ──────────────────────────────────────────────────

@@ -4,7 +4,7 @@ import re
 from pathlib import Path
 from typing import List
 
-from policy_checker.langgraph_agent.state import FOLItem, PipelineState, SHACLShape
+from langgraph_agent.state import FOLItem, PipelineState, SHACLShape
 from rdflib import Graph, Namespace, RDFS
  
 # PROJECT_ROOT = Path(__file__).parent.parent.parent
@@ -35,7 +35,7 @@ _SUBJECT_MAP = [
 ]
 
 
-_ONTOLOGY_PATH = PROJECT_ROOT / "shacl" / "ontology" / "ait_policy_ontology.ttl"
+_ONTOLOGY_PATH = PROJECT_ROOT / "data" / "shacl" / "ontology" / "ait_policy_ontology.ttl"
 AIT = Namespace("http://example.org/ait-policy#")
 
 # One-time load
@@ -257,7 +257,7 @@ def _emit_override_triples(overrides: list[tuple[str, str]]) -> str:
 def _try_direct_fallback(fol: FOLItem) -> SHACLShape | None:
     """When _fol_to_turtle fails, attempt direct NL-to-SHACL via LLM.
     Reuses the same prompt and repair logic as direct_shacl_node."""
-    from policy_checker.langgraph_agent.nodes.direct_shacl import (
+    from langgraph_agent.nodes.direct_shacl import (
         _DIRECT_PROMPT, _strip_fences, _validate_turtle, _repair_turtle, _llm,
     )
     shape_id = fol["rule_id"].replace("-", "_")
@@ -337,7 +337,7 @@ def shacl_node(state: PipelineState) -> PipelineState:
             errors.append(f"shacl[override]: ait:{perm_id} deontic:overrides ait:{obl_id}")
 
     # Write combined TTL to output/
-    output_dir = PROJECT_ROOT / "output" / state["source"]
+    output_dir = PROJECT_ROOT / "data" / "output" / state["source"]
     output_dir.mkdir(parents=True, exist_ok=True)
     output_path = str(output_dir / "shapes_generated.ttl")
     Path(output_path).write_text("".join(ttl_blocks), encoding="utf-8")

@@ -113,9 +113,9 @@ def align_all(gold: List[GoldRule],
 
 
 def main() -> None:
-    shapes = PROJECT_ROOT / "shacl" / "shapes" / "ait_policy_shapes.ttl"
-    classified = PROJECT_ROOT / "output" / "ait" / "classified_rules.json"
-    out = PROJECT_ROOT / "output" / "ait" / "gold_alignment.json"
+    shapes = PROJECT_ROOT / "data" / "shacl" / "shapes" / "ait_policy_shapes.ttl"
+    classified = PROJECT_ROOT / "data" / "output" / "ait" / "classified_rules.json"
+    out = PROJECT_ROOT / "data" / "output" / "ait" / "gold_alignment.json"
 
     gold = load_gold_rules(shapes)
     pipeline = load_pipeline_rules(classified)

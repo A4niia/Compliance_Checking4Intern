@@ -59,6 +59,17 @@ WORKDIR ${WORKDIR}
 # To run the pipeline:
 #   uv run python -m policy_checker.langgraph_agent.run --source ait
 
+# Create all cache directories with correct ownership BEFORE switching user
+RUN mkdir -p /Projects/compliance-checker/.uv_cache \
+    && mkdir -p /Projects/compliance-checker/.venv \
+    && mkdir -p /Projects/compliance-checker/.python \
+    && chown -R ubuntu:ubuntu /Projects/compliance-checker
+
+# Switch to ubuntu user permanently
+USER ubuntu
+
+# Now everything created after this is owned by ubuntu, not root
+
 EXPOSE 8000
 ENTRYPOINT []
 CMD ["sleep", "infinity"]

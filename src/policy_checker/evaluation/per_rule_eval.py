@@ -95,11 +95,11 @@ def main() -> None:
     import sys
     sys.path.insert(0, str(PROJECT_ROOT))
 
-    alignment_file = PROJECT_ROOT / "output" / "ait" / "gold_alignment.json"
-    shapes_file    = PROJECT_ROOT / "output" / "ait" / "shapes_generated.ttl"
-    test_file      = PROJECT_ROOT / "shacl" / "test_data" / "tdd_test_data_fixed.ttl"
-    onto_file      = PROJECT_ROOT / "shacl" / "ontology"  / "ait_policy_ontology.ttl"
-    out_file       = PROJECT_ROOT / "output" / "ait" / "per_rule_eval.json"
+    alignment_file = PROJECT_ROOT / "data" / "output" / "ait" / "gold_alignment.json"
+    shapes_file    = PROJECT_ROOT / "data" / "output" / "ait" / "shapes_generated.ttl"
+    test_file      = PROJECT_ROOT / "data" / "shacl" / "test_data" / "tdd_test_data_fixed.ttl"
+    onto_file      = PROJECT_ROOT / "data" / "shacl" / "ontology"  / "ait_policy_ontology.ttl"
+    out_file       = PROJECT_ROOT / "data" / "output" / "ait" / "per_rule_eval.json"
 
     alignments = json.loads(alignment_file.read_text(encoding="utf-8"))
     test_data = Graph().parse(str(test_file), format="turtle")

@@ -24,13 +24,14 @@ from policy_checker import PROJECT_ROOT
 # Suppress rdflib's verbose tracebacks for ISO8601 parsing on failed literals
 logging.getLogger("rdflib.term").setLevel(logging.ERROR)
 
-from policy_checker.langgraph_agent.graph import build_graph
-from policy_checker.langgraph_agent.state import PipelineState
+from langgraph_agent.graph import build_graph
+from langgraph_agent.state import PipelineState
 
 SOURCES = {
     "ait": {
         "name": "AIT - Asian Institute of Technology",
-        "pdf_dir": str(PROJECT_ROOT / "institutional_policy" / "AIT"),
+        "pdf_dir": str(PROJECT_ROOT / "data" / "institutional_policy" / "AIT"),
+
     },
 }
 
@@ -149,7 +150,7 @@ def run(source: str, verbose: bool = False, ablation: str = "baseline") -> dict:
     final_state = node_state  # noqa: F821
     report = final_state.get("report", {})
 
-    output_dir = PROJECT_ROOT / "output" / effective_source
+    output_dir = PROJECT_ROOT / "data" / "output" / effective_source
     output_dir.mkdir(parents=True, exist_ok=True)
     report_path = output_dir / "pipeline_report.json"
     report_path.write_text(json.dumps(report, indent=2, ensure_ascii=False), encoding="utf-8")

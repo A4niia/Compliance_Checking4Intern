@@ -8,7 +8,7 @@ from collections import defaultdict
 from datetime import datetime
 from pathlib import Path
 
-from  policy_checker.langgraph_agent.state import PipelineState
+from langgraph_agent.state import PipelineState
  
 # PROJECT_ROOT = Path(__file__).parent.parent.parent
 from policy_checker import PROJECT_ROOT
@@ -51,7 +51,7 @@ def _capture_environment() -> dict:
 
 def report_node(state: PipelineState) -> PipelineState:
     source = state["source"]
-    output_dir = PROJECT_ROOT / "output" / source
+    output_dir = PROJECT_ROOT / "data" / "output" / source
     output_dir.mkdir(parents=True, exist_ok=True)
 
     val = state.get("validation_results", {})
