@@ -89,7 +89,6 @@ policy rules from PDF documents into validatable SHACL shapes.
 │           └── templates/
 │               └── index.html              # Dashboard UI
 │
-├── logs/                                   # Runtime logs — gitignored
 ├── dev-setup.sh                            # One-time setup script
 ├── docker-compose.yml                      # Dev + PostgreSQL services
 ├── dockerfile                              # Dev container image
@@ -225,53 +224,31 @@ Use this if you want to run the project directly on your machine without Docker.
  
 ### Prerequisites
  
-| Tool | Version | Install |
-|---|---|---|
-| Python | 3.10+ | [python.org](https://python.org) |
-| uv | latest | see below |
-| Ollama | latest | [ollama.com/download](https://ollama.com/download) |
-| PostgreSQL | 15+ | [postgresql.org](https://postgresql.org) — optional, see note |
+| Tool | Version |
+|---|---|
+| Python | 3.10+ |
+| uv | latest |
+| Ollama | latest |
+| PostgreSQL | 15+ |
  
 > **Note:** PostgreSQL is only needed if you use `src/policy_checker/database/` to load
 > student entity data. The core pipeline (`models/langgraph_agent/`) runs without it.
- 
-### Step 1 — Install uv
- 
-**Windows (PowerShell):**
-```powershell
-powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
- 
-# Add to PATH (current session):
-$env:Path = "C:\Users\<you>\.local\bin;$env:Path"
- 
-# Add to PATH permanently:
-[Environment]::SetEnvironmentVariable(
-    "Path",
-    "C:\Users\<you>\.local\bin;" + [Environment]::GetEnvironmentVariable("Path", "User"),
-    "User"
-)
-```
- 
-**macOS / Linux:**
-```bash
-curl -LsSf https://astral.sh/uv/install.sh | sh
-```
- 
-### Step 2 — Clone the repo
+  
+### Step 1 — Clone the repo
  
 ```bash
 git clone <repo-url>
 cd compliance-checker
 ```
  
-### Step 3 — Install dependencies
+### Step 2 — Install dependencies
  
 ```bash
 uv python install    # installs Python from .python-version
 uv sync              # installs all packages from pyproject.toml
 ```
  
-### Step 4 — Set up environment
+### Step 3 — Set up environment
  
 ```bash
 cp .env.example .env
@@ -287,14 +264,7 @@ PIPELINE_VERSION=2.1-hints            # bump to invalidate LLM cache after promp
 POSTGRES_HOST=localhost               # local PostgreSQL (optional)
 ```
  
-To clear the LLM cache after changing prompts:
-```bash
-# Option A — bump PIPELINE_VERSION in .env
-# Option B — delete cache file:
-rm data/cache/llm_cache.db
-```
- 
-### Step 5 — Install and start Ollama
+### Step 4 — Install and start Ollama
  
 Ollama must be running **before** the pipeline starts.
  
@@ -310,24 +280,8 @@ ollama pull mistral
 ```bash
 ollama serve
 ```
- 
-Verify Ollama is running:
-```bash
-curl http://localhost:11434
-# → Ollama is running ✓
- 
-ollama list
-# → mistral:latest   4.4GB ✓
-```
- 
-Check GPU is being used (faster inference):
-```bash
-ollama ps
-# → mistral:latest   GPU 100%  ← good
-# → mistral:latest   CPU 100%  ← slow, check GPU drivers
-```
- 
-### Step 6 — Seed the database (optional)
+
+### Step 5 — Seed the database (optional)
  
 Only needed if using the compliance dashboard database features:
  
@@ -335,7 +289,7 @@ Only needed if using the compliance dashboard database features:
 uv run python -m policy_checker.database.seed
 ```
  
-### Step 7 — Run the pipeline
+### Step 6 — Run the pipeline
  
 ```bash
 uv run policy-checker --source ait --verbose
@@ -347,21 +301,6 @@ uv run policy-checker --source ait --verbose
  
 Use this for a consistent, team-ready environment using Docker.
  
-### Prerequisites
- 
-| Tool | Install |
-|---|---|
-| Docker Desktop | [docker.com/products/docker-desktop](https://www.docker.com/products/docker-desktop/) |
-| VS Code | [code.visualstudio.com](https://code.visualstudio.com/) |
-| Dev Containers extension | VS Code Extensions: `ms-vscode-remote.remote-containers` |
-| Ollama | [ollama.com/download](https://ollama.com/download) — installed on your machine, **not** in Docker |
- 
-### Why Ollama runs on your machine, not in Docker
- 
-Ollama automatically detects and uses your GPU when installed natively.
-Running it inside Docker requires complex GPU passthrough that varies by OS and
-GPU vendor. Installing it directly on your machine is simpler and faster for everyone.
- 
 ### Step 1 — Install Ollama on your machine
  
 Download and install from [ollama.com/download](https://ollama.com/download).
@@ -370,16 +309,7 @@ Pull the model (one-time, ~4GB):
 ```bash
 ollama pull mistral
 ```
- 
-Verify:
-```bash
-curl http://localhost:11434
-# → Ollama is running ✓
- 
-ollama list
-# → mistral:latest   4.4GB ✓
-```
- 
+
 ### Step 2 — Clone the repo
  
 ```bash
