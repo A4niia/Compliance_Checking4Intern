@@ -15,8 +15,8 @@ import psycopg2
 from dotenv import load_dotenv
 
 # Load .env from project root
-_ENV_PATH = Path(__file__).resolve().parent.parent / ".env"
-load_dotenv(_ENV_PATH)
+from policy_checker import PROJECT_ROOT
+load_dotenv(PROJECT_ROOT / ".env")
 
 
 def _conn_params() -> dict:
