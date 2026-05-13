@@ -489,13 +489,10 @@ SHACL validation against custom RDF data.
 ### Start the dashboard
  
 ```bash
-uv run uvicorn policy_checker.web.app:app --host 0.0.0.0 --port 8000 --reload
+uv run python -m uvicorn policy_checker.web.app:app --host 0.0.0.0 --port 8000 --reload
 ```
  
 Then open [http://localhost:8000](http://localhost:8000) in your browser.
- 
-If running inside Dev Container, port 8000 is forwarded automatically.
-Open [http://localhost:8000](http://localhost:8000) from your Windows browser.
  
 ### Dashboard features
  
