@@ -489,3 +489,5 @@ User clicks → sees broken rules
 | `/api/db-status` | GET | Check PostgreSQL connection and entity count |
 | `/api/db-entities` | GET | List all entities in database |
 | `/api/load-from-db` | POST | Convert database entities to RDF Turtle |
+
+### Status: In The Middle Of Development
